@@ -1,1 +1,1 @@
-# incidence: a R package for incidence computation and visualization
+# *incidence*: a R package for incidence computation and visualization
