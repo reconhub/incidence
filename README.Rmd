@@ -1,0 +1,40 @@
+```{r  options, include=FALSE}
+opts_chunk$set(fig.path="figs/")
+```
+
+
+
+# incidence: a R package for incidence computation and visualization
+
+#### Computing incidence using *OutbreakTools*
+
+Here is a simple example of incidence computation using *OutbreakTools*.
+
+Load the package and data, and extract dates:
+```{r  loadshit}
+library(OutbreakTools)
+data(ToyOutbreak)
+
+dates <- get.data(ToyOutbreak, "DateInfected")
+
+class(dates)
+head(dates, 15)
+range(dates)
+```
+
+Then we compute daily incidence:
+```{r  incid}
+incid.day <- get.incidence(dates)
+incid.day
+
+plot(incid.day, type="s")
+```
+
+Same, with time windows of 2 days:
+```{r  incid2}
+incid.2days <- get.incidence(dates, interval=2)
+incid.2days
+
+plot(incid.2days, type="s")
+```
+
