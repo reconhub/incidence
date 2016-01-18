@@ -1,0 +1,8 @@
+*~
+inst/doc
+.RData
+.Rhistory
+apex.Rcheck/
+vignettes/apex.md
+.Rproj.user
+.apex.Rproj
