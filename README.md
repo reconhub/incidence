@@ -64,7 +64,7 @@ incid.day
 ```
 
 ```r
-plot(incid.day, type="s")
+plot(incid.day, type="s", main="Daily incidence")
 ```
 
 ![plot of chunk incid](figs/incid-1.png) 
@@ -87,8 +87,17 @@ incid.2days
 ```
 
 ```r
-plot(incid.2days, type="s")
+plot(incid.2days, type="s", main="2 days incidence")
 ```
 
 ![plot of chunk incid2](figs/incid2-1.png) 
 
+
+#### Core code example
+Core computations can be found in OutbreakTools:
+
+https://github.com/thibautjombart/OutbreakTools/blob/master/R/get.incidence.R#l10:l58
+
+
+#### Note on cutting dates
+By convention, when computing incidence the left bound (ealier date) is included and the right (later date) bound excluded.
