@@ -3,7 +3,7 @@ Type: Package
 Title: Computation and basic visualisation of incidents from line lists
 Version: 1.0
 Date: 2016-03-07
-Author: Sarah Chisholm
+Author: Sarah Chisholm, Rich FitzJohn, Thibaut Jombart
 Maintainer: Sarah Chisholm <Sarah.X.Chisholm@phe.gov.uk>
 Description: This package takes line lists and computes the number of incidents each day.
 	The output is a list with two members (the days and the number of cases)
