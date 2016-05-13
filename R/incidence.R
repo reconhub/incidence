@@ -16,4 +16,5 @@ function(SymptomOnset, Interval = 1, ...) {
 #  # Delete after testing and before creating package
 #  source("incidence.matrix.R")
 
-  UseMethod("incidence")  }
+  UseMethod("incidence")
+  }

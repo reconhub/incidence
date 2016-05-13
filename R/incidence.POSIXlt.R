@@ -19,4 +19,5 @@ function(SymptomOnset, Interval = 1, ...) {
   # Shift data back to the original starting input value and original class
   Incidents$NoOfCases <- Incidents$NoOfCases
   Incidents$Days      <- as.POSIXlt((Incidents$Days+min(SymptomOnsetNumericTemp) - 1) * 24 * 60 * 60, origin = "1970-01-01")
-  Incidents   }
+  Incidents
+  }

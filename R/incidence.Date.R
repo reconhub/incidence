@@ -21,4 +21,5 @@ function(SymptomOnset, Interval = 1, ...) {
   Incidents$NoOfCases <- Incidents$NoOfCases
   Incidents$Days      <- as.Date(Incidents$Days +
                         min(SymptomOnsetNumericTemp) - 1, origin = "1970-01-01")
-  Incidents   }
+  Incidents
+  }

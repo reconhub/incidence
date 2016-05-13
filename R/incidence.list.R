@@ -12,4 +12,5 @@ function(SymptomOnset, Interval = 1, ...) {
   SymptomOnset_NonList <- SymptomOnset[[1]]
 
   # Run incidence again
-  incidence(SymptomOnset_NonList, Interval) }
+  incidence(SymptomOnset_NonList, Interval)
+  }

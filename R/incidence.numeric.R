@@ -15,4 +15,5 @@ function(SymptomOnset, Interval = 1, ...) {
 
   # Shift data back to the starting value of the input
   Incidents$Days <- Incidents$Days + min(SymptomOnset) - 1
-  Incidents   }
+  Incidents
+  }

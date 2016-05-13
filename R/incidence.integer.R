@@ -18,4 +18,5 @@ function(SymptomOnset, Interval=1, ...) {
   # Shift data back to the starting value of the input and input class
   Incidents$NoOfCases <- as.integer(Incidents$NoOfCases)
   Incidents$Days <- as.integer(Incidents$Days + min(SymptomOnsetNumericTemp) - 1)
-  Incidents   }
+  Incidents
+  }

@@ -12,4 +12,5 @@ function(SymptomOnset, Interval = 1, ...) {
   SymptomOnset_NonMatrix <- SymptomOnset[, 1]
 
   # Run incidence again
-  incidence(SymptomOnset_NonMatrix, Interval) }
+  incidence(SymptomOnset_NonMatrix, Interval)
+  }

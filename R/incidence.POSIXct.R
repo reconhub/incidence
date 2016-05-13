@@ -20,4 +20,5 @@ function(SymptomOnset, Interval = 1, ...) {
   Incidents$NoOfCases <- Incidents$NoOfCases
   Incidents$Days      <- as.POSIXct((Incidents$Days + min(SymptomOnsetNumericTemp)
                                      - 1) * 24 * 60 * 60, origin = "1970-01-01")
-  Incidents   }
+  Incidents
+  }
