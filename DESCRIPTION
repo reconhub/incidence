@@ -1,10 +1,10 @@
 Package: incidence
 Type: Package
-Title: Computation and basic visualisation of incidents from line lists
-Version: 1.0
-Date: 2016-03-07
-Author: Sarah Chisholm, Rich FitzJohn, Thibaut Jombart
-Maintainer: Sarah Chisholm <Sarah.X.Chisholm@phe.gov.uk>
-Description: This package takes line lists and computes the number of incidents each day.
-	The output is a list with two members (the days and the number of cases)
+Title: What the Package Does (Title Case)
+Version: 0.1
+Date: 2016-05-13
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
 License: What license is it under?
+LazyData: TRUE

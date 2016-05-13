@@ -1,5 +1,3 @@
-*~
-inst/doc
-.RData
-.Rhistory
 .Rproj.user
+.Rhistory
+.RData
