@@ -1,10 +1,11 @@
 Package: incidence
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Computation of indidents from outbreak linelists
 Version: 0.1
 Date: 2016-05-13
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Author: Sarah Chisholm, Rich FitzJohn, Thibaut Jombart
+Maintainer: Sarah Chisholm <Sarah.X.Chisholm@phe.gov.uk>
+Description: The incidence package takes lines lists and computes the number of
+    incidents per interval (default = 1 day)
 License: What license is it under?
 LazyData: TRUE

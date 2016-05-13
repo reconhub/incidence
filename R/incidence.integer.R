@@ -1,5 +1,19 @@
-incidence.integer <-
-function(SymptomOnset, Interval=1, ...) {
+# This is the method that is used when the input into incidence() is of the
+# class integer. This method transforms the input into numeric values and then
+# shifts the values so that the first incidence is on day 1.
+# incidenceComputation is then used to compute the number of incidents per
+# interval. This result is then again shifted back to the original starting
+# date, and transformed back into integer.
+
+# Input:
+#     SymptomOnset  - an nx1 integer vector, where n is the number of cases
+#     Interval      - an integer (number of days in the interval)
+# Output:
+#     Incidents     - a named list with 2 members (Days [first day per interval]
+#                     and NoOfCases [count of incidents during the respective
+#                     interval])
+
+incidence.integer <- function(SymptomOnset, Interval=1, ...) {
 
   # Delete after testing and before creating package
   print("Integer")
@@ -11,8 +25,6 @@ function(SymptomOnset, Interval=1, ...) {
   SymptomOnsetNumeric <- SymptomOnsetNumericTemp - min(SymptomOnsetNumericTemp) + 1
 
   # Use incidenceComputation to compute the incidents
-#  # Delete after testing
-#  source("incidenceComputation.R")
   Incidents <- incidenceComputation(SymptomOnsetNumeric, Interval)
 
   # Shift data back to the starting value of the input and input class

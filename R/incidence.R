@@ -1,20 +1,13 @@
-incidence <-
-function(SymptomOnset, Interval = 1, ...) {
+# This is the generic function that decides which method to call, depending on the
+# class of the input object. The possible methods are:
+# incidence.numeric
+# incidence.integer
+# incidence.PoisXlt
+# incidence.PoisXct
+# incidence.Date
+# incidence.list
+# incidence.matrix
 
-#  # Delete after testing and before creating package
-#  source("incidence.numeric.R")
-#  # Delete after testing and before creating package
-#  source("incidence.integer.R")
-#  # Delete after testing and before creating package
-#  source("incidence.Date.R")
-#  # Delete after testing and before creating package
-#  source("incidence.POSIXct.R")
-#  # Delete after testing and before creating package
-#  source("incidence.POSIXlt.R")
-#  # Delete after testing and before creating package
-#  source("incidence.list.R")
-#  # Delete after testing and before creating package
-#  source("incidence.matrix.R")
-
+incidence <- function(SymptomOnset, Interval = 1, ...) {
   UseMethod("incidence")
   }

@@ -39,7 +39,7 @@ incidenceComputation <- function(SymptomOnset, Interval) {
     }
     }
 
-  ## If Interval is >1 group Interval days and cases together
+  ## If Interval is > 1 group Interval days and cases together
   Days      <- numeric()
   NoOfCases <- numeric()
   if (Interval > 1) {
@@ -47,20 +47,19 @@ incidenceComputation <- function(SymptomOnset, Interval) {
       Days[(j + Interval) / Interval]       <- j
       Cases <- 0
       for (ii in seq(1, Interval)) {
-        if (length(CasesTemp[names(CasesTemp)
-                             == Days[(j + Interval) / Interval] + ii - 1]) > 0) {
-        Cases <- Cases + as.vector(CasesTemp[names(CasesTemp) ==
-                                               Days[(j + Interval) / Interval] + ii
-                                             - 1])}}
+        if (length(CasesTemp[names(CasesTemp) == Days[(j + Interval) / Interval] + ii - 1]) > 0) {
+        Cases <- Cases + as.vector(CasesTemp[names(CasesTemp) == Days[(j + Interval) / Interval] + ii - 1])
+        }
+        }
         NoOfCases[(j + Interval) / Interval]  <- Cases
         }
     } else  {
         Days      <- DaysTemp
         NoOfCases <- NoOfCasesTemp
-        }
+    }
+
   # Add 0 for the number of incidents on the last day without any incidents
-  Days[floor(LastDay / Interval) + 2] <- Interval * floor(LastDay / Interval) +
-    Interval
+  Days[floor(LastDay / Interval) + 2] <- Interval * floor(LastDay / Interval) + Interval
   NoOfCases[floor(LastDay / Interval) + 2]  <- 0
 
   ## Save as named list
