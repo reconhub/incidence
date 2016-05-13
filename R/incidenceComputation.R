@@ -1,4 +1,4 @@
-## This function takes date of symptom onset, per case, as input which is in 
+## This function takes date of symptom onset, per case, as input which is in
 ## the format of number of days after a reference date. Each row represents a
 ## case, and the reference day could be the day of the oubreak, if known. 0
 ## would suggest the case developed symptoms on the reference date, 1 would
@@ -21,42 +21,44 @@
 #                   interval])
 
 incidenceComputation <- function(SymptomOnset, Interval) {
-  
+
   LastDay       <- max(SymptomOnset)
   DaysTemp      <- numeric()
   NoOfCasesTemp <- numeric()
   CasesTemp     <- table(SymptomOnset)
   # Delete after testing
   print(CasesTemp)
-  
+
   ## Compute the number of incidents per day
-  for (i in seq(0,LastDay))   {
-    DaysTemp[i+1] <- i
-    if (length(CasesTemp[names(CasesTemp)==i]) == 0) {
-      NoOfCasesTemp[i+1] <- 0
+  for (i in seq(0, LastDay))   {
+    DaysTemp[i + 1] <- i
+    if (length(CasesTemp[names(CasesTemp) == i]) == 0) {
+      NoOfCasesTemp[i + 1] <- 0
     } else {
-      NoOfCasesTemp[i+1] <- CasesTemp[names(CasesTemp)==i] }
+      NoOfCasesTemp[i + 1] <- CasesTemp[names(CasesTemp) == i] }
   }
 
   ## If Interval is >1 group Interval days and cases together
   Days      <- numeric()
   NoOfCases <- numeric()
-  if (Interval>1) {
-    for (j in seq(0,LastDay,Interval)) {
-      Days[(j+Interval)/Interval]       <- j
+  if (Interval > 1) {
+    for (j in seq(0, LastDay, Interval)) {
+      Days[(j + Interval) / Interval]       <- j
       Cases <- 0
-      for (ii in seq(1,Interval)) {
+      for (ii in seq(1, Interval)) {
         if (length(CasesTemp[names(CasesTemp)
-                             ==Days[(j+Interval)/Interval]+ii-1])>0) {
-        Cases <- Cases+as.vector(CasesTemp[names(CasesTemp)
-                                           ==Days[(j+Interval)/Interval]+ii-1])}}
-        NoOfCases[(j+Interval)/Interval]  <- Cases  }
+                             == Days[(j + Interval) / Interval] + ii - 1]) > 0) {
+        Cases <- Cases + as.vector(CasesTemp[names(CasesTemp) ==
+                                               Days[(j + Interval) / Interval] + ii
+                                             - 1])}}
+        NoOfCases[(j + Interval) / Interval]  <- Cases  }
       } else  {
         Days      <- DaysTemp
         NoOfCases <- NoOfCasesTemp }
   # Add 0 for the number of incidents on the last day without any incidents
-  Days[floor(LastDay/Interval)+2] <- Interval*floor(LastDay/Interval)+Interval
-  NoOfCases[floor(LastDay/Interval)+2]  <- 0
-  
+  Days[floor(LastDay / Interval) + 2] <- Interval * floor(LastDay / Interval) +
+    Interval
+  NoOfCases[floor(LastDay / Interval) + 2]  <- 0
+
   ## Save as named list
-  Incidents <- list(Days=Days, NoOfCases=NoOfCases)  }
+  Incidents <- list(Days = Days, NoOfCases = NoOfCases)  }
