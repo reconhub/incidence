@@ -2,7 +2,7 @@
 % Please edit documentation in R/incidence.Date.R
 \name{incidence.Date}
 \alias{incidence.Date}
-\title{This is the method that is used when the input into incidence() is of the class Date. This method transforms the input into numeric values and then shifts the values so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into Date.}
+\title{Method for input of class Date.}
 \usage{
 \method{incidence}{Date}(SymptomOnset, Interval = 1, ...)
 }
@@ -15,7 +15,10 @@
 A named list with 2 members (Days [first day per interval] and NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This is the method that is used when the input into incidence() is of the class Date. This method transforms the input into numeric values and then shifts the values so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into Date.
+This is the method that is used when the input into incidence() is of the class Date.
+}
+\details{
+This method transforms the input into numeric values and then shifts the values so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into Date.
 }
 \examples{
 incidence(c("2016-01-01", "2016-01-05", "2016-01-08", "2016-01-03", "2016-01-07", "2016-01-02", "2016-01-04", "2016-01-06", "2016-01-09", "2016-01-02"))

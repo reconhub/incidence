@@ -2,7 +2,7 @@
 % Please edit documentation in R/incidence.integer.R
 \name{incidence.integer}
 \alias{incidence.integer}
-\title{This is the method that is used when the input into incidence() is of the class integer. This method transforms the input into numeric values and then shifts the values so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into integer.}
+\title{Method for input of class integer.}
 \usage{
 \method{incidence}{integer}(SymptomOnset, Interval = 1, ...)
 }
@@ -15,7 +15,10 @@
 A named list with 2 members (Days [first day per interval] and NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This is the method that is used when the input into incidence() is of the class integer. This method transforms the input into numeric values and then shifts the values so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into integer.
+This is the method that is used when the input into incidence() is of the class integer.
+}
+\details{
+This method transforms the input into numeric values and then shifts the values so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into integer.
 }
 \examples{
 incidenceComputation(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))

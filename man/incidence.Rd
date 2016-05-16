@@ -2,7 +2,7 @@
 % Please edit documentation in R/incidence.R
 \name{incidence}
 \alias{incidence}
-\title{This is the generic function that decides which method to call, depending on the class of the input object. The possible methods are: incidence.numeric, incidence.integer, incidence.PoisXlt, incidence.PoisXct, incidence.Date, incidence.list, incidence.matrix.}
+\title{Generic function for incidence.}
 \usage{
 incidence(SymptomOnset, Interval = 1, ...)
 }
@@ -15,7 +15,10 @@ incidence(SymptomOnset, Interval = 1, ...)
 A named list with 2 members (Days [first day per interval] and NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This is the generic function that decides which method to call, depending on the class of the input object. The possible methods are: incidence.numeric, incidence.integer, incidence.PoisXlt, incidence.PoisXct, incidence.Date, incidence.list, incidence.matrix.
+This is the generic function that decides which method to call, depending on the class of the input object.
+}
+\details{
+The possible methods are: incidence.numeric, incidence.integer, incidence.PoisXlt, incidence.PoisXct, incidence.Date, incidence.list, incidence.matrix.
 }
 \examples{
 incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
