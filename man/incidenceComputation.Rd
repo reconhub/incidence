@@ -2,19 +2,7 @@
 % Please edit documentation in R/incidenceComputation.R
 \name{incidenceComputation}
 \alias{incidenceComputation}
-\title{This function takes date of symptom onset, per case, as input which is in
-the format of number of days after a reference date. Each row represents a
-case, and the reference day could be the day of the oubreak, if known. 0
-would suggest the case developed symptoms on the reference date, 1 would
-mean the day after the reference date, etc.
-The number of incidences per interval (in days) are then computed, for
-which the default length of the interval is 1 day.
-The output is a named list with a member for the interval (Days - same
-format as the input of SymptomOnset) and a member for the number of
-incidences in that interval. The interval is denoted by the first day in
-the interval, i.e. if the list of the interval is 0,3,6,... then the
-interval is of length 3 and days 0, 1 and 2 are in the first interval, days
-3, 4 and 5 are in the seconde, etc.}
+\title{This function takes date of symptom onset, per case, as input which is in the format of number of days after a reference date. Each row represents a case, and the reference day could be the day of the oubreak, if known. 0 would suggest the case developed symptoms on the reference date, 1 would mean the day after the reference date, etc. The number of incidences per interval (in days) are then computed, for which the default length of the interval is 1 day. The output is a named list with a member for the interval (Days - same format as the input of SymptomOnset) and a member for the number of incidences in that interval. The interval is denoted by the first day in the interval, i.e. if the list of the interval is 0,3,6,... then the interval is of length 3 and days 0, 1 and 2 are in the first interval, days 3, 4 and 5 are in the seconde, etc.}
 \usage{
 incidenceComputation(SymptomOnset, Interval = 1, ...)
 }
@@ -24,23 +12,10 @@ incidenceComputation(SymptomOnset, Interval = 1, ...)
 \item{Interval}{An integer (number of days in the interval, default = 1)}
 }
 \value{
-Incidents A named list with 2 members (Days [first day per interval] and
-   NoOfCases [count of incidents during the respective interval])
+A named list with 2 members (Days [first day per interval] and NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This function takes date of symptom onset, per case, as input which is in
-the format of number of days after a reference date. Each row represents a
-case, and the reference day could be the day of the oubreak, if known. 0
-would suggest the case developed symptoms on the reference date, 1 would
-mean the day after the reference date, etc.
-The number of incidences per interval (in days) are then computed, for
-which the default length of the interval is 1 day.
-The output is a named list with a member for the interval (Days - same
-format as the input of SymptomOnset) and a member for the number of
-incidences in that interval. The interval is denoted by the first day in
-the interval, i.e. if the list of the interval is 0,3,6,... then the
-interval is of length 3 and days 0, 1 and 2 are in the first interval, days
-3, 4 and 5 are in the seconde, etc.
+This function takes date of symptom onset, per case, as input which is in the format of number of days after a reference date. Each row represents a case, and the reference day could be the day of the oubreak, if known. 0 would suggest the case developed symptoms on the reference date, 1 would mean the day after the reference date, etc. The number of incidences per interval (in days) are then computed, for which the default length of the interval is 1 day. The output is a named list with a member for the interval (Days - same format as the input of SymptomOnset) and a member for the number of incidences in that interval. The interval is denoted by the first day in the interval, i.e. if the list of the interval is 0,3,6,... then the interval is of length 3 and days 0, 1 and 2 are in the first interval, days 3, 4 and 5 are in the seconde, etc.
 }
 \examples{
 incidenceComputation(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))

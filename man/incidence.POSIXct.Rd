@@ -2,41 +2,23 @@
 % Please edit documentation in R/incidence.POSIXct.R
 \name{incidence.POSIXct}
 \alias{incidence.POSIXct}
-\title{This is the method that is used when the input into incidence() is of the
-class POSIXct. This method transforms the input into numeric values and
-divides that value by 24*60*60 because as.numeric() of a POSIXct value gives
-the number of seconds since 1970-01-01. The values are then shifted so that
-the first incidence is on day 1. incidenceComputation is then used to compute
-the number of incidents per interval. This result is then again shifted back
-to the original starting date, and transformed back into POSIXlt.}
+\title{This is the method that is used when the input into incidence() is of the class POSIXct. This method transforms the input into numeric values and divides that value by 24*60*60 because as.numeric() of a POSIXct value gives the number of seconds since 1970-01-01. The values are then shifted so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into POSIXlt.}
 \usage{
 \method{incidence}{POSIXct}(SymptomOnset, Interval = 1, ...)
 }
 \arguments{
-\item{SymptomOnset}{An nx1 vector of class POSIXct, where n is the number of
-cases}
+\item{SymptomOnset}{An nx1 vector of class POSIXct, where n is the number of cases}
 
 \item{Interval}{An integer (number of days in the interval, default = 1)}
 }
 \value{
-Incidents A named list with 2 members (Days [first day per interval] and
-   NoOfCases [count of incidents during the respective interval])
+A named list with 2 members (Days [first day per interval] and NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This is the method that is used when the input into incidence() is of the
-class POSIXct. This method transforms the input into numeric values and
-divides that value by 24*60*60 because as.numeric() of a POSIXct value gives
-the number of seconds since 1970-01-01. The values are then shifted so that
-the first incidence is on day 1. incidenceComputation is then used to compute
-the number of incidents per interval. This result is then again shifted back
-to the original starting date, and transformed back into POSIXlt.
+This is the method that is used when the input into incidence() is of the class POSIXct. This method transforms the input into numeric values and divides that value by 24*60*60 because as.numeric() of a POSIXct value gives the number of seconds since 1970-01-01. The values are then shifted so that the first incidence is on day 1. incidenceComputation is then used to compute the number of incidents per interval. This result is then again shifted back to the original starting date, and transformed back into POSIXlt.
 }
 \examples{
-incidence(c("2016-01-01", "2016-01-05", "2016-01-08", "2016-01-03",
-   "2016-01-07", "2016-01-02", "2016-01-04", "2016-01-06", "2016-01-09",
-   "2016-01-02"))
-incidence(c("2016-01-01", "2016-01-05", "2016-01-08", "2016-01-03",
-   "2016-01-07", "2016-01-02", "2016-01-04", "2016-01-06", "2016-01-09",
-   "2016-01-02"), 2)
+incidence(c("2016-01-01", "2016-01-05", "2016-01-08", "2016-01-03", "2016-01-07", "2016-01-02", "2016-01-04", "2016-01-06", "2016-01-09", "2016-01-02"))
+incidence(c("2016-01-01", "2016-01-05", "2016-01-08", "2016-01-03", "2016-01-07", "2016-01-02", "2016-01-04", "2016-01-06", "2016-01-09", "2016-01-02"), 2)
 }
 

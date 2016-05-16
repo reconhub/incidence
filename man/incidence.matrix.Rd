@@ -2,28 +2,20 @@
 % Please edit documentation in R/incidence.matrix.R
 \name{incidence.matrix}
 \alias{incidence.matrix}
-\title{This is the method that is used when the input into incidence() is of the
-class matrix. This method prints a warning if the matrix has more than one
-column. It then takes the first column and re-runs incidence, which will choose
-a method according to the class of the first column of the input.}
+\title{This is the method that is used when the input into incidence() is of the class matrix. This method prints a warning if the matrix has more than one column. It then takes the first column and re-runs incidence, which will choose a method according to the class of the first column of the input.}
 \usage{
 \method{incidence}{matrix}(SymptomOnset, Interval = 1, ...)
 }
 \arguments{
-\item{SymptomOnset}{An nxm matrix, where n is the number of cases and all but
-the first column are irrelevant for the computation of incidents}
+\item{SymptomOnset}{An nxm matrix, where n is the number of cases and all but the first column are irrelevant for the computation of incidents}
 
 \item{Interval}{An integer (number of days in the interval, default = 1)}
 }
 \value{
-Incidents A named list with 2 members (Days [first day per interval] and
-   NoOfCases [count of incidents during the respective interval])
+A named list with 2 members (Days [first day per interval] and NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This is the method that is used when the input into incidence() is of the
-class matrix. This method prints a warning if the matrix has more than one
-column. It then takes the first column and re-runs incidence, which will choose
-a method according to the class of the first column of the input.
+This is the method that is used when the input into incidence() is of the class matrix. This method prints a warning if the matrix has more than one column. It then takes the first column and re-runs incidence, which will choose a method according to the class of the first column of the input.
 }
 \examples{
 incidenceComputation(matrix(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), nrow=10))
