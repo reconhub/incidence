@@ -1,11 +1,16 @@
 Package: incidence
 Type: Package
-Title: Computation of indidents from outbreak linelists
-Version: 0.1
+Title: Computation of Indidents from Outbreak Linelists
+Version: numeric_version("0.0.0.9000")
 Date: 2016-05-13
-Author: Sarah Chisholm, Rich FitzJohn, Thibaut Jombart
-Maintainer: Sarah Chisholm <Sarah.X.Chisholm@phe.gov.uk>
+Authors@R: c(
+    person("Sarah", "Chisholm", email = "Sarah.X.Chisholm@phe.gov.uk", role = c("aut", "cre")),
+    person("Rich", "Fitz-John", role = "aut"),
+    person("Thibaut", "Jombart", role = "aut"))
 Description: The incidence package takes lines lists and computes the number of
-    incidents per interval (default = 1 day)
-License: What license is it under?
+    incidents per interval (default = 1 day). In input should be a vector of dates,
+    where each date indicates that a case was diagnosed with the disease in question.
+    The output is a list with two members, the first date of the interval and the
+    number of incidents in that interval.
+License: GPL-3
 LazyData: TRUE
