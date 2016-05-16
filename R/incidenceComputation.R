@@ -13,13 +13,13 @@
 #' 3, 4 and 5 are in the seconde, etc.
 #'
 #' @param SymptomOnset An nx1 numerical vector, where n is the number of cases
-#' @param Interval An integer (number of days in the interval)
+#' @param Interval An integer (number of days in the interval, default = 1)
 #' @return Incidents A named list with 2 members (Days [first day per interval] and
 #'    NoOfCases [count of incidents during the respective interval])
 #' @examples
-#' incidenceComputation(c(1,5,8,3,7,2,4,6,9,2))
-#' incidenceComputation(c(1,5,8,3,7,2,4,6,9,2), 2)
-incidenceComputation <- function(SymptomOnset, Interval) {
+#' incidenceComputation(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
+#' incidenceComputation(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
+incidenceComputation <- function(SymptomOnset, Interval = 1, ...) {
 
   LastDay       <- max(SymptomOnset)
   DaysTemp      <- numeric()

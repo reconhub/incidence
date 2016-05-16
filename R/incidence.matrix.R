@@ -1,16 +1,16 @@
-# This is the method that is used when the input into incidence() is of the
-# class matrix. This method prints a warning if the matrix has more than one
-# column. It then takes the first column and re-runs incidence, which will choose a
-# method according to the class of the first column of the input.
-
-# Input:
-#     SymptomOnset  - a nxm matrix, where n is the number of cases and the columns
-#                     after the first are irrelevant for this computation
-#     Interval      - an integer (number of days in the interval)
-# Output:
-#                   - there is no output, because incidence is re-run with the
-#                     first column of the matrix
-
+#' This is the method that is used when the input into incidence() is of the
+#' class matrix. This method prints a warning if the matrix has more than one
+#' column. It then takes the first column and re-runs incidence, which will choose
+#' a method according to the class of the first column of the input.
+#'
+#' @param SymptomOnset An nxm matrix, where n is the number of cases and all but
+#'    the first column are irrelevant for the computation of incidents
+#' @param Interval An integer (number of days in the interval, default = 1)
+#' @return Incidents A named list with 2 members (Days [first day per interval] and
+#'    NoOfCases [count of incidents during the respective interval])
+#' @examples
+#' incidenceComputation(matrix(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), nrow=10))
+#' incidenceComputation(matrix(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), nrow=10), 2)
 incidence.matrix <- function(SymptomOnset, Interval = 1, ...) {
 
   # Delete after testing and before creating package
@@ -26,4 +26,4 @@ incidence.matrix <- function(SymptomOnset, Interval = 1, ...) {
 
   # Run incidence again
   incidence(SymptomOnset_NonMatrix, Interval)
-  }
+}
