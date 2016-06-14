@@ -15,4 +15,6 @@ Description: The incidence package takes lines lists and computes the
     incidents in that interval.
 License: MIT + file LICENSE
 RoxygenNote: 5.0.1
-Suggests: testthat
+Suggests:
+    OutbreakTools,
+    testthat

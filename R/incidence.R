@@ -19,12 +19,12 @@
 ##'   corresponds to a case.  The vector does not need to be sorted,
 ##'   but must be positive?
 ##'
-##' @param interval An integer (number of days in the interval,
-##'   default = 1)
+##' @param ... Additional arguments passed to other methods (none are used).
 ##'
 ##' @return A named list with 2 members (days [first day per interval] and
 ##'   NoOfCases [count of incidents during the respective interval])
 ##'
+##' @export
 ##' @examples
 ##' incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
 ##' incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)

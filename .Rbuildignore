@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
+^incidence_.*\.tar\.gz$
+^Makefile$
+^README\.Rmd$
