@@ -4,3 +4,4 @@
 ^incidence_.*\.tar\.gz$
 ^Makefile$
 ^README\.Rmd$
+^update_web\.sh$
