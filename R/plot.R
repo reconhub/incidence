@@ -16,6 +16,8 @@
 ##'
 ##' @param ... Further arguments passed to other methods (currently not used).
 ##'
+##' @param fit an 'incidence.fit' objet as returned by \code{\link{fit}}.
+##'
 ##' @param border The color to be used for the borders of the bars; NA for invisiable borders.
 ##'
 ##' @param xlab The label to be used for the x-axis; empty by default.
@@ -40,16 +42,16 @@
 ##'   plot(inc.week, border = "white") # with visible border
 ##' }
 ##'
-plot.incidence <- function(x, ..., border = NA, xlab = "", ylab = NULL) {
+plot.incidence <- function(x, ..., fit = NULL, border = NA, xlab = "", ylab = NULL) {
     df <- as.data.frame(x)
 
     ## Use custom labels for usual time intervals
-    if(is.null(ylab)){
-        if(x$interval == 1) {
+    if (is.null(ylab)) {
+        if (x$interval == 1) {
             ylab <- "Daily incidence"
-        } else if(x$interval == 7) {
+        } else if (x$interval == 7) {
             ylab <- "Weekly incidence"
-        } else if(x$interval == 14) {
+        } else if (x$interval == 14) {
             ylab <- "Biweekly incidence"
         } else {
             ylab <- sprintf("Incidence by period of %d days", x$interval)
@@ -59,6 +61,28 @@ plot.incidence <- function(x, ..., border = NA, xlab = "", ylab = NULL) {
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates", y = "counts")) +
         ggplot2::geom_bar(stat="identity", width = x$interval, color = border) +
             ggplot2::labs(x = xlab, y = ylab)
+
+
+    ## Handle fit objects here; 'fit' can be either an 'incidence.fit' object, or a list of
+    ## these. In the case of a list, we add geoms one after the other.
+
+    if (!is.null(fit)) {
+        if (inherits(fit, "incidence.fit")) {
+            out <- add.incidence.fit(out, fit)
+        } else if (is.list(fit)) {
+            for (i in seq_along(fit)) {
+                fit.i <- fit[[i]]
+                if (!inherits(fit.i, "incidence.fit")) {
+                    stop(sprintf("The %d-th item in 'fit' is not an 'incidence.fit' object, but a %s",
+                                 i, class(fit.i)))
+                }
+                out <- add.incidence.fit(out, fit.i)
+            }
+        } else {
+            stop("fit must be a 'incidence.fit' object, or a list of these")
+        }
+    }
+
     out
 }
 

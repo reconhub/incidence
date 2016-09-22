@@ -26,13 +26,17 @@ fit <- function(x, split = NULL, level = 0.95){
     if (is.null(split)) {
         lm1 <- lm(log(x$counts) ~ x$dates)
         out <- extract.info(lm1, x$interval, level)
+        out$dates <- x$dates
     } else {
         x1 <- x[x$dates <= split]
         x2 <- x[x$dates >= split]
         lm1 <- lm(log(x1$counts) ~ x1$dates)
         lm2 <- lm(log(x2$counts) ~ x2$dates)
-        out <- list(before = extract.info(lm1, x$interval, level),
-                    after = extract.info(lm2, x$interval, level))
+        before <- extract.info(lm1, x$interval, level)
+        before$dates <- x1$dates
+        after <- extract.info(lm2, x$interval, level)
+        after$dates <- x2$dates
+        out <- list(before = before, after = after)
     }
 
     out
@@ -57,7 +61,7 @@ extract.info <- function(reg, interval, level){
     r.day.conf <- r.conf / interval
 
     pred <- exp(predict(reg))
-    pred.conf <- exp(predict(reg, interval = "confidence", level = level))
+    pred.conf <- exp(predict(reg, interval = "confidence", level = level)[,2:3])
 
     info <- list(r = r, r.conf = r.conf,
                 r.day = r.day, r.day.conf = r.day.conf,
@@ -122,10 +126,38 @@ print.incidence.fit <- function(x, ...) {
 
 
 
+## This function will take an existing 'incidence' plot object ('p') and add lines from an
+## 'incidence.fit' object ('x')
+
+add.incidence.fit <- function(p, x){
+    df <- data.frame(dates = rep(x$dates, 3),
+                     type = factor(rep(c("pred", "low", "high"), each=length(x$dates))),
+                     y = c(x$info$pred, x$info$pred.conf[,1], x$info$pred.conf[,2])
+                     )
+
+    ## Note: adding several geoms without calling ggplot2::ggplot() will fail
+    ## because the "+" operator will not work
+    out <- suppressMessages(p + ggplot2::geom_line(data = df, aes_string(x = "dates", y = "y", linetype = "type")) +
+         ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
+                            )
+    out
+}
+
+
+
+
 
 ##' @export
 ##' @rdname fit
+##' @importFrom graphics lines
 
 plot.incidence.fit <- function(x, ...){
-
+    df <- data.frame(dates = rep(x$dates, 3),
+                     type = factor(rep(c("pred", "low", "high"), each=length(x$dates))),
+                     y = c(x$info$pred, x$info$pred.conf[,1], x$info$pred.conf[,2])
+                     )
+    out <- ggplot2::ggplot(df, aes_string(x = "dates")) +
+        ggplot2::geom_line(data = df, aes_string(y = "y", linetype = "type")) +
+         ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
+    out
 }
