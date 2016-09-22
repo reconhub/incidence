@@ -26,7 +26,10 @@
 ##' @return A named list with 2 members (days [first day per interval] and
 ##'   NoOfCases [count of incidents during the respective interval])
 ##'
+##' @author Rich Fitzjohn, Thibaut Jombart
+##'
 ##' @export
+##'
 ##' @examples
 ##' incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
 ##' incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
@@ -70,6 +73,43 @@ incidence.default <- function(dates, interval = 1, ...) {
     class(out) <- "incidence"
     out
 }
+
+
+
+
+
+##' @export
+incidence.numeric <- function(onset, interval = 1L, ...) {
+    message("Dates stored as decimal numbers were floored.")
+    onset <- as.integer(floor(onset))
+    incidence.default(onset, interval, ...)
+}
+
+
+
+
+
+## Not sure if we want to keep this in, as the default method works well for Date objects.
+
+##' @export
+incidence.Date <- function(onset, interval = 1L, ...) {
+    incidence.default(onset, interval, ...)
+}
+
+
+
+
+
+
+##' @export
+incidence.POSIXt <- function(onset, ...) {
+  ret <- incidence(as.Date(onset))
+  f <- if (inherits(onset, "POSIXct")) as.POSIXct else as.POSIXlt
+  ret$dates <- f(ret$dates)
+  ret
+}
+
+
 
 
 

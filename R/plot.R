@@ -7,12 +7,21 @@
 ##' @examples
 ##'
 ##' if(require(outbreaks)) {
-##'   inc <- incidence(ebola.sim$linelist$date.of.onset)
+##'   onset <- ebola.sim$linelist$date.of.onset
+##'
+##'   ## daily incidence
+##'   inc <- incidence(onset)
 ##'   inc
 ##'   plot(inc)
+##'
+##'   ## weekly incidence
+##'   inc.week <- incidence(onset, interval = 7)
+##'   inc.week
+##'   plot(inc.week)
+##'   plot(inc.week, border = "white") # with visible border
 ##' }
 ##'
-plot.incidence <- function(x, ..., xlab = "", ylab = NULL) {
+plot.incidence <- function(x, ..., border = NA, xlab = "", ylab = NULL) {
     df <- as.data.frame(x)
 
     ## Use custom labels for usual time intervals
@@ -29,7 +38,7 @@ plot.incidence <- function(x, ..., xlab = "", ylab = NULL) {
     }
 
     out <- ggplot2::ggplot(df, ggplot2::aes(x=dates, y=counts)) +
-        ggplot2::geom_bar(stat="identity", width=1, color="white") +
+        ggplot2::geom_bar(stat="identity", width = x$interval, color = border) +
             ggplot2::labs(x = xlab, y = ylab)
     out
 }
