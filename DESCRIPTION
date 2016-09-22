@@ -3,9 +3,7 @@ Type: Package
 Title: Computation of Indidence from Outbreak Linelists
 Version: 0.0.1
 Authors@R: c(
-    person("Sarah", "Chisholm", email = "Sarah.X.Chisholm@phe.gov.uk",
-           role = c("aut", "cre")),
-    person("Rich", "FitzJohn", role = "aut"),
+    person("Rich", "FitzJohn", role = c("aut", "cre"), email = "rich.fitzjohn@gmail.com"),
     person("Thibaut", "Jombart", role = "aut"))
 Description: The incidence package takes lines lists and computes the
     number of incidents per interval (default = 1 day). In input
@@ -15,6 +13,8 @@ Description: The incidence package takes lines lists and computes the
     incidents in that interval.
 License: MIT + file LICENSE
 RoxygenNote: 5.0.1
+Imports:
+    ggplot2
 Suggests:
-    OutbreakTools,
-    testthat
+    testthat, 
+    outbreaks

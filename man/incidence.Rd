@@ -2,15 +2,17 @@
 % Please edit documentation in R/incidence.R
 \name{incidence}
 \alias{incidence}
-\title{Compute incidence from a numerical vector of onsets, representing
+\title{Compute incidence from a numerical vector of dates, representing
 days.}
 \usage{
-incidence(onset, ...)
+incidence(dates, interval = 1, ...)
 }
 \arguments{
-\item{onset}{An numerical vector, each element of which
-corresponds to a case.  The vector does not need to be sorted,
-but must be positive?}
+\item{dates}{A vector of dates, which can be provided as objects of the class: integer, numeric,
+Date, POSIXct. Note that decimal numbers will be floored with a warning.}
+
+\item{interval}{An integer indicating the (fixed) size of the time interval used for computing
+the incidence; defaults to 1 day.}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
 }
@@ -19,7 +21,7 @@ A named list with 2 members (days [first day per interval] and
   NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This function takes date of symptom onset, per case, as input which
+This function takes date of symptom dates, per case, as input which
 is in the format of number of days after a reference date. Each row
 represents a case, and the reference day could be the day of the
 oubreak, if known. 0 would suggest the case developed symptoms on
@@ -27,7 +29,7 @@ the reference date, 1 would mean the day after the reference date,
 etc. The number of incidences per interval (in days) are then
 computed, for which the default length of the interval is 1
 day. The output is a named list with a member for the interval
-(Days - same format as the input of onset) and a member for the
+(Days - same format as the input of dates) and a member for the
 number of incidences in that interval. The interval is denoted by
 the first day in the interval, i.e. if the list of the interval is
 0,3,6,... then the interval is of length 3 and days 0, 1 and 2 are
