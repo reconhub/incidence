@@ -24,14 +24,17 @@
 ##'
 fit <- function(x, split = NULL, level = 0.95){
     if (is.null(split)) {
-        lm1 <- stats::lm(log(x$counts) ~ x$dates)
+        dates.int <- seq_along(x$dates) - 1
+        lm1 <- stats::lm(log(x$counts) ~ dates.int)
         out <- extract.info(lm1, x$interval, level)
         out$dates <- x$dates
     } else {
         x1 <- x[x$dates <= split]
         x2 <- x[x$dates >= split]
-        lm1 <- stats::lm(log(x1$counts) ~ x1$dates)
-        lm2 <- stats::lm(log(x2$counts) ~ x2$dates)
+        dates.int1 <- seq_along(x1$dates) - 1
+        dates.int2 <- seq_along(x2$dates) - 1
+        lm1 <- stats::lm(log(x1$counts) ~  dates.int1)
+        lm2 <- stats::lm(log(x2$counts) ~  dates.int2)
         before <- extract.info(lm1, x$interval, level)
         before$dates <- x1$dates
         after <- extract.info(lm2, x$interval, level)

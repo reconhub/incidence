@@ -20,6 +20,7 @@
 ##' @param groups (optional) The groups to retained, indicated as subsets of the columns of
 ##' x$counts.
 ##'
+##' @export
 ##
 ##' ## example using simulated dataset
 ##' if(require(outbreaks)) {
@@ -63,9 +64,9 @@ subset.incidence <- function(x, from = min(x$dates), to = max(x$dates), groups =
     }
 
     out <- x
-    out$counts <- out$counts[i,j,drop=FALSE]
+    out$counts <- out$counts[i, j, drop=FALSE]
     out$dates <- out$dates[i]
-    out$timespan <-  diff(range(x$dates, na.rm=TRUE))+1
+    out$timespan <-  diff(range(out$dates, na.rm=TRUE)) + 1
     out$n <- sum(out$counts)
     out
 }

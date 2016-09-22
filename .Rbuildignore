@@ -5,3 +5,4 @@
 ^Makefile$
 ^README\.Rmd$
 ^update_web\.sh$
+figure/*
