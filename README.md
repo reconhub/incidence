@@ -48,6 +48,8 @@ First, we load the data:
 ```r
 library(outbreaks)
 library(ggplot2)
+library(incidence)
+
 dat <- ebola.sim$linelist$date.of.onset
 class(dat)
 ```
@@ -106,21 +108,16 @@ i.tail
 ```
 
 ```
-## <incidence object>
-## [1205 cases from days 2015-01-01 to 2015-04-30]
-## 
-## $counts: matrix with 120 rows and 1 columns
-## $n: 1205 cases in total
-## $dates: 120 dates marking the left-side of bins
-## $interval: 1 day
-## $timespan: 120 days
+## Error in eval(expr, envir, enclos): object 'i.tail' not found
 ```
 
 ```r
 plot(i.tail, border="white")
 ```
 
-![plot of chunk tail](figs/tail-1.png)
+```
+## Error in plot(i.tail, border = "white"): object 'i.tail' not found
+```
 
 Or, to focus on the peak of the distribution:
 

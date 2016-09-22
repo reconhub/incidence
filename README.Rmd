@@ -15,7 +15,7 @@ To install the devel version of the package, type:
 devtools::install_github("reconhub/incidence")
 ```
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(fig.width=7, fig.height=7, fig.path="figs/")
+knitr::opts_chunk$set(fig.width=10, fig.height=7, fig.path="figs/")
 
 ```
 
@@ -49,6 +49,8 @@ First, we load the data:
 ```{r, data}
 library(outbreaks)
 library(ggplot2)
+library(incidence)
+
 dat <- ebola.sim$linelist$date.of.onset
 class(dat)
 head(dat)
