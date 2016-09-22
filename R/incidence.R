@@ -52,17 +52,26 @@ incidence.default <- function(dates, interval = 1, ...) {
     first.date <- min(dates, na.rm=TRUE)
     last.date <- max(dates, na.rm=TRUE)
     interval <- round(interval)
-    breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
-    counts <- as.integer(table(cut(as.integer(dates), breaks=breaks, right=FALSE)))
 
-    out <- list(dates = day, # left side of the intervals (incl left, excl right)
+    ## handle case where interval is larger than span
+    if (last.date-first.date < interval){
+        breaks <- first.date
+        counts <- length(dates)
+    } else {
+        breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
+        counts <- as.integer(table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE)))
+    }
+
+    out <- list(dates = breaks, # left side of the intervals (incl left, excl right)
                 counts = matrix(counts, ncol = 1L), # counts; add columns for stratif incid
-                timespan = diff(range(day))+1, # time span (last date - first date + 1 day)
+                timespan = diff(range(dates, na.rm=TRUE))+1, # time span (last date - first date + 1 day)
                 interval = interval, # fixed bin size
                 n = sum(counts)) # total number of cases
     class(out) <- "incidence"
     out
 }
+
+
 
 ##' @export
 print.incidence <- function(x, ...) {
@@ -73,6 +82,6 @@ print.incidence <- function(x, ...) {
               nrow(x$counts), ncol(x$counts)))
   cat(sprintf("$interval: %d %s\n", x$interval, ifelse(x$interval<2, "day", "days")))
   cat(sprintf("$n: %d cases in total\n", x$n))
-  cat(sprintf("$timespan: %d days\n", x$timespan))
+  cat(sprintf("$timespan: %d days\n\n", x$timespan))
   invisible(x)
 }
