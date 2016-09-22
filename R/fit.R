@@ -4,7 +4,7 @@
 ##' \eqn{log(y)} = r * t + b
 ##'
 ##' where 'y' is the incidence, 't' is time (in days), 'r' is the growth rate, and 'b' is the
-##' origin.
+##' origin. The function \code{fit} will fit one model by default, but will fit two models on either side of a splitting data if the argument \code{split} is provided.
 ##'
 ##' @export
 ##'
@@ -24,19 +24,65 @@
 ##'
 fit <- function(x, split = NULL, level = 0.95){
     if (is.null(split)) {
-        lm1 <- lm(log(x$counts) ~ x$dates)
+        lm1 <- stats::lm(log(x$counts) ~ x$dates)
         out <- extract.info(lm1, x$interval, level)
         out$dates <- x$dates
     } else {
         x1 <- x[x$dates <= split]
         x2 <- x[x$dates >= split]
-        lm1 <- lm(log(x1$counts) ~ x1$dates)
-        lm2 <- lm(log(x2$counts) ~ x2$dates)
+        lm1 <- stats::lm(log(x1$counts) ~ x1$dates)
+        lm2 <- stats::lm(log(x2$counts) ~ x2$dates)
         before <- extract.info(lm1, x$interval, level)
         before$dates <- x1$dates
         after <- extract.info(lm2, x$interval, level)
         after$dates <- x2$dates
         out <- list(before = before, after = after)
+    }
+
+    out
+}
+
+
+
+
+
+##' @export
+##' @rdname fit
+##' @param window The size, in days, of the time window either side of the split.
+##' @param plot A logical indicating whether a plot should be added to the output, showing the mean
+##' R2 for various splits.
+
+fit.optim.split <- function(x, window = x$timespan/4, plot = TRUE){
+    date.peak <- x$dates[which.max(x$counts[,1])] # !! this assumes a single group
+    try.since <- date.peak - window / 2
+    try.until <- date.peak + window / 2
+    to.keep <- x$dates >= try.since & x$dates <= try.until
+    if (sum(to.keep) < 1) {
+        stop("No date left to try after defining splits to try.")
+    }
+
+    splits.to.try <- x$dates[to.keep]
+
+    f <- function(split) {
+        fits <- fit(x, split=split)
+        mean(vapply(fits, function(e) summary(e$lm)$`adj.r.squared`, double(1)))
+    }
+
+    results <- sapply(splits.to.try, f)
+
+    ## shape output
+    df <- data.frame(dates = splits.to.try, mean.R2 = results)
+    split <- splits.to.try[which.max(results)]
+    fit <- fit(x, split = split)
+    out <- list(df = df,
+                split = split,
+                fit = fit)
+
+    if (plot) {
+        out$plot <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates", y = "mean.R2")) +
+            ggplot2::geom_point() + ggplot2::geom_line() +
+                ggplot2::geom_text(ggplot2::aes_string(label="dates"), hjust=-.1, angle=35) +
+                    ggplot2::ylim(min=min(results)-.1, max=1)
     }
 
     out
@@ -53,15 +99,15 @@ extract.info <- function(reg, interval, level){
         return(NULL)
     }
 
-    r <- unname(coef(reg)[2])
-    r.conf <- confint(reg, 2, level)
+    r <- unname(stats::coef(reg)[2])
+    r.conf <- stats::confint(reg, 2, level)
     rownames(r.conf) <- NULL
 
     r.day <- r / interval
     r.day.conf <- r.conf / interval
 
-    pred <- exp(predict(reg))
-    pred.conf <- exp(predict(reg, interval = "confidence", level = level)[,2:3])
+    pred <- exp(stats::predict(reg))
+    pred.conf <- exp(stats::predict(reg, interval = "confidence", level = level)[,2:3])
 
     info <- list(r = r, r.conf = r.conf,
                 r.day = r.day, r.day.conf = r.day.conf,
@@ -137,7 +183,8 @@ add.incidence.fit <- function(p, x){
 
     ## Note: adding several geoms without calling ggplot2::ggplot() will fail
     ## because the "+" operator will not work
-    out <- suppressMessages(p + ggplot2::geom_line(data = df, aes_string(x = "dates", y = "y", linetype = "type")) +
+    out <- suppressMessages(p +
+                            ggplot2::geom_line(data = df, ggplot2::aes_string(x = "dates", y = "y", linetype = "type")) +
          ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
                             )
     out
@@ -156,8 +203,8 @@ plot.incidence.fit <- function(x, ...){
                      type = factor(rep(c("pred", "low", "high"), each=length(x$dates))),
                      y = c(x$info$pred, x$info$pred.conf[,1], x$info$pred.conf[,2])
                      )
-    out <- ggplot2::ggplot(df, aes_string(x = "dates")) +
-        ggplot2::geom_line(data = df, aes_string(y = "y", linetype = "type")) +
+    out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates")) +
+        ggplot2::geom_line(data = df, ggplot2::aes_string(y = "y", linetype = "type")) +
          ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
     out
 }
