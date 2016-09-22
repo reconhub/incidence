@@ -42,39 +42,37 @@ incidence <- function(dates, interval = 1, ...) {
 ## * support as.zoo, as.ts, etc.
 
 ##' @export
+##'
+
+## The default incidence is designed for dates provided as integers, and a fixed time interval
+## defaulting to 1. 'bins' are time intervals, identified by the left date, left-inclusive and
+## right-exclusive, i.e. the time interval defined by d1 and d2 is [d1, d2[.
+
 incidence.default <- function(dates, interval = 1, ...) {
-    if(interval > 1) {
-        stop("Interval > 1 not supported.")
-    }
-  first_day <- min(dates)
-  if (first_day != 1L) {
-    dates <- dates - first_day + 1L
-  }
-  last_day <- max(dates)
-  counts <- tabulate(dates, last_day)
+    first.date <- min(dates, na.rm=TRUE)
+    last.date <- max(dates, na.rm=TRUE)
+    interval <- round(interval)
+    breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
+    counts <- as.integer(table(cut(as.integer(dates), breaks=breaks, right=FALSE)))
 
-  day <- seq_along(counts)
-  if (first_day != 1L) {
-    day <- day + first_day - 1L
-  }
-
-  ret <- list(incidence = data.frame(dates = day, counts = counts),
-              timespan = range(day),
-              interval = interval,
-              n = sum(counts))
-  class(ret) <- "incidence"
-  ret
+    out <- list(dates = day, # left side of the intervals (incl left, excl right)
+                counts = matrix(counts, ncol = 1L), # counts; add columns for stratif incid
+                timespan = diff(range(day))+1, # time span (last date - first date + 1 day)
+                interval = interval, # fixed bin size
+                n = sum(counts)) # total number of cases
+    class(out) <- "incidence"
+    out
 }
 
 ##' @export
 print.incidence <- function(x, ...) {
 
   cat("<incidence object>\n")
-  cat(sprintf("[%d cases from days %s to %s]\n\n", sum(x$n), x$timespan[1], x$timespan[2]))
-  cat(sprintf("$incidence: data.frame with %d rows and %d columns (%s)\n",
-              nrow(x$incidence), ncol(x$incidence),
-              paste(names(x$incidence), collapse = ", ")))
+  cat(sprintf("[%d cases from days %s to %s]\n\n", sum(x$n), min(x$dates), max(x$dates)))
+  cat(sprintf("$counts: matrix with %d rows and %d columns\n",
+              nrow(x$counts), ncol(x$counts)))
   cat(sprintf("$interval: %d %s\n", x$interval, ifelse(x$interval<2, "day", "days")))
   cat(sprintf("$n: %d cases in total\n", x$n))
+  cat(sprintf("$timespan: %d days\n", x$timespan))
   invisible(x)
 }
