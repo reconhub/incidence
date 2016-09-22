@@ -41,19 +41,11 @@ A named list with 2 members (days [first day per interval] and
   NoOfCases [count of incidents during the respective interval])
 }
 \description{
-This function takes date of symptom dates, per case, as input which
-is in the format of number of days after a reference date. Each row
-represents a case, and the reference day could be the day of the
-oubreak, if known. 0 would suggest the case developed symptoms on
-the reference date, 1 would mean the day after the reference date,
-etc. The number of incidences per interval (in days) are then
-computed, for which the default length of the interval is 1
-day. The output is a named list with a member for the interval
-(Days - same format as the input of dates) and a member for the
-number of incidences in that interval. The interval is denoted by
-the first day in the interval, i.e. if the list of the interval is
-0,3,6,... then the interval is of length 3 and days 0, 1 and 2 are
-in the first interval, days 3, 4 and 5 are in the seconde, etc.
+This function computes incidence based on dates of events provided in various formats. A fixed
+interval, provided as numbers of days, is used to define time intervals. Counts within an
+interval always include the first date, after which they are labelled, and exclude the
+second. For instance, intervals labelled as##' 0,3,6,... mean that the first bin includes days
+0, 1 and 2, the second interval includes 3, 4 and 5m etc.
 }
 \examples{
 ## toy example

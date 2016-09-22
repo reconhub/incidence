@@ -20,8 +20,9 @@
 ##' @param groups (optional) The groups to retained, indicated as subsets of the columns of
 ##' x$counts.
 ##'
-##' @export
-##
+##' @param ... Further arguments passed to other methods (not used).
+##'
+##'
 ##' ## example using simulated dataset
 ##' if(require(outbreaks)) {
 ##'   onset <- ebola.sim$linelist$date.of.onset
@@ -35,7 +36,10 @@
 ##'   plot(inc[-c(11:15]))
 ##' }
 ##'
-subset.incidence <- function(x, from = min(x$dates), to = max(x$dates), groups = TRUE){
+##' @export
+##'
+subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
+                             groups = TRUE){
     to.keep <- x$dates >= from & x$dates <= to
 
     if (sum(to.keep) <1) {

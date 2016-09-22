@@ -15,7 +15,7 @@ To install the devel version of the package, type:
 devtools::install_github("reconhub/incidence")
 ```
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(fig.width=10, fig.height=7, fig.path="figs/")
+knitr::opts_chunk$set(fig.width=10, fig.height=6, fig.path="figs/")
 
 ```
 
