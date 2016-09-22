@@ -8,6 +8,8 @@
 ##'
 ##' @export
 ##'
+##' @rdname fit
+##'
 ##' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 ##'
 ##' @seealso the \code{\link{incidence}} function to generate the 'incidence' objects.
@@ -29,8 +31,8 @@ fit <- function(x, split = NULL, level = 0.95){
         x2 <- x[x$dates >= split]
         lm1 <- lm(log(x1$counts) ~ x1$dates)
         lm2 <- lm(log(x2$counts) ~ x2$dates)
-        out <- list(model1 = extract.info(lm1, x$interval, level),
-                    model2 = extract.info(lm2, x$interval, level))
+        out <- list(before = extract.info(lm1, x$interval, level),
+                    after = extract.info(lm2, x$interval, level))
     }
 
     out
@@ -64,12 +66,66 @@ extract.info <- function(reg, interval, level){
     if (r.day > 0 ) {
         info$doubling <- log(2) / r.day
         info$doubling.conf <- log(2) / r.day.conf
+        o.names <- names(info$doubling.conf)
+        info$doubling.conf <-rev(info$doubling.conf)
+        names(info$doubling.conf) <- o.names
     } else {
         info$halving <- log(0.5) / r.day
         info$halving.conf <- log(0.5) / r.day.conf
+        o.names <- names(info$halving.conf)
+        info$halving.conf <-rev(info$halving.conf)
+        names(info$halving.conf) <- o.names
     }
 
     out <- list(lm = reg, info = info)
     class(out) <- "incidence.fit"
     out
+}
+
+
+
+
+
+
+##' @export
+##' @rdname fit
+##' @param ... further arguments passed to other methods (not used)
+
+print.incidence.fit <- function(x, ...) {
+
+  cat("<incidence.fit object>\n\n")
+  cat("$lm: regression of log-incidence over time\n\n")
+
+  cat("$info: list containing the following items:\n")
+  cat(sprintf("  $r.day: %.5f (daily growth rate)\n", x$info$r.day))
+  cat(sprintf("  $r.day.conf: [%.5f ; %.5f] (confidence interval)\n",
+              x$info$r.day.conf[1], x$info$r.day.conf[2]))
+  if (x$info$r > 0) {
+      cat(sprintf("  $doubling: %.1f (doubling time in days)\n", x$info$doubling))
+      cat(sprintf("  $doubling.conf: [%.1f ; %.1f] (confidence interval)\n",
+                  x$info$doubling.conf[1], x$info$doubling.conf[2]))
+  } else {
+      cat(sprintf("  $halving: %.1f (halving time in days)\n", x$info$halving))
+      cat(sprintf("  $halving.conf: [%.1f ; %.1f] (confidence interval)\n",
+                  x$info$halving.conf[1], x$info$halving.conf[2]))
+  }
+
+  cat(sprintf("  $pred: %d predictions of incidence\n", length(x$info$pred)))
+  cat(sprintf("  $pred.conf: %d x %d matrix of predictions (confidence interval)\n",
+      nrow(x$info$pred.conf), ncol(x$info$pred.conf)))
+
+
+  invisible(x)
+}
+
+
+
+
+
+
+##' @export
+##' @rdname fit
+
+plot.incidence.fit <- function(x, ...){
+
 }
