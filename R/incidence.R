@@ -28,6 +28,8 @@
 ##'
 ##' @author Rich Fitzjohn, Thibaut Jombart
 ##'
+##' @rdname incidence
+##'
 ##' @export
 ##'
 ##' @examples
@@ -65,6 +67,8 @@ incidence <- function(dates, interval = 1, ...) {
 ## and right-exclusive, i.e. the time interval defined by d1 and d2 is [d1, d2[.
 
 ##' @export
+##' @rdname incidence
+
 incidence.integer <- function(dates, interval = 1, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
@@ -95,14 +99,20 @@ incidence.integer <- function(dates, interval = 1, ...) {
 
 
 
+##'
 ##' @export
+##' @rdname incidence
+##'
 incidence.default <- incidence.integer
 
 
 
 
 
+##'
 ##' @export
+##' @rdname incidence
+##'
 incidence.numeric <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
@@ -119,7 +129,10 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 
 
+
 ##' @export
+##' @rdname incidence
+
 incidence.Date <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
@@ -136,6 +149,8 @@ incidence.Date <- function(dates, interval = 1L, ...) {
 
 
 ##' @export
+##' @rdname incidence
+
 incidence.POSIXt <- function(dates, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
@@ -151,6 +166,8 @@ incidence.POSIXt <- function(dates, ...) {
 
 
 ##' @export
+##' @rdname incidence
+##' @param x an 'incidence' object
 print.incidence <- function(x, ...) {
 
   cat("<incidence object>\n")

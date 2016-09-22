@@ -2,10 +2,28 @@
 % Please edit documentation in R/incidence.R
 \name{incidence}
 \alias{incidence}
+\alias{incidence.Date}
+\alias{incidence.POSIXt}
+\alias{incidence.default}
+\alias{incidence.integer}
+\alias{incidence.numeric}
+\alias{print.incidence}
 \title{Compute incidence from a numerical vector of dates, representing
 days.}
 \usage{
 incidence(dates, interval = 1, ...)
+
+\method{incidence}{integer}(dates, interval = 1, ...)
+
+\method{incidence}{default}(dates, interval = 1, ...)
+
+\method{incidence}{numeric}(dates, interval = 1L, ...)
+
+\method{incidence}{Date}(dates, interval = 1L, ...)
+
+\method{incidence}{POSIXt}(dates, ...)
+
+\method{print}{incidence}(x, ...)
 }
 \arguments{
 \item{dates}{A vector of dates, which can be provided as objects of the class: integer, numeric,
@@ -15,6 +33,8 @@ Date, POSIXct. Note that decimal numbers will be floored with a warning.}
 the incidence; defaults to 1 day.}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
+
+\item{x}{an 'incidence' object}
 }
 \value{
 A named list with 2 members (days [first day per interval] and
