@@ -71,8 +71,11 @@ incidence <- function(dates, interval = 1, ...) {
 ## and right-exclusive, i.e. the time interval defined by d1 and d2 is [d1, d2[.
 
 incidence.default <- function(dates, interval = 1, ...) {
-    first.date <- min(dates, na.rm=TRUE)
-    last.date <- max(dates, na.rm=TRUE)
+    ## make sure input can be used
+    dates <- check.dates(dates)
+
+    first.date <- min(dates)
+    last.date <- max(dates)
     interval <- round(interval)
 
     ## handle case where interval is larger than span
@@ -112,6 +115,8 @@ incidence.numeric <- function(onset, interval = 1L, ...) {
 
 ##' @export
 incidence.Date <- function(onset, interval = 1L, ...) {
+    ## make sure input can be used
+    dates <- check.dates(dates)
     first.date <- min(onset, na.rm = TRUE)
     out <- incidence.default(as.integer(onset - first.date), interval, ...)
     out$dates <- first.date + out$dates
@@ -147,4 +152,20 @@ print.incidence <- function(x, ...) {
   cat(sprintf("$interval: %d %s\n", x$interval, ifelse(x$interval<2, "day", "days")))
   cat(sprintf("$timespan: %d days\n\n", x$timespan))
   invisible(x)
+}
+
+
+
+
+## This function is non-exported; it merely checks that usable data are provided, and returns data
+## without NAs.
+
+check.dates <- function(dates){
+    ## make sure input can be used
+    dates <- dates[!is.na(dates)]
+    if(length(dates) < 1) {
+        stop("At least one (non-NA) date must be provided")
+    }
+
+    dates
 }
