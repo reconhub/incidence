@@ -117,14 +117,12 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
 
-    message("Dates stored as decimal numbers were floored.")
+    message("Dates stored as decimal numbers were floored.\n")
     dates <- as.integer(floor(dates))
     out <- incidence.integer(dates, interval, ...)
     out$dates <- as.numeric(out$dates)
     out
 }
-
-
 
 
 
@@ -184,19 +182,20 @@ print.incidence <- function(x, ...) {
 
 
 
+
 ## This function is non-exported; it merely checks that usable data are provided, and returns data
 ## without NAs.
 
 check.dates <- function(dates){
     ## make sure input can be used
     to.remove <- !is.finite(dates)
-    if(sum(to.remove)>0) {
-        message(sprintf("%d non-finite values (NA, Inf) where removed from the data.", sum(to.remove)))
+    if (sum(to.remove)>0) {
+        message(sprintf("%d non-finite values (NA, Inf) where removed from the data.\n", sum(to.remove)))
         dates <- dates[!to.remove]
 
     }
 
-    if(length(dates) < 1) {
+    if (length(dates) < 1) {
         stop("At least one (non-NA) date must be provided")
     }
 

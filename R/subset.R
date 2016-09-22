@@ -37,7 +37,7 @@
 subset.incidence <- function(x, from = min(x$dates), to = max(x$dates), groups = TRUE){
     to.keep <- x$dates >= from & x$dates <= to
 
-    if(sum(to.keep) <1) {
+    if (sum(to.keep) <1) {
         stop("No data retained.")
     }
 
@@ -54,11 +54,11 @@ subset.incidence <- function(x, from = min(x$dates), to = max(x$dates), groups =
 ##' @param j a subset of groups to retain
 
 "[.incidence" <- function(x, i, j){
-    if(missing(i)) {
+    if (missing(i)) {
         i <- TRUE
     }
 
-    if(missing(j)) {
+    if (missing(j)) {
         j <- TRUE
     }
 
