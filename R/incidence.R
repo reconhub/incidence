@@ -189,7 +189,12 @@ print.incidence <- function(x, ...) {
 
 check.dates <- function(dates){
     ## make sure input can be used
-    dates <- dates[is.finite(dates)]
+    to.remove <- !is.finite(dates)
+    if(sum(to.remove)>0) {
+        message(sprintf("%d non-finite values (NA, Inf) where removed from the data.", sum(to.remove)))
+        dates <- dates[!to.remove]
+
+    }
 
     if(length(dates) < 1) {
         stop("At least one (non-NA) date must be provided")
