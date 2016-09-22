@@ -36,7 +36,29 @@ the first day in the interval, i.e. if the list of the interval is
 in the first interval, days 3, 4 and 5 are in the seconde, etc.
 }
 \examples{
+## toy example
 incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
 incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
+
+## example using simulated dataset
+if(require(outbreaks)) {
+  onset <- ebola.sim$linelist$date.of.onset
+
+  ## daily incidence
+  inc <- incidence(onset)
+  inc
+  plot(inc)
+
+  ## weekly incidence
+  inc.week <- incidence(onset, interval = 7)
+  inc.week
+  plot(inc.week)
+  plot(inc.week, border = "white") # with visible border
+}
+
+
+}
+\author{
+Rich Fitzjohn, Thibaut Jombart
 }
 

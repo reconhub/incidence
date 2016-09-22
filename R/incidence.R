@@ -56,21 +56,16 @@ incidence <- function(dates, interval = 1, ...) {
   UseMethod("incidence")
 }
 
-## TODO:
-## Support:
-## * incidence.Date
-## * incidence.POSIXt (both ct and lt)
-## * matrices, etc; give a vector of results back?
-## * support as.zoo, as.ts, etc.
 
-##' @export
-##'
+
+
 
 ## The default incidence is designed for dates provided as integers, and a fixed time
 ## interval defaulting to 1. 'bins' are time intervals, identified by the left date, left-inclusive
 ## and right-exclusive, i.e. the time interval defined by d1 and d2 is [d1, d2[.
 
-incidence.default <- function(dates, interval = 1, ...) {
+##' @export
+incidence.integer <- function(dates, interval = 1, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
 
@@ -80,7 +75,7 @@ incidence.default <- function(dates, interval = 1, ...) {
 
     ## handle case where interval is larger than span
     if (last.date-first.date < interval){
-        breaks <- first.date
+        breaks <- as.integer(first.date)
         counts <- length(dates)
     } else {
         breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
@@ -100,12 +95,23 @@ incidence.default <- function(dates, interval = 1, ...) {
 
 
 
+##' @export
+incidence.default <- incidence.integer
+
+
+
+
 
 ##' @export
-incidence.numeric <- function(onset, interval = 1L, ...) {
+incidence.numeric <- function(dates, interval = 1L, ...) {
+    ## make sure input can be used
+    dates <- check.dates(dates)
+
     message("Dates stored as decimal numbers were floored.")
-    onset <- as.integer(floor(onset))
-    incidence.default(onset, interval, ...)
+    dates <- as.integer(floor(dates))
+    out <- incidence.integer(dates, interval, ...)
+    out$dates <- as.numeric(out$dates)
+    out
 }
 
 
@@ -114,11 +120,12 @@ incidence.numeric <- function(onset, interval = 1L, ...) {
 
 
 ##' @export
-incidence.Date <- function(onset, interval = 1L, ...) {
+incidence.Date <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
-    first.date <- min(onset, na.rm = TRUE)
-    out <- incidence.default(as.integer(onset - first.date), interval, ...)
+
+    first.date <- min(dates, na.rm = TRUE)
+    out <- incidence.default(as.integer(dates - first.date), interval, ...)
     out$dates <- first.date + out$dates
     out
 }
@@ -129,11 +136,14 @@ incidence.Date <- function(onset, interval = 1L, ...) {
 
 
 ##' @export
-incidence.POSIXt <- function(onset, ...) {
-  ret <- incidence(as.Date(onset))
-  f <- if (inherits(onset, "POSIXct")) as.POSIXct else as.POSIXlt
-  ret$dates <- f(ret$dates)
-  ret
+incidence.POSIXt <- function(dates, ...) {
+    ## make sure input can be used
+    dates <- check.dates(dates)
+
+    ret <- incidence(as.Date(dates))
+    f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
+    ret$dates <- f(ret$dates)
+    ret
 }
 
 
@@ -162,7 +172,8 @@ print.incidence <- function(x, ...) {
 
 check.dates <- function(dates){
     ## make sure input can be used
-    dates <- dates[!is.na(dates)]
+    dates <- dates[is.finite(dates)]
+
     if(length(dates) < 1) {
         stop("At least one (non-NA) date must be provided")
     }

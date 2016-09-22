@@ -3,14 +3,23 @@
 \name{plot.incidence}
 \alias{plot.incidence}
 \usage{
-\method{plot}{incidence}(x, ..., xlab = "", ylab = NULL)
+\method{plot}{incidence}(x, ..., border = NA, xlab = "", ylab = NULL)
 }
 \examples{
 
 if(require(outbreaks)) {
-  inc <- incidence(ebola.sim$linelist$date.of.onset)
+  onset <- ebola.sim$linelist$date.of.onset
+
+  ## daily incidence
+  inc <- incidence(onset)
   inc
   plot(inc)
+
+  ## weekly incidence
+  inc.week <- incidence(onset, interval = 7)
+  inc.week
+  plot(inc.week)
+  plot(inc.week, border = "white") # with visible border
 }
 
 }
