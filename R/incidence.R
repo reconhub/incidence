@@ -80,8 +80,9 @@ print.incidence <- function(x, ...) {
   cat(sprintf("[%d cases from days %s to %s]\n\n", sum(x$n), min(x$dates), max(x$dates)))
   cat(sprintf("$counts: matrix with %d rows and %d columns\n",
               nrow(x$counts), ncol(x$counts)))
-  cat(sprintf("$interval: %d %s\n", x$interval, ifelse(x$interval<2, "day", "days")))
   cat(sprintf("$n: %d cases in total\n", x$n))
+  cat(sprintf("$dates: %d dates marking the left-side of bins\n", length(x$dates)))
+  cat(sprintf("$interval: %d %s\n", x$interval, ifelse(x$interval<2, "day", "days")))
   cat(sprintf("$timespan: %d days\n\n", x$timespan))
   invisible(x)
 }

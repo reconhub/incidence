@@ -13,6 +13,11 @@ as.ts.incidence_summary <- function(x, ...) {
 }
 
 ##' @export
+as.data.frame.incidence <- function(x, ...){
+    data.frame(dates=x$dates, counts=x$counts)
+}
+
+##' @export
 incidence.Date <- function(onset, ...) {
   ret <- incidence(as.integer(onset), ...)
   ## NOTE: I don't know why as.Date / as.integer aren't transitive but
