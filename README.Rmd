@@ -115,7 +115,7 @@ plot(i.7[1:20], border="white", fit=fit(i.7[1:20])) +
 In this case, we would ideally like to fit two models, before and after the peak.
 This is possible using the following approach:
 ```{r, fit.both}
-fit.both <- fit(i.7, split=as.Date("2014-10-01"))
+fit.both <- fit(i.7, split=as.Date("2014-10-15"))
 fit.both
 plot(i.7, fit=fit.both)
 ```

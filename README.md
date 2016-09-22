@@ -216,7 +216,7 @@ In this case, we would ideally like to fit two models, before and after the peak
 This is possible using the following approach:
 
 ```r
-fit.both <- fit(i.7, split=as.Date("2014-10-01"))
+fit.both <- fit(i.7, split=as.Date("2014-10-15"))
 fit.both
 ```
 
@@ -227,12 +227,12 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.02920 (daily growth rate)
-##   $r.day.conf: [0.02569 ; 0.03272] (confidence interval)
-##   $doubling: 23.7 (doubling time in days)
-##   $doubling.conf: [21.2 ; 27.0] (confidence interval)
-##   $pred: 26 predictions of incidence
-##   $pred.conf: 26 x 2 matrix of predictions (confidence interval)
+##   $r.day: 0.02742 (daily growth rate)
+##   $r.day.conf: [0.02408 ; 0.03076] (confidence interval)
+##   $doubling: 25.3 (doubling time in days)
+##   $doubling.conf: [22.5 ; 28.8] (confidence interval)
+##   $pred: 28 predictions of incidence
+##   $pred.conf: 28 x 2 matrix of predictions (confidence interval)
 ## 
 ## $after
 ## <incidence.fit object>
@@ -240,12 +240,12 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: -0.01019 (daily growth rate)
-##   $r.day.conf: [-0.01117 ; -0.00921] (confidence interval)
-##   $halving: 68.0 (halving time in days)
-##   $halving.conf: [75.3 ; 62.0] (confidence interval)
-##   $pred: 30 predictions of incidence
-##   $pred.conf: 30 x 2 matrix of predictions (confidence interval)
+##   $r.day: -0.01014 (daily growth rate)
+##   $r.day.conf: [-0.01128 ; -0.00901] (confidence interval)
+##   $halving: 68.3 (halving time in days)
+##   $halving.conf: [76.9 ; 61.5] (confidence interval)
+##   $pred: 28 predictions of incidence
+##   $pred.conf: 28 x 2 matrix of predictions (confidence interval)
 ```
 
 ```r
