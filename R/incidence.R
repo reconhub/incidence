@@ -31,8 +31,27 @@
 ##' @export
 ##'
 ##' @examples
+##' ## toy example
 ##' incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
 ##' incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
+##'
+##' ## example using simulated dataset
+##' if(require(outbreaks)) {
+##'   onset <- ebola.sim$linelist$date.of.onset
+##'
+##'   ## daily incidence
+##'   inc <- incidence(onset)
+##'   inc
+##'   plot(inc)
+##'
+##'   ## weekly incidence
+##'   inc.week <- incidence(onset, interval = 7)
+##'   inc.week
+##'   plot(inc.week)
+##'   plot(inc.week, border = "white") # with visible border
+##' }
+##'
+##'
 incidence <- function(dates, interval = 1, ...) {
   UseMethod("incidence")
 }
@@ -47,9 +66,9 @@ incidence <- function(dates, interval = 1, ...) {
 ##' @export
 ##'
 
-## The default incidence is designed for dates provided as integers, and a fixed time interval
-## defaulting to 1. 'bins' are time intervals, identified by the left date, left-inclusive and
-## right-exclusive, i.e. the time interval defined by d1 and d2 is [d1, d2[.
+## The default incidence is designed for dates provided as integers, and a fixed time
+## interval defaulting to 1. 'bins' are time intervals, identified by the left date, left-inclusive
+## and right-exclusive, i.e. the time interval defined by d1 and d2 is [d1, d2[.
 
 incidence.default <- function(dates, interval = 1, ...) {
     first.date <- min(dates, na.rm=TRUE)
@@ -62,6 +81,7 @@ incidence.default <- function(dates, interval = 1, ...) {
         counts <- length(dates)
     } else {
         breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
+        breaks <- as.integer(breaks)
         counts <- as.integer(table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE)))
     }
 
@@ -89,11 +109,13 @@ incidence.numeric <- function(onset, interval = 1L, ...) {
 
 
 
-## Not sure if we want to keep this in, as the default method works well for Date objects.
 
 ##' @export
 incidence.Date <- function(onset, interval = 1L, ...) {
-    incidence.default(onset, interval, ...)
+    first.date <- min(onset, na.rm = TRUE)
+    out <- incidence.default(as.integer(onset - first.date), interval, ...)
+    out$dates <- first.date + out$dates
+    out
 }
 
 
