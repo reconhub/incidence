@@ -1,5 +1,7 @@
 
-[![Travis-CI Build Status](https://travis-ci.org/OutbreakResources/incidence.svg?branch=master)](https://travis-ci.org/OutbreakResources/incidence)
+[![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
+
+[![Coverage Status](https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg)](https://codecov.io/github/reconhub/incidence?branch=master)
 
 # incidence: computation, handling and visualisation of incidence
 
@@ -48,14 +50,6 @@ First, we load the data:
 ```r
 library(outbreaks)
 library(ggplot2)
-```
-
-```
-## Find out what's changed in ggplot2 at
-## http://github.com/hadley/ggplot2/releases.
-```
-
-```r
 library(incidence)
 
 dat <- ebola.sim$linelist$date.of.onset
