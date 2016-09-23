@@ -48,6 +48,14 @@ First, we load the data:
 ```r
 library(outbreaks)
 library(ggplot2)
+```
+
+```
+## Find out what's changed in ggplot2 at
+## http://github.com/hadley/ggplot2/releases.
+```
+
+```r
 library(incidence)
 
 dat <- ebola.sim$linelist$date.of.onset
@@ -97,27 +105,25 @@ Note that `i` case be subsetted easily; for instance, to keep the tail of the ep
 
 ```r
 i.tail <- subset(i, from=as.Date("2015-01-01"))
-```
-
-```
-## Error in subset.default(i, from = as.Date("2015-01-01")): argument "subset" is missing, with no default
-```
-
-```r
 i.tail
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'i.tail' not found
+## <incidence object>
+## [1205 cases from days 2015-01-01 to 2015-04-30]
+## 
+## $counts: matrix with 120 rows and 1 columns
+## $n: 1205 cases in total
+## $dates: 120 dates marking the left-side of bins
+## $interval: 1 day
+## $timespan: 120 days
 ```
 
 ```r
 plot(i.tail, border="white")
 ```
 
-```
-## Error in plot(i.tail, border = "white"): object 'i.tail' not found
-```
+![plot of chunk tail](figs/tail-1.png)
 
 Or, to focus on the peak of the distribution:
 
