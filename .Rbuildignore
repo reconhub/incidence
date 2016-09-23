@@ -6,3 +6,4 @@
 ^README\.Rmd$
 ^update_web\.sh$
 figure/*
+^codecov\.yml$

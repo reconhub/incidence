@@ -17,4 +17,5 @@ Imports:
     ggplot2
 Suggests:
     testthat, 
-    outbreaks
+    outbreaks,
+    covr
