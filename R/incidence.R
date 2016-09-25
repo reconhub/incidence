@@ -46,7 +46,7 @@
 ##' }
 ##'
 ##'
-incidence <- function(dates, interval = 1, ...) {
+incidence <- function(dates, interval = 1L, ...) {
   UseMethod("incidence")
 }
 
@@ -61,7 +61,7 @@ incidence <- function(dates, interval = 1, ...) {
 ##' @export
 ##' @rdname incidence
 
-incidence.integer <- function(dates, interval = 1, ...) {
+incidence.integer <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
 
