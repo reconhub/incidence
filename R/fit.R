@@ -22,7 +22,22 @@
 ##'
 ##' @param level The confidence interval to be used for predictions; defaults to 95\%.
 ##'
+
+## The model fitted is a simple linear regression on the log-incidence.
+
+## Non-trivial bits involve:
+
+## 1) Fitting several models
+## I.e. in case there is a increasing and a decreasing phase, we fit one
+##  model for each phase separately.
+
+## 2) log(0)
+## For now we use an arbitrary replacement (1e-10)
 fit <- function(x, split = NULL, level = 0.95){
+    min.count <- 1e-10
+    x$counts <- as.numeric(x$counts)
+    x$counts[x$counts < min.count] <- min.count
+
     if (is.null(split)) {
         dates.int <- seq_along(x$dates) - 1
         lm1 <- stats::lm(log(x$counts) ~ dates.int)
