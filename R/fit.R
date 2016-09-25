@@ -145,20 +145,20 @@ extract.info <- function(reg, x, level){
 
     ## extract growth rates (r)
     ## here we need to keep all coefficients when there are interactions
-    new.data.1 <- data.frame(dates.int = 1, groups = colnames(x$counts))
-    new.data.0 <- data.frame(dates.int = 0, groups = colnames(x$counts))
-    pred.1 <- predict(reg, newdata = new.data.1, interval = "confidence", level = level)
-    pred.0 <- predict(reg, newdata = new.data.0, interval = "confidence", level = level)
-
-    r <-  pred.1 - pred.0
-    rownames(r) <- colnames(x$counts)
-    r <- 
-    r.conf <- stats::confint(reg, 2, level)
-    rownames(r.conf) <- NULL
+    to.keep <- grep("^dates.int.*$", names(coef(reg)), value=TRUE)
+    r <- coef(reg)[to.keep]
+    names(r) <- reg$xlevels[[1]]
+    r.conf <- stats::confint(reg, to.keep, level)
+    rownames(r.conf) <- names(r)
+    if (length(r)>1) {
+        r[-1] <- r[-1] + r[1] # add coefs to intercept
+        r.conf[-1,] <- r.conf[-1,] + r.conf[1,] # add coefs to intercept
+    }
 
     r.day <- r / x$interval
     r.day.conf <- r.conf / x$interval
 
+    ## !! NEED TO PASS NEWDATA ARGUMENT HEREN
     pred <- exp(stats::predict(reg))
     pred.conf <- exp(stats::predict(reg, interval = "confidence", level = level)[,2:3])
 
