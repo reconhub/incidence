@@ -49,7 +49,7 @@
 ##' }
 ##'
 ##'
-incidence <- function(dates, interval = 1L, group = NULL, ...) {
+incidence <- function(dates, interval = 1L, ...) {
   UseMethod("incidence")
 }
 
@@ -151,7 +151,7 @@ incidence.Date <- function(dates, interval = 1L, ...) {
     dates <- check.dates(dates)
 
     first.date <- min(dates, na.rm = TRUE)
-    out <- incidence.default(as.integer(dates - first.date), interval, ...)
+    out <- incidence.integer(as.integer(dates - first.date), interval, ...)
     out$dates <- first.date + out$dates
     out
 }
@@ -164,11 +164,11 @@ incidence.Date <- function(dates, interval = 1L, ...) {
 ##' @export
 ##' @rdname incidence
 
-incidence.POSIXt <- function(dates, ...) {
+incidence.POSIXt <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
 
-    ret <- incidence(as.Date(dates))
+    ret <- incidence(as.Date(dates), interval, ...)
     f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
     ret$dates <- f(ret$dates)
     ret
