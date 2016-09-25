@@ -13,6 +13,9 @@
 ##' @param interval An integer indicating the (fixed) size of the time interval used for computing
 ##' the incidence; defaults to 1 day.
 ##'
+##' @param groups An optional factor defining groups of observations for which incidence should be
+##' computed separately.
+##'
 ##' @param ... Additional arguments passed to other methods (none are used).
 ##'
 ##' @return A named list with 2 members (days [first day per interval] and
@@ -46,7 +49,7 @@
 ##' }
 ##'
 ##'
-incidence <- function(dates, interval = 1L, ...) {
+incidence <- function(dates, interval = 1L, group = NULL, ...) {
   UseMethod("incidence")
 }
 
@@ -61,22 +64,37 @@ incidence <- function(dates, interval = 1L, ...) {
 ##' @export
 ##' @rdname incidence
 
-incidence.integer <- function(dates, interval = 1L, ...) {
+incidence.integer <- function(dates, interval = 1L, groups = NULL, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
+    interval <- check.interval # enforces positive, finite integer
+    groups <- check.groups # enforces factor of right length
 
+    ## check interval
     first.date <- min(dates)
     last.date <- max(dates)
-    interval <- round(interval)
+    interval <- as.integer(round(interval))
+
 
     ## handle case where interval is larger than span
-    if (last.date-first.date < interval){
+    if ((last.date-first.date) < interval){
         breaks <- as.integer(first.date)
         counts <- length(dates)
     } else {
+        ## define breaks
         breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
         breaks <- as.integer(breaks)
-        counts <- as.integer(table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE)))
+
+        ## function to compute counts of dates with defined breaks
+        count.dates <- function(dates, breaks){
+            as.integer(table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE)))
+        }
+        if (!is.null(group)) {
+            counts <- tapply(dates, groups, count.dates, breaks)
+            counts <- matrix(counts, ncol = (length(levels(group))))
+        } else {
+            counts <- cout.dates(dates, breaks)
+        }
     }
 
     out <- list(dates = breaks, # left side of the intervals (incl left, excl right)
@@ -182,7 +200,8 @@ check.dates <- function(dates){
     ## make sure input can be used
     to.remove <- !is.finite(dates)
     if (sum(to.remove)>0) {
-        message(sprintf("%d non-finite values (NA, Inf) where removed from the data.\n", sum(to.remove)))
+        message(sprintf("%d non-finite values (NA, Inf) where removed from the data.\n",
+                        sum(to.remove)))
         dates <- dates[!to.remove]
 
     }
@@ -193,3 +212,47 @@ check.dates <- function(dates){
 
     dates
 }
+
+
+
+
+
+## Non-exported function, enforces that an interval is:
+## - strictly positive
+## - integer (rounded)
+## - finite
+## - of length 1
+check.interval <- function(interval){
+    if (missing(interval) || is.null(interval)) {
+        stop("Interval is missing or NULL")
+    }
+    if (length(interval) != 1L) {
+        stop(sprintf("Exactly one value should be provided as interval (%d provided)",
+             length(interval)))
+    }
+    if (!is.finite(interval)) {
+        stop("interval is not finite")
+    }
+    interval <- as.integer(round(old <- interval))
+    if (interval < 1L) {
+        stop(sprintf("interval must be at least 1 (input: %.3f; after rounding: %d)",
+                     old, interval))
+    }
+    interval
+}
+
+
+
+
+
+## Non-exported function, enforces that 'groups' is:
+## - a factor
+## - of the same length as 'dates'
+check.groups <- function(groups, dates){
+    if (length(groups) != length(dates)) {
+        stop(sprintf("'groups' does not have the same length as dates (%d vs %d)",
+             length(groups), length(dates)))
+    }
+    factor(groups)
+}
+
