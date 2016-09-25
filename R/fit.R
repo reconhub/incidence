@@ -39,7 +39,6 @@
 ## include groups with interaction, whether or not it is significant.
 
 fit <- function(x, split = NULL, level = 0.95){
-##    browser()
     ## enforce minimum counts
     min.count <- 1e-10
     x$counts[x$counts < min.count] <- min.count
@@ -66,11 +65,11 @@ fit <- function(x, split = NULL, level = 0.95){
         df1$dates.int <- as.integer(df1$dates - min(df1$dates))
         df2$dates.int <- as.integer(df2$dates - min(df2$dates))
                 if (n.groups == 1) {
-                    lm1 <- stats::lm(log(counts) ~  dates.int1, data = df1)
-                    lm2 <- stats::lm(log(counts) ~  dates.int2, data = df2)
+                    lm1 <- stats::lm(log(counts) ~  dates.int, data = df1)
+                    lm2 <- stats::lm(log(counts) ~  dates.int, data = df2)
                 } else {
-                    lm1 <- stats::lm(log(counts) ~  dates.int1 * groups, data = df1)
-                    lm2 <- stats::lm(log(counts) ~  dates.int2 * groups, data = df2)
+                    lm1 <- stats::lm(log(counts) ~  dates.int * groups, data = df1)
+                    lm2 <- stats::lm(log(counts) ~  dates.int * groups, data = df2)
                 }
         before <- extract.info(lm1, x, level)
         before$dates <- x1$dates
@@ -146,7 +145,12 @@ extract.info <- function(reg, x, level){
     ## here we need to keep all coefficients when there are interactions
     to.keep <- grep("^dates.int.*$", names(coef(reg)), value=TRUE)
     r <- coef(reg)[to.keep]
-    names(r) <- reg$xlevels[[1]]
+    use.groups <- length(r) > 1
+    if (use.groups) {
+        names(r) <- reg$xlevels[[1]] # names = levels if groups
+    } else {
+        names(r) <- NULL # no names otherwise
+    }
     r.conf <- stats::confint(reg, to.keep, level)
     rownames(r.conf) <- names(r)
     if (length(r)>1) {
@@ -158,8 +162,12 @@ extract.info <- function(reg, x, level){
     r.day.conf <- r.conf / x$interval
 
     ## need to pass new data spanning all dates and groups here
-    new.data <- expand.grid(sort(unique(reg$model$dates.int)), levels(reg$model$groups))
-    names(new.data) <- c("dates.int", "groups")
+    if (use.groups) {
+        new.data <- expand.grid(sort(unique(reg$model$dates.int)), levels(reg$model$groups))
+        names(new.data) <- c("dates.int", "groups")
+    } else {
+        new.data <- data.frame(dates.int = sort(unique(reg$model$dates.int)))
+    }
     pred <- exp(stats::predict(reg, newdata = new.data, interval = "confidence",
                                    level = level))
     pred <- cbind.data.frame(new.data, pred) # keep track of dates and groups for plotting
