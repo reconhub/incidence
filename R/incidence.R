@@ -46,6 +46,12 @@
 ##'   inc.week
 ##'   plot(inc.week)
 ##'   plot(inc.week, border = "white") # with visible border
+##'   ## use group information
+##'   sex <- ebola.sim$linelist$gender
+##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
+##'   inc.week.gender
+##'   head(inc.week.gender$counts)
+##'   plot(inc.week.gender)
 ##' }
 ##'
 ##'
@@ -183,8 +189,12 @@ incidence.POSIXt <- function(dates, interval = 1L, ...) {
 print.incidence <- function(x, ...) {
 
   cat("<incidence object>\n")
-  cat(sprintf("[%d cases from days %s to %s]\n\n", sum(x$n), min(x$dates), max(x$dates)))
-  cat(sprintf("$counts: matrix with %d rows and %d columns\n",
+  cat(sprintf("[%d cases from days %s to %s]\n", sum(x$n), min(x$dates), max(x$dates)))
+  if (ncol(x$counts) > 1L) {
+      groups.txt <- paste(colnames(x$counts), collapse = ", ")
+      cat(sprintf("[%d groups: %s]\n", ncol(x$counts), groups.txt))
+  }
+  cat(sprintf("\n$counts: matrix with %d rows and %d columns\n",
               nrow(x$counts), ncol(x$counts)))
   cat(sprintf("$n: %d cases in total\n", x$n))
   cat(sprintf("$dates: %d dates marking the left-side of bins\n", length(x$dates)))

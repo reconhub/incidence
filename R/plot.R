@@ -43,6 +43,11 @@
 ##'   inc.week
 ##'   plot(inc.week)
 ##'   plot(inc.week, border = "white") # with visible border
+##'
+##'   ## use group information
+##'   sex <- ebola.sim$linelist$gender
+##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
+##'   plot(inc.week.gender)
 ##' }
 ##'
 plot.incidence <- function(x, ..., fit = NULL, border = NA,
