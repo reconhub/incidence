@@ -64,17 +64,22 @@ incidence <- function(dates, interval = 1L, group = NULL, ...) {
 ##' @export
 ##' @rdname incidence
 
-incidence.integer <- function(dates, interval = 1L, groups = NULL, ...) {
+incidence.integer <- function(dates, interval = 1L, groups = NULL, na.as.group = TRUE, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
     interval <- check.interval(interval) # enforces positive, finite integer
-    groups <- check.groups(groups, dates) # enforces factor of right length
+    groups <- check.groups(groups, dates, na.as.group) # enforces factor of right length
 
     ## check interval
     first.date <- min(dates)
     last.date <- max(dates)
     interval <- as.integer(round(interval))
 
+    ## function to compute counts of dates with defined breaks
+    count.dates <- function(dates, breaks){
+        counts <- table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE))
+        as.integer(counts)
+    }
 
     ## handle case where interval is larger than span
     if ((last.date-first.date) < interval){
@@ -85,11 +90,9 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, ...) {
         breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
         breaks <- as.integer(breaks)
 
-        ## function to compute counts of dates with defined breaks
-        count.dates <- function(dates, breaks){
-            counts <- table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE))
-            counts <- matrix(as.integer(counts), ncol = 1L)
-        }
+        ## compute counts within bins defined by the breaks
+        counts <- count.dates(dates, breaks)
+        counts <- matrix(as.integer(counts), ncol = 1L)
         if (!is.null(groups)) {
             counts <- tapply(dates, groups, count.dates, breaks)
             counts <- matrix(as.integer(unlist(counts)), ncol = length(levels(groups)))
@@ -250,9 +253,16 @@ check.interval <- function(interval){
 ## Non-exported function, enforces that 'groups' is either NULL or:
 ## - a factor
 ## - of the same length as 'dates'
-check.groups <- function(groups, dates){
+##
+## It also treats missing groups (NA) as a separate group is needed.
+##
+check.groups <- function(groups, dates, na.as.group){
     if (is.null(groups)) {
         return(NULL)
+    }
+    if (na.as.group) {
+        groups <- as.character(groups)
+        groups[is.na(groups)] <- "NA"
     }
     if (length(groups) != length(dates)) {
         stop(sprintf("'groups' does not have the same length as dates (%d vs %d)",
