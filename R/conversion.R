@@ -27,7 +27,7 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
     if (long && ncol(x$counts)>1) {
         n.groups <- ncol(out) - 1
         groups <- factor(rep(colnames(x$counts), each = nrow(out)))
-        counts <- as.integer(x$counts)
+        counts <- as.vector(x$counts)
         out <- data.frame(dates = out[1], counts = counts, groups = groups)
 
     }
