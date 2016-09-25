@@ -98,7 +98,8 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA,
 
     ## Add color to groups if needed
     if (ncol(df>2)) {
-        out <- out + ggplot2::aes_string(fill = "groups")
+        out <- out + ggplot2::aes_string(fill = "groups") +
+            ggplot2::scale_fill_manual(values = col.pal(n.groups))
     }
 
     out
