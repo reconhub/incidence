@@ -19,7 +19,8 @@
 ##'
 pal1 <- function(n){
     if(!is.numeric(n)) stop("n is not a number")
-    colors <- c("#d4876a", "#d4aa6a", "#4a6a8a","#499371")
+    colors <- c("#aa3939", "#4a6a8a", "#d4aa6a","#499371")
+    if (n < 4) return(colors[1:n])
     return(colorRampPalette(colors)(n))
 }
 
@@ -32,7 +33,8 @@ pal1 <- function(n){
 
 pal1light <- function(n){
     if(!is.numeric(n)) stop("n is not a number")
-    colors <- c("#ffc1aa", "#ffddaa", "#738ca6","#76b096")
+    colors <- c("#d46a6a", "#738ca6", "#ffddaa","#76b096")
+    if (n < 4) return(colors[1:n])
     return(colorRampPalette(colors)(n))
 }
 
@@ -46,6 +48,7 @@ pal1light <- function(n){
 
 pal1dark <- function(n){
     if(!is.numeric(n)) stop("n is not a number")
-    colors <- c("#aa5739", "#aa7d39", "#2b4c6f","#277552")
+    colors <- c("#801515", "#2b4c6f", "#aa7d39","#277552")
+    if (n < 4) return(colors[1:n])
     return(colorRampPalette(colors)(n))
 }

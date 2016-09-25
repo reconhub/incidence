@@ -20,6 +20,9 @@
 ##'
 ##' @param border The color to be used for the borders of the bars; NA for invisiable borders.
 ##'
+##' @param col.pal The color palette to be used for the groups; defaults to \code{pal1}. See
+##' \code{\link{pal1}} for other palettes implemented in incidence.
+##'
 ##' @param xlab The label to be used for the x-axis; empty by default.
 ##'
 ##' @param ylab The label to be used for the y-axis; by default, a label will be generated
@@ -42,7 +45,8 @@
 ##'   plot(inc.week, border = "white") # with visible border
 ##' }
 ##'
-plot.incidence <- function(x, ..., fit = NULL, border = NA, xlab = "", ylab = NULL) {
+plot.incidence <- function(x, ..., fit = NULL, border = NA,
+                           col.pal = pal1, xlab = "", ylab = NULL) {
     df <- as.data.frame(x)
 
     ## format df if there are groups (otherwise there's just a second column called 'counts')
@@ -90,6 +94,11 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA, xlab = "", ylab = NU
         } else {
             stop("fit must be a 'incidence.fit' object, or a list of these")
         }
+    }
+
+    ## Add color to groups if needed
+    if (ncol(df>2)) {
+        out <- out + ggplot2::aes_string(fill = "groups")
     }
 
     out
