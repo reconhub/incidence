@@ -81,7 +81,7 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, na.as.group =
         as.integer(counts)
     }
 
-    ## handle case where interval is larger than span
+    ## corner case: interval is larger than span
     if ((last.date-first.date) < interval){
         breaks <- as.integer(first.date)
         counts <- length(dates)
@@ -91,14 +91,13 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, na.as.group =
         breaks <- as.integer(breaks)
 
         ## compute counts within bins defined by the breaks
-        counts <- count.dates(dates, breaks)
-        counts <- matrix(as.integer(counts), ncol = 1L)
         if (!is.null(groups)) {
             counts <- tapply(dates, groups, count.dates, breaks)
             counts <- matrix(as.integer(unlist(counts)), ncol = length(levels(groups)))
             colnames(counts) <- levels(groups)
         } else {
             counts <- count.dates(dates, breaks)
+            counts <- matrix(as.integer(counts), ncol = 1L)
         }
     }
 

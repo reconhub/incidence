@@ -11,17 +11,19 @@
 \title{Compute incidence from a numerical vector of dates, representing
 days.}
 \usage{
-incidence(dates, interval = 1, ...)
+incidence(dates, interval = 1L, ...)
 
-\method{incidence}{integer}(dates, interval = 1, ...)
+\method{incidence}{integer}(dates, interval = 1L, groups = NULL,
+  na.as.group = TRUE, ...)
 
-\method{incidence}{default}(dates, interval = 1, ...)
+\method{incidence}{default}(dates, interval = 1L, groups = NULL,
+  na.as.group = TRUE, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 
 \method{incidence}{Date}(dates, interval = 1L, ...)
 
-\method{incidence}{POSIXt}(dates, ...)
+\method{incidence}{POSIXt}(dates, interval = 1L, ...)
 
 \method{print}{incidence}(x, ...)
 }
@@ -33,6 +35,9 @@ Date, POSIXct. Note that decimal numbers will be floored with a warning.}
 the incidence; defaults to 1 day.}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
+
+\item{groups}{An optional factor defining groups of observations for which incidence should be
+computed separately.}
 
 \item{x}{an 'incidence' object}
 }
