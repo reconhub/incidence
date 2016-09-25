@@ -151,7 +151,8 @@ extract.info <- function(reg, x, level){
     pred.0 <- predict(reg, newdata = new.data.0, interval = "confidence", level = level)
 
     r <-  pred.1 - pred.0
-
+    rownames(r) <- colnames(x$counts)
+    r <- 
     r.conf <- stats::confint(reg, 2, level)
     rownames(r.conf) <- NULL
 
