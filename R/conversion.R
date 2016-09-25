@@ -14,5 +14,9 @@ as.ts.incidence_summary <- function(x, ...) {
 
 ##' @export
 as.data.frame.incidence <- function(x, ...){
-    data.frame(dates=x$dates, counts=x$counts)
+    counts <- x$counts
+    if (ncol(counts) == 1L) {
+        colnames(counts) <- "counts"
+    }
+    cbind.data.frame(dates=x$dates, counts)
 }
