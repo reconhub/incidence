@@ -39,9 +39,9 @@
 ## include groups with interaction, whether or not it is significant.
 
 fit <- function(x, split = NULL, level = 0.95){
-    ## enforce minimum counts
-    min.count <- 1e-10
-    x$counts[x$counts < min.count] <- min.count
+    ## enforce minimum counts !! THIS BIASES THE MODEL A LOT
+    ## min.count <- 1e-10
+    ## x$counts[x$counts < min.count] <- min.count
     n.groups <- ncol(x$counts)
 
     ## model without split (1 model)
@@ -153,7 +153,7 @@ extract.info <- function(reg, x, level){
     }
     r.conf <- stats::confint(reg, to.keep, level)
     rownames(r.conf) <- names(r)
-    if (length(r)>1) {
+    if (use.groups) {
         r[-1] <- r[-1] + r[1] # add coefs to intercept
         r.conf[-1,] <- r.conf[-1,] + r.conf[1,] # add coefs to intercept
     }
