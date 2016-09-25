@@ -49,12 +49,14 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA,
                            col.pal = pal1, xlab = "", ylab = NULL) {
     df <- as.data.frame(x)
 
-    ## format df if there are groups (otherwise there's just a second column called 'counts')
+    ## format df if there are groups (otherwise there's just a second column for counts
     if (ncol(df) > 2) {
         n.groups <- ncol(df) - 1
         groups <- factor(rep(names(df)[-1], each = nrow(df)))
         counts <- as.integer(unlist(df[-1]))
         df <- data.frame(dates = df[1], counts = counts, groups = groups)
+    } else {
+        names(df)[2] <- "counts"
     }
 
 
@@ -97,7 +99,7 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA,
     }
 
     ## Add color to groups if needed
-    if (ncol(df>2)) {
+    if (ncol(df) > 2) {
         out <- out + ggplot2::aes_string(fill = "groups") +
             ggplot2::scale_fill_manual(values = col.pal(n.groups))
     }
