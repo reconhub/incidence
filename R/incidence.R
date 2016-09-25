@@ -67,8 +67,8 @@ incidence <- function(dates, interval = 1L, group = NULL, ...) {
 incidence.integer <- function(dates, interval = 1L, groups = NULL, ...) {
     ## make sure input can be used
     dates <- check.dates(dates)
-    interval <- check.interval # enforces positive, finite integer
-    groups <- check.groups # enforces factor of right length
+    interval <- check.interval(interval) # enforces positive, finite integer
+    groups <- check.groups(groups, dates) # enforces factor of right length
 
     ## check interval
     first.date <- min(dates)
@@ -87,18 +87,20 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, ...) {
 
         ## function to compute counts of dates with defined breaks
         count.dates <- function(dates, breaks){
-            as.integer(table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE)))
+            counts <- table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE))
+            counts <- matrix(as.integer(counts), ncol = 1L)
         }
-        if (!is.null(group)) {
+        if (!is.null(groups)) {
             counts <- tapply(dates, groups, count.dates, breaks)
-            counts <- matrix(counts, ncol = (length(levels(group))))
+            counts <- matrix(as.integer(unlist(counts)), ncol = length(levels(groups)))
+            colnames(counts) <- levels(groups)
         } else {
-            counts <- cout.dates(dates, breaks)
+            counts <- count.dates(dates, breaks)
         }
     }
 
     out <- list(dates = breaks, # left side of the intervals (incl left, excl right)
-                counts = matrix(counts, ncol = 1L), # counts; add columns for stratif incid
+                counts = counts, # counts; add columns for stratif incid
                 timespan = diff(range(dates, na.rm=TRUE))+1, # time span (last date - first date + 1 day)
                 interval = interval, # fixed bin size
                 n = sum(counts)) # total number of cases
@@ -245,10 +247,13 @@ check.interval <- function(interval){
 
 
 
-## Non-exported function, enforces that 'groups' is:
+## Non-exported function, enforces that 'groups' is either NULL or:
 ## - a factor
 ## - of the same length as 'dates'
 check.groups <- function(groups, dates){
+    if (is.null(groups)) {
+        return(NULL)
+    }
     if (length(groups) != length(dates)) {
         stop(sprintf("'groups' does not have the same length as dates (%d vs %d)",
              length(groups), length(dates)))
