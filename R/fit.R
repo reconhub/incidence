@@ -138,7 +138,6 @@ fit.optim.split <- function(x, window = x$timespan/4, plot = TRUE){
 ## - level is a confidence level, defaulting to .95
 
 extract.info <- function(reg, x, level){
-    browser()
     if (is.null(reg)) {
         return(NULL)
     }
@@ -158,15 +157,17 @@ extract.info <- function(reg, x, level){
     r.day <- r / x$interval
     r.day.conf <- r.conf / x$interval
 
-    ## !! NEED TO PASS NEWDATA ARGUMENT HEREN
-    pred <- exp(stats::predict(reg))
-    pred.conf <- exp(stats::predict(reg, interval = "confidence", level = level)[,2:3])
-
+    ## need to pass new data spanning all dates and groups here
+    new.data <- expand.grid(sort(unique(reg$model$dates.int)), levels(reg$model$groups))
+    names(new.data) <- c("dates.int", "groups")
+    pred <- exp(stats::predict(reg, newdata = new.data, interval = "confidence",
+                                   level = level))
+    pred <- cbind.data.frame(new.data, pred) # keep track of dates and groups for plotting
     info <- list(r = r, r.conf = r.conf,
-                r.day = r.day, r.day.conf = r.day.conf,
-                pred = pred, pred.conf = pred.conf)
+                 r.day = r.day, r.day.conf = r.day.conf,
+                 pred = pred)
 
-    if (r.day > 0 ) {
+    if (r.day[1] > 0 ) { # note: choice of doubling vs halving only based on 1st group
         info$doubling <- log(2) / r.day
         info$doubling.conf <- log(2) / r.day.conf
         o.names <- names(info$doubling.conf)
@@ -203,7 +204,7 @@ print.incidence.fit <- function(x, ...) {
   cat(sprintf("  $r.day: %.5f (daily growth rate)\n", x$info$r.day))
   cat(sprintf("  $r.day.conf: [%.5f ; %.5f] (confidence interval)\n",
               x$info$r.day.conf[1], x$info$r.day.conf[2]))
-  if (x$info$r > 0) {
+  if (x$info$r[1] > 0) {
       cat(sprintf("  $doubling: %.1f (doubling time in days)\n", x$info$doubling))
       cat(sprintf("  $doubling.conf: [%.1f ; %.1f] (confidence interval)\n",
                   x$info$doubling.conf[1], x$info$doubling.conf[2]))
@@ -250,14 +251,20 @@ add.incidence.fit <- function(p, x){
 ##' @export
 ##' @rdname fit
 ##' @importFrom graphics lines
+##' @inheritParams plot.incidence
+##' @param x An \code{incidence.fit} object.
 
-plot.incidence.fit <- function(x, ...){
-    df <- data.frame(dates = rep(x$dates, 3),
-                     type = factor(rep(c("pred", "low", "high"), each=length(x$dates))),
-                     y = c(x$info$pred, x$info$pred.conf[,1], x$info$pred.conf[,2])
-                     )
+plot.incidence.fit <- function(x, ..., col.pal = pal1){
+    df <- cbind.data.frame(dates = x$dates, x$info$pred)
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates")) +
-        ggplot2::geom_line(data = df, ggplot2::aes_string(y = "y", linetype = "type")) +
-         ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
-    out
+        ggplot2::geom_line(ggplot2::aes_string(y = "fit"), linetype = 1) +
+            ggplot2::geom_line(ggplot2::aes_string(y = "lwr"), linetype = 2) +
+            ggplot2::geom_line(ggplot2::aes_string(y = "upr"), linetype = 2)
+
+    if ("groups" %in% names(df)) {
+        n.groups <- length(levels(df$groups))
+        out <- out + ggplot2::aes_string(color = "groups") +
+            ggplot2::scale_color_manual(values = col.pal(n.groups))
+    }
+    out + ggplot2::labs(x = "", y = "Predicted incidence")
 }
