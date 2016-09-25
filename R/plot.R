@@ -100,6 +100,10 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA,
     if (ncol(df) > 2) {
         out <- out + ggplot2::aes_string(fill = "groups") +
             ggplot2::scale_fill_manual(values = col.pal(n.groups))
+        if (!is.null(fit)) {
+            out <- out + ggplot2::aes_string(color = "groups") +
+            ggplot2::scale_color_manual(values = col.pal(n.groups))
+        }
     }
 
     out

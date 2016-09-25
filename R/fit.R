@@ -230,18 +230,16 @@ print.incidence.fit <- function(x, ...) {
 ## 'incidence.fit' object ('x')
 
 add.incidence.fit <- function(p, x){
-    df <- data.frame(dates = rep(x$dates, 3),
-                     type = factor(rep(c("pred", "low", "high"), each=length(x$dates))),
-                     y = c(x$info$pred, x$info$pred.conf[,1], x$info$pred.conf[,2])
-                     )
+    df <- cbind.data.frame(dates = x$dates, x$info$pred)
 
-    ## Note: adding several geoms without calling ggplot2::ggplot() will fail
-    ## because the "+" operator will not work
-    out <- suppressMessages(p +
-                            ggplot2::geom_line(data = df, ggplot2::aes_string(x = "dates", y = "y", linetype = "type")) +
-         ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
+    p <- suppressMessages(p + ggplot2::geom_line(data = df,
+                                                   ggplot2::aes_string(x = "dates", y = "fit"), linetype = 1) +
+                            ggplot2::geom_line(data = df,
+                                               ggplot2::aes_string(x = "dates", y = "lwr"), linetype = 2) +
+                            ggplot2::geom_line(data = df,
+                                               ggplot2::aes_string(x = "dates", y = "upr"), linetype = 2)
                             )
-    out
+    p
 }
 
 
