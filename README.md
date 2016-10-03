@@ -27,7 +27,7 @@ Note that this requires the package *devtools* installed.
 
 In the following we provide a quick overview of the package's functionalities.
 
-## Main functions
+## Overview of the main functions
 
 - **`incidence`**: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class *incidence*.
 - **`subset`**: subset an *incidence* object by specifying a time window.
@@ -35,11 +35,10 @@ In the following we provide a quick overview of the package's functionalities.
 - **`fit`**: fit one or two exponential models (i.e. linear regression on log-incidence) to an *incidence* object; two models are calibrated only if a date is provided to split the time series in two (argument `split`); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class *incidence.fit*, each of which contains various useful information (e.g. growth rate *r*, doubling/halving time, predictions and confidence intervals).
 - **`fit.optim.split`**: finds the optimal date to split the time series in two, typically around the peak of the epidemic.
 - **`plot`**: this method (see `?plot.incidence` for details) plots *incidence* objects, and can also add predictions of the model(s) contained in an  *incidence.fit* object (or a list of such objects).
+- **`pool`**: pool incidence from different groups into one global incidence time series.
 
 
-## Examples
-
-### Simulated Ebola outbreak
+## Worked example: simulated Ebola outbreak
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
 [*outbreaks*](http://github.com/reconhub/outbreaks). We will compute incidence for various time
@@ -70,7 +69,7 @@ head(dat)
 ```
 
 
-#### Computing and plotting incidence
+## Computing and plotting incidence
 We compute the daily incidence:
 
 ```r
@@ -122,7 +121,7 @@ plot(i.tail, border="white")
 Or, to focus on the peak of the distribution:
 
 ```r
-plot(i[100:250]) 
+plot(i[100:250])
 ```
 
 ![plot of chunk middle](figs/middle-1.png)
@@ -180,43 +179,28 @@ plot(i.7.sex, stack = TRUE)
 
 
 
-#### Modelling incidence
+## Modelling incidence
 
 Incidence data, excluding zeros, can be modelled using log-linear regression of the form:
 log(*y*) = *r* x *t* + *b*
 
 where *y* is the incidence, *r* is the growth rate, *t* is the number of days since a specific point in time (typically the start of the outbreak), and *b* is the intercept.
 
-Such model can be fitted to any incidence object using `fit`; for instance:
+Such model can be fitted to any incidence object using `fit`.
+Of course, a single log-linear model is not sufficient for modelling our time series, as there is clearly an growing and a decreasing phase.
+As a start, we can calibrate a model on the first 20 weeks of the epidemic:
+
+
 
 ```r
-fit(i.7)
-```
-
-```
-## <incidence.fit object>
-## 
-## $lm: regression of log-incidence over time
-## 
-## $info: list containing the following items:
-##   $r.day: 0.00072 (daily growth rate)
-##   $r.day.conf: [0.00033 ; 0.00111] (confidence interval)
-##   $doubling: 961.1 (doubling time in days)
-##   $doubling.conf: [621.8 ; 2115.7] (confidence interval)
-##   $pred: 4 predictions of incidence
-```
-
-```r
-plot(i.7, fit=fit(i.7))
+plot(i.7[1:20])
 ```
 
 ![plot of chunk fit1](figs/fit1-1.png)
 
-Of course, in this case, the model does not make any sense, as it assumes a single trend.
-As a more reasonable alternative, we could for instance try to fit a model to the first 20 weeks of the epidemic:
-
 ```r
-fit(i.7[1:20])
+early.fit <- fit(i.7[1:20])
+early.fit
 ```
 
 ```
@@ -225,23 +209,33 @@ fit(i.7[1:20])
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.00454 (daily growth rate)
-##   $r.day.conf: [0.00371 ; 0.00536] (confidence interval)
-##   $doubling: 152.8 (doubling time in days)
-##   $doubling.conf: [129.2 ; 186.9] (confidence interval)
+##   $r: 0.03176 (daily growth rate)
+##   $r.conf: [0.02596 ; 0.03755] (confidence interval)
+##   $doubling: 21.8 (doubling time in days)
+##   $doubling.conf: [18.5 ; 26.7] (confidence interval)
 ##   $pred: 4 predictions of incidence
 ```
 
+The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:
+
+
 ```r
-plot(i.7[1:20], border="white", fit=fit(i.7[1:20])) + 
-     labs(title = "Model fitted on the first 20 weeks")
+plot(early.fit)
 ```
 
-![plot of chunk fit.early](figs/fit.early-1.png)
+![plot of chunk unnamed-chunk-2](figs/unnamed-chunk-2-1.png)
+
+However, a better way to display these predictions is adding them to the incidence plot using the argument `fit`:
+
+```r
+plot(i.7[1:20], fit = early.fit)
+```
+
+![plot of chunk unnamed-chunk-3](figs/unnamed-chunk-3-1.png)
 
 
-In this case, we would ideally like to fit two models, before and after the peak.
-This is possible using the following approach:
+In this case, we would ideally like to fit two models, before and after the peak of the epidemic.
+This is possible using the following approach, if you know what date to use to split the data in two phases:
 
 ```r
 fit.both <- fit(i.7, split=as.Date("2014-10-15"))
@@ -255,10 +249,10 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.00392 (daily growth rate)
-##   $r.day.conf: [0.00344 ; 0.00439] (confidence interval)
-##   $doubling: 177.0 (doubling time in days)
-##   $doubling.conf: [157.7 ; 201.5] (confidence interval)
+##   $r: 0.02742 (daily growth rate)
+##   $r.conf: [0.02408 ; 0.03076] (confidence interval)
+##   $doubling: 25.3 (doubling time in days)
+##   $doubling.conf: [22.5 ; 28.8] (confidence interval)
 ##   $pred: 4 predictions of incidence
 ## 
 ## $after
@@ -267,10 +261,10 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: -0.00145 (daily growth rate)
-##   $r.day.conf: [-0.00161 ; -0.00129] (confidence interval)
-##   $halving: 478.3 (halving time in days)
-##   $halving.conf: [538.4 ; 430.2] (confidence interval)
+##   $r: -0.01014 (daily growth rate)
+##   $r.conf: [-0.01128 ; -0.00901] (confidence interval)
+##   $halving: 68.3 (halving time in days)
+##   $halving.conf: [76.9 ; 61.5] (confidence interval)
 ##   $pred: 4 predictions of incidence
 ```
 
@@ -280,7 +274,7 @@ plot(i.7, fit=fit.both)
 
 ![plot of chunk fit.both](figs/fit.both-1.png)
 
-This is much better, but the splitting date is not completely optimum. To look for the best possible splitting date (i.e. the one maximizing the average fit of both models), we use:
+This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e. the one maximizing the average fit of both models), we use:
 
 ```r
 best.fit <- fit.optim.split(i.7)
@@ -314,10 +308,10 @@ best.fit
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.00426 (daily growth rate)
-##   $r.day.conf: [0.00373 ; 0.00479] (confidence interval)
-##   $doubling: 162.7 (doubling time in days)
-##   $doubling.conf: [144.6 ; 186.0] (confidence interval)
+##   $r: 0.02982 (daily growth rate)
+##   $r.conf: [0.02609 ; 0.03355] (confidence interval)
+##   $doubling: 23.2 (doubling time in days)
+##   $doubling.conf: [20.7 ; 26.6] (confidence interval)
 ##   $pred: 4 predictions of incidence
 ## 
 ## $fit$after
@@ -326,10 +320,10 @@ best.fit
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: -0.00145 (daily growth rate)
-##   $r.day.conf: [-0.00158 ; -0.00133] (confidence interval)
-##   $halving: 477.5 (halving time in days)
-##   $halving.conf: [521.8 ; 440.1] (confidence interval)
+##   $r: -0.01016 (daily growth rate)
+##   $r.conf: [-0.01103 ; -0.00930] (confidence interval)
+##   $halving: 68.2 (halving time in days)
+##   $halving.conf: [74.5 ; 62.9] (confidence interval)
 ##   $pred: 4 predictions of incidence
 ## 
 ## 
@@ -344,10 +338,10 @@ plot(i.7, fit=best.fit$fit)
 
 ![plot of chunk optim](figs/optim-2.png)
 
-These models are very good approximation of these data, showing a doubling time of 23 days during the first phase, and a halving time of 68 days during the second.
+These models are very good approximation of these data, showing a doubling time of \Sexpr{round(best.fit$fit$before$info$doubling,1)} days during the first phase, and a halving time of \Sexpr{round(best.fit$fit$after$info$halving,1)} days during the second.
 
 
-Note that `fit` will also take groups into account:
+Note that `fit` will also take groups into account if incidence has been computed for several groups:
 
 ```r
 best.fit2 <- fit.optim.split(i.7.sex)$fit
@@ -369,12 +363,12 @@ best.fit2
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.00340 (daily growth rate)
-##    $r.day: 0.00377 (daily growth rate)
-##   $r.day.conf: [0.00300 ; 0.00279] (confidence interval)
-##   $doubling: 203.7 (doubling time in days)
-##    $doubling: 183.7 (doubling time in days)
-##   $doubling.conf: [145.9 ; 182.0] (confidence interval)
+##   $r: 0.02382 (daily growth rate)
+##    $r: 0.02641 (daily growth rate)
+##   $r.conf: [0.02098 ; 0.01955] (confidence interval)
+##   $doubling: 29.1 (doubling time in days)
+##    $doubling: 26.2 (doubling time in days)
+##   $doubling.conf: [20.8 ; 26.0] (confidence interval)
 ##   $pred: 5 predictions of incidence
 ## 
 ## $after
@@ -383,12 +377,12 @@ best.fit2
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: -0.00143 (daily growth rate)
-##    $r.day: -0.00151 (daily growth rate)
-##   $r.day.conf: [-0.00159 ; -0.00188] (confidence interval)
-##   $halving: 484.1 (halving time in days)
-##    $halving: 459.5 (halving time in days)
-##   $halving.conf: [609.8 ; 542.5] (confidence interval)
+##   $r: -0.01002 (daily growth rate)
+##    $r: -0.01056 (daily growth rate)
+##   $r.conf: [-0.01110 ; -0.01316] (confidence interval)
+##   $halving: 69.2 (halving time in days)
+##    $halving: 65.6 (halving time in days)
+##   $halving.conf: [87.1 ; 77.5] (confidence interval)
 ##   $pred: 5 predictions of incidence
 ```
 
@@ -403,4 +397,4 @@ plot(i.7.sex, fit=best.fit2)
 - Thibaut Jombart (@thibautjombart)
 - Rich Fitzjohn (@richfitz)
 
-Maintainer (temporary): Thibaut Jombart (thibautjombart@gmail.com)
+Maintainer: Thibaut Jombart (thibautjombart@gmail.com)
