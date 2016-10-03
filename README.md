@@ -28,11 +28,11 @@ Note that this requires the package *devtools* installed.
 The main functions of the package include:
 
 - **`incidence`**: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class *incidence*.
-- **`subset`**: subset an *incidence* object by specifying a time window.
-- **`[`**: lower-level subsetan of *incidence* objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates, and `j` a subset of groups.
+- **`plot`**: this method (see `?plot.incidence` for details) plots *incidence* objects, and can also add predictions of the model(s) contained in an  *incidence.fit* object (or a list of such objects).
 - **`fit`**: fit one or two exponential models (i.e. linear regression on log-incidence) to an *incidence* object; two models are calibrated only if a date is provided to split the time series in two (argument `split`); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class *incidence.fit*, each of which contains various useful information (e.g. growth rate *r*, doubling/halving time, predictions and confidence intervals).
 - **`fit.optim.split`**: finds the optimal date to split the time series in two, typically around the peak of the epidemic.
-- **`plot`**: this method (see `?plot.incidence` for details) plots *incidence* objects, and can also add predictions of the model(s) contained in an  *incidence.fit* object (or a list of such objects).
+- **`[`**: lower-level subsetan of *incidence* objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates, and `j` a subset of groups.
+- **`subset`**: subset an *incidence* object by specifying a time window.
 - **`pool`**: pool incidence from different groups into one global incidence time series.
 
 
@@ -142,7 +142,7 @@ i.7.sex
 ```
 
 ```r
-plot(i.7.sex, stack = TRUE)
+plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
 ![plot of chunk gender](figs/gender-1.png)
@@ -240,7 +240,7 @@ i.7.outcome
 ```
 
 ```r
-plot(i.7.outcome, stack = TRUE)
+plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
 ![plot of chunk i7outcome](figs/i7outcome-1.png)
@@ -263,7 +263,7 @@ i.7.outcome[,1:2]
 ```
 
 ```r
-plot(i.7.outcome[,1:2], stack = TRUE)
+plot(i.7.outcome[,1:2], stack = TRUE, border = "grey")
 ```
 
 ![plot of chunk groupsub](figs/groupsub-1.png)
