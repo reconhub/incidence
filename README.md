@@ -317,6 +317,13 @@ plot(i.7[1:20])
 
 ```r
 early.fit <- fit(i.7[1:20])
+```
+
+```
+## Error in `colnames<-`(`*tmp*`, value = c("2.5 %", "97.5 %")): attempt to set 'colnames' on an object with less than two dimensions
+```
+
+```r
 early.fit
 ```
 
@@ -326,11 +333,21 @@ early.fit
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r: 0.03176 (daily growth rate)
-##   $r.conf: [0.02596 ; 0.03755] (confidence interval)
-##   $doubling: 21.8 (doubling time in days)
-##   $doubling.conf: [18.5 ; 26.7] (confidence interval)
-##   $pred: 4 predictions of incidence
+##   $r (daily growth rate):
+## [1] 0.03175771
+## 
+##   $r .conf (confidence interval):
+##           2.5 %     97.5 %
+## [1,] 0.02596229 0.03755314
+## 
+##   $doubling: (doubling time in days)
+## [1] 21.8261
+## 
+##   $doubling.conf: (confidence interval)
+##         2.5 %   97.5 %
+## [1,] 26.69823 18.45777
+## 
+##   $pred: data.frame of incidence predictions (20 rows, 4 columns)
 ```
 
 The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:
@@ -356,6 +373,13 @@ This is possible using the following approach, if you know what date to use to s
 
 ```r
 fit.both <- fit(i.7, split=as.Date("2014-10-15"))
+```
+
+```
+## Error in `colnames<-`(`*tmp*`, value = c("2.5 %", "97.5 %")): attempt to set 'colnames' on an object with less than two dimensions
+```
+
+```r
 fit.both
 ```
 
@@ -366,11 +390,21 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r: 0.02742 (daily growth rate)
-##   $r.conf: [0.02408 ; 0.03076] (confidence interval)
-##   $doubling: 25.3 (doubling time in days)
-##   $doubling.conf: [22.5 ; 28.8] (confidence interval)
-##   $pred: 4 predictions of incidence
+##   $r (daily growth rate):
+## [1] 0.02741985
+## 
+##   $r .conf (confidence interval):
+##           2.5 %     97.5 %
+## [1,] 0.02407933 0.03076038
+## 
+##   $doubling: (doubling time in days)
+## [1] 25.27902
+## 
+##   $doubling.conf: (confidence interval)
+##         2.5 %   97.5 %
+## [1,] 28.78598 22.53377
+## 
+##   $pred: data.frame of incidence predictions (28 rows, 4 columns)
 ## 
 ## $after
 ## <incidence.fit object>
@@ -378,11 +412,21 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r: -0.01014 (daily growth rate)
-##   $r.conf: [-0.01128 ; -0.00901] (confidence interval)
-##   $halving: 68.3 (halving time in days)
-##   $halving.conf: [76.9 ; 61.5] (confidence interval)
-##   $pred: 4 predictions of incidence
+##   $r (daily growth rate):
+## [1] -0.01014465
+## 
+##   $r .conf (confidence interval):
+##            2.5 %       97.5 %
+## [1,] -0.01127733 -0.009011981
+## 
+##   $halving: (halving time in days)
+## [1] 68.32636
+## 
+##   $halving.conf: (confidence interval)
+##         2.5 %   97.5 %
+## [1,] 61.46379 76.91397
+## 
+##   $pred: data.frame of incidence predictions (28 rows, 4 columns)
 ```
 
 ```r
@@ -395,6 +439,13 @@ This is much better, but the splitting date is not completely optimal. To look f
 
 ```r
 best.fit <- fit.optim.split(i.7)
+```
+
+```
+## Error in `colnames<-`(`*tmp*`, value = c("2.5 %", "97.5 %")): attempt to set 'colnames' on an object with less than two dimensions
+```
+
+```r
 best.fit
 ```
 
@@ -425,11 +476,21 @@ best.fit
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r: 0.02982 (daily growth rate)
-##   $r.conf: [0.02609 ; 0.03355] (confidence interval)
-##   $doubling: 23.2 (doubling time in days)
-##   $doubling.conf: [20.7 ; 26.6] (confidence interval)
-##   $pred: 4 predictions of incidence
+##   $r (daily growth rate):
+## [1] 0.02982209
+## 
+##   $r .conf (confidence interval):
+##           2.5 %     97.5 %
+## [1,] 0.02608945 0.03355474
+## 
+##   $doubling: (doubling time in days)
+## [1] 23.24274
+## 
+##   $doubling.conf: (confidence interval)
+##        2.5 %   97.5 %
+## [1,] 26.5681 20.65721
+## 
+##   $pred: data.frame of incidence predictions (25 rows, 4 columns)
 ## 
 ## $fit$after
 ## <incidence.fit object>
@@ -437,11 +498,21 @@ best.fit
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r: -0.01016 (daily growth rate)
-##   $r.conf: [-0.01103 ; -0.00930] (confidence interval)
-##   $halving: 68.2 (halving time in days)
-##   $halving.conf: [74.5 ; 62.9] (confidence interval)
-##   $pred: 4 predictions of incidence
+##   $r (daily growth rate):
+## [1] -0.01016191
+## 
+##   $r .conf (confidence interval):
+##            2.5 %       97.5 %
+## [1,] -0.01102526 -0.009298561
+## 
+##   $halving: (halving time in days)
+## [1] 68.21031
+## 
+##   $halving.conf: (confidence interval)
+##         2.5 %   97.5 %
+## [1,] 62.86899 74.54349
+## 
+##   $pred: data.frame of incidence predictions (32 rows, 4 columns)
 ## 
 ## 
 ## $plot
@@ -480,13 +551,25 @@ best.fit2
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r: 0.02382 (daily growth rate)
-##    $r: 0.02641 (daily growth rate)
-##   $r.conf: [0.02098 ; 0.01955] (confidence interval)
-##   $doubling: 29.1 (doubling time in days)
-##    $doubling: 26.2 (doubling time in days)
-##   $doubling.conf: [20.8 ; 26.0] (confidence interval)
-##   $pred: 5 predictions of incidence
+##   $r (daily growth rate):
+##          f          m 
+## 0.02381854 0.02640719 
+## 
+##   $r .conf (confidence interval):
+##        2.5 %     97.5 %
+## f 0.02097832 0.02665876
+## m 0.01955031 0.03326408
+## 
+##   $doubling: (doubling time in days)
+##        f        m 
+## 29.10116 26.24842 
+## 
+##   $doubling.conf: (confidence interval)
+##      2.5 %   97.5 %
+## f 26.00073 33.04111
+## m 20.83771 35.45454
+## 
+##   $pred: data.frame of incidence predictions (46 rows, 5 columns)
 ## 
 ## $after
 ## <incidence.fit object>
@@ -494,13 +577,25 @@ best.fit2
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r: -0.01002 (daily growth rate)
-##    $r: -0.01056 (daily growth rate)
-##   $r.conf: [-0.01110 ; -0.01316] (confidence interval)
-##   $halving: 69.2 (halving time in days)
-##    $halving: 65.6 (halving time in days)
-##   $halving.conf: [87.1 ; 77.5] (confidence interval)
-##   $pred: 5 predictions of incidence
+##   $r (daily growth rate):
+##           f           m 
+## -0.01002305 -0.01056026 
+## 
+##   $r .conf (confidence interval):
+##         2.5 %       97.5 %
+## f -0.01110163 -0.008944473
+## m -0.01316417 -0.007956340
+## 
+##   $halving: (halving time in days)
+##        f        m 
+## 69.15531 65.63734 
+## 
+##   $halving.conf: (confidence interval)
+##      2.5 %   97.5 %
+## f 62.43653 77.49447
+## m 52.65406 87.11885
+## 
+##   $pred: data.frame of incidence predictions (62 rows, 5 columns)
 ```
 
 ```r
