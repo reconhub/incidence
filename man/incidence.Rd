@@ -13,15 +13,17 @@ days.}
 \usage{
 incidence(dates, interval = 1L, ...)
 
-\method{incidence}{integer}(dates, interval = 1L, ...)
+\method{incidence}{integer}(dates, interval = 1L, groups = NULL,
+  na.as.group = TRUE, ...)
 
-\method{incidence}{default}(dates, interval = 1L, ...)
+\method{incidence}{default}(dates, interval = 1L, groups = NULL,
+  na.as.group = TRUE, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 
 \method{incidence}{Date}(dates, interval = 1L, ...)
 
-\method{incidence}{POSIXt}(dates, ...)
+\method{incidence}{POSIXt}(dates, interval = 1L, ...)
 
 \method{print}{incidence}(x, ...)
 }
@@ -33,6 +35,9 @@ Date, POSIXct. Note that decimal numbers will be floored with a warning.}
 the incidence; defaults to 1 day.}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
+
+\item{groups}{An optional factor defining groups of observations for which incidence should be
+computed separately.}
 
 \item{x}{an 'incidence' object}
 }
@@ -66,6 +71,12 @@ if(require(outbreaks)) {
   inc.week
   plot(inc.week)
   plot(inc.week, border = "white") # with visible border
+  ## use group information
+  sex <- ebola.sim$linelist$gender
+  inc.week.gender <- incidence(onset, interval = 7, groups = sex)
+  inc.week.gender
+  head(inc.week.gender$counts)
+  plot(inc.week.gender)
 }
 
 

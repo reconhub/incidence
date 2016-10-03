@@ -20,6 +20,11 @@
 ##'
 ##' @param border The color to be used for the borders of the bars; NA for invisiable borders.
 ##'
+##' @param col.pal The color palette to be used for the groups; defaults to \code{pal1}. See
+##' \code{\link{pal1}} for other palettes implemented in incidence.
+##'
+##' @param alpha The alpha level for color transparency, with 1 being fully opaque and 0 fully transparent; defaults to 0.8.
+##'
 ##' @param xlab The label to be used for the x-axis; empty by default.
 ##'
 ##' @param ylab The label to be used for the y-axis; by default, a label will be generated
@@ -40,10 +45,20 @@
 ##'   inc.week
 ##'   plot(inc.week)
 ##'   plot(inc.week, border = "white") # with visible border
+##'
+##'   ## use group information
+##'   sex <- ebola.sim$linelist$gender
+##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
+##'   plot(inc.week.gender)
 ##' }
 ##'
-plot.incidence <- function(x, ..., fit = NULL, border = NA, xlab = "", ylab = NULL) {
-    df <- as.data.frame(x)
+plot.incidence <- function(x, ..., fit = NULL, border = NA,
+                           col.pal = pal1, alpha = .8, xlab = "", ylab = NULL) {
+
+    ## extract data in suitable format for ggplot2
+    df <- as.data.frame(x, long=TRUE)
+    n.groups <- ncol(x$counts)
+
 
     ## Use custom labels for usual time intervals
     if (is.null(ylab)) {
@@ -59,7 +74,7 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA, xlab = "", ylab = NU
     }
 
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates", y = "counts")) +
-        ggplot2::geom_bar(stat="identity", width = x$interval, color = border) +
+        ggplot2::geom_bar(stat="identity", width = x$interval, color = border, alpha = alpha) +
             ggplot2::labs(x = xlab, y = ylab)
 
 
@@ -80,6 +95,16 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA, xlab = "", ylab = NU
             }
         } else {
             stop("fit must be a 'incidence.fit' object, or a list of these")
+        }
+    }
+
+    ## Add color to groups if needed
+    if (ncol(df) > 2) {
+        out <- out + ggplot2::aes_string(fill = "groups") +
+            ggplot2::scale_fill_manual(values = col.pal(n.groups))
+        if (!is.null(fit)) {
+            out <- out + ggplot2::aes_string(color = "groups") +
+            ggplot2::scale_color_manual(values = col.pal(n.groups))
         }
     }
 

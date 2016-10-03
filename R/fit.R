@@ -22,22 +22,58 @@
 ##'
 ##' @param level The confidence interval to be used for predictions; defaults to 95\%.
 ##'
+
+## The model fitted is a simple linear regression on the log-incidence.
+
+## Non-trivial bits involve:
+
+## 1) Fitting several models
+## I.e. in case there is a increasing and a decreasing phase, we fit one
+##  model for each phase separately.
+
+## 2) log(0)
+## For now we use an arbitrary replacement ('min.count': 1e-10)
+
+## 3) Several groups
+## In this case, the number of models does not change, but models automatically
+## include groups with interaction, whether or not it is significant.
+
 fit <- function(x, split = NULL, level = 0.95){
+    ## enforce minimum counts !! THIS BIASES THE MODEL A LOT
+    ## min.count <- 1e-10
+    ## x$counts[x$counts < min.count] <- min.count
+    n.groups <- ncol(x$counts)
+
+    ## model without split (1 model)
     if (is.null(split)) {
-        dates.int <- seq_along(x$dates) - 1
-        lm1 <- stats::lm(log(x$counts) ~ dates.int)
-        out <- extract.info(lm1, x$interval, level)
-        out$dates <- x$dates
+        df <- as.data.frame(x, long=TRUE)
+        df$dates.int <- as.integer(df$dates - min(df$dates))
+
+        if (n.groups == 1) {
+            lm1 <- stats::lm(log(counts) ~ dates.int, data = df)
+        } else {
+            lm1 <- stats::lm(log(counts) ~ dates.int * groups, data = df)
+        }
+        out <- extract.info(lm1, x, level)
+        out$dates <- df$dates
     } else {
         x1 <- x[x$dates <= split]
         x2 <- x[x$dates >= split]
-        dates.int1 <- seq_along(x1$dates) - 1
-        dates.int2 <- seq_along(x2$dates) - 1
-        lm1 <- stats::lm(log(x1$counts) ~  dates.int1)
-        lm2 <- stats::lm(log(x2$counts) ~  dates.int2)
-        before <- extract.info(lm1, x$interval, level)
+        df1 <- as.data.frame(x1, long=TRUE)
+        df2 <- as.data.frame(x2, long=TRUE)
+
+        df1$dates.int <- as.integer(df1$dates - min(df1$dates))
+        df2$dates.int <- as.integer(df2$dates - min(df2$dates))
+                if (n.groups == 1) {
+                    lm1 <- stats::lm(log(counts) ~  dates.int, data = df1)
+                    lm2 <- stats::lm(log(counts) ~  dates.int, data = df2)
+                } else {
+                    lm1 <- stats::lm(log(counts) ~  dates.int * groups, data = df1)
+                    lm2 <- stats::lm(log(counts) ~  dates.int * groups, data = df2)
+                }
+        before <- extract.info(lm1, x, level)
         before$dates <- x1$dates
-        after <- extract.info(lm2, x$interval, level)
+        after <- extract.info(lm2, x, level)
         after$dates <- x2$dates
         out <- list(before = before, after = after)
     }
@@ -96,27 +132,50 @@ fit.optim.split <- function(x, window = x$timespan/4, plot = TRUE){
 
 
 ## Non-exported function extracting info and predictions from a lm object
+## - reg is a lm object
+## - x is an incidence object
+## - level is a confidence level, defaulting to .95
 
-extract.info <- function(reg, interval, level){
+extract.info <- function(reg, x, level){
     if (is.null(reg)) {
         return(NULL)
     }
 
-    r <- unname(stats::coef(reg)[2])
-    r.conf <- stats::confint(reg, 2, level)
-    rownames(r.conf) <- NULL
+    ## extract growth rates (r)
+    ## here we need to keep all coefficients when there are interactions
+    to.keep <- grep("^dates.int.*$", names(coef(reg)), value=TRUE)
+    r <- coef(reg)[to.keep]
+    use.groups <- length(r) > 1
+    if (use.groups) {
+        names(r) <- reg$xlevels[[1]] # names = levels if groups
+    } else {
+        names(r) <- NULL # no names otherwise
+    }
+    r.conf <- stats::confint(reg, to.keep, level)
+    rownames(r.conf) <- names(r)
+    if (use.groups) {
+        r[-1] <- r[-1] + r[1] # add coefs to intercept
+        r.conf[-1,] <- r.conf[-1,] + r.conf[1,] # add coefs to intercept
+    }
 
-    r.day <- r / interval
-    r.day.conf <- r.conf / interval
+    r.day <- r / x$interval
+    r.day.conf <- r.conf / x$interval
 
-    pred <- exp(stats::predict(reg))
-    pred.conf <- exp(stats::predict(reg, interval = "confidence", level = level)[,2:3])
-
+    ## need to pass new data spanning all dates and groups here
+    if (use.groups) {
+        new.data <- expand.grid(sort(unique(reg$model$dates.int)), levels(reg$model$groups))
+        names(new.data) <- c("dates.int", "groups")
+    } else {
+        new.data <- data.frame(dates.int = sort(unique(reg$model$dates.int)))
+    }
+    pred <- exp(stats::predict(reg, newdata = new.data, interval = "confidence",
+                                   level = level))
+    pred <- cbind.data.frame(new.data, pred) # keep track of dates and groups for plotting
     info <- list(r = r, r.conf = r.conf,
-                r.day = r.day, r.day.conf = r.day.conf,
-                pred = pred, pred.conf = pred.conf)
+                 r.day = r.day, r.day.conf = r.day.conf,
+                 pred = pred)
 
-    if (r.day > 0 ) {
+    if (r.day[1] > 0 ) { # note: choice of doubling vs halving only based on 1st group
         info$doubling <- log(2) / r.day
         info$doubling.conf <- log(2) / r.day.conf
         o.names <- names(info$doubling.conf)
@@ -153,7 +212,7 @@ print.incidence.fit <- function(x, ...) {
   cat(sprintf("  $r.day: %.5f (daily growth rate)\n", x$info$r.day))
   cat(sprintf("  $r.day.conf: [%.5f ; %.5f] (confidence interval)\n",
               x$info$r.day.conf[1], x$info$r.day.conf[2]))
-  if (x$info$r > 0) {
+  if (x$info$r[1] > 0) {
       cat(sprintf("  $doubling: %.1f (doubling time in days)\n", x$info$doubling))
       cat(sprintf("  $doubling.conf: [%.1f ; %.1f] (confidence interval)\n",
                   x$info$doubling.conf[1], x$info$doubling.conf[2]))
@@ -179,18 +238,16 @@ print.incidence.fit <- function(x, ...) {
 ## 'incidence.fit' object ('x')
 
 add.incidence.fit <- function(p, x){
-    df <- data.frame(dates = rep(x$dates, 3),
-                     type = factor(rep(c("pred", "low", "high"), each=length(x$dates))),
-                     y = c(x$info$pred, x$info$pred.conf[,1], x$info$pred.conf[,2])
-                     )
+    df <- cbind.data.frame(dates = x$dates, x$info$pred)
 
-    ## Note: adding several geoms without calling ggplot2::ggplot() will fail
-    ## because the "+" operator will not work
-    out <- suppressMessages(p +
-                            ggplot2::geom_line(data = df, ggplot2::aes_string(x = "dates", y = "y", linetype = "type")) +
-         ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
+    p <- suppressMessages(p + ggplot2::geom_line(data = df,
+                                                   ggplot2::aes_string(x = "dates", y = "fit"), linetype = 1) +
+                            ggplot2::geom_line(data = df,
+                                               ggplot2::aes_string(x = "dates", y = "lwr"), linetype = 2) +
+                            ggplot2::geom_line(data = df,
+                                               ggplot2::aes_string(x = "dates", y = "upr"), linetype = 2)
                             )
-    out
+    p
 }
 
 
@@ -200,14 +257,20 @@ add.incidence.fit <- function(p, x){
 ##' @export
 ##' @rdname fit
 ##' @importFrom graphics lines
+##' @inheritParams plot.incidence
+##' @param x An \code{incidence.fit} object.
 
-plot.incidence.fit <- function(x, ...){
-    df <- data.frame(dates = rep(x$dates, 3),
-                     type = factor(rep(c("pred", "low", "high"), each=length(x$dates))),
-                     y = c(x$info$pred, x$info$pred.conf[,1], x$info$pred.conf[,2])
-                     )
+plot.incidence.fit <- function(x, ..., col.pal = pal1){
+    df <- cbind.data.frame(dates = x$dates, x$info$pred)
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates")) +
-        ggplot2::geom_line(data = df, ggplot2::aes_string(y = "y", linetype = "type")) +
-         ggplot2::scale_linetype_manual(guide=FALSE, values=c(pred=1, low=2, high=2))
-    out
+        ggplot2::geom_line(ggplot2::aes_string(y = "fit"), linetype = 1) +
+            ggplot2::geom_line(ggplot2::aes_string(y = "lwr"), linetype = 2) +
+            ggplot2::geom_line(ggplot2::aes_string(y = "upr"), linetype = 2)
+
+    if ("groups" %in% names(df)) {
+        n.groups <- length(levels(df$groups))
+        out <- out + ggplot2::aes_string(color = "groups") +
+            ggplot2::scale_color_manual(values = col.pal(n.groups))
+    }
+    out + ggplot2::labs(x = "", y = "Predicted incidence")
 }
