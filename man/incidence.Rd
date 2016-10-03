@@ -71,6 +71,12 @@ if(require(outbreaks)) {
   inc.week
   plot(inc.week)
   plot(inc.week, border = "white") # with visible border
+  ## use group information
+  sex <- ebola.sim$linelist$gender
+  inc.week.gender <- incidence(onset, interval = 7, groups = sex)
+  inc.week.gender
+  head(inc.week.gender$counts)
+  plot(inc.week.gender)
 }
 
 

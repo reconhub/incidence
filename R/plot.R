@@ -23,6 +23,8 @@
 ##' @param col.pal The color palette to be used for the groups; defaults to \code{pal1}. See
 ##' \code{\link{pal1}} for other palettes implemented in incidence.
 ##'
+##' @param alpha The alpha level for color transparency, with 1 being fully opaque and 0 fully transparent; defaults to 0.8.
+##'
 ##' @param xlab The label to be used for the x-axis; empty by default.
 ##'
 ##' @param ylab The label to be used for the y-axis; by default, a label will be generated
@@ -51,7 +53,7 @@
 ##' }
 ##'
 plot.incidence <- function(x, ..., fit = NULL, border = NA,
-                           col.pal = pal1, xlab = "", ylab = NULL) {
+                           col.pal = pal1, alpha = .8, xlab = "", ylab = NULL) {
 
     ## extract data in suitable format for ggplot2
     df <- as.data.frame(x, long=TRUE)
@@ -72,7 +74,7 @@ plot.incidence <- function(x, ..., fit = NULL, border = NA,
     }
 
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates", y = "counts")) +
-        ggplot2::geom_bar(stat="identity", width = x$interval, color = border) +
+        ggplot2::geom_bar(stat="identity", width = x$interval, color = border, alpha = alpha) +
             ggplot2::labs(x = xlab, y = ylab)
 
 

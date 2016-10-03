@@ -23,6 +23,8 @@ These functions are color palettes used in incidence.
 
 plot(1:4, cex=8, pch=20, col = pal1(4), main="palette: pal1")
 plot(1:100, cex=8, pch=20, col = pal1(100), main="palette: pal1")
+plot(1:100, cex=8, pch=20, col = pal1light(100), main="palette: pal1light")
+plot(1:100, cex=8, pch=20, col = pal1dark(100), main="palette: pal1dark")
 
 }
 \author{
