@@ -112,7 +112,7 @@ fit.optim.split <- function(x, window = x$timespan/4, plot = TRUE){
     splits.to.try <- x$dates[to.keep]
 
     f <- function(split) {
-        fits <- fit(x, split=split)
+        fits <- suppressWarnings(fit(x, split=split))
         mean(vapply(fits, function(e) summary(e$lm)$`adj.r.squared`, double(1)))
     }
 

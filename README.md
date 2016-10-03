@@ -356,45 +356,6 @@ best.fit2 <- fit.optim.split(i.7.sex)$fit
 ```
 ## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
 ## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
-
-## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
-## removed before fitting
 ```
 
 ```r
