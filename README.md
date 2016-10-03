@@ -338,7 +338,7 @@ plot(i.7, fit=best.fit$fit)
 
 ![plot of chunk optim](figs/optim-2.png)
 
-These models are very good approximation of these data, showing a doubling time of \Sexpr{round(best.fit$fit$before$info$doubling,1)} days during the first phase, and a halving time of \Sexpr{round(best.fit$fit$after$info$halving,1)} days during the second.
+These models are very good approximation of these data, showing a doubling time of 23.2 days during the first phase, and a halving time of 68.2 days during the second.
 
 
 Note that `fit` will also take groups into account if incidence has been computed for several groups:
