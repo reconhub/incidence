@@ -39,6 +39,9 @@ the incidence; defaults to 1 day.}
 \item{groups}{An optional factor defining groups of observations for which incidence should be
 computed separately.}
 
+\item{na.as.group}{A logical indicating if missing group (NA) should be treated as a separate
+group.}
+
 \item{x}{an 'incidence' object}
 }
 \value{

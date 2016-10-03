@@ -69,6 +69,8 @@ incidence <- function(dates, interval = 1L, ...) {
 
 ##' @export
 ##' @rdname incidence
+##' @param na.as.group A logical indicating if missing group (NA) should be treated as a separate
+##' group.
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL, na.as.group = TRUE, ...) {
     ## make sure input can be used
