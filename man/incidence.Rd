@@ -11,11 +11,11 @@
 \title{Compute incidence from a numerical vector of dates, representing
 days.}
 \usage{
-incidence(dates, interval = 1, ...)
+incidence(dates, interval = 1L, ...)
 
-\method{incidence}{integer}(dates, interval = 1, ...)
+\method{incidence}{integer}(dates, interval = 1L, ...)
 
-\method{incidence}{default}(dates, interval = 1, ...)
+\method{incidence}{default}(dates, interval = 1L, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 

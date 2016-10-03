@@ -7,3 +7,4 @@
 ^update_web\.sh$
 figure/*
 ^codecov\.yml$
+figs/*
