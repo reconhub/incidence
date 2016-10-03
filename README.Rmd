@@ -95,11 +95,23 @@ plot(i.30, border = "white")
 
 ```
 
+`incidence` can also compute incidence by specified groups using the `groups` argument. For instance:
+```{r, gender}
+i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
+i.7.sex
+plot(i.7.sex, stack = TRUE)
+```
+
 
 
 #### Modelling incidence
 
-Exponential models can be fitted to any incidence object using `fit`; for instance:
+Incidence data, excluding zeros, can be modelled using log-linear regression of the form:
+log(*y*) = *r* x *t* + *b*
+
+where *y* is the incidence, *r* is the growth rate, *t* is the number of days since a specific point in time (typically the start of the outbreak), and *b* is the intercept.
+
+Such model can be fitted to any incidence object using `fit`; for instance:
 ```{r, fit1}
 fit(i.7)
 plot(i.7, fit=fit(i.7))
@@ -130,6 +142,14 @@ plot(i.7, fit=best.fit$fit)
 ```
 
 These models are very good approximation of these data, showing a doubling time of 23 days during the first phase, and a halving time of 68 days during the second.
+
+
+Note that `fit` will also take groups into account:
+```{r, optim2}
+best.fit2 <- fit.optim.split(i.7.sex)$fit
+best.fit2
+plot(i.7.sex, fit=best.fit2)
+```
 
 
 ### Contributors (by alphabetic order):

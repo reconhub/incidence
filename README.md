@@ -153,11 +153,41 @@ plot(i.30, border = "white")
 
 ![plot of chunk interv](figs/interv-3.png)
 
+`incidence` can also compute incidence by specified groups using the `groups` argument. For instance:
+
+```r
+i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
+i.7.sex
+```
+
+```
+## <incidence object>
+## [5888 cases from days 2014-04-07 to 2015-04-27]
+## [2 groups: f, m]
+## 
+## $counts: matrix with 56 rows and 2 columns
+## $n: 5888 cases in total
+## $dates: 56 dates marking the left-side of bins
+## $interval: 7 days
+## $timespan: 389 days
+```
+
+```r
+plot(i.7.sex, stack = TRUE)
+```
+
+![plot of chunk gender](figs/gender-1.png)
+
 
 
 #### Modelling incidence
 
-Exponential models can be fitted to any incidence object using `fit`; for instance:
+Incidence data, excluding zeros, can be modelled using log-linear regression of the form:
+log(*y*) = *r* x *t* + *b*
+
+where *y* is the incidence, *r* is the growth rate, *t* is the number of days since a specific point in time (typically the start of the outbreak), and *b* is the intercept.
+
+Such model can be fitted to any incidence object using `fit`; for instance:
 
 ```r
 fit(i.7)
@@ -169,12 +199,11 @@ fit(i.7)
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.00505 (daily growth rate)
-##   $r.day.conf: [0.00229 ; 0.00780] (confidence interval)
-##   $doubling: 137.3 (doubling time in days)
-##   $doubling.conf: [88.8 ; 302.2] (confidence interval)
-##   $pred: 56 predictions of incidence
-##   $pred.conf: 56 x 2 matrix of predictions (confidence interval)
+##   $r.day: 0.00072 (daily growth rate)
+##   $r.day.conf: [0.00033 ; 0.00111] (confidence interval)
+##   $doubling: 961.1 (doubling time in days)
+##   $doubling.conf: [621.8 ; 2115.7] (confidence interval)
+##   $pred: 4 predictions of incidence
 ```
 
 ```r
@@ -196,12 +225,11 @@ fit(i.7[1:20])
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.03176 (daily growth rate)
-##   $r.day.conf: [0.02596 ; 0.03755] (confidence interval)
-##   $doubling: 21.8 (doubling time in days)
-##   $doubling.conf: [18.5 ; 26.7] (confidence interval)
-##   $pred: 20 predictions of incidence
-##   $pred.conf: 20 x 2 matrix of predictions (confidence interval)
+##   $r.day: 0.00454 (daily growth rate)
+##   $r.day.conf: [0.00371 ; 0.00536] (confidence interval)
+##   $doubling: 152.8 (doubling time in days)
+##   $doubling.conf: [129.2 ; 186.9] (confidence interval)
+##   $pred: 4 predictions of incidence
 ```
 
 ```r
@@ -227,12 +255,11 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.02742 (daily growth rate)
-##   $r.day.conf: [0.02408 ; 0.03076] (confidence interval)
-##   $doubling: 25.3 (doubling time in days)
-##   $doubling.conf: [22.5 ; 28.8] (confidence interval)
-##   $pred: 28 predictions of incidence
-##   $pred.conf: 28 x 2 matrix of predictions (confidence interval)
+##   $r.day: 0.00392 (daily growth rate)
+##   $r.day.conf: [0.00344 ; 0.00439] (confidence interval)
+##   $doubling: 177.0 (doubling time in days)
+##   $doubling.conf: [157.7 ; 201.5] (confidence interval)
+##   $pred: 4 predictions of incidence
 ## 
 ## $after
 ## <incidence.fit object>
@@ -240,12 +267,11 @@ fit.both
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: -0.01014 (daily growth rate)
-##   $r.day.conf: [-0.01128 ; -0.00901] (confidence interval)
-##   $halving: 68.3 (halving time in days)
-##   $halving.conf: [76.9 ; 61.5] (confidence interval)
-##   $pred: 28 predictions of incidence
-##   $pred.conf: 28 x 2 matrix of predictions (confidence interval)
+##   $r.day: -0.00145 (daily growth rate)
+##   $r.day.conf: [-0.00161 ; -0.00129] (confidence interval)
+##   $halving: 478.3 (halving time in days)
+##   $halving.conf: [538.4 ; 430.2] (confidence interval)
+##   $pred: 4 predictions of incidence
 ```
 
 ```r
@@ -288,12 +314,11 @@ best.fit
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: 0.02982 (daily growth rate)
-##   $r.day.conf: [0.02609 ; 0.03355] (confidence interval)
-##   $doubling: 23.2 (doubling time in days)
-##   $doubling.conf: [20.7 ; 26.6] (confidence interval)
-##   $pred: 25 predictions of incidence
-##   $pred.conf: 25 x 2 matrix of predictions (confidence interval)
+##   $r.day: 0.00426 (daily growth rate)
+##   $r.day.conf: [0.00373 ; 0.00479] (confidence interval)
+##   $doubling: 162.7 (doubling time in days)
+##   $doubling.conf: [144.6 ; 186.0] (confidence interval)
+##   $pred: 4 predictions of incidence
 ## 
 ## $fit$after
 ## <incidence.fit object>
@@ -301,12 +326,11 @@ best.fit
 ## $lm: regression of log-incidence over time
 ## 
 ## $info: list containing the following items:
-##   $r.day: -0.01016 (daily growth rate)
-##   $r.day.conf: [-0.01103 ; -0.00930] (confidence interval)
-##   $halving: 68.2 (halving time in days)
-##   $halving.conf: [74.5 ; 62.9] (confidence interval)
-##   $pred: 32 predictions of incidence
-##   $pred.conf: 32 x 2 matrix of predictions (confidence interval)
+##   $r.day: -0.00145 (daily growth rate)
+##   $r.day.conf: [-0.00158 ; -0.00133] (confidence interval)
+##   $halving: 477.5 (halving time in days)
+##   $halving.conf: [521.8 ; 440.1] (confidence interval)
+##   $pred: 4 predictions of incidence
 ## 
 ## 
 ## $plot
@@ -321,6 +345,97 @@ plot(i.7, fit=best.fit$fit)
 ![plot of chunk optim](figs/optim-2.png)
 
 These models are very good approximation of these data, showing a doubling time of 23 days during the first phase, and a halving time of 68 days during the second.
+
+
+Note that `fit` will also take groups into account:
+
+```r
+best.fit2 <- fit.optim.split(i.7.sex)$fit
+```
+
+```
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+
+## Warning in fit(x, split = split): 3 dates with an incidence of 0 were
+## removed before fitting
+```
+
+```r
+best.fit2
+```
+
+```
+## $before
+## <incidence.fit object>
+## 
+## $lm: regression of log-incidence over time
+## 
+## $info: list containing the following items:
+##   $r.day: 0.00340 (daily growth rate)
+##    $r.day: 0.00377 (daily growth rate)
+##   $r.day.conf: [0.00300 ; 0.00279] (confidence interval)
+##   $doubling: 203.7 (doubling time in days)
+##    $doubling: 183.7 (doubling time in days)
+##   $doubling.conf: [145.9 ; 182.0] (confidence interval)
+##   $pred: 5 predictions of incidence
+## 
+## $after
+## <incidence.fit object>
+## 
+## $lm: regression of log-incidence over time
+## 
+## $info: list containing the following items:
+##   $r.day: -0.00143 (daily growth rate)
+##    $r.day: -0.00151 (daily growth rate)
+##   $r.day.conf: [-0.00159 ; -0.00188] (confidence interval)
+##   $halving: 484.1 (halving time in days)
+##    $halving: 459.5 (halving time in days)
+##   $halving.conf: [609.8 ; 542.5] (confidence interval)
+##   $pred: 5 predictions of incidence
+```
+
+```r
+plot(i.7.sex, fit=best.fit2)
+```
+
+![plot of chunk optim2](figs/optim2-1.png)
 
 
 ### Contributors (by alphabetic order):
