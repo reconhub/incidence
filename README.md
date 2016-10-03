@@ -25,9 +25,7 @@ Note that this requires the package *devtools* installed.
 
 # What does it do?
 
-In the following we provide a quick overview of the package's functionalities.
-
-## Overview of the main functions
+The main functions of the package include:
 
 - **`incidence`**: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class *incidence*.
 - **`subset`**: subset an *incidence* object by specifying a time window.
@@ -38,7 +36,11 @@ In the following we provide a quick overview of the package's functionalities.
 - **`pool`**: pool incidence from different groups into one global incidence time series.
 
 
-## Worked example: simulated Ebola outbreak
+
+
+# Worked example: simulated Ebola outbreak
+
+## Loading the data
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
 [*outbreaks*](http://github.com/reconhub/outbreaks). We will compute incidence for various time
@@ -94,38 +96,6 @@ plot(i)
 
 ![plot of chunk incid1](figs/incid1-1.png)
 
-Note that `i` case be subsetted easily; for instance, to keep the tail of the epidemics:
-
-```r
-i.tail <- subset(i, from=as.Date("2015-01-01"))
-i.tail
-```
-
-```
-## <incidence object>
-## [1205 cases from days 2015-01-01 to 2015-04-30]
-## 
-## $counts: matrix with 120 rows and 1 columns
-## $n: 1205 cases in total
-## $dates: 120 dates marking the left-side of bins
-## $interval: 1 day
-## $timespan: 120 days
-```
-
-```r
-plot(i.tail, border="white")
-```
-
-![plot of chunk tail](figs/tail-1.png)
-
-Or, to focus on the peak of the distribution:
-
-```r
-plot(i[100:250])
-```
-
-![plot of chunk middle](figs/middle-1.png)
-
 The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:
 
 ```r
@@ -176,6 +146,153 @@ plot(i.7.sex, stack = TRUE)
 ```
 
 ![plot of chunk gender](figs/gender-1.png)
+
+
+
+## Handling `incidence` objects
+`incidence` objects can be manipulated easily. The `[` operator implements subetting of dates (first argument) and groups (second argument). 
+For instance, to keep only the peak of the distribution:
+
+```r
+i[100:250]
+```
+
+```
+## <incidence object>
+## [4103 cases from days 2014-07-15 to 2014-12-12]
+## 
+## $counts: matrix with 151 rows and 1 columns
+## $n: 4103 cases in total
+## $dates: 151 dates marking the left-side of bins
+## $interval: 1 day
+## $timespan: 151 days
+```
+
+```r
+plot(i[100:250])
+```
+
+![plot of chunk middle](figs/middle-1.png)
+Or to keep every other week:
+
+```r
+i.7[c(TRUE,FALSE)]
+```
+
+```
+## <incidence object>
+## [2891 cases from days 2014-04-07 to 2015-04-20]
+## 
+## $counts: matrix with 28 rows and 1 columns
+## $n: 2891 cases in total
+## $dates: 28 dates marking the left-side of bins
+## $interval: 7 days
+## $timespan: 379 days
+```
+
+```r
+plot(i.7[c(TRUE,FALSE)])
+```
+
+![plot of chunk stripes](figs/stripes-1.png)
+
+Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
+
+```r
+i.tail <- subset(i, from=as.Date("2015-01-01"))
+i.tail
+```
+
+```
+## <incidence object>
+## [1205 cases from days 2015-01-01 to 2015-04-30]
+## 
+## $counts: matrix with 120 rows and 1 columns
+## $n: 1205 cases in total
+## $dates: 120 dates marking the left-side of bins
+## $interval: 1 day
+## $timespan: 120 days
+```
+
+```r
+plot(i.tail, border="white")
+```
+
+![plot of chunk tail](figs/tail-1.png)
+
+Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
+
+```r
+i.7.outcome <- incidence(dat, 7, groups=ebola.sim$linelist$outcome)
+i.7.outcome
+```
+
+```
+## <incidence object>
+## [5888 cases from days 2014-04-07 to 2015-04-27]
+## [3 groups: Death, NA, Recover]
+## 
+## $counts: matrix with 56 rows and 3 columns
+## $n: 5888 cases in total
+## $dates: 56 dates marking the left-side of bins
+## $interval: 7 days
+## $timespan: 389 days
+```
+
+```r
+plot(i.7.outcome, stack = TRUE)
+```
+
+![plot of chunk i7outcome](figs/i7outcome-1.png)
+By default, `incidence` treats missing data (NA) as a separate group (see argument `na.as.group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
+
+```r
+i.7.outcome[,1:2]
+```
+
+```
+## <incidence object>
+## [3905 cases from days 2014-04-07 to 2015-04-27]
+## [2 groups: Death, NA]
+## 
+## $counts: matrix with 56 rows and 2 columns
+## $n: 3905 cases in total
+## $dates: 56 dates marking the left-side of bins
+## $interval: 7 days
+## $timespan: 386 days
+```
+
+```r
+plot(i.7.outcome[,1:2], stack = TRUE)
+```
+
+![plot of chunk groupsub](figs/groupsub-1.png)
+
+Groups can also be collapsed into a single time series using `pool`:
+
+```r
+i.pooled <- pool(i.7.outcome)
+i.pooled
+```
+
+```
+## <incidence object>
+## [5888 cases from days 2014-04-07 to 2015-04-27]
+## 
+## $counts: matrix with 56 rows and 1 columns
+## $n: 5888 cases in total
+## $dates: 56 dates marking the left-side of bins
+## $interval: 7 days
+## $timespan: 389 days
+```
+
+```r
+identical(i.7$counts, i.pooled$counts)
+```
+
+```
+## [1] TRUE
+```
 
 
 

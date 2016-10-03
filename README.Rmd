@@ -27,9 +27,7 @@ Note that this requires the package *devtools* installed.
 
 # What does it do?
 
-In the following we provide a quick overview of the package's functionalities.
-
-## Overview of the main functions
+The main functions of the package include:
 
 - **`incidence`**: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class *incidence*.
 - **`subset`**: subset an *incidence* object by specifying a time window.
@@ -40,7 +38,11 @@ In the following we provide a quick overview of the package's functionalities.
 - **`pool`**: pool incidence from different groups into one global incidence time series.
 
 
-## Worked example: simulated Ebola outbreak
+
+
+# Worked example: simulated Ebola outbreak
+
+## Loading the data
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
 [*outbreaks*](http://github.com/reconhub/outbreaks). We will compute incidence for various time
@@ -66,18 +68,6 @@ i
 plot(i)
 ```
 
-Note that `i` case be subsetted easily; for instance, to keep the tail of the epidemics:
-```{r, tail}
-i.tail <- subset(i, from=as.Date("2015-01-01"))
-i.tail
-plot(i.tail, border="white")
-```
-
-Or, to focus on the peak of the distribution:
-```{r, middle}
-plot(i[100:250])
-```
-
 The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:
 ```{r, interv}
 ## weekly
@@ -99,6 +89,47 @@ plot(i.30, border = "white")
 i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE)
+```
+
+
+
+## Handling `incidence` objects
+`incidence` objects can be manipulated easily. The `[` operator implements subetting of dates (first argument) and groups (second argument). 
+For instance, to keep only the peak of the distribution:
+```{r, middle}
+i[100:250]
+plot(i[100:250])
+```
+Or to keep every other week:
+```{r, stripes}
+i.7[c(TRUE,FALSE)]
+plot(i.7[c(TRUE,FALSE)])
+```
+
+Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
+```{r, tail}
+i.tail <- subset(i, from=as.Date("2015-01-01"))
+i.tail
+plot(i.tail, border="white")
+```
+
+Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
+```{r, i7outcome}
+i.7.outcome <- incidence(dat, 7, groups=ebola.sim$linelist$outcome)
+i.7.outcome
+plot(i.7.outcome, stack = TRUE)
+```
+By default, `incidence` treats missing data (NA) as a separate group (see argument `na.as.group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
+```{r, groupsub}
+i.7.outcome[,1:2]
+plot(i.7.outcome[,1:2], stack = TRUE)
+```
+
+Groups can also be collapsed into a single time series using `pool`:
+```{r, pool}
+i.pooled <- pool(i.7.outcome)
+i.pooled
+identical(i.7$counts, i.pooled$counts)
 ```
 
 
