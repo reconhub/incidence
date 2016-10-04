@@ -83,8 +83,8 @@ fit <- function(x, split = NULL, level = 0.95){
                     lm1 <- stats::lm(log(counts) ~  dates.x * groups, data = df1)
                     lm2 <- stats::lm(log(counts) ~  dates.x * groups, data = df2)
                 }
-        before <- extract.info(lm1, x, level)
-        after <- extract.info(lm2, x, level)
+        before <- extract.info(lm1, x1, level)
+        after <- extract.info(lm2, x2, level)
         out <- list(before = before, after = after)
     }
 
