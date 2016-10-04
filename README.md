@@ -123,7 +123,7 @@ plot(i.30, border = "white")
 
 ![plot of chunk interv](figs/interv-3.png)
 
-`incidence` can also compute incidence by specified groups using the `groups` argument. For instance:
+`incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute incidence by gender:
 
 ```r
 i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
@@ -147,6 +147,8 @@ plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
 ![plot of chunk gender](figs/gender-1.png)
+
+We can do the same for hospitals, using the 'clean' version of the dataset, with some customization of the legend:
 
 ```r
 i.7.hosp <- with(ebola.sim.clean$linelist, 
@@ -210,6 +212,7 @@ plot(i[100:250])
 ```
 
 ![plot of chunk middle](figs/middle-1.png)
+
 Or to keep every other week:
 
 ```r
@@ -281,6 +284,7 @@ plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
 ![plot of chunk i7outcome](figs/i7outcome-1.png)
+
 By default, `incidence` treats missing data (NA) as a separate group (see argument `na.as.group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
 
 ```r
