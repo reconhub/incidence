@@ -317,13 +317,6 @@ plot(i.7[1:20])
 
 ```r
 early.fit <- fit(i.7[1:20])
-```
-
-```
-## Error in `colnames<-`(`*tmp*`, value = c("2.5 %", "97.5 %")): attempt to set 'colnames' on an object with less than two dimensions
-```
-
-```r
 early.fit
 ```
 
@@ -336,16 +329,16 @@ early.fit
 ##   $r (daily growth rate):
 ## [1] 0.03175771
 ## 
-##   $r .conf (confidence interval):
+##   $r.conf (confidence interval):
 ##           2.5 %     97.5 %
 ## [1,] 0.02596229 0.03755314
 ## 
-##   $doubling: (doubling time in days)
+##   $doubling (doubling time in days):
 ## [1] 21.8261
 ## 
-##   $doubling.conf: (confidence interval)
+##   $doubling.conf (confidence interval):
 ##         2.5 %   97.5 %
-## [1,] 26.69823 18.45777
+## [1,] 18.45777 26.69823
 ## 
 ##   $pred: data.frame of incidence predictions (20 rows, 4 columns)
 ```
@@ -373,13 +366,6 @@ This is possible using the following approach, if you know what date to use to s
 
 ```r
 fit.both <- fit(i.7, split=as.Date("2014-10-15"))
-```
-
-```
-## Error in `colnames<-`(`*tmp*`, value = c("2.5 %", "97.5 %")): attempt to set 'colnames' on an object with less than two dimensions
-```
-
-```r
 fit.both
 ```
 
@@ -393,16 +379,16 @@ fit.both
 ##   $r (daily growth rate):
 ## [1] 0.02741985
 ## 
-##   $r .conf (confidence interval):
+##   $r.conf (confidence interval):
 ##           2.5 %     97.5 %
 ## [1,] 0.02407933 0.03076038
 ## 
-##   $doubling: (doubling time in days)
+##   $doubling (doubling time in days):
 ## [1] 25.27902
 ## 
-##   $doubling.conf: (confidence interval)
+##   $doubling.conf (confidence interval):
 ##         2.5 %   97.5 %
-## [1,] 28.78598 22.53377
+## [1,] 22.53377 28.78598
 ## 
 ##   $pred: data.frame of incidence predictions (28 rows, 4 columns)
 ## 
@@ -415,14 +401,14 @@ fit.both
 ##   $r (daily growth rate):
 ## [1] -0.01014465
 ## 
-##   $r .conf (confidence interval):
+##   $r.conf (confidence interval):
 ##            2.5 %       97.5 %
 ## [1,] -0.01127733 -0.009011981
 ## 
-##   $halving: (halving time in days)
+##   $halving (halving time in days):
 ## [1] 68.32636
 ## 
-##   $halving.conf: (confidence interval)
+##   $halving.conf (confidence interval):
 ##         2.5 %   97.5 %
 ## [1,] 61.46379 76.91397
 ## 
@@ -439,13 +425,6 @@ This is much better, but the splitting date is not completely optimal. To look f
 
 ```r
 best.fit <- fit.optim.split(i.7)
-```
-
-```
-## Error in `colnames<-`(`*tmp*`, value = c("2.5 %", "97.5 %")): attempt to set 'colnames' on an object with less than two dimensions
-```
-
-```r
 best.fit
 ```
 
@@ -479,16 +458,16 @@ best.fit
 ##   $r (daily growth rate):
 ## [1] 0.02982209
 ## 
-##   $r .conf (confidence interval):
+##   $r.conf (confidence interval):
 ##           2.5 %     97.5 %
 ## [1,] 0.02608945 0.03355474
 ## 
-##   $doubling: (doubling time in days)
+##   $doubling (doubling time in days):
 ## [1] 23.24274
 ## 
-##   $doubling.conf: (confidence interval)
-##        2.5 %   97.5 %
-## [1,] 26.5681 20.65721
+##   $doubling.conf (confidence interval):
+##         2.5 %  97.5 %
+## [1,] 20.65721 26.5681
 ## 
 ##   $pred: data.frame of incidence predictions (25 rows, 4 columns)
 ## 
@@ -501,14 +480,14 @@ best.fit
 ##   $r (daily growth rate):
 ## [1] -0.01016191
 ## 
-##   $r .conf (confidence interval):
+##   $r.conf (confidence interval):
 ##            2.5 %       97.5 %
 ## [1,] -0.01102526 -0.009298561
 ## 
-##   $halving: (halving time in days)
+##   $halving (halving time in days):
 ## [1] 68.21031
 ## 
-##   $halving.conf: (confidence interval)
+##   $halving.conf (confidence interval):
 ##         2.5 %   97.5 %
 ## [1,] 62.86899 74.54349
 ## 
@@ -555,16 +534,16 @@ best.fit2
 ##          f          m 
 ## 0.02381854 0.02640719 
 ## 
-##   $r .conf (confidence interval):
+##   $r.conf (confidence interval):
 ##        2.5 %     97.5 %
 ## f 0.02097832 0.02665876
 ## m 0.01955031 0.03326408
 ## 
-##   $doubling: (doubling time in days)
+##   $doubling (doubling time in days):
 ##        f        m 
 ## 29.10116 26.24842 
 ## 
-##   $doubling.conf: (confidence interval)
+##   $doubling.conf (confidence interval):
 ##      2.5 %   97.5 %
 ## f 26.00073 33.04111
 ## m 20.83771 35.45454
@@ -581,16 +560,16 @@ best.fit2
 ##           f           m 
 ## -0.01002305 -0.01056026 
 ## 
-##   $r .conf (confidence interval):
+##   $r.conf (confidence interval):
 ##         2.5 %       97.5 %
 ## f -0.01110163 -0.008944473
 ## m -0.01316417 -0.007956340
 ## 
-##   $halving: (halving time in days)
+##   $halving (halving time in days):
 ##        f        m 
 ## 69.15531 65.63734 
 ## 
-##   $halving.conf: (confidence interval)
+##   $halving.conf (confidence interval):
 ##      2.5 %   97.5 %
 ## f 62.43653 77.49447
 ## m 52.65406 87.11885

@@ -40,9 +40,6 @@
 ## include groups with interaction, whether or not it is significant.
 
 fit <- function(x, split = NULL, level = 0.95){
-    ## enforce minimum counts !! THIS BIASES THE MODEL A LOT
-    ## min.count <- 1e-10
-    ## x$counts[x$counts < min.count] <- min.count
     n.groups <- ncol(x$counts)
 
     ## remove dates with one incidence of zero
@@ -180,12 +177,12 @@ extract.info <- function(reg, x, level){
     pred <- cbind.data.frame(new.data, pred) # keep track of dates and groups for plotting
     info <- list(r = r, r.conf = r.conf,
                  pred = pred)
-
+    ##browser()
     if (r[1] > 0 ) { # note: choice of doubling vs halving only based on 1st group
         info$doubling <- log(2) / r
         info$doubling.conf <- log(2) / r.conf
         o.names <- colnames(info$doubling.conf)
-        info$doubling.conf <-info$doubling.conf[, rev(seq_along(o.names))]
+        info$doubling.conf <-info$doubling.conf[, rev(seq_along(o.names)), drop=FALSE]
         colnames(info$doubling.conf) <- o.names
     } else {
         info$halving <- log(0.5) / r
@@ -217,20 +214,20 @@ print.incidence.fit <- function(x, ...) {
   print(x$info$r)
   ## cat(sprintf("  $r.conf: [%.5f ; %.5f] (confidence interval)\n",
   ##             x$info$r.conf[1], x$info$r.conf[2]))
-  cat("\n  $r .conf (confidence interval):\n")
+  cat("\n  $r.conf (confidence interval):\n")
   print(x$info$r.conf)
   if (x$info$r[1] > 0) {
       ## cat(sprintf("  $doubling: %.1f (doubling time in days)\n", x$info$doubling))
       ## cat(sprintf("  $doubling.conf: [%.1f ; %.1f] (confidence interval)\n",
       ##             x$info$doubling.conf[1], x$info$doubling.conf[2]))
-      cat("\n  $doubling: (doubling time in days)\n")
+      cat("\n  $doubling (doubling time in days):\n")
       print(x$info$doubling)
-      cat("\n  $doubling.conf: (confidence interval)\n")
+      cat("\n  $doubling.conf (confidence interval):\n")
       print(x$info$doubling.conf)
   } else {
-      cat("\n  $halving: (halving time in days)\n")
+      cat("\n  $halving (halving time in days):\n")
       print(x$info$halving)
-      cat("\n  $halving.conf: (confidence interval)\n")
+      cat("\n  $halving.conf (confidence interval):\n")
       print(x$info$halving.conf)
   }
 
