@@ -392,7 +392,7 @@ early.fit
 ##         2.5 %   97.5 %
 ## [1,] 18.45777 26.69823
 ## 
-##   $pred: data.frame of incidence predictions (20 rows, 4 columns)
+##   $pred: data.frame of incidence predictions (20 rows, 5 columns)
 ```
 
 The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:
@@ -442,7 +442,7 @@ fit.both
 ##         2.5 %   97.5 %
 ## [1,] 22.53377 28.78598
 ## 
-##   $pred: data.frame of incidence predictions (28 rows, 4 columns)
+##   $pred: data.frame of incidence predictions (28 rows, 5 columns)
 ## 
 ## $after
 ## <incidence.fit object>
@@ -464,7 +464,7 @@ fit.both
 ##         2.5 %   97.5 %
 ## [1,] 61.46379 76.91397
 ## 
-##   $pred: data.frame of incidence predictions (28 rows, 4 columns)
+##   $pred: data.frame of incidence predictions (28 rows, 5 columns)
 ```
 
 ```r
@@ -521,7 +521,7 @@ best.fit
 ##         2.5 %  97.5 %
 ## [1,] 20.65721 26.5681
 ## 
-##   $pred: data.frame of incidence predictions (25 rows, 4 columns)
+##   $pred: data.frame of incidence predictions (25 rows, 5 columns)
 ## 
 ## $fit$after
 ## <incidence.fit object>
@@ -543,7 +543,7 @@ best.fit
 ##         2.5 %   97.5 %
 ## [1,] 62.86899 74.54349
 ## 
-##   $pred: data.frame of incidence predictions (32 rows, 4 columns)
+##   $pred: data.frame of incidence predictions (32 rows, 5 columns)
 ## 
 ## 
 ## $plot
@@ -592,7 +592,7 @@ best.fit2
 ## f 26.00073 33.04111
 ## m 20.83771 35.45454
 ## 
-##   $pred: data.frame of incidence predictions (46 rows, 5 columns)
+##   $pred: data.frame of incidence predictions (46 rows, 6 columns)
 ## 
 ## $after
 ## <incidence.fit object>
@@ -618,7 +618,7 @@ best.fit2
 ## f 62.43653 77.49447
 ## m 52.65406 87.11885
 ## 
-##   $pred: data.frame of incidence predictions (62 rows, 5 columns)
+##   $pred: data.frame of incidence predictions (62 rows, 6 columns)
 ```
 
 ```r

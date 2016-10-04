@@ -39,6 +39,13 @@
 ## In this case, the number of models does not change, but models automatically
 ## include groups with interaction, whether or not it is significant.
 
+## 4) Values of dates used as 'x'
+
+## To retain generality, we need to use numbers (not Date or POSIXct) as 'x' axis for the model.
+## Therefore, all dates are expressed as numbers of days since the first case (aka 'day 0' or
+## 'origin'), picking the middle of each time interval. We also keep track of the origin, so that
+## actual dates can be reconstructed during the plotting. Each 'fit' object has its own origin.
+
 fit <- function(x, split = NULL, level = 0.95){
     n.groups <- ncol(x$counts)
 
@@ -53,34 +60,31 @@ fit <- function(x, split = NULL, level = 0.95){
     ## model without split (1 model)
     if (is.null(split)) {
         df <- as.data.frame(x, long=TRUE)
-        df$dates.int <- as.integer(df$dates - min(df$dates))
+        df$dates.x <- as.numeric(df$dates - min(df$dates)) + x$interval/2 # exact dates
 
         if (n.groups == 1) {
-            lm1 <- stats::lm(log(counts) ~ dates.int, data = df)
+            lm1 <- stats::lm(log(counts) ~ dates.x, data = df)
         } else {
-            lm1 <- stats::lm(log(counts) ~ dates.int * groups, data = df)
+            lm1 <- stats::lm(log(counts) ~ dates.x * groups, data = df)
         }
         out <- extract.info(lm1, x, level)
-        out$dates <- df$dates
     } else {
         x1 <- x[x$dates <= split]
         x2 <- x[x$dates >= split]
         df1 <- as.data.frame(x1, long=TRUE)
         df2 <- as.data.frame(x2, long=TRUE)
 
-        df1$dates.int <- as.integer(df1$dates - min(df1$dates))
-        df2$dates.int <- as.integer(df2$dates - min(df2$dates))
+        df1$dates.x <- as.numeric(df1$dates - min(df1$dates)) + x$interval/2 # exact dates
+        df2$dates.x <- as.numeric(df2$dates - min(df2$dates)) + x$interval/2 # exact dates
                 if (n.groups == 1) {
-                    lm1 <- stats::lm(log(counts) ~  dates.int, data = df1)
-                    lm2 <- stats::lm(log(counts) ~  dates.int, data = df2)
+                    lm1 <- stats::lm(log(counts) ~  dates.x, data = df1)
+                    lm2 <- stats::lm(log(counts) ~  dates.x, data = df2)
                 } else {
-                    lm1 <- stats::lm(log(counts) ~  dates.int * groups, data = df1)
-                    lm2 <- stats::lm(log(counts) ~  dates.int * groups, data = df2)
+                    lm1 <- stats::lm(log(counts) ~  dates.x * groups, data = df1)
+                    lm2 <- stats::lm(log(counts) ~  dates.x * groups, data = df2)
                 }
         before <- extract.info(lm1, x, level)
-        before$dates <- x1$dates
         after <- extract.info(lm2, x, level)
-        after$dates <- x2$dates
         out <- list(before = before, after = after)
     }
 
@@ -149,7 +153,7 @@ extract.info <- function(reg, x, level){
 
     ## extract growth rates (r)
     ## here we need to keep all coefficients when there are interactions
-    to.keep <- grep("^dates.int.*$", names(stats::coef(reg)), value=TRUE)
+    to.keep <- grep("^dates.x.*$", names(stats::coef(reg)), value=TRUE)
     r <- stats::coef(reg)[to.keep]
     use.groups <- length(r) > 1
     if (use.groups) {
@@ -167,17 +171,17 @@ extract.info <- function(reg, x, level){
 
     ## need to pass new data spanning all dates and groups here
     if (use.groups) {
-        new.data <- expand.grid(sort(unique(reg$model$dates.int)), levels(reg$model$groups))
-        names(new.data) <- c("dates.int", "groups")
+        new.data <- expand.grid(sort(unique(reg$model$dates.x)), levels(reg$model$groups))
+        names(new.data) <- c("dates.x", "groups")
     } else {
-        new.data <- data.frame(dates.int = sort(unique(reg$model$dates.int)))
+        new.data <- data.frame(dates.x = sort(unique(reg$model$dates.x)))
     }
     pred <- exp(stats::predict(reg, newdata = new.data, interval = "confidence",
                                    level = level))
     pred <- cbind.data.frame(new.data, pred) # keep track of dates and groups for plotting
     info <- list(r = r, r.conf = r.conf,
                  pred = pred)
-    ##browser()
+
     if (r[1] > 0 ) { # note: choice of doubling vs halving only based on 1st group
         info$doubling <- log(2) / r
         info$doubling.conf <- log(2) / r.conf
@@ -189,7 +193,17 @@ extract.info <- function(reg, x, level){
         info$halving.conf <- log(0.5) / r.conf
     }
 
-    out <- list(lm = reg, info = info)
+    ## We need to store the date corresponding to 'day 0', as this will be used to create actual
+    ## dates afterwards (as opposed to mere numbers of days).
+    origin <- min(x$dates)
+
+    ## Dates are reconstructed from info$pred$dates.x and origin).  Note that this is approximate,
+    ## as dates are forced to be integers. A better option would be to convert the dates to numbers,
+    ## but ggplot2 is no longer consistent when mixing up Date and decimal numbers (it works only in
+    ## some cases / geom).
+    dates <- origin + pred$dates.x
+    info$pred <- cbind.data.frame(dates, info$pred)
+    out <- list(lm = reg, info = info, origin = origin)
     class(out) <- "incidence.fit"
     out
 }
@@ -246,7 +260,8 @@ print.incidence.fit <- function(x, ...) {
 ## 'incidence.fit' object ('x')
 
 add.incidence.fit <- function(p, x){
-    df <- cbind.data.frame(dates = x$dates, x$info$pred)
+
+    df <- x$info$pred
 
     p <- suppressMessages(p + ggplot2::geom_line(data = df,
                                                    ggplot2::aes_string(x = "dates", y = "fit"), linetype = 1) +
@@ -268,7 +283,7 @@ add.incidence.fit <- function(p, x){
 ##' @inheritParams plot.incidence
 
 plot.incidence.fit <- function(x, ..., col.pal = pal1){
-    df <- cbind.data.frame(dates = x$dates, x$info$pred)
+    df <- x$info$pred
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates")) +
         ggplot2::geom_line(ggplot2::aes_string(y = "fit"), linetype = 1) +
             ggplot2::geom_line(ggplot2::aes_string(y = "lwr"), linetype = 2) +
