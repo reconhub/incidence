@@ -97,8 +97,8 @@ We can do the same for hospitals, using the 'clean' version of the dataset, with
 i.7.hosp <- with(ebola.sim.clean$linelist, 
 	 incidence(date.of.onset, interval=7, groups = hospital))
 i.7.hosp
-head(i.7.host$counts)
-plot(i.7.host, stack=TRUE) + 
+head(i.7.hosp$counts)
+plot(i.7.hosp, stack=TRUE) + 
     theme(legend.position= "top") + 
     labs(fill="")
 ```

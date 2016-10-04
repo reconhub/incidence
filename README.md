@@ -169,22 +169,33 @@ i.7.hosp
 ```
 
 ```r
-head(i.7.host$counts)
+head(i.7.hosp$counts)
 ```
 
 ```
-## Error in head(i.7.host$counts): object 'i.7.host' not found
+##      Connaught Hospital Military Hospital NA other
+## [1,]                  0                 1  0     0
+## [2,]                  1                 0  0     0
+## [3,]                  0                 0  2     3
+## [4,]                  1                 0  1     0
+## [5,]                  3                 5  1     1
+## [6,]                  2                 4  4     5
+##      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital
+## [1,]                                            0               0
+## [2,]                                            0               0
+## [3,]                                            0               0
+## [4,]                                            1               1
+## [5,]                                            1               1
+## [6,]                                            1               1
 ```
 
 ```r
-plot(i.7.host, stack=TRUE) + 
+plot(i.7.hosp, stack=TRUE) + 
     theme(legend.position= "top") + 
     labs(fill="")
 ```
 
-```
-## Error in plot(i.7.host, stack = TRUE): object 'i.7.host' not found
-```
+![plot of chunk hosp](figs/hosp-1.png)
 
 
 
