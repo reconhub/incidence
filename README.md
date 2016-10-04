@@ -52,6 +52,14 @@ First, we load the data:
 ```r
 library(outbreaks)
 library(ggplot2)
+```
+
+```
+## Find out what's changed in ggplot2 at
+## http://github.com/hadley/ggplot2/releases.
+```
+
+```r
 library(incidence)
 
 dat <- ebola.sim$linelist$date.of.onset
@@ -171,20 +179,7 @@ head(i.7.host$counts)
 ```
 
 ```
-##      Connaught Hospital Military Hospital NA other
-## [1,]                  0                 1  0     0
-## [2,]                  1                 0  0     0
-## [3,]                  0                 0  2     3
-## [4,]                  1                 0  1     0
-## [5,]                  3                 5  1     1
-## [6,]                  2                 4  4     5
-##      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital
-## [1,]                                            0               0
-## [2,]                                            0               0
-## [3,]                                            0               0
-## [4,]                                            1               1
-## [5,]                                            1               1
-## [6,]                                            1               1
+## Error in head(i.7.host$counts): object 'i.7.host' not found
 ```
 
 ```r
@@ -193,7 +188,9 @@ plot(i.7.host, stack=TRUE) +
     labs(fill="")
 ```
 
-![plot of chunk hosp](figs/hosp-1.png)
+```
+## Error in plot(i.7.host, stack = TRUE): object 'i.7.host' not found
+```
 
 
 
