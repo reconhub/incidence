@@ -167,8 +167,6 @@ extract.info <- function(reg, x, level){
         r.conf[-1,] <- r.conf[-1,] + r.conf[1,] # add coefs to intercept
     }
 
-    r.day <- r / x$interval
-    r.day.conf <- r.conf / x$interval
 
     ## need to pass new data spanning all dates and groups here
     if (use.groups) {
@@ -181,21 +179,17 @@ extract.info <- function(reg, x, level){
                                    level = level))
     pred <- cbind.data.frame(new.data, pred) # keep track of dates and groups for plotting
     info <- list(r = r, r.conf = r.conf,
-                 r.day = r.day, r.day.conf = r.day.conf,
                  pred = pred)
 
-    if (r.day[1] > 0 ) { # note: choice of doubling vs halving only based on 1st group
-        info$doubling <- log(2) / r.day
-        info$doubling.conf <- log(2) / r.day.conf
-        o.names <- names(info$doubling.conf)
-        info$doubling.conf <-rev(info$doubling.conf)
-        names(info$doubling.conf) <- o.names
+    if (r[1] > 0 ) { # note: choice of doubling vs halving only based on 1st group
+        info$doubling <- log(2) / r
+        info$doubling.conf <- log(2) / r.conf
+        o.names <- colnames(info$doubling.conf)
+        info$doubling.conf <-info$doubling.conf[, rev(seq_along(o.names))]
+        colnames(info$doubling.conf) <- o.names
     } else {
-        info$halving <- log(0.5) / r.day
-        info$halving.conf <- log(0.5) / r.day.conf
-        o.names <- names(info$halving.conf)
-        info$halving.conf <-rev(info$halving.conf)
-        names(info$halving.conf) <- o.names
+        info$halving <- log(0.5) / r
+        info$halving.conf <- log(0.5) / r.conf
     }
 
     out <- list(lm = reg, info = info)
@@ -218,22 +212,30 @@ print.incidence.fit <- function(x, ...) {
   cat("$lm: regression of log-incidence over time\n\n")
 
   cat("$info: list containing the following items:\n")
-  cat(sprintf("  $r.day: %.5f (daily growth rate)\n", x$info$r.day))
-  cat(sprintf("  $r.day.conf: [%.5f ; %.5f] (confidence interval)\n",
-              x$info$r.day.conf[1], x$info$r.day.conf[2]))
+  ##  cat(sprintf("  $r: %.5f (daily growth rate)\n", x$info$r))
+    cat("  $r (daily growth rate):\n")
+  print(x$info$r)
+  ## cat(sprintf("  $r.conf: [%.5f ; %.5f] (confidence interval)\n",
+  ##             x$info$r.conf[1], x$info$r.conf[2]))
+  cat("\n  $r .conf (confidence interval):\n")
+  print(x$info$r.conf)
   if (x$info$r[1] > 0) {
-      cat(sprintf("  $doubling: %.1f (doubling time in days)\n", x$info$doubling))
-      cat(sprintf("  $doubling.conf: [%.1f ; %.1f] (confidence interval)\n",
-                  x$info$doubling.conf[1], x$info$doubling.conf[2]))
+      ## cat(sprintf("  $doubling: %.1f (doubling time in days)\n", x$info$doubling))
+      ## cat(sprintf("  $doubling.conf: [%.1f ; %.1f] (confidence interval)\n",
+      ##             x$info$doubling.conf[1], x$info$doubling.conf[2]))
+      cat("\n  $doubling: (doubling time in days)\n")
+      print(x$info$doubling)
+      cat("\n  $doubling.conf: (confidence interval)\n")
+      print(x$info$doubling.conf)
   } else {
-      cat(sprintf("  $halving: %.1f (halving time in days)\n", x$info$halving))
-      cat(sprintf("  $halving.conf: [%.1f ; %.1f] (confidence interval)\n",
-                  x$info$halving.conf[1], x$info$halving.conf[2]))
+      cat("\n  $halving: (halving time in days)\n")
+      print(x$info$halving)
+      cat("\n  $halving.conf: (confidence interval)\n")
+      print(x$info$halving.conf)
   }
 
-  cat(sprintf("  $pred: %d predictions of incidence\n", length(x$info$pred)))
-  cat(sprintf("  $pred.conf: %d x %d matrix of predictions (confidence interval)\n",
-      nrow(x$info$pred.conf), ncol(x$info$pred.conf)))
+  cat(sprintf("\n  $pred: data.frame of incidence predictions (%d rows, %d columns)\n",
+              nrow(x$info$pred), ncol(x$info$pred)))
 
 
   invisible(x)
