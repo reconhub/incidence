@@ -118,7 +118,7 @@ fit.optim.split <- function(x, window = x$timespan/4, plot = TRUE){
     ## shape output
     df <- data.frame(dates = splits.to.try, mean.R2 = results)
     split <- splits.to.try[which.max(results)]
-    fit <- fit(x, split = split)
+    fit <- suppressWarnings(fit(x, split = split))
     out <- list(df = df,
                 split = split,
                 fit = fit)

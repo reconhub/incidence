@@ -90,6 +90,15 @@ i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
+```{r, hosp}
+i.7.hosp <- with(ebola.sim.clean$linelist, 
+	 incidence(date.of.onset, interval=7, groups = hospital))
+i.7.hosp
+head(i.7.host$counts)
+plot(i.7.host, stack=TRUE) + 
+    theme(legend.position= "top") + 
+    labs(fill="")
+```
 
 
 
