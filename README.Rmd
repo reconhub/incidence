@@ -1,5 +1,5 @@
 
-<img src="http://raw.githubusercontent.com/reconhub/incidence/master/logo/logo.png" alt="incidence logo">
+![incidence logo](http://raw.githubusercontent.com/reconhub/incidence/master/logo/logo.png)
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
