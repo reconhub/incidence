@@ -85,7 +85,15 @@ plot.incidence <- function(x, ..., fit = NULL, stack = FALSE,
     ## Handle stacking
     stack.txt <- ifelse(stack, "stack", "dodge")
 
-    out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates", y = "counts")) +
+    ## By default, the annotation of bars in geom_bar puts the label in the middle of the bar. This
+    ## is wrong in our case as the annotation of a time interval is the lower (left) bound, and
+    ## should therefore be left-aligned with the bar. Note that we cannot use position_nudge to
+    ## create the x-offset as we need the 'position' argument for stacking. Best option here is add
+    ## x$interval / 2 to the x-axis.
+
+    x.axis.txt <- paste("dates", x$interval/2, sep = "+")
+
+    out <- ggplot2::ggplot(df, ggplot2::aes_string(x = x.axis.txt, y = "counts")) +
         ggplot2::geom_bar(stat="identity", width = x$interval,
                           position = stack.txt, color = border, alpha = alpha) +
             ggplot2::labs(x = xlab, y = ylab)
