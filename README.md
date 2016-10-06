@@ -1,11 +1,10 @@
 
-![incidence logo](logo/logo.png)
+![incidence logo](logo/banner.png)
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg)](https://codecov.io/github/reconhub/incidence?branch=master)
 
-# incidence: computation, handling and visualisation of incidence
 
 This package implements functions and classes to compute, handle, visualise and model incidences
 from dates data.

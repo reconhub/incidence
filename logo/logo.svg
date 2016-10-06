@@ -674,6 +674,71 @@
        id="radialGradient4011"
        xlink:href="#linearGradient4030"
        inkscape:collect="always" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5829-6"
+       id="radialGradient3251"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.98890117,3.2257645e-8,-3.1906975e-8,0.97815089,387.4602,74.228963)"
+       cx="195.96959"
+       cy="713.96112"
+       fx="195.96959"
+       fy="713.96112"
+       r="80.880234" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3978"
+       id="radialGradient3253"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.2998144,-2.3134041,0.39501206,0.39473869,-515.60994,897.8756)"
+       cx="344.94482"
+       cy="176.41234"
+       fx="344.94482"
+       fy="176.41234"
+       r="31.708521" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4030"
+       id="radialGradient3255"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.8689794,-2.3756473,-0.73478407,0.5686298,1147.4988,892.97093)"
+       cx="338.72665"
+       cy="177.51418"
+       fx="338.72665"
+       fy="177.51418"
+       r="31.708521" />
+    <filter
+       id="filter4136"
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow">
+      <feFlood
+         id="feFlood4138"
+         flood-opacity="0.25"
+         flood-color="rgb(0,0,0)"
+         result="flood" />
+      <feComposite
+         id="feComposite4140"
+         in2="SourceGraphic"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur4142"
+         in="composite"
+         stdDeviation="2"
+         result="blur" />
+      <feOffset
+         id="feOffset4144"
+         dx="2"
+         dy="4"
+         result="offset" />
+      <feComposite
+         id="feComposite4146"
+         in2="offset"
+         in="SourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -683,8 +748,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="421.14853"
-     inkscape:cy="910.42455"
+     inkscape:cx="425.05597"
+     inkscape:cy="582.60983"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -701,7 +766,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1047,37 +1112,8 @@
       </g>
     </g>
     <g
-       id="g7417-5"
-       transform="translate(-218.39762,-601.65714)"
-       inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
-       inkscape:export-xdpi="129.65448"
-       inkscape:export-ydpi="129.65448">
-      <circle
-         r="80.880234"
-         cy="772.59076"
-         cx="581.25476"
-         id="path4466-0-6-1-6-6"
-         style="fill:#e3f4d7;fill-opacity:0.69411765;stroke:none"
-         d="m 662.13499,772.59076 c 0,44.66892 -36.21131,80.88023 -80.88023,80.88023 -44.66892,0 -80.88023,-36.21131 -80.88023,-80.88023 0,-44.66892 36.21131,-80.88023 80.88023,-80.88023 44.66892,0 80.88023,36.21131 80.88023,80.88023 z"
-         sodipodi:cx="581.25476"
-         sodipodi:cy="772.59076"
-         sodipodi:rx="80.880234"
-         sodipodi:ry="80.880234" />
-      <circle
-         r="80.880234"
-         cy="772.59076"
-         cx="581.25476"
-         id="path4466-3-3-2-2"
-         style="fill:url(#radialGradient7288-8-1-3);fill-opacity:1;stroke:#d7efc7;stroke-opacity:0.95686274999999998"
-         d="m 662.13499,772.59076 c 0,44.66892 -36.21131,80.88023 -80.88023,80.88023 -44.66892,0 -80.88023,-36.21131 -80.88023,-80.88023 0,-44.66892 36.21131,-80.88023 80.88023,-80.88023 44.66892,0 80.88023,36.21131 80.88023,80.88023 z"
-         sodipodi:cx="581.25476"
-         sodipodi:cy="772.59076"
-         sodipodi:rx="80.880234"
-         sodipodi:ry="80.880234" />
-    </g>
-    <g
        id="g5738-9"
-       transform="matrix(0.74494953,0,0,0.74494953,151.5003,-227.90068)">
+       transform="matrix(0.74494953,0,0,0.74494953,-504.214,284.24219)">
       <path
          inkscape:connector-curvature="0"
          id="path4481-7-1"
@@ -1099,8 +1135,8 @@
        id="rect3115"
        width="16.858246"
        height="19.816326"
-       x="209.17712"
-       y="495.7049"
+       x="-446.53717"
+       y="1007.8478"
        rx="0"
        ry="0" />
     <rect
@@ -1108,8 +1144,8 @@
        id="rect3115-0"
        width="16.523445"
        height="48.72876"
-       x="228.06404"
-       y="466.60864"
+       x="-427.65027"
+       y="978.75153"
        rx="0"
        ry="0" />
     <rect
@@ -1117,8 +1153,8 @@
        id="rect3115-9"
        width="16.644577"
        height="36.719345"
-       x="246.72301"
-       y="478.68454"
+       x="-408.9913"
+       y="990.82739"
        rx="0"
        ry="0" />
     <rect
@@ -1126,8 +1162,8 @@
        id="rect3115-3"
        width="16.343122"
        height="69.962151"
-       x="265.59323"
-       y="445.27625"
+       x="-390.12106"
+       y="957.41913"
        rx="0"
        ry="0" />
     <rect
@@ -1135,8 +1171,8 @@
        id="rect3115-6"
        width="16.21899"
        height="86.973145"
-       x="284.37482"
-       y="428.19708"
+       x="-371.33948"
+       y="940.33997"
        rx="0"
        ry="0" />
     <rect
@@ -1144,8 +1180,8 @@
        id="rect3115-06"
        width="16.332205"
        height="71.379044"
-       x="303.03772"
-       y="443.85333"
+       x="-352.67657"
+       y="955.99622"
        rx="0"
        ry="0" />
     <rect
@@ -1153,8 +1189,8 @@
        id="rect3115-2"
        width="16.45327"
        height="56.509445"
-       x="321.69672"
-       y="458.78943"
+       x="-334.01758"
+       y="970.93231"
        rx="0"
        ry="0" />
     <rect
@@ -1162,8 +1198,8 @@
        id="rect3115-61"
        width="16.666271"
        height="33.197227"
-       x="340.30972"
-       y="482.22852"
+       x="-315.40457"
+       y="994.3714"
        rx="0"
        ry="0" />
     <rect
@@ -1171,8 +1207,8 @@
        id="rect3115-61-8"
        width="16.868893"
        height="19.114136"
-       x="358.92792"
-       y="496.41293"
+       x="-296.78638"
+       y="1008.5558"
        rx="0"
        ry="0" />
     <rect
@@ -1180,108 +1216,10 @@
        id="rect3115-61-7"
        width="17.081074"
        height="8.61203"
-       x="190.34619"
-       y="507.02112"
+       x="-465.3681"
+       y="1019.164"
        rx="0"
        ry="0" />
-    <g
-       id="g3247"
-       transform="matrix(0.95510662,0,0,0.95510662,15.351837,2.629985)"
-       style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-opacity:0.69411975000000004"
-       inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
-       inkscape:export-xdpi="129.65448"
-       inkscape:export-ydpi="129.65448">
-      <rect
-         ry="0"
-         rx="0"
-         y="194.93024"
-         x="312.05844"
-         height="15.667684"
-         width="10.766631"
-         id="rect3115-92"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.47286579000000001;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="171.92543"
-         x="324.1207"
-         height="38.527161"
-         width="10.552809"
-         id="rect3115-0-0"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.73411333999999984;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="181.47318"
-         x="336.03735"
-         height="29.031973"
-         width="10.63017"
-         id="rect3115-9-2"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.63959348000000005;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="155.05907"
-         x="348.08896"
-         height="55.315243"
-         width="10.437644"
-         id="rect3115-3-3"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.87482106999999998;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="141.55553"
-         x="360.08395"
-         height="68.7649"
-         width="10.358367"
-         id="rect3115-6-7"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.97168303000000000;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="153.93404"
-         x="372.00314"
-         height="56.435501"
-         width="10.430672"
-         id="rect3115-06-5"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.88334005999999998;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="165.74323"
-         x="383.9198"
-         height="44.678925"
-         width="10.507991"
-         id="rect3115-2-9"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.78887247999999999;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="184.27521"
-         x="395.80716"
-         height="26.247229"
-         width="10.644026"
-         id="rect3115-61-2"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.60854167000000003;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="195.49005"
-         x="407.69778"
-         height="15.112499"
-         width="10.773431"
-         id="rect3115-61-8-2"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.46455890000000000;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-      <rect
-         ry="0"
-         rx="0"
-         y="203.87737"
-         x="300.03192"
-         height="6.8090606"
-         width="10.908943"
-         id="rect3115-61-7-8"
-         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.31378376000000002;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0" />
-    </g>
     <g
        style="stroke:#7c926f;stroke-opacity:0.69411765"
        id="g4085"
@@ -1336,23 +1274,329 @@
          d="M 423.65991,199.4891 C 388.25919,189.36826 375.68002,174.54883 364.39214,155.57124"
          style="fill:none;stroke:#7c926f;stroke-width:0.95510662;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.69411765;stroke-dasharray:3.82042663, 1.91021332;stroke-dashoffset:0" />
     </g>
-    <path
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#radialGradient3994);fill-opacity:1;stroke:none;stroke-width:0.95510662px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
-       d="m 362.50872,120.62457 c -17.9464,28.89027 -38.51982,61.26847 -63.41304,77.61669 l -0.004,5.82763 c 24.97812,-16.40399 45.38687,-32.25899 63.39381,-61.24674 z"
-       id="path3259-1"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
-       inkscape:export-xdpi="129.65448"
-       inkscape:export-ydpi="129.65448" />
-    <path
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#radialGradient4011);fill-opacity:1;stroke:none;stroke-width:0.95510662000000002px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
-       d="m 365.0772,125.47261 c 18.72122,35.57521 27.33575,49.80257 52.69565,72.42935 l 0.21595,5.74756 c -31.20526,-25.6993 -34.33245,-22.58921 -52.89205,-57.24618 z"
-       id="path3259-1-9"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
-       inkscape:export-xdpi="129.65448"
-       inkscape:export-ydpi="129.65448" />
+    <g
+       id="g3199">
+      <g
+         inkscape:export-ydpi="129.65448"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         transform="translate(-218.39762,-601.65714)"
+         id="g7417-5">
+        <circle
+           sodipodi:ry="80.880234"
+           sodipodi:rx="80.880234"
+           sodipodi:cy="772.59076"
+           sodipodi:cx="581.25476"
+           d="m 662.13499,772.59076 c 0,44.66892 -36.21131,80.88023 -80.88023,80.88023 -44.66892,0 -80.88023,-36.21131 -80.88023,-80.88023 0,-44.66892 36.21131,-80.88023 80.88023,-80.88023 44.66892,0 80.88023,36.21131 80.88023,80.88023 z"
+           style="fill:#e3f4d7;fill-opacity:0.69411765;stroke:none"
+           id="path4466-0-6-1-6-6"
+           cx="581.25476"
+           cy="772.59076"
+           r="80.880234" />
+        <circle
+           sodipodi:ry="80.880234"
+           sodipodi:rx="80.880234"
+           sodipodi:cy="772.59076"
+           sodipodi:cx="581.25476"
+           d="m 662.13499,772.59076 c 0,44.66892 -36.21131,80.88023 -80.88023,80.88023 -44.66892,0 -80.88023,-36.21131 -80.88023,-80.88023 0,-44.66892 36.21131,-80.88023 80.88023,-80.88023 44.66892,0 80.88023,36.21131 80.88023,80.88023 z"
+           style="fill:url(#radialGradient7288-8-1-3);fill-opacity:1;stroke:#d7efc7;stroke-opacity:0.95686274999999998"
+           id="path4466-3-3-2-2"
+           cx="581.25476"
+           cy="772.59076"
+           r="80.880234" />
+      </g>
+      <g
+         inkscape:export-ydpi="129.65448"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-opacity:0.69411975000000004"
+         transform="matrix(0.95510662,0,0,0.95510662,15.351837,2.629985)"
+         id="g3247">
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.47286579000000001;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-92"
+           width="10.766631"
+           height="15.667684"
+           x="312.05844"
+           y="194.93024"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.73411333999999984;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-0-0"
+           width="10.552809"
+           height="38.527161"
+           x="324.1207"
+           y="171.92543"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.63959348000000005;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-9-2"
+           width="10.63017"
+           height="29.031973"
+           x="336.03735"
+           y="181.47318"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.87482106999999998;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-3-3"
+           width="10.437644"
+           height="55.315243"
+           x="348.08896"
+           y="155.05907"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.97168303000000000;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-6-7"
+           width="10.358367"
+           height="68.7649"
+           x="360.08395"
+           y="141.55553"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.88334005999999998;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-06-5"
+           width="10.430672"
+           height="56.435501"
+           x="372.00314"
+           y="153.93404"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.78887247999999999;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-2-9"
+           width="10.507991"
+           height="44.678925"
+           x="383.9198"
+           y="165.74323"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.60854167000000003;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-61-2"
+           width="10.644026"
+           height="26.247229"
+           x="395.80716"
+           y="184.27521"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.46455890000000000;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-61-8-2"
+           width="10.773431"
+           height="15.112499"
+           x="407.69778"
+           y="195.49005"
+           rx="0"
+           ry="0" />
+        <rect
+           style="fill:#93ac93;fill-opacity:1;stroke:none;stroke-width:0.31378376000000002;stroke-miterlimit:4;stroke-opacity:0.69411975000000004;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect3115-61-7-8"
+           width="10.908943"
+           height="6.8090606"
+           x="300.03192"
+           y="203.87737"
+           rx="0"
+           ry="0" />
+      </g>
+      <path
+         inkscape:export-ydpi="129.65448"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3259-1"
+         d="m 362.50872,120.62457 c -17.9464,28.89027 -38.51982,61.26847 -63.41304,77.61669 l -0.004,5.82763 c 24.97812,-16.40399 45.38687,-32.25899 63.39381,-61.24674 z"
+         style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#radialGradient3994);fill-opacity:1;stroke:none;stroke-width:0.95510662px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+      <path
+         inkscape:export-ydpi="129.65448"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3259-1-9"
+         d="m 365.0772,125.47261 c 18.72122,35.57521 27.33575,49.80257 52.69565,72.42935 l 0.21595,5.74756 c -31.20526,-25.6993 -34.33245,-22.58921 -52.89205,-57.24618 z"
+         style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#radialGradient4011);fill-opacity:1;stroke:none;stroke-width:0.95510662000000002px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+    </g>
+    <g
+       id="g3217"
+       transform="matrix(0.72790865,0,0,0.72790865,-97.698289,270.08099)">
+      <g
+         id="g3219"
+         transform="translate(-218.39762,-601.65714)"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-ydpi="129.65448">
+        <circle
+           r="80.880234"
+           cy="772.59076"
+           cx="581.25476"
+           id="circle3221"
+           style="fill:#e3f4d7;fill-opacity:0.69411765;stroke:none"
+           d="m 662.13499,772.59076 c 0,44.66892 -36.21131,80.88023 -80.88023,80.88023 -44.66892,0 -80.88023,-36.21131 -80.88023,-80.88023 0,-44.66892 36.21131,-80.88023 80.88023,-80.88023 44.66892,0 80.88023,36.21131 80.88023,80.88023 z"
+           sodipodi:cx="581.25476"
+           sodipodi:cy="772.59076"
+           sodipodi:rx="80.880234"
+           sodipodi:ry="80.880234" />
+        <circle
+           r="80.880234"
+           cy="772.59076"
+           cx="581.25476"
+           id="circle3223"
+           style="fill:url(#radialGradient3251);fill-opacity:1;stroke:#d7efc7;stroke-opacity:0.95686275"
+           d="m 662.13499,772.59076 c 0,44.66892 -36.21131,80.88023 -80.88023,80.88023 -44.66892,0 -80.88023,-36.21131 -80.88023,-80.88023 0,-44.66892 36.21131,-80.88023 80.88023,-80.88023 44.66892,0 80.88023,36.21131 80.88023,80.88023 z"
+           sodipodi:cx="581.25476"
+           sodipodi:cy="772.59076"
+           sodipodi:rx="80.880234"
+           sodipodi:ry="80.880234" />
+      </g>
+      <g
+         id="g3225"
+         transform="matrix(0.95510662,0,0,0.95510662,15.351837,2.629985)"
+         style="fill:#93ac93;fill-opacity:1;stroke:none"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-ydpi="129.65448">
+        <rect
+           ry="0"
+           rx="0"
+           y="194.93024"
+           x="312.05844"
+           height="15.667684"
+           width="10.766631"
+           id="rect3227"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="171.92543"
+           x="324.1207"
+           height="38.527161"
+           width="10.552809"
+           id="rect3229"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="181.47318"
+           x="336.03735"
+           height="29.031973"
+           width="10.63017"
+           id="rect3231"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="155.05907"
+           x="348.08896"
+           height="55.315243"
+           width="10.437644"
+           id="rect3233"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="141.55553"
+           x="360.08395"
+           height="68.7649"
+           width="10.358367"
+           id="rect3235"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="153.93404"
+           x="372.00314"
+           height="56.435501"
+           width="10.430672"
+           id="rect3237"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="165.74323"
+           x="383.9198"
+           height="44.678925"
+           width="10.507991"
+           id="rect3239"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="184.27521"
+           x="395.80716"
+           height="26.247229"
+           width="10.644026"
+           id="rect3241"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="195.49005"
+           x="407.69778"
+           height="15.112499"
+           width="10.773431"
+           id="rect3243"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           rx="0"
+           y="203.87737"
+           x="300.03192"
+           height="6.8090606"
+           width="10.908943"
+           id="rect3245"
+           style="fill:#93ac93;fill-opacity:1;stroke:none" />
+      </g>
+      <path
+         style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#radialGradient3253);fill-opacity:1;stroke:none;stroke-width:0.95510662px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+         d="m 362.50872,120.62457 c -17.9464,28.89027 -38.51982,61.26847 -63.41304,77.61669 l -0.004,5.82763 c 24.97812,-16.40399 45.38687,-32.25899 63.39381,-61.24674 z"
+         id="path3247"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-ydpi="129.65448" />
+      <path
+         style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#radialGradient3255);fill-opacity:1;stroke:none;stroke-width:0.95510662px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+         d="m 365.0772,125.47261 c 18.72122,35.57521 27.33575,49.80257 52.69565,72.42935 l 0.21595,5.74756 c -31.20526,-25.6993 -34.33245,-22.58921 -52.89205,-57.24618 z"
+         id="path3249"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc"
+         inkscape:export-filename="/home/thibaut/dev/RECON/incidence/logo/logo.png"
+         inkscape:export-xdpi="129.65448"
+         inkscape:export-ydpi="129.65448" />
+    </g>
+    <g
+       id="g4148"
+       transform="translate(-19.285715,-15.714286)">
+      <rect
+         ry="10"
+         rx="10"
+         y="378.57645"
+         x="261.6701"
+         height="65.000008"
+         width="361.42853"
+         id="rect3346"
+         style="fill:#ffffff;fill-opacity:1;stroke:#dbf5db;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter4136)" />
+      <flowRoot
+         transform="translate(-16.559982,35.331369)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:glyph;-inkscape-font-specification:glyph"
+         id="flowRoot3328"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3330"><rect
+             y="353.07648"
+             x="289.28571"
+             height="48.571457"
+             width="347.85718"
+             id="rect3332" /></flowRegion><flowPara
+           id="flowPara3340"
+           style="font-size:20px;font-weight:bold;font-family:Sawasdee;-inkscape-font-specification:Sawasdee"><flowSpan
+   id="flowSpan3338"
+   style="font-style:italic">incidence</flowSpan>: compute, handle, visualise and model incidence of dated events</flowPara></flowRoot>    </g>
   </g>
 </svg>
