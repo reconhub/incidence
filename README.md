@@ -1,5 +1,5 @@
 
-![incidence logo](http://raw.githubusercontent.com/reconhub/incidence/master/logo/logo.png)
+![incidence logo](logo/logo.png)
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
@@ -159,9 +159,9 @@ i.7.hosp
 ```
 ## <incidence object>
 ## [5829 cases from days 2014-04-07 to 2015-04-27]
-## [12 groups: Connaught Hopital, Connaught Hospital, Military Hopital, Military Hospital, Mitylira Hopital, Mitylira Hospital, NA, other, Princess Christian Maternity Hopital (PCMH), Princess Christian Maternity Hospital (PCMH), Rokupa Hopital, Rokupa Hospital]
+## [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]
 ## 
-## $counts: matrix with 56 rows and 12 columns
+## $counts: matrix with 56 rows and 6 columns
 ## $n: 5829 cases in total
 ## $dates: 56 dates marking the left-side of bins
 ## $interval: 7 days
@@ -173,41 +173,20 @@ head(i.7.hosp$counts)
 ```
 
 ```
-##      Connaught Hopital Connaught Hospital Military Hopital
-## [1,]                 0                  0                0
-## [2,]                 0                  1                0
-## [3,]                 0                  0                0
-## [4,]                 0                  1                0
-## [5,]                 0                  3                0
-## [6,]                 0                  2                0
-##      Military Hospital Mitylira Hopital Mitylira Hospital NA other
-## [1,]                 1                0                 0  0     0
-## [2,]                 0                0                 0  0     0
-## [3,]                 0                0                 0  2     3
-## [4,]                 0                0                 0  1     0
-## [5,]                 4                0                 1  1     1
-## [6,]                 4                0                 0  4     5
-##      Princess Christian Maternity Hopital (PCMH)
-## [1,]                                           0
-## [2,]                                           0
-## [3,]                                           0
-## [4,]                                           0
-## [5,]                                           0
-## [6,]                                           0
-##      Princess Christian Maternity Hospital (PCMH) Rokupa Hopital
-## [1,]                                            0              0
-## [2,]                                            0              0
-## [3,]                                            0              0
-## [4,]                                            1              0
-## [5,]                                            1              0
-## [6,]                                            1              0
-##      Rokupa Hospital
-## [1,]               0
-## [2,]               0
-## [3,]               0
-## [4,]               1
-## [5,]               1
-## [6,]               1
+##      Connaught Hospital Military Hospital NA other
+## [1,]                  0                 1  0     0
+## [2,]                  1                 0  0     0
+## [3,]                  0                 0  2     3
+## [4,]                  1                 0  1     0
+## [5,]                  3                 5  1     1
+## [6,]                  2                 4  4     5
+##      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital
+## [1,]                                            0               0
+## [2,]                                            0               0
+## [3,]                                            0               0
+## [4,]                                            1               1
+## [5,]                                            1               1
+## [6,]                                            1               1
 ```
 
 ```r
