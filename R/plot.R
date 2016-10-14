@@ -23,7 +23,7 @@
 ##'
 ##' @param border The color to be used for the borders of the bars; NA for invisiable borders.
 ##'
-##' @param col.pal The color palette to be used for the groups; defaults to \code{pal1}. See
+##' @param col_pal The color palette to be used for the groups; defaults to \code{pal1}. See
 ##' \code{\link{pal1}} for other palettes implemented in incidence.
 ##'
 ##' @param alpha The alpha level for color transparency, with 1 being fully opaque and 0 fully
@@ -61,7 +61,7 @@
 ##' }
 ##'
 plot.incidence <- function(x, ..., fit = NULL, stack = FALSE,
-                           border = NA, col.pal = pal1, alpha = .8,
+                           border = NA, col_pal = pal1, alpha = .8,
                            xlab = "", ylab = NULL) {
 
     ## extract data in suitable format for ggplot2
@@ -122,24 +122,13 @@ plot.incidence <- function(x, ..., fit = NULL, stack = FALSE,
     ## Add color to groups if needed
     if (ncol(df) > 2) {
         out <- out + ggplot2::aes_string(fill = "groups") +
-            ggplot2::scale_fill_manual(values = col.pal(n.groups))
+            ggplot2::scale_fill_manual(values = col_pal(n.groups))
         if (!is.null(fit)) {
             out <- out + ggplot2::aes_string(color = "groups") +
-            ggplot2::scale_color_manual(values = col.pal(n.groups))
+            ggplot2::scale_color_manual(values = col_pal(n.groups))
         }
     }
 
     out
 }
 
-
-
-
-## ##' @export
-## plot.incidence_summary <- function(x, ..., ylab = NULL) {
-##   if (is.null(ylab)) {
-##     ylab <- sprintf("Cases (%d day %s)", x$interval,
-##                     if (x$rolling) "rolling average" else "total")
-##   }
-##   plot.incidence(x, ..., ylab = ylab)
-## }
