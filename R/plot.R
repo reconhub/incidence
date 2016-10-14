@@ -16,7 +16,7 @@
 ##'
 ##' @param ... Further arguments passed to other methods (currently not used).
 ##'
-##' @param fit An 'incidence.fit' objet as returned by \code{\link{fit}}.
+##' @param fit An 'incidence_fit' objet as returned by \code{\link{fit}}.
 ##'
 ##' @param stack A logical indicating if bars of multiple groups should be stacked, or displayed
 ##' side-by-side.
@@ -56,7 +56,7 @@
 ##'   plot(inc.week.gender, stack = TRUE)
 ##'
 ##'   ## adding fit
-##'   fit <- fit.optim.split(inc.week.gender)$fit
+##'   fit <- fit_optim_split(inc.week.gender)$fit
 ##'   plot(inc.week.gender, fit = fit)
 ##' }
 ##'
@@ -99,23 +99,23 @@ plot.incidence <- function(x, ..., fit = NULL, stack = FALSE,
             ggplot2::labs(x = xlab, y = ylab)
 
 
-    ## Handle fit objects here; 'fit' can be either an 'incidence.fit' object, or a list of
+    ## Handle fit objects here; 'fit' can be either an 'incidence_fit' object, or a list of
     ## these. In the case of a list, we add geoms one after the other.
 
     if (!is.null(fit)) {
-        if (inherits(fit, "incidence.fit")) {
-            out <- add.incidence.fit(out, fit)
+        if (inherits(fit, "incidence_fit")) {
+            out <- add_incidence_fit(out, fit)
         } else if (is.list(fit)) {
             for (i in seq_along(fit)) {
                 fit.i <- fit[[i]]
-                if (!inherits(fit.i, "incidence.fit")) {
-                    stop(sprintf("The %d-th item in 'fit' is not an 'incidence.fit' object, but a %s",
+                if (!inherits(fit.i, "incidence_fit")) {
+                    stop(sprintf("The %d-th item in 'fit' is not an 'incidence_fit' object, but a %s",
                                  i, class(fit.i)))
                 }
-                out <- add.incidence.fit(out, fit.i)
+                out <- add_incidence_fit(out, fit.i)
             }
         } else {
-            stop("fit must be a 'incidence.fit' object, or a list of these")
+            stop("fit must be a 'incidence_fit' object, or a list of these")
         }
     }
 

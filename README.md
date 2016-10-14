@@ -28,9 +28,9 @@ Note that this requires the package *devtools* installed.
 The main functions of the package include:
 
 - **`incidence`**: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class *incidence*.
-- **`plot`**: this method (see `?plot.incidence` for details) plots *incidence* objects, and can also add predictions of the model(s) contained in an  *incidence.fit* object (or a list of such objects).
-- **`fit`**: fit one or two exponential models (i.e. linear regression on log-incidence) to an *incidence* object; two models are calibrated only if a date is provided to split the time series in two (argument `split`); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class *incidence.fit*, each of which contains various useful information (e.g. growth rate *r*, doubling/halving time, predictions and confidence intervals).
-- **`fit.optim.split`**: finds the optimal date to split the time series in two, typically around the peak of the epidemic.
+- **`plot`**: this method (see `?plot.incidence` for details) plots *incidence* objects, and can also add predictions of the model(s) contained in an  *incidence_fit* object (or a list of such objects).
+- **`fit`**: fit one or two exponential models (i.e. linear regression on log-incidence) to an *incidence* object; two models are calibrated only if a date is provided to split the time series in two (argument `split`); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class *incidence_fit*, each of which contains various useful information (e.g. growth rate *r*, doubling/halving time, predictions and confidence intervals).
+- **`fit_optim_split`**: finds the optimal date to split the time series in two, typically around the peak of the epidemic.
 - **`[`**: lower-level subsetan of *incidence* objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates, and `j` a subset of groups.
 - **`subset`**: subset an *incidence* object by specifying a time window.
 - **`pool`**: pool incidence from different groups into one global incidence time series.
@@ -372,7 +372,7 @@ early.fit
 ```
 
 ```
-## <incidence.fit object>
+## <incidence_fit object>
 ## 
 ## $lm: regression of log-incidence over time
 ## 
@@ -422,7 +422,7 @@ fit.both
 
 ```
 ## $before
-## <incidence.fit object>
+## <incidence_fit object>
 ## 
 ## $lm: regression of log-incidence over time
 ## 
@@ -444,7 +444,7 @@ fit.both
 ##   $pred: data.frame of incidence predictions (28 rows, 5 columns)
 ## 
 ## $after
-## <incidence.fit object>
+## <incidence_fit object>
 ## 
 ## $lm: regression of log-incidence over time
 ## 
@@ -475,7 +475,7 @@ plot(i.7, fit=fit.both)
 This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e. the one maximizing the average fit of both models), we use:
 
 ```r
-best.fit <- fit.optim.split(i.7)
+best.fit <- fit_optim_split(i.7)
 best.fit
 ```
 
@@ -501,7 +501,7 @@ best.fit
 ## 
 ## $fit
 ## $fit$before
-## <incidence.fit object>
+## <incidence_fit object>
 ## 
 ## $lm: regression of log-incidence over time
 ## 
@@ -523,7 +523,7 @@ best.fit
 ##   $pred: data.frame of incidence predictions (25 rows, 5 columns)
 ## 
 ## $fit$after
-## <incidence.fit object>
+## <incidence_fit object>
 ## 
 ## $lm: regression of log-incidence over time
 ## 
@@ -562,13 +562,13 @@ These models are very good approximation of these data, showing a doubling time 
 Note that `fit` will also take groups into account if incidence has been computed for several groups:
 
 ```r
-best.fit2 <- fit.optim.split(i.7.sex)$fit
+best.fit2 <- fit_optim_split(i.7.sex)$fit
 best.fit2
 ```
 
 ```
 ## $before
-## <incidence.fit object>
+## <incidence_fit object>
 ## 
 ## $lm: regression of log-incidence over time
 ## 
@@ -594,7 +594,7 @@ best.fit2
 ##   $pred: data.frame of incidence predictions (46 rows, 6 columns)
 ## 
 ## $after
-## <incidence.fit object>
+## <incidence_fit object>
 ## 
 ## $lm: regression of log-incidence over time
 ## 
