@@ -74,9 +74,9 @@ incidence <- function(dates, interval = 1L, ...) {
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL, na.as.group = TRUE, ...) {
     ## make sure input can be used
-    dates <- check.dates(dates)
-    interval <- check.interval(interval) # enforces positive, finite integer
-    groups <- check.groups(groups, dates, na.as.group) # enforces factor of right length
+    dates <- check_dates(dates)
+    interval <- check_interval(interval) # enforces positive, finite integer
+    groups <- check_groups(groups, dates, na.as.group) # enforces factor of right length
 
     ## check interval
     first.date <- min(dates)
@@ -137,7 +137,7 @@ incidence.default <- incidence.integer
 ##'
 incidence.numeric <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
-    dates <- check.dates(dates)
+    dates <- check_dates(dates)
 
     message("Dates stored as decimal numbers were floored.\n")
     dates <- as.integer(floor(dates))
@@ -155,7 +155,7 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 incidence.Date <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
-    dates <- check.dates(dates)
+    dates <- check_dates(dates)
 
     first.date <- min(dates, na.rm = TRUE)
     out <- incidence.integer(as.integer(dates - first.date), interval, ...)
@@ -173,7 +173,7 @@ incidence.Date <- function(dates, interval = 1L, ...) {
 
 incidence.POSIXt <- function(dates, interval = 1L, ...) {
     ## make sure input can be used
-    dates <- check.dates(dates)
+    dates <- check_dates(dates)
 
     ret <- incidence(as.Date(dates), interval, ...)
     f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
@@ -212,7 +212,7 @@ print.incidence <- function(x, ...) {
 ## This function is non-exported; it merely checks that usable data are provided, and returns data
 ## without NAs.
 
-check.dates <- function(dates){
+check_dates <- function(dates){
     ## make sure input can be used
     to.remove <- !is.finite(dates)
     if (sum(to.remove)>0) {
@@ -238,7 +238,7 @@ check.dates <- function(dates){
 ## - integer (rounded)
 ## - finite
 ## - of length 1
-check.interval <- function(interval){
+check_interval <- function(interval){
     if (missing(interval) || is.null(interval)) {
         stop("Interval is missing or NULL")
     }
@@ -267,7 +267,7 @@ check.interval <- function(interval){
 ##
 ## It also treats missing groups (NA) as a separate group is needed.
 ##
-check.groups <- function(groups, dates, na.as.group){
+check_groups <- function(groups, dates, na.as.group){
     if (is.null(groups)) {
         return(NULL)
     }
