@@ -282,7 +282,7 @@ add_incidence_fit <- function(p, x){
 ##' @importFrom graphics lines
 ##' @inheritParams plot.incidence
 
-plot.incidence_fit <- function(x, ..., col.pal = pal1){
+plot.incidence_fit <- function(x, ..., col_pal = pal1){
     df <- x$info$pred
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates")) +
         ggplot2::geom_line(ggplot2::aes_string(y = "fit"), linetype = 1) +
@@ -292,7 +292,7 @@ plot.incidence_fit <- function(x, ..., col.pal = pal1){
     if ("groups" %in% names(df)) {
         n.groups <- length(levels(df$groups))
         out <- out + ggplot2::aes_string(color = "groups") +
-            ggplot2::scale_color_manual(values = col.pal(n.groups))
+            ggplot2::scale_color_manual(values = col_pal(n.groups))
     }
     out + ggplot2::labs(x = "", y = "Predicted incidence")
 }
