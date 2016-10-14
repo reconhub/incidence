@@ -101,7 +101,7 @@ fit <- function(x, split = NULL, level = 0.95){
 ##' @param plot A logical indicating whether a plot should be added to the output, showing the mean
 ##' R2 for various splits.
 
-fit.optim.split <- function(x, window = x$timespan/4, plot = TRUE){
+fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE){
     date.peak <- x$dates[which.max(x$counts[,1])] # !! this assumes a single group
     try.since <- date.peak - window / 2
     try.until <- date.peak + window / 2
