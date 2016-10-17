@@ -19,5 +19,6 @@ Suggests:
     outbreaks,
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    scales
 VignetteBuilder: knitr

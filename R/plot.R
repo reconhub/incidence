@@ -21,13 +21,15 @@
 ##' @param stack A logical indicating if bars of multiple groups should be stacked, or displayed
 ##' side-by-side.
 ##'
-##' @param border The color to be used for the borders of the bars; NA for invisiable borders.
+##' @param color The color to be used for the filling of the bars; NA for invisiable bars; defaults to "black".
+##'
+##' @param border The color to be used for the borders of the bars; NA for invisiable borders; defaults to NA.
 ##'
 ##' @param col_pal The color palette to be used for the groups; defaults to \code{pal1}. See
 ##' \code{\link{pal1}} for other palettes implemented in incidence.
 ##'
 ##' @param alpha The alpha level for color transparency, with 1 being fully opaque and 0 fully
-##' transparent; defaults to 0.8.
+##' transparent; defaults to 0.7.
 ##'
 ##' @param xlab The label to be used for the x-axis; empty by default.
 ##'
@@ -61,7 +63,7 @@
 ##' }
 ##'
 plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
-                           border = NA, col_pal = pal1, alpha = .8,
+                           color = "black", border = NA, col_pal = pal1, alpha = .7,
                            xlab = "", ylab = NULL) {
 
     ## extract data in suitable format for ggplot2
@@ -119,13 +121,34 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
         }
     }
 
-    ## Add color to groups if needed
-    if (ncol(df) > 2) {
+
+    ## Handle colors
+
+    ## Note 1: because of the way 'fill' works, we need to specify it through 'aes' if not
+    ## directly in the geom. This causes the kludge below, where we make a fake constant group to
+    ## specify the color and remove the legend.
+
+    ## Note 2: when there are groups, and the 'color' argument does not have one value per group, we
+    ## generate colors from a color palette. This means that by default, the palette is used, but
+    ## the user can manually specify the colors.
+
+    if (ncol(x$counts) < 2) {
+        out <- out + ggplot2::aes(fill='a') +
+            ggplot2::scale_fill_manual(values = color, guide = FALSE)
+    } else {
+        ## find group colors
+        if (length(color) != ncol(x$counts)) {
+            group.colors <- col_pal(n.groups)
+        } else {
+            group.colors <- color
+        }
+
+        ## add colors to the plot
         out <- out + ggplot2::aes_string(fill = "groups") +
-            ggplot2::scale_fill_manual(values = col_pal(n.groups))
+            ggplot2::scale_fill_manual(values = group.colors)
         if (!is.null(fit)) {
             out <- out + ggplot2::aes_string(color = "groups") +
-            ggplot2::scale_color_manual(values = col_pal(n.groups))
+            ggplot2::scale_color_manual(values = group.colors)
         }
     }
 
