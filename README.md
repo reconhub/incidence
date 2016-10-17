@@ -130,7 +130,7 @@ i.7.sex
 #> $n: 5888 cases in total
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
-#> $timespan: 389 days
+#> $timespan: 386 days
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
@@ -150,7 +150,7 @@ i.7.hosp
 #> $n: 5829 cases in total
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
-#> $timespan: 389 days
+#> $timespan: 386 days
 head(i.7.hosp$counts)
 #>      Connaught Hospital Military Hospital NA other
 #> [1,]                  0                 1  0     0
@@ -242,7 +242,7 @@ i.7.outcome
 #> $n: 5888 cases in total
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
-#> $timespan: 389 days
+#> $timespan: 386 days
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
@@ -278,7 +278,7 @@ i.pooled
 #> $n: 5888 cases in total
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
-#> $timespan: 389 days
+#> $timespan: 386 days
 identical(i.7$counts, i.pooled$counts)
 #> [1] TRUE
 ```
