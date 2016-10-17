@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
   comment = "#>", 
   fig.width=10, 
   fig.height=6, 
-  fig.path="figs/"
+  fig.path="figs-class/"
 )
 ```
 
