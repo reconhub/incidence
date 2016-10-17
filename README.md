@@ -1,8 +1,3 @@
----
-output: github_document
----
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
 
@@ -42,6 +37,8 @@ The main functions of the package include:
 - **`[`**: lower-level subsetan of *incidence* objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates, and `j` a subset of groups.
 - **`subset`**: subset an *incidence* object by specifying a time window.
 - **`pool`**: pool incidence from different groups into one global incidence time series.
+- **`as.data.frame`**: converts an *incidence* object into a `data.frame` containing dates and incidence values.
+
 
 
 
