@@ -1,0 +1,32 @@
+---
+title: "Customize plots of incidence"
+author: "Thibaut Jombart"
+date: "`r Sys.Date()`"
+output:
+   rmarkdown::html_vignette:
+     toc: true
+     toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=10, 
+  fig.height=6, 
+  fig.path="figs/"
+)
+```
+
+
+This vignette provides some tips for the most common customisations of graphics produced by
+`plot.incidence`. Our graphics use *ggplot2*, which is a distinct graphical system from base
+graphics. If you want advanced customisation of your incidence plots, we recommend following an
+introduction to *ggplot2*.
+

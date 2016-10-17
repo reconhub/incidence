@@ -1,0 +1,30 @@
+---
+title: "Details of the incidence class"
+author: "Thibaut Jombart"
+date: "`r Sys.Date()`"
+output:
+   rmarkdown::html_vignette:
+     toc: true
+     toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=10, 
+  fig.height=6, 
+  fig.path="figs/"
+)
+```
+
+
+
+This vignette details the structure of *incidence* objects, as produced by the `incidence` function.

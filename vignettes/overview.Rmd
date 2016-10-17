@@ -2,7 +2,10 @@
 title: "Overview of the incidence package"
 author: "Thibaut Jombart"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+   rmarkdown::html_vignette:
+     toc: true
+     toc_depth: 2
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
