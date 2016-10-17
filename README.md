@@ -550,4 +550,8 @@ plot(i.7.sex, fit=best.fit2)
 - Thibaut Jombart (@thibautjombart)
 - Rich Fitzjohn (@richfitz)
 
+Contributions are welcome via pull requests.
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
 Maintainer: Thibaut Jombart (thibautjombart@gmail.com)
