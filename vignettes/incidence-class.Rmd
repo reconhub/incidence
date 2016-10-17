@@ -29,6 +29,8 @@ knitr::opts_chunk$set(
 
 This vignette details the structure of *incidence* objects, as produced by the `incidence` function.
 
+<br>
+<br>
 # Structure of an *incidence* object.
 
 We generate a toy dataset of dates to examine the content of *incidence* objects.

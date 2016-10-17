@@ -31,6 +31,8 @@ content of `REAME.md`.
 
 
 
+<br>
+<br>
 # Installing the package
 
 To install the devel version of the package, type:
@@ -42,6 +44,8 @@ Note that this requires the package *devtools* installed.
 
 
 
+<br>
+<br>
 # What does it do?
 
 The main functions of the package include:
@@ -57,6 +61,8 @@ The main functions of the package include:
 
 
 
+<br>
+<br>
 # Worked example: simulated Ebola outbreak
 
 ## Loading the data
