@@ -10,3 +10,4 @@ figure/*
 figs/*
 logo/*
 ^README-.*\.png$
+^CONDUCT\.md$
