@@ -28,3 +28,51 @@ knitr::opts_chunk$set(
 
 
 This vignette details the structure of *incidence* objects, as produced by the `incidence` function.
+
+## Structure of an *incidence* object.
+
+We generate a toy dataset of dates to examine the content of *incidence* objects.
+```{r, data}
+dat <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
+```
+
+The weekly incidence is computed as:
+```{r, i}
+i <- incidence(dat, interval = 7)
+i
+plot(i)
+```
+
+The object `i` is a `list` with the class *incidence*:
+
+```{r, names}
+class(i)
+is.list(i)
+names(i)
+```
+
+Items in `i` can be accessed using the same indexing as any lists:
+```{r, access}
+## use name
+head(i$dates)
+
+## use numeric indexing
+head(i[[2]])
+```
+
+In the following sections, we examine each of the components of the object.
+
+
+### *$dates*
+
+The `$dates` component contains all the dates for which incidence have been computed, in the format of the input dataset (e.g. `Date`, `numeric`, `integer`).
+
+```{r, dates1}
+class(i$dates)
+class(dat)
+
+i$dates
+```
+
+The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 2-8, the second bin counts events from 9-15, etc.
+
