@@ -41,6 +41,24 @@ The main functions of the package include:
 
 
 
+# Vignettes
+
+An overview of *incidence* is provided below in the worked example below.
+More detailed tutorials are distributed as vignettes with the package:
+
+```r
+vignette(package="incidence")
+```
+
+To open these, type:
+
+```r
+vignette("overview", package="incidence")
+vignette("customize-plot", package="incidence")
+vignette("incidence-class", package="incidence")
+```
+
+
 
 
 # Worked example: simulated Ebola outbreak
