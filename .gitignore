@@ -2,6 +2,5 @@
 .Rhistory
 .RData
 *.tar.gz
-inst/web
 *~
-inst/doc
+

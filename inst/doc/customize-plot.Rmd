@@ -1,0 +1,204 @@
+---
+title: "Customize plots of incidence"
+author: "Thibaut Jombart"
+date: "`r Sys.Date()`"
+output:
+   rmarkdown::html_vignette:
+     toc: true
+     toc_depth: 4
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=10, 
+  fig.height=6, 
+  fig.path="figs-custom/"
+)
+```
+
+
+This vignette provides some tips for the most common customisations of graphics produced by
+`plot.incidence`. Our graphics use *ggplot2*, which is a distinct graphical system from base
+graphics. If you want advanced customisation of your incidence plots, we recommend following an
+introduction to *ggplot2*.
+
+
+# Example data: simulated Ebola outbreak
+
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
+[*outbreaks*](http://github.com/reconhub/outbreaks): `ebola.sim.clean`.
+
+First, we load the data:
+```{r, data}
+library(outbreaks)
+library(ggplot2)
+library(incidence)
+
+onset <- ebola.sim.clean$linelist$date.of.onset
+class(onset)
+head(onset)
+```
+
+We compute the daily incidence:
+```{r, incid1}
+i <- incidence(onset, interval = 7)
+i
+
+i.sex <- incidence(onset, interval = 7, group =  ebola.sim.clean$linelist$gender)
+i.sex
+
+i.hosp <- incidence(onset, interval = 7, group =  ebola.sim.clean$linelist$hospital)
+i.hosp
+
+```
+
+
+
+
+# The `plot.incidence` function
+
+When calling `plot` on an *incidence* object, the function `plot.incidence` is implicitely used. To access its documentation, use `?plot.incidence`. In this section, we illustrate existing customizations.
+
+
+## Default behaviour
+
+By default, the function uses grey for single time series, and colors from the color palette `pal1` when incidence is computed by groups:
+```{r, default}
+plot(i)
+plot(i.sex)
+plot(i.hosp)
+```
+
+However, some of these defaults can be altered through the various arguments of the function:
+```{r, args}
+args(incidence:::plot.incidence)
+```
+
+
+
+
+## Changing colors
+
+### The default palette
+
+A color palette is a function which outputs a specified number of colors. By default, the color used in *incidence* is called `pal1`. It's behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:
+```{r, pal1,   fig.height = 8}
+par(mfrow=c(3,1), mar=c(4,2,1,1))
+barplot(1:2, col = pal1(2))
+barplot(1:4, col = pal1(4))
+barplot(1:20, col = pal1(20))
+```
+
+This pallette also has a light and a dark version:
+```{r, pal2,   fig.height = 8}
+par(mfrow=c(3,1))
+barplot(1:20, col = pal1dark(20), main = "palette:  pal1dark")
+barplot(1:20, col = pal1(20), main = "palette:  pal1")
+barplot(1:20, col = pal1light(20), main = "palette:  pal1light")
+```
+
+
+
+### Using different palettes
+
+Other color palettes can be provided via `col_pal`. Various palettes are part of the base R distribution, and many more are provided in additional packages. We provide a couple of examples:
+
+```{r, palettes}
+plot(i.hosp, col_pal = rainbow)
+plot(i.sex, col_pal = cm.colors)
+```
+
+
+
+### Specifying colors manually
+
+Colors can be  specified manually using the argument `color`; note that whenever incidence is computed by groups, the number of colors must match the number of groups, otherwise `color` is ignored.
+
+#### Example 1: changing a single color
+```{r, colors1}
+plot(i, color = "darkred")
+```
+
+#### Example 2: changing several colors (note that naming colors is optional)
+```{r, colors2}
+plot(i.sex, color = c(m = "orange2", f = "purple3"))
+```
+
+#### Example 3: using color to highlight specific groups
+```{r, colors3}
+plot(i.hosp, color = c("#ac3973", "#6666ff", "white", "white", "white", "white"))
+```
+
+
+
+
+
+# Useful *ggplot2* tweaks
+
+Numerous tweaks for *ggplot2* are documented online. In the following, we merely provide a few useful tips in the context of *incidence*.
+
+
+
+##  Changing dates on the *x*-axis
+
+### Changing date format
+
+By default, the dates indicated on the *x*-axis of an incidence plot may not have the suitable format.
+The package *scales* can be used to change the way dates are labelled (see `?strptime` for possible formats):
+
+```{r, scales1}
+library(scales)
+plot(i) +
+   scale_x_date(labels = date_format("%d %b %Y"))
+```
+
+And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:
+```{r, scales2}
+plot(i[1:50]) +  
+  scale_x_date(labels = date_format("%a %d %B %Y")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12))
+```
+
+Note that you can save customisations for later use:
+```{r, scales3}
+rotate.big <- theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12))
+```
+
+
+### Changing the grid
+
+The last example above illustrates that it can be useful to have denser annotations of the *x*-axis, especially over short time periods. Here, we provide an example where we try to zoom on the peak of the epidemic, using the data by hospital:
+
+```{r, grid1}
+plot(i.hosp)
+```
+
+Let us look at the data 40 days before and after the 1st of October:
+```{r, grid2}
+period <- as.Date("2014-10-01") + c(-40, 40)
+i.zoom <- subset(i.hosp, from=period[1], to = period[2])
+detailed.x <- scale_x_date(labels = date_format("%a %d %B %Y"), date_breaks = "2 weeks", date_minor_breaks="week")
+plot(i.zoom, border="black") + detailed.x + rotate.big
+```
+
+
+
+## Changing the legend
+
+The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object `p` and customize the legend:
+
+```{r, legend1}
+p <- plot(i.zoom, border="black") + detailed.x + rotate.big
+p + theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12), 
+          legend.position="top", legend.direction="horizontal", 
+          legend.title = element_blank())
+```
+
