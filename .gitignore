@@ -3,4 +3,4 @@
 .RData
 *.tar.gz
 *~
-
+inst/doc
