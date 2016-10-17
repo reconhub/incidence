@@ -3,19 +3,21 @@ Type: Package
 Title: Computation of Indidence from Outbreak Linelists
 Version: 0.0.1
 Authors@R: c(
-    person("Rich", "FitzJohn", role = c("aut", "cre"), email = "rich.fitzjohn@gmail.com"),
-    person("Thibaut", "Jombart", role = "aut"))
-Description: The incidence package takes lines lists and computes the
-    number of incidents per interval (default = 1 day). In input
-    should be a vector of dates, where each date indicates that a case
-    was diagnosed with the disease in question. The output is a list
-    with two members, the first date of the interval and the number of
-    incidents in that interval.
+    person("Thibaut", "Jombart", role = c("aut", "cre"), email = "thibautjombart@gmail.com"),
+    person("Rich", "FitzJohn", role = "aut", email = "rich.fitzjohn@gmail.com")
+    )
+Description: The incidence package takes lines lists and computes the number of incidents per
+    interval (default = 1 day). In accepts input dates in various formats, and returns objects of
+    the class 'incidence'. These objects can be handled and visualised easily. In addition,
+    log-linear models can be fitted to incidence objects using 'fit'.
 License: MIT + file LICENSE
 RoxygenNote: 5.0.1
 Imports:
     ggplot2
 Suggests:
-    testthat, 
+    testthat,
     outbreaks,
-    covr
+    covr,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

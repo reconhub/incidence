@@ -4,3 +4,4 @@
 *.tar.gz
 inst/web
 *~
+inst/doc
