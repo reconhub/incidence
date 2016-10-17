@@ -53,14 +53,14 @@
 ##'   ## use group information
 ##'   sex <- ebola.sim$linelist$gender
 ##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
-##'   plot(inc.week.gender, stack = TRUE)
+##'   plot(inc.week.gender)
 ##'
 ##'   ## adding fit
 ##'   fit <- fit_optim_split(inc.week.gender)$fit
 ##'   plot(inc.week.gender, fit = fit)
 ##' }
 ##'
-plot.incidence <- function(x, ..., fit = NULL, stack = FALSE,
+plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            border = NA, col_pal = pal1, alpha = .8,
                            xlab = "", ylab = NULL) {
 

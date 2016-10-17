@@ -14,10 +14,10 @@ days.}
 incidence(dates, interval = 1L, ...)
 
 \method{incidence}{integer}(dates, interval = 1L, groups = NULL,
-  na.as.group = TRUE, ...)
+  na_as_group = TRUE, ...)
 
 \method{incidence}{default}(dates, interval = 1L, groups = NULL,
-  na.as.group = TRUE, ...)
+  na_as_group = TRUE, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 
@@ -39,7 +39,7 @@ the incidence; defaults to 1 day.}
 \item{groups}{An optional factor defining groups of observations for which incidence should be
 computed separately.}
 
-\item{na.as.group}{A logical indicating if missing group (NA) should be treated as a separate
+\item{na_as_group}{A logical indicating if missing group (NA) should be treated as a separate
 group.}
 
 \item{x}{an 'incidence' object}

@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output:
    rmarkdown::html_vignette:
      toc: true
-     toc_depth: 2
+     toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -29,19 +29,30 @@ knitr::opts_chunk$set(
 
 This vignette details the structure of *incidence* objects, as produced by the `incidence` function.
 
-## Structure of an *incidence* object.
+# Structure of an *incidence* object.
 
 We generate a toy dataset of dates to examine the content of *incidence* objects.
 ```{r, data}
+library(incidence)
+set.seed(1)
 dat <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
+sex <- sample(c("female", "male"), 200, replace = TRUE)
 ```
 
-The weekly incidence is computed as:
+The incidence by 48h period is computed as:
 ```{r, i}
-i <- incidence(dat, interval = 7)
+i <- incidence(dat, interval = 2)
 i
 plot(i)
 ```
+
+We also compute incidence by gender:
+```{r, sex}
+i.sex <- incidence(dat, interval = 2, group = sex)
+i.sex
+plot(i.sex)
+```
+
 
 The object `i` is a `list` with the class *incidence*:
 
@@ -63,7 +74,10 @@ head(i[[2]])
 In the following sections, we examine each of the components of the object.
 
 
-### *$dates*
+
+
+
+## `$dates`
 
 The `$dates` component contains all the dates for which incidence have been computed, in the format of the input dataset (e.g. `Date`, `numeric`, `integer`).
 
@@ -75,4 +89,74 @@ i$dates
 ```
 
 The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 2-8, the second bin counts events from 9-15, etc.
+
+
+
+
+
+## `$counts`
+
+The `$counts` component contains the actual incidence, i.e. counts of events for the defined bins. It is a `matrix` of `integers` where rows correspond to time intervals, with one column for each group for which incidence is computed (a single, unamed column if no groups were provided). If groups were provided, columns are named after the groups. We illustrate the difference comparing the two objects `i` and `i.sex`:
+
+```{r, counts1}
+class(i$counts)
+storage.mode(i$counts)
+
+i$counts
+i.sex$counts
+```
+
+Note that a `data.frame` containing *dates* and *counts* can be obtained using `as.data.frame`:
+```{r, as.data.frame}
+## basic conversion
+as.data.frame(i)
+as.data.frame(i.sex)
+
+## long format for ggplot2
+as.data.frame(i.sex, long = TRUE)
+```
+
+Note that `incidence` has an argument called `na_as_group` which is `TRUE` by default, which will pool all missing groups into a separate group, in which case it will be a separate column in `$counts`.
+
+
+
+
+
+## `$timespan`
+
+The `$timespan` component stores the length of the time period covered by the object:
+```{r, timespan}
+i$timespan
+range(i$dates)
+diff(range(i$dates)) + 1
+```
+
+
+
+
+
+
+## `$interval`
+
+The `$interval` component contains the length of the time interval for the bins:
+```{r, interval}
+i$interval
+diff(i$dates)
+```
+
+
+
+
+
+## `$n`
+
+The `$n` component stores the total number of events in the data:
+```{r, n}
+i$n
+```
+
+Note that to obtain the number of cases by groups, one can use:
+```{r, n2}
+apply(i.sex$counts, 2, sum)
+```
 

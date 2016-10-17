@@ -69,14 +69,14 @@ incidence <- function(dates, interval = 1L, ...) {
 
 ##' @export
 ##' @rdname incidence
-##' @param na.as.group A logical indicating if missing group (NA) should be treated as a separate
+##' @param na_as_group A logical indicating if missing group (NA) should be treated as a separate
 ##' group.
 
-incidence.integer <- function(dates, interval = 1L, groups = NULL, na.as.group = TRUE, ...) {
+incidence.integer <- function(dates, interval = 1L, groups = NULL, na_as_group = TRUE, ...) {
     ## make sure input can be used
     dates <- check_dates(dates)
     interval <- check_interval(interval) # enforces positive, finite integer
-    groups <- check_groups(groups, dates, na.as.group) # enforces factor of right length
+    groups <- check_groups(groups, dates, na_as_group) # enforces factor of right length
 
     ## check interval
     first.date <- min(dates)
@@ -111,7 +111,7 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, na.as.group =
 
     out <- list(dates = breaks, # left side of the intervals (incl left, excl right)
                 counts = counts, # counts; add columns for stratif incid
-                timespan = diff(range(dates, na.rm=TRUE))+1, # time span (last date - first date + 1 day)
+                timespan = diff(range(breaks, na.rm=TRUE))+1, # time span (last date - first date + 1 day)
                 interval = interval, # fixed bin size
                 n = sum(counts)) # total number of cases
     class(out) <- "incidence"
@@ -267,11 +267,11 @@ check_interval <- function(interval){
 ##
 ## It also treats missing groups (NA) as a separate group is needed.
 ##
-check_groups <- function(groups, dates, na.as.group){
+check_groups <- function(groups, dates, na_as_group){
     if (is.null(groups)) {
         return(NULL)
     }
-    if (na.as.group) {
+    if (na_as_group) {
         groups <- as.character(groups)
         groups[is.na(groups)] <- "NA"
     }

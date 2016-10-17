@@ -248,7 +248,7 @@ plot(i.7.outcome, stack = TRUE, border = "grey")
 
 ![plot of chunk i7outcome](figs/i7outcome-1.png)
 
-By default, `incidence` treats missing data (NA) as a separate group (see argument `na.as.group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
+By default, `incidence` treats missing data (NA) as a separate group (see argument `na_as_group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
 
 ```r
 i.7.outcome[,1:2]
