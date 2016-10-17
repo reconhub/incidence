@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg)](https://codecov.io/github/reconhub/incidence?branch=master)
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
 
 This package implements functions and classes to compute, handle, visualise and model incidences
 from dates data.
