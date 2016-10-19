@@ -107,7 +107,7 @@ test_that("corner cases", {
 
 
 
-test_that("Expected values", {
+test_that("Expected values, no group", {
     expect_true(all(incidence(1:10)$counts == 1L))
     expect_true(all(incidence(sample(1:10))$counts == 1L))
 
@@ -135,6 +135,52 @@ test_that("Expected values", {
         expect_equal(as.integer(incidence(dat[[i]], 2L)$counts), exp.res2[[i]])
     }
 
+})
+
+
+
+
+
+test_that("Expected values, with groups", {
+
+    dat <- list(
+        as.integer(c(3,2,-1,1,1)),
+        as.integer(c(0,0,0)),
+        as.integer(c(0,1,2,2,3,5,7))
+        )
+    fac <- list(
+        factor(c(1,1,2,2,2)),
+        factor(c('a','b','a')),
+        factor(c(1, 2, 3, 3, 3, 3, 1))
+        )
+    exp.res <- list(
+        structure(c(0L, 0L, 0L, 1L, 1L, 1L, 0L, 2L, 0L, 0L),
+                  .Dim = c(5L, 2L),
+                  .Dimnames = list(NULL, c("1", "2"))),
+        structure(c(2L, 1L),
+                  .Dim = 1:2,
+                  .Dimnames = list(NULL, c("a", "b"))),
+        structure(c(1L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 1L, 0L, 0L, 0L,
+                    0L, 0L, 0L, 0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L),
+                  .Dim = c(8L, 3L),
+                  .Dimnames = list(NULL, c("1", "2", "3")))
+        )
+    exp.res3 <- list(
+        structure(c(0L, 2L, 3L, 0L), .Dim = c(2L, 2L),
+                  .Dimnames = list(NULL, c("1", "2"))),
+        structure(c(2L, 1L), .Dim = 1:2,
+                  .Dimnames = list(NULL, c("a", "b"))),
+        structure(c(1L, 0L, 1L, 1L, 0L, 0L, 2L, 2L, 0L),
+                  .Dim = c(3L, 3L),
+                  .Dimnames = list(NULL, c("1", "2", "3")))
+        )
+
+    for (i in seq_along(dat)) {
+        expect_equal(incidence(dat[[i]], groups=fac[[i]])$counts,
+                     exp.res[[i]])
+        expect_equal(incidence(dat[[i]], 3L, groups=fac[[i]])$counts,
+                     exp.res3[[i]])
+    }
 
 })
 
