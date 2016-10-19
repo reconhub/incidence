@@ -29,4 +29,11 @@ test_that("as.data.frame works", {
                                .Names = c("dates", "counts", "groups"),
                                row.names = c(NA, -24L), class = "data.frame")
                      )
+
+    expect_identical(as.data.frame(incidence(1:2)),
+                     structure(list(dates = 1:2, counts = c(1L, 1L)),
+                               .Names = c("dates", "counts"),
+                               row.names = c(NA, -2L),
+                               class = "data.frame")
+                     )
 })
