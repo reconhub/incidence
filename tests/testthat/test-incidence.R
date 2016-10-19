@@ -210,6 +210,6 @@ test_that("Expected values, with groups", {
 test_that("Printing returns the object", {
     x <- incidence(0)
     y <- incidence(1:2, groups=factor(1:2))
-    expect_identical(print(x), x)
-    expect_identical(print(y), y)
+    expect_identical(invisible(print(x)), x)
+    expect_identical(invisible(print(y)), y)
 })
