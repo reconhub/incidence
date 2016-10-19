@@ -92,7 +92,7 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, na_as_group =
     ## corner case: interval is larger than span
     if ((last.date-first.date) < interval){
         breaks <- as.integer(first.date)
-        counts <- length(dates)
+        counts <- matrix(length(dates), ncol = 1L)
     } else {
         ## define breaks
         breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above

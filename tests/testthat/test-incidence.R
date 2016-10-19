@@ -107,40 +107,36 @@ test_that("corner cases", {
 
 
 
-## test_that("negative offsets", {
-##   dat <- sample((-5):5, 20, replace=TRUE)
-##   x <- incidence(dat)
-##   expect_equal(range(x$dates), range(dat))
-##   expect_equal(sum(x$counts), length(dat))
-## })
+test_that("Expected values", {
+    expect_true(all(incidence(1:10)$counts == 1L))
+    expect_true(all(incidence(sample(1:10))$counts == 1L))
 
-## test_that("positive offsets", {
-##   dat <- sample(5:15, 20, replace=TRUE)
-##   x <- incidence(dat)
-##   expect_equal(range(x$dates), range(dat))
-##   expect_equal(sum(x$counts), length(dat))
-## })
+    dat <- list(
+        as.integer(c(3,2,-1,1,1)),
+        as.integer(1),
+        as.integer(c(0,0,0)),
+        as.integer(c(0,1,2,2,3,5,7))
+        )
+    exp.res <- list(
+        as.integer(c(1,0,2,1,1)),
+        as.integer(c(1)),
+        as.integer(c(3)),
+        as.integer(c(1,1,2,1,0,1,0,1))
+        )
+    exp.res2 <- list(
+        as.integer(c(1,3,1)),
+        as.integer(c(1)),
+        as.integer(c(3)),
+        as.integer(c(2,3,1,1))
+        )
 
-## test_that("from dates", {
-##   env <- environment()
-##   data("ToyOutbreak", package="OutbreakTools", envir=env)
-##   dates <- OutbreakTools::get.data(ToyOutbreak, "DateInfected")
+    for (i in seq_along(dat)) {
+        expect_equal(as.integer(incidence(dat[[i]])$counts), exp.res[[i]])
+        expect_equal(as.integer(incidence(dat[[i]], 2L)$counts), exp.res2[[i]])
+    }
 
-##   x <- incidence(dates)
-##   expect_is(x, "incidence")
-##   expect_is(x$dates, "Date")
-##   expect_equal(range(x$dates), range(dates))
 
-##   for (rolling in c(FALSE, TRUE)) {
-##     xx <- summary(x, interval = 2, rolling = rolling)
-##     expect_is(xx$dates, "Date")
-##     expect_equal(xx$dates[[1]], x$dates[[1]])
-##   }
-## })
+})
 
-## test_that("to time series", {
-##   dat <- c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2)
-##   x <- incidence(dat)
-##   y <- as.ts(x)
-##   expect_is(y, "ts")
-## })
+
+
