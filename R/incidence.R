@@ -88,26 +88,20 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, na_as_group =
         counts <- table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE))
         as.integer(counts)
     }
-    ##browser()
-    ## ## corner case: interval is larger than span
-    ## if ((last.date-first.date) < interval){
-    ##     breaks <- as.integer(first.date)
-    ##     counts <- matrix(length(dates), ncol = 1L)
-    ## } else {
-        ## define breaks
-        breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
-        breaks <- as.integer(breaks)
 
-        ## compute counts within bins defined by the breaks
-        if (!is.null(groups)) {
-            counts <- tapply(dates, groups, count.dates, breaks)
-            counts <- matrix(as.integer(unlist(counts)), ncol = length(levels(groups)))
-            colnames(counts) <- levels(groups)
-        } else {
-            counts <- count.dates(dates, breaks)
-            counts <- matrix(as.integer(counts), ncol = 1L)
-        }
-##    }
+    ## define breaks here
+    breaks <- seq(first.date, last.date, by=interval) # these are 'd1' in expl above
+    breaks <- as.integer(breaks)
+
+    ## compute counts within bins defined by the breaks
+    if (!is.null(groups)) {
+        counts <- tapply(dates, groups, count.dates, breaks)
+        counts <- matrix(as.integer(unlist(counts)), ncol = length(levels(groups)))
+        colnames(counts) <- levels(groups)
+    } else {
+        counts <- count.dates(dates, breaks)
+        counts <- matrix(as.integer(counts), ncol = 1L)
+    }
 
     out <- list(dates = breaks, # left side of the intervals (incl left, excl right)
                 counts = counts, # counts; add columns for stratif incid

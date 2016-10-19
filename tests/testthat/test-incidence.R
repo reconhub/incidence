@@ -2,7 +2,7 @@ context("incidence")
 
 test_that("construction - default, integer input", {
     ## USING DAILY INCIDENCE
-    set.seed(1)
+    set.seed(as.numeric(Sys.time()))
     dat <- as.integer(sample(-3:10, 50, replace=TRUE))
     x <- incidence(dat)
 
@@ -22,7 +22,7 @@ test_that("construction - default, integer input", {
     expect_true(all(diff(x$dates) == x$interval))
 
     ## USING INCIDENCE PER 3 DAYS
-    set.seed(2)
+    set.seed(as.numeric(Sys.time()))
     dat <- as.integer(sample(-3:10, 50, replace=TRUE))
     x <- incidence(dat, 3)
 
@@ -48,7 +48,7 @@ test_that("construction - default, integer input", {
 
 test_that("construction - numeric input", {
     ## USING DAILY INCIDENCE
-    set.seed(111)
+    set.seed(as.numeric(Sys.time()))
     dat.num <- runif(50, -3, 10)
     dat.int <- as.integer(floor(dat.num))
     expect_message(incidence(dat.num),
@@ -68,7 +68,7 @@ test_that("construction - numeric input", {
 
 test_that("construction - Date input", {
     ## USING DAILY INCIDENCE
-    set.seed(123)
+    set.seed(as.numeric(Sys.time()))
     dat <- as.integer(sample(-3:100, 50, replace=TRUE))
     dat.dates <- as.Date("2016-09-20") + dat
     x <- incidence(dat)
@@ -78,6 +78,25 @@ test_that("construction - Date input", {
     expect_equal(x$counts, x.dates$counts)
     expect_is(x$dates, "integer")
     expect_is(x.dates$dates, "Date")
+})
+
+
+
+
+
+test_that("construction - POSIXct input", {
+    ## USING DAILY INCIDENCE
+    set.seed(as.numeric(Sys.time()))
+    dat <- as.integer(sample(-3:100, 50, replace=TRUE))
+    dat.dates <- as.Date("2016-09-20") + dat
+    dat.pos <- as.POSIXct(dat.dates)
+    x.dates <- incidence(dat.dates)
+    x.pos <- incidence(dat.pos)
+
+    ## compare outputs
+    expect_equal(x.dates$counts, x.pos$counts)
+    expect_is(x.dates$dates, "Date")
+    expect_is(x.pos$dates, "POSIXct")
 })
 
 
