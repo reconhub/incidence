@@ -39,4 +39,10 @@ test_that("plot for incidence object", {
     expect_equal_to_reference(p.sex.3, file = "rds/p.sex.3.rds")
     expect_equal_to_reference(p.sex.4, file = "rds/p.sex.4.rds")
 
+
+    ## errors
+    expect_error(plot(i, fit = "tamere"),
+                 "fit must be a 'incidence_fit' object, or a list of these")
+    expect_error(plot(i, fit = list(fit.i, "tamere")),
+                 "The 2-th item in 'fit' is not an 'incidence_fit' object, but a character")
 })
