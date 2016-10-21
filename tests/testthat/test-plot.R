@@ -7,6 +7,7 @@ test_that("plot for incidence object", {
     sex <- sample(c("female", "male"), 200, replace = TRUE)
 
     i <- incidence(dat)
+    i.3 <- incidence(dat, 3L)
     i.14 <- incidence(dat, 14L)
     i.sex <- incidence(dat, 7L, groups = sex)
     fit.i <- suppressWarnings(fit(i))
@@ -18,6 +19,7 @@ test_that("plot for incidence object", {
     p.fit.i.2 <- plot(i, fit = fit.i.2, color = "lightblue")
     p.fit.sex <- plot(fit.sex)
     p.i <- plot(i)
+    p.i.3 <- plot(i.3)
     p.i.14 <- plot(i.14)
     p.i.2 <- plot(i, color = "blue", alpha=.2)
     p.i.3 <- plot(i, fit = fit.i, color = "red")
@@ -31,6 +33,7 @@ test_that("plot for incidence object", {
     expect_equal_to_reference(p.fit.i.2, file = "rds/p.fit.i.2.rds")
     expect_equal_to_reference(p.fit.sex, file = "rds/p.fit.sex.rds")
     expect_equal_to_reference(p.i, file = "rds/p.i.rds")
+    expect_equal_to_reference(p.i.3, file = "rds/p.i.3.rds")
     expect_equal_to_reference(p.i.14, file = "rds/p.i.14.rds")
     expect_equal_to_reference(p.i.2, file = "rds/p.i.2.rds")
     expect_equal_to_reference(p.i.3, file = "rds/p.i.3.rds")
