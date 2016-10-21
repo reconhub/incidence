@@ -123,7 +123,7 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE, quiet = TRUE)
         mean(vapply(fits, function(e) summary(e$lm)$`adj.r.squared`, double(1)))
     }
 
-    results <- sapply(splits.to.try, f)
+    results <- vapply(splits.to.try, f, double(1))
 
     ## shape output
     df <- data.frame(dates = splits.to.try, mean.R2 = results)

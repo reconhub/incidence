@@ -11,6 +11,8 @@ Description: The incidence package takes lines lists and computes the number of 
     the class 'incidence'. These objects can be handled and visualised easily. In addition,
     log-linear models can be fitted to incidence objects using 'fit'.
 License: MIT + file LICENSE
+URL: http://github.com/reconhub/incidence
+BugReports: http://github.com/reconhub/incidence/issues
 RoxygenNote: 5.0.1
 Imports:
     ggplot2
