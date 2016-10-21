@@ -97,7 +97,8 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
 
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = x.axis.txt, y = "counts")) +
         ggplot2::geom_bar(stat="identity", width = x$interval,
-                          position = stack.txt, color = border, alpha = alpha) +
+                          position = stack.txt,
+                          color = border, alpha = alpha) +
             ggplot2::labs(x = xlab, y = ylab)
 
 
@@ -111,7 +112,8 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
             for (i in seq_along(fit)) {
                 fit.i <- fit[[i]]
                 if (!inherits(fit.i, "incidence_fit")) {
-                    stop(sprintf("The %d-th item in 'fit' is not an 'incidence_fit' object, but a %s",
+                    stop(sprintf(
+                        "The %d-th item in 'fit' is not an 'incidence_fit' object, but a %s",
                                  i, class(fit.i)))
                 }
                 out <- add_incidence_fit(out, fit.i)

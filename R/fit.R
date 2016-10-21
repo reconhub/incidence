@@ -134,9 +134,11 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE, quiet = TRUE)
                 fit = fit)
 
     if (plot) {
-        out$plot <- ggplot2::ggplot(df, ggplot2::aes_string(x = "dates", y = "mean.R2")) +
-            ggplot2::geom_point() + ggplot2::geom_line() +
-                ggplot2::geom_text(ggplot2::aes_string(label="dates"), hjust=-.1, angle=35) +
+        out$plot <- ggplot2::ggplot(
+            df, ggplot2::aes_string(x = "dates", y = "mean.R2")) +
+                ggplot2::geom_point() + ggplot2::geom_line() +
+                    ggplot2::geom_text(ggplot2::aes_string(label="dates"),
+                                       hjust=-.1, angle=35) +
                     ggplot2::ylim(min=min(results)-.1, max=1)
     }
 
@@ -177,7 +179,8 @@ extract_info <- function(reg, x, level){
 
     ## need to pass new data spanning all dates and groups here
     if (use.groups) {
-        new.data <- expand.grid(sort(unique(reg$model$dates.x)), levels(reg$model$groups))
+        new.data <- expand.grid(sort(unique(reg$model$dates.x)),
+                                levels(reg$model$groups))
         names(new.data) <- c("dates.x", "groups")
     } else {
         new.data <- data.frame(dates.x = sort(unique(reg$model$dates.x)))
@@ -269,13 +272,16 @@ add_incidence_fit <- function(p, x){
 
     df <- x$info$pred
 
-    p <- suppressMessages(p + ggplot2::geom_line(data = df,
-                                                   ggplot2::aes_string(x = "dates", y = "fit"), linetype = 1) +
-                            ggplot2::geom_line(data = df,
-                                               ggplot2::aes_string(x = "dates", y = "lwr"), linetype = 2) +
-                            ggplot2::geom_line(data = df,
-                                               ggplot2::aes_string(x = "dates", y = "upr"), linetype = 2)
-                            )
+    p <- suppressMessages(p + ggplot2::geom_line(
+        data = df,
+        ggplot2::aes_string(x = "dates", y = "fit"), linetype = 1) +
+                          ggplot2::geom_line(
+                              data = df,
+                              ggplot2::aes_string(x = "dates", y = "lwr"), linetype = 2) +
+                          ggplot2::geom_line(
+                              data = df,
+                              ggplot2::aes_string(x = "dates", y = "upr"), linetype = 2)
+                          )
     p
 }
 

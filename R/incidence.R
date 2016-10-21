@@ -72,7 +72,8 @@ incidence <- function(dates, interval = 1L, ...) {
 ##' @param na_as_group A logical indicating if missing group (NA) should be treated as a separate
 ##' group.
 
-incidence.integer <- function(dates, interval = 1L, groups = NULL, na_as_group = TRUE, ...) {
+incidence.integer <- function(dates, interval = 1L, groups = NULL,
+                              na_as_group = TRUE, ...) {
     ## make sure input can be used
     dates <- check_dates(dates)
     interval <- check_interval(interval) # enforces positive, finite integer
@@ -96,7 +97,8 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, na_as_group =
     ## compute counts within bins defined by the breaks
     if (!is.null(groups)) {
         counts <- tapply(dates, groups, count.dates, breaks)
-        counts <- matrix(as.integer(unlist(counts)), ncol = length(levels(groups)))
+        counts <- matrix(as.integer(unlist(counts)),
+                         ncol = length(levels(groups)))
         colnames(counts) <- levels(groups)
     } else {
         counts <- count.dates(dates, breaks)
@@ -105,7 +107,7 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL, na_as_group =
 
     out <- list(dates = breaks, # left side of the intervals (incl left, excl right)
                 counts = counts, # counts; add columns for stratif incid
-                timespan = diff(range(breaks, na.rm=TRUE))+1, # time span (last date - first date + 1 day)
+                timespan = diff(range(breaks, na.rm=TRUE)) + 1, # time span (last date - first date + 1 day)
                 interval = interval, # fixed bin size
                 n = sum(counts)) # total number of cases
     class(out) <- "incidence"
@@ -185,7 +187,8 @@ incidence.POSIXt <- function(dates, interval = 1L, ...) {
 print.incidence <- function(x, ...) {
 
   cat("<incidence object>\n")
-  cat(sprintf("[%d cases from days %s to %s]\n", sum(x$n), min(x$dates), max(x$dates)))
+  cat(sprintf("[%d cases from days %s to %s]\n",
+              sum(x$n), min(x$dates), max(x$dates)))
   if (ncol(x$counts) > 1L) {
       groups.txt <- paste(colnames(x$counts), collapse = ", ")
       cat(sprintf("[%d groups: %s]\n", ncol(x$counts), groups.txt))
@@ -193,8 +196,10 @@ print.incidence <- function(x, ...) {
   cat(sprintf("\n$counts: matrix with %d rows and %d columns\n",
               nrow(x$counts), ncol(x$counts)))
   cat(sprintf("$n: %d cases in total\n", x$n))
-  cat(sprintf("$dates: %d dates marking the left-side of bins\n", length(x$dates)))
-  cat(sprintf("$interval: %d %s\n", x$interval, ifelse(x$interval<2, "day", "days")))
+  cat(sprintf("$dates: %d dates marking the left-side of bins\n",
+              length(x$dates)))
+  cat(sprintf("$interval: %d %s\n",
+              x$interval, ifelse(x$interval<2, "day", "days")))
   cat(sprintf("$timespan: %d days\n\n", x$timespan))
   invisible(x)
 }

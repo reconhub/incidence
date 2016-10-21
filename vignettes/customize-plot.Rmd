@@ -138,7 +138,8 @@ plot(i.sex, color = c(m = "orange2", f = "purple3"))
 
 #### Example 3: using color to highlight specific groups
 ```{r, colors3}
-plot(i.hosp, color = c("#ac3973", "#6666ff", "white", "white", "white", "white"))
+plot(i.hosp, 
+     color = c("#ac3973", "#6666ff", "white", "white", "white", "white"))
 ```
 
 
@@ -191,7 +192,10 @@ Let us look at the data 40 days before and after the 1st of October:
 ```{r, grid2}
 period <- as.Date("2014-10-01") + c(-40, 40)
 i.zoom <- subset(i.hosp, from=period[1], to = period[2])
-detailed.x <- scale_x_date(labels = date_format("%a %d %B %Y"), date_breaks = "2 weeks", date_minor_breaks="week")
+detailed.x <- scale_x_date(labels = date_format("%a %d %B %Y"), 
+                           date_breaks = "2 weeks", 
+                           date_minor_breaks="week")
+
 plot(i.zoom, border="black") + detailed.x + rotate.big
 ```
 
