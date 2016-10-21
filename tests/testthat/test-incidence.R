@@ -130,29 +130,24 @@ test_that("Expected values, no group", {
     expect_true(all(incidence(1:10)$counts == 1L))
     expect_true(all(incidence(sample(1:10))$counts == 1L))
 
-    dat <- list(
-        as.integer(c(3,2,-1,1,1)),
-        as.integer(1),
-        as.integer(c(0,0,0)),
-        as.integer(c(0,1,2,2,3,5,7))
-        )
-    exp.res <- list(
-        as.integer(c(1,0,2,1,1)),
-        as.integer(c(1)),
-        as.integer(c(3)),
-        as.integer(c(1,1,2,1,0,1,0,1))
-        )
-    exp.res2 <- list(
-        as.integer(c(1,3,1)),
-        as.integer(c(1)),
-        as.integer(c(3)),
-        as.integer(c(2,3,1,1))
-        )
+    set.seed(1)
+    res1 <- incidence(c(3,2,-1,1,1))
+    res2 <- incidence(c(0,0,0))
+    res3 <- incidence(sample(1:80, 1000, replace = TRUE))
+    res4 <- incidence(as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE))
+    res5 <- incidence(c(3,2,-1,1,1), 2L)
+    res6 <- incidence(c(0,0,0), 3L)
+    res7 <- incidence(sample(1:80, 1000, replace = TRUE), 4L)
+    res8 <- incidence(as.Date("1984-01-01") + sample(1:100, 200, replace = TRUE), 12L)
 
-    for (i in seq_along(dat)) {
-        expect_equal(as.integer(incidence(dat[[i]])$counts), exp.res[[i]])
-        expect_equal(as.integer(incidence(dat[[i]], 2L)$counts), exp.res2[[i]])
-    }
+    expect_equal_to_reference(res1, file="rds/incidence.res1.rds")
+    expect_equal_to_reference(res2, file="rds/incidence.res2.rds")
+    expect_equal_to_reference(res3, file="rds/incidence.res3.rds")
+    expect_equal_to_reference(res4, file="rds/incidence.res4.rds")
+    expect_equal_to_reference(res5, file="rds/incidence.res5.rds")
+    expect_equal_to_reference(res6, file="rds/incidence.res6.rds")
+    expect_equal_to_reference(res7, file="rds/incidence.res7.rds")
+    expect_equal_to_reference(res8, file="rds/incidence.res8.rds")
 
 })
 
@@ -172,34 +167,14 @@ test_that("Expected values, with groups", {
         factor(c('a','b','a')),
         factor(c(1, 2, 3, 3, 3, 3, 1))
         )
-    exp.res <- list(
-        structure(c(0L, 0L, 0L, 1L, 1L, 1L, 0L, 2L, 0L, 0L),
-                  .Dim = c(5L, 2L),
-                  .Dimnames = list(NULL, c("1", "2"))),
-        structure(c(2L, 1L),
-                  .Dim = 1:2,
-                  .Dimnames = list(NULL, c("a", "b"))),
-        structure(c(1L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 1L, 0L, 0L, 0L,
-                    0L, 0L, 0L, 0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L),
-                  .Dim = c(8L, 3L),
-                  .Dimnames = list(NULL, c("1", "2", "3")))
-        )
-    exp.res3 <- list(
-        structure(c(0L, 2L, 3L, 0L), .Dim = c(2L, 2L),
-                  .Dimnames = list(NULL, c("1", "2"))),
-        structure(c(2L, 1L), .Dim = 1:2,
-                  .Dimnames = list(NULL, c("a", "b"))),
-        structure(c(1L, 0L, 1L, 1L, 0L, 0L, 2L, 2L, 0L),
-                  .Dim = c(3L, 3L),
-                  .Dimnames = list(NULL, c("1", "2", "3")))
-        )
 
-    for (i in seq_along(dat)) {
-        expect_equal(incidence(dat[[i]], groups=fac[[i]])$counts,
-                     exp.res[[i]])
-        expect_equal(incidence(dat[[i]], 3L, groups=fac[[i]])$counts,
-                     exp.res3[[i]])
-    }
+    res.g.1 <- incidence(dat[[1]], groups = fac[[1]])
+    res.g.2 <- incidence(dat[[2]], groups = fac[[2]])
+    res.g.3 <- incidence(dat[[3]], groups = fac[[3]])
+
+    expect_equal_to_reference(res.g.1, file = "rds/res.g.1.rds")
+    expect_equal_to_reference(res.g.2, file = "rds/res.g.2.rds")
+    expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
 
 })
 
@@ -208,8 +183,11 @@ test_that("Expected values, with groups", {
 
 
 test_that("Printing returns the object", {
-    x <- incidence(0)
+    x <- incidence(as.Date("2001-01-01"))
     y <- incidence(1:2, groups=factor(1:2))
-    expect_identical(invisible(print(x)), x)
-    expect_identical(invisible(print(y)), y)
+    expect_equal_to_reference(capture.output(print(x)),
+                              file = "rds/print1.rds")
+    expect_equal_to_reference(capture.output(print(y)),
+                              file = "rds/print2.rds")
+
 })
