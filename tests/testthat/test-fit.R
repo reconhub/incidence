@@ -16,6 +16,8 @@ test_that("fit", {
 
     expect_equal_to_reference(fit.i, file="rds/fit.i.rds")
     expect_equal_to_reference(fit.i.sex, file="rds/fit.i.sex.rds")
+    expect_equal_to_reference(capture.output(fit.i), file="rds/print.fit.i.rds")
+    expect_equal_to_reference(capture.output(fit.i.sex), file="rds/print.fit.sex.rds")
 
 })
 
@@ -35,6 +37,9 @@ test_that("fit_optim_split", {
     expect_equal_to_reference(fit_optim_split(i), file="rds/o.fit.i.rds")
     expect_equal_to_reference(fit_optim_split(i.sex), file="rds/o.fit.i.sex.rds")
 
+    ## errors
+    expect_error(fit_optim_split(i, window = -1),
+                 "No date left to try after defining splits to try.")
 })
 
 
@@ -43,3 +48,6 @@ test_that("fit_optim_split", {
 test_that("internals for fitting", {
     expect_null(extract_info(NULL))
 })
+
+
+
