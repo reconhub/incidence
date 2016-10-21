@@ -2,7 +2,7 @@ context("Subset of incidence objects")
 
 
 test_that("[ operator for incidence objects", {
-    set.seed(as.numeric(Sys.time()))
+    set.seed(123)
     dat <- as.integer(sample(-3:10, 50, replace=TRUE))
     x <- incidence(dat)
 
@@ -17,7 +17,7 @@ test_that("[ operator for incidence objects", {
 
 
 test_that("subset for incidence objects", {
-    set.seed(as.numeric(Sys.time()))
+    set.seed(123)
     dat <- as.integer(sample(-3:10, 50, replace=TRUE))
     x <- incidence(dat)
 
@@ -30,4 +30,11 @@ test_that("subset for incidence objects", {
     x.sub5 <- subset(x, from = 1, to = 4)
     expect_equal_to_reference(x.sub5, file = "rds/x.sub5.rds")
 
+    ## round trip
+    expect_identical(x, x[])
+
+    ## corner cases
+    expect_error(subset(x, from = 19), "No data retained.")
+    expect_error(subset(x, to = -2319), "No data retained.")
+    expect_error(subset(x, from = Inf, to = -2319), "No data retained.")
 })
