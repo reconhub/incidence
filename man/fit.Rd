@@ -7,9 +7,9 @@
 \alias{print.incidence_fit}
 \title{Fit exponential models to incidence data}
 \usage{
-fit(x, split = NULL, level = 0.95)
+fit(x, split = NULL, level = 0.95, quiet = FALSE)
 
-fit_optim_split(x, window = x$timespan/4, plot = TRUE)
+fit_optim_split(x, window = x$timespan/4, plot = TRUE, quiet = TRUE)
 
 \method{print}{incidence_fit}(x, ...)
 
@@ -24,6 +24,10 @@ a single model is fitted. If provided, two models would be fitted on the time pe
 side of the split.}
 
 \item{level}{The confidence interval to be used for predictions; defaults to 95\%.}
+
+\item{quiet}{A logical indicating if warnings from \code{fit} should be hidden; FALSE by
+default. Warnings typically indicate some zero incidence, which are removed before performing
+the log-linear regression.}
 
 \item{window}{The size, in days, of the time window either side of the split.}
 

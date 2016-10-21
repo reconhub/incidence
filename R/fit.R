@@ -23,6 +23,10 @@
 ##'
 ##' @param level The confidence interval to be used for predictions; defaults to 95\%.
 ##'
+##' @param quiet A logical indicating if warnings from \code{fit} should be hidden; FALSE by
+##' default. Warnings typically indicate some zero incidence, which are removed before performing
+##' the log-linear regression.
+##'
 
 ## The model fitted is a simple linear regression on the log-incidence.
 
@@ -46,12 +50,12 @@
 ## 'origin'), picking the middle of each time interval. We also keep track of the origin, so that
 ## actual dates can be reconstructed during the plotting. Each 'fit' object has its own origin.
 
-fit <- function(x, split = NULL, level = 0.95){
+fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
     n.groups <- ncol(x$counts)
 
     ## remove dates with one incidence of zero
     to.keep <- apply(x$counts, 1, min) > 0
-    if (!all(to.keep)) {
+    if (!quiet && !all(to.keep)) {
         warning(sprintf("%d dates with an incidence of 0 were removed before fitting",
                 sum(!to.keep)))
     }
@@ -98,10 +102,12 @@ fit <- function(x, split = NULL, level = 0.95){
 ##' @export
 ##' @rdname fit
 ##' @param window The size, in days, of the time window either side of the split.
+##'
 ##' @param plot A logical indicating whether a plot should be added to the output, showing the mean
 ##' R2 for various splits.
+##'
 
-fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE){
+fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE, quiet = TRUE){
     date.peak <- x$dates[which.max(x$counts[,1])] # !! this assumes a single group
     try.since <- date.peak - window / 2
     try.until <- date.peak + window / 2
@@ -113,7 +119,7 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE){
     splits.to.try <- x$dates[to.keep]
 
     f <- function(split) {
-        fits <- suppressWarnings(fit(x, split=split))
+        fits <- fit(x, split=split, quiet = quiet)
         mean(vapply(fits, function(e) summary(e$lm)$`adj.r.squared`, double(1)))
     }
 

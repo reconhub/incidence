@@ -85,6 +85,6 @@ if(require(outbreaks)) {
 
 }
 \author{
-Rich Fitzjohn, Thibaut Jombart
+Thibaut Jombart, Rich Fitzjohn
 }
 
