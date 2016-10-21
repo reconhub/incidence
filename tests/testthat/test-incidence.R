@@ -1,4 +1,4 @@
-context("incidence")
+context("Incidence main function")
 
 test_that("construction - default, integer input", {
     ## USING DAILY INCIDENCE

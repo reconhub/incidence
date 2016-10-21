@@ -1,4 +1,4 @@
-context("non-exported functions")
+context("Non-exported functions")
 
 test_that("check_interval", {
     expect_error(check_interval(),
