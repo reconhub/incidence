@@ -1,7 +1,7 @@
 Package: incidence
 Type: Package
 Title: Computation of Indidence from Outbreak Linelists
-Version: 0.0.1
+Version: 0.0.8
 Authors@R: c(
     person("Thibaut", "Jombart", role = c("aut", "cre"), email = "thibautjombart@gmail.com"),
     person("Rich", "FitzJohn", role = "aut", email = "rich.fitzjohn@gmail.com")
