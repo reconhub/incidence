@@ -54,8 +54,8 @@ To open these, type:
 
 ```r
 vignette("overview", package="incidence")
-vignette("customize-plot", package="incidence")
-vignette("incidence-class", package="incidence")
+vignette("customize_plot", package="incidence")
+vignette("incidence_class", package="incidence")
 ```
 
 
