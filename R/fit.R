@@ -19,49 +19,49 @@
 ##' fitting two models). \code{incidence_fit} objects contain:
 ##'
 ##' \itemize{
-##'  \item{lm}{the fitted linear model}
+##'  \item lm: the fitted linear model
 ##'
-##'  \item{info}{a list containing various information extracted from the model
-##' (detailed further)}
+##'  \item info: a list containing various information extracted from the model
+##' (detailed further)
 ##'
-##'  \item{origin}{the date corresponding to day '0'}
+##'  \item origin: the date corresponding to day '0'
 ##' }
 ##'
 ##' The \code{$info} item is a list containing:
 ##'
 ##' \itemize{
-##'  \item{r}{the growth rate}
+##'  \item r: the growth rate
 ##'
-##'  \item{r.conf}{the confidence interval of 'r'}
+##'  \item r.conf: the confidence interval of 'r'
 ##'
-##'  \item{pred}{a \code{data.frame} containing predictions of the model,
+##'  \item pred: a \code{data.frame} containing predictions of the model,
 ##' including the true dates (\code{dates}), their numeric version used in the
 ##' model (\code{dates.x}), the predicted value (\code{fit}), and the lower
 ##' (\code{lwr}) and upper (\code{upr}) bounds of the associated confidence
-##' interval.}
+##' interval.
 ##'
-##'  \item{doubling}{the predicted doubling time in days; exists only if 'r' is
-##' positive}
+##'  \item doubling: the predicted doubling time in days; exists only if 'r' is
+##' positive
 ##'
-##'  \item{doubling.conf}{the confidence interval of the doubling time}
+##'  \item doubling.conf: the confidence interval of the doubling time
 ##'
-##'  \item{halving}{the predicted halving time in days; exists only if 'r' is
-##' negative}
+##'  \item halving: the predicted halving time in days; exists only if 'r' is
+##' negative
 ##'
-##'  \item{halving.conf}{the confidence interval of the halving time}
+##'  \item halving.conf: the confidence interval of the halving time
 ##' }
 ##'
 ##' For \code{fit_optim_split}, a list containing:
 ##' \itemize{
 ##'
-##'  \item{df}{a \code{data.frame} of dates that were used in the optimization
-##' procedure, and the corresponding average R2 of the resulting models.}
+##'  \item df: a \code{data.frame} of dates that were used in the optimization
+##' procedure, and the corresponding average R2 of the resulting models.
 ##'
-##'  \item{split}{the optimal splitting date}
+##'  \item split: the optimal splitting date
 ##'
-##'  \item{fit}{the resulting \code{incidence_fit} objects}
+##'  \item fit: the resulting \code{incidence_fit} objects
 ##'
-##'  \item{plot}{a plot showing the content of \code{df} (ggplot2 object)}
+##'  \item plot: a plot showing the content of \code{df} (ggplot2 object)
 ##' }
 ##'
 ##' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
@@ -119,7 +119,7 @@
 ##' ## finding the best 'peak' date
 ##' f3 <- fit_optim_split(i.7)
 ##' f3
-##' plot(i.7, fit=f3)
+##' plot(i.7, fit=f3$fit)
 ##' }
 ##'
 
@@ -207,7 +207,8 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
 ##' output, showing the mean R2 for various splits.
 ##'
 
-fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE, quiet = TRUE){
+fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
+                            quiet = TRUE){
     date.peak <- x$dates[which.max(x$counts[,1])] # !! this assumes a single group
     try.since <- date.peak - window / 2
     try.until <- date.peak + window / 2

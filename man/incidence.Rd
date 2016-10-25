@@ -8,8 +8,7 @@
 \alias{incidence.integer}
 \alias{incidence.numeric}
 \alias{print.incidence}
-\title{Compute incidence from a numerical vector of dates, representing
-days.}
+\title{Compute incidence from a numerical vector of dates, representing days.}
 \usage{
 incidence(dates, interval = 1L, ...)
 
@@ -28,16 +27,17 @@ incidence(dates, interval = 1L, ...)
 \method{print}{incidence}(x, ...)
 }
 \arguments{
-\item{dates}{A vector of dates, which can be provided as objects of the class: integer, numeric,
-Date, POSIXct. Note that decimal numbers will be floored with a warning.}
+\item{dates}{A vector of dates, which can be provided as objects of the
+class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
+floored with a warning.}
 
-\item{interval}{An integer indicating the (fixed) size of the time interval used for computing
-the incidence; defaults to 1 day.}
+\item{interval}{An integer indicating the (fixed) size of the time interval
+used for computing the incidence; defaults to 1 day.}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
 
-\item{groups}{An optional factor defining groups of observations for which incidence should be
-computed separately.}
+\item{groups}{An optional factor defining groups of observations for which
+incidence should be computed separately.}
 
 \item{na_as_group}{A logical indicating if missing group (NA) should be treated as a separate
 group.}
@@ -45,15 +45,34 @@ group.}
 \item{x}{an 'incidence' object}
 }
 \value{
-A named list with 2 members (days [first day per interval] and
-  NoOfCases [count of incidents during the respective interval])
+An list with the class \code{incidence}, which contains the
+following items:
+
+\itemize{
+
+\item dates: The dates marking the left side of the bins used for counting
+evens.
+
+\item counts: A matrix of incidence counts, which one column per group (and
+a single column if no groups were used).
+
+\item timespan: The length of the period for which incidence is computed, in
+days.
+
+\item interval: The bin size, in number of days; e.g. 7 indicates weekly
+incidence.
+
+\item n: The total number of cases.
+
+}
 }
 \description{
-This function computes incidence based on dates of events provided in various formats. A fixed
-interval, provided as numbers of days, is used to define time intervals. Counts within an
-interval always include the first date, after which they are labelled, and exclude the
-second. For instance, intervals labelled as##' 0,3,6,... mean that the first bin includes days
-0, 1 and 2, the second interval includes 3, 4 and 5m etc.
+This function computes incidence based on dates of events provided in
+various formats. A fixed interval, provided as numbers of days, is used to
+define time intervals. Counts within an interval always include the first
+date, after which they are labelled, and exclude the second. For instance,
+intervals labelled as##' 0,3,6,... mean that the first bin includes days 0,
+1 and 2, the second interval includes 3, 4 and 5m etc.
 }
 \examples{
 ## toy example

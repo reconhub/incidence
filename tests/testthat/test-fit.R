@@ -12,7 +12,7 @@ test_that("fit", {
     i.sex <- incidence(dat, 5L, groups = sex)
     fit.i <- fit(i)
     expect_warning(fit.i.sex <- fit(i.sex),
-                   "3 dates with an incidence of 0 were removed before fitting")
+                   "3 dates with incidence of 0 ignored for fitting")
 
     expect_equal_to_reference(fit.i, file="rds/fit.i.rds")
     expect_equal_to_reference(fit.i.sex, file="rds/fit.i.sex.rds")
