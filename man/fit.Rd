@@ -39,8 +39,9 @@ output, showing the mean R2 for various splits.}
 
 \item{...}{further arguments passed to other methods (not used)}
 
-\item{col_pal}{The color palette to be used for the groups; defaults to \code{pal1}. See
-\code{\link{pal1}} for other palettes implemented in incidence.}
+\item{col_pal}{The color palette to be used for the groups; defaults to
+\code{pal1}. See \code{\link{pal1}} for other palettes implemented in
+incidence.}
 }
 \value{
 For \code{fit}, a list with the class \code{incidence_fit} (for a

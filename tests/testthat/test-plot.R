@@ -45,7 +45,7 @@ test_that("plot for incidence object", {
 
     ## errors
     expect_error(plot(i, fit = "tamere"),
-                 "fit must be a 'incidence_fit' object, or a list of these")
+                 "Fit must be a 'incidence_fit' object, or a list of these")
     expect_error(plot(i, fit = list(fit.i, "tamere")),
                  "The 2-th item in 'fit' is not an 'incidence_fit' object, but a character")
 })

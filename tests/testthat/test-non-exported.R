@@ -10,11 +10,11 @@ test_that("check_interval", {
     expect_error(check_interval(integer(0)),
                  "Exactly one value should be provided as interval \\(0 provided\\)")
     expect_error(check_interval(NA),
-                 "interval is not finite")
+                 "Interval is not finite")
     expect_error(check_interval(-Inf),
-                 "interval is not finite")
+                 "Interval is not finite")
     expect_error(check_interval(.1),
-                 "interval must be at least 1 \\(input: 0.100; after rounding: 0\\)")
+                 "Interval must be at least 1 \\(input: 0.100; after rounding: 0\\)")
     expect_equal(check_interval(1), 1)
     expect_equal(check_interval(2.4), 2)
     expect_equal(check_interval(2.7), 3)
