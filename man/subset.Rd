@@ -37,8 +37,8 @@ if(require(outbreaks)) {
 
 \item{to}{The ending date; data strictly after this date are discarded.}
 
-\item{groups}{(optional) The groups to retained, indicated as subsets of the columns of
-x$counts.}
+\item{groups}{(optional) The groups to retained, indicated as subsets of the
+columns of x$counts.}
 
 \item{i}{a subset of dates to retain}
 

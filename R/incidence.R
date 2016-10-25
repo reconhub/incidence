@@ -52,7 +52,8 @@
 ##'  \item \code{\link{fit_optim_split}}: Find the optimal peak of the epidemic
 ##' and fits log-linear models on either side of the peak.
 ##'
-##'  \item \code{\link{subset}}: Handling of \code{incidence} objects.
+##'  \item \code{\link[incidence]{subset}}: Handling of \code{incidence}
+##' objects.
 ##'
 ##'  \item \code{\link{pool}}: Sum incidence over groups.
 ##'
@@ -236,7 +237,7 @@ incidence.POSIXt <- function(dates, interval = 1L, ...) {
 
 ##' @export
 ##' @rdname incidence
-##' @param x an 'incidence' object
+##' @param x An 'incidence' object.
 
 print.incidence <- function(x, ...) {
 

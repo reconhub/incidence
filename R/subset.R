@@ -22,8 +22,8 @@
 ##'
 ##' @param to The ending date; data strictly after this date are discarded.
 ##'
-##' @param groups (optional) The groups to retained, indicated as subsets of the columns of
-##' x$counts.
+##' @param groups (optional) The groups to retained, indicated as subsets of the
+##' columns of x$counts.
 ##'
 ##' @param ... Further arguments passed to other methods (not used).
 ##'

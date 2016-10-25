@@ -42,7 +42,7 @@ incidence should be computed separately.}
 \item{na_as_group}{A logical indicating if missing group (NA) should be
 treated as a separate group.}
 
-\item{x}{an 'incidence' object}
+\item{x}{An 'incidence' object.}
 }
 \value{
 An list with the class \code{incidence}, which contains the
@@ -119,7 +119,8 @@ The main other functions of the package include:
  \item \code{\link{fit_optim_split}}: Find the optimal peak of the epidemic
 and fits log-linear models on either side of the peak.
 
- \item \code{\link{subset}}: Handling of \code{incidence} objects.
+ \item \code{\link[incidence]{subset}}: Handling of \code{incidence}
+objects.
 
  \item \code{\link{pool}}: Sum incidence over groups.
 
