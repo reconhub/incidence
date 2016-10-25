@@ -39,8 +39,8 @@ used for computing the incidence; defaults to 1 day.}
 \item{groups}{An optional factor defining groups of observations for which
 incidence should be computed separately.}
 
-\item{na_as_group}{A logical indicating if missing group (NA) should be treated as a separate
-group.}
+\item{na_as_group}{A logical indicating if missing group (NA) should be
+treated as a separate group.}
 
 \item{x}{an 'incidence' object}
 }
@@ -74,6 +74,10 @@ date, after which they are labelled, and exclude the second. For instance,
 intervals labelled as##' 0,3,6,... mean that the first bin includes days 0,
 1 and 2, the second interval includes 3, 4 and 5m etc.
 }
+\details{
+For details about the \code{incidence class}, see the dedicated
+vignette (type: \code{vignette("incidence_class", package = "incidence")})
+}
 \examples{
 ## toy example
 incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
@@ -105,5 +109,35 @@ if(require(outbreaks)) {
 }
 \author{
 Thibaut Jombart, Rich Fitzjohn
+}
+\seealso{
+The main other functions of the package include:
+\itemize{
+
+ \item \code{\link{fit}}: Fit log-linear model to computed incidence.
+
+ \item \code{\link{fit_optim_split}}: Find the optimal peak of the epidemic
+and fits log-linear models on either side of the peak.
+
+ \item \code{\link{subset}}: Handling of \code{incidence} objects.
+
+ \item \code{\link{pool}}: Sum incidence over groups.
+
+ \item \code{\link{as.data.frame}}: Convert an \code{incidence} object to a
+\code{data.frame}.}
+
+The following vignettes are also available:
+\itemize{
+
+\item overview: Provides an overview of the package's features; open by
+typing vignette("overview", package="incidence")
+
+\item plots: Provides some tips on finer plot customization; open by typing
+\code{vignette("customize_plot", package="incidence")}
+
+\item class: Details the content of the \code{incidence} class; open by
+typing \code{vignette("incidence_class", package="incidence")}
+
+}
 }
 

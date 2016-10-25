@@ -40,6 +40,40 @@
 ##'
 ##' }
 ##'
+##' @details For details about the \code{incidence class}, see the dedicated
+##' vignette (type: \code{vignette("incidence_class", package = "incidence")})
+##'
+##' @seealso
+##' The main other functions of the package include:
+##' \itemize{
+##'
+##'  \item \code{\link{fit}}: Fit log-linear model to computed incidence.
+##'
+##'  \item \code{\link{fit_optim_split}}: Find the optimal peak of the epidemic
+##' and fits log-linear models on either side of the peak.
+##'
+##'  \item \code{\link{subset}}: Handling of \code{incidence} objects.
+##'
+##'  \item \code{\link{pool}}: Sum incidence over groups.
+##'
+##'  \item \code{\link{as.data.frame}}: Convert an \code{incidence} object to a
+##' \code{data.frame}.}
+##'
+##' The following vignettes are also available:
+##' \itemize{
+##'
+##' \item overview: Provides an overview of the package's features; open by
+##' typing vignette("overview", package="incidence")
+##'
+##' \item plots: Provides some tips on finer plot customization; open by typing
+##' \code{vignette("customize_plot", package="incidence")}
+##'
+##' \item class: Details the content of the \code{incidence} class; open by
+##' typing \code{vignette("incidence_class", package="incidence")}
+##'
+##' }
+##'
+##'
 ##' @author Thibaut Jombart, Rich Fitzjohn
 ##'
 ##' @rdname incidence
@@ -89,15 +123,16 @@ incidence <- function(dates, interval = 1L, ...) {
 
 ##' @export
 ##' @rdname incidence
-##' @param na_as_group A logical indicating if missing group (NA) should be treated as a separate
-##' group.
+##'
+##' @param na_as_group A logical indicating if missing group (NA) should be
+##' treated as a separate group.
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
                               na_as_group = TRUE, ...) {
     ## make sure input can be used
     dates <- check_dates(dates)
-    interval <- check_interval(interval) # enforces positive, finite integer
-    groups <- check_groups(groups, dates, na_as_group) # enforces factor of right length
+    interval <- check_interval(interval)
+    groups <- check_groups(groups, dates, na_as_group)
 
     ## check interval
     first.date <- min(dates)
