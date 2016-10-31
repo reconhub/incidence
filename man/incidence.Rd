@@ -8,7 +8,7 @@
 \alias{incidence.integer}
 \alias{incidence.numeric}
 \alias{print.incidence}
-\title{Compute incidence from a numerical vector of dates, representing days.}
+\title{Compute incidence of events from a vector of dates.}
 \usage{
 incidence(dates, interval = 1L, ...)
 
@@ -71,12 +71,12 @@ This function computes incidence based on dates of events provided in
 various formats. A fixed interval, provided as numbers of days, is used to
 define time intervals. Counts within an interval always include the first
 date, after which they are labelled, and exclude the second. For instance,
-intervals labelled as##' 0,3,6,... mean that the first bin includes days 0,
-1 and 2, the second interval includes 3, 4 and 5m etc.
+intervals labelled as 0,3,6,... mean that the first bin includes days 0, 1
+and 2, the second interval includes 3, 4 and 5m etc.
 }
 \details{
 For details about the \code{incidence class}, see the dedicated
-vignette (type: \code{vignette("incidence_class", package = "incidence")})
+vignette:\cr \code{vignette("incidence_class", package = "incidence")}
 }
 \examples{
 ## toy example
@@ -130,14 +130,12 @@ objects.
 The following vignettes are also available:
 \itemize{
 
-\item overview: Provides an overview of the package's features; open by
-typing vignette("overview", package="incidence")
+\item \code{overview}: Provides an overview of the package's features.
 
-\item plots: Provides some tips on finer plot customization; open by typing
-\code{vignette("customize_plot", package="incidence")}
+\item \code{customize_plot}: Provides some tips on finer plot customization.
 
-\item class: Details the content of the \code{incidence} class; open by
-typing \code{vignette("incidence_class", package="incidence")}
+\item \code{incidence_class}: Details the content of the \code{incidence}
+class.
 
 }
 }

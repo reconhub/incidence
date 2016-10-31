@@ -1,11 +1,10 @@
 ##' Pool 'incidence' across groups
 ##'
 ##' This function pools incidence across all groups of an \code{incidence}
-##' object.
+##' object. The resulting \code{\link{incidence}} object will contains counts
+##' summed over all groups present in the input.
 ##'
 ##' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
-##'
-##' @rdname subset
 ##'
 ##' @seealso The \code{\link{incidence}} function to generate the 'incidence'
 ##' objects.
@@ -20,8 +19,15 @@
 ##' i <- incidence(dat, groups = group)
 ##' i
 ##' i$counts
+##'
+##' ## pool all groups
 ##' pool(i)
 ##' pool(i)$counts
+##'
+##' ## pool only groups 1 and 3
+##' pool(i[,c(1,3)])
+##' pool(i[,c(1,3)])$counts
+##'
 
 pool <- function(x){
     if (!inherits(x, "incidence")) {

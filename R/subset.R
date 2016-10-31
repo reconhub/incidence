@@ -8,9 +8,11 @@
 ##'
 ##' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 ##'
+##' @export
+##'
 ##' @rdname subset
 ##'
-##' @export
+##' @aliases "subset.incidence" "[.incidence"
 ##'
 ##' @seealso The \code{\link{incidence}} function to generate the 'incidence'
 ##' objects.
@@ -27,7 +29,7 @@
 ##'
 ##' @param ... Further arguments passed to other methods (not used).
 ##'
-##'
+##' @examples
 ##' ## example using simulated dataset
 ##' if(require(outbreaks)) {
 ##'   onset <- ebola.sim$linelist$date.of.onset
@@ -38,7 +40,7 @@
 ##'   inc[1:10] # first 10 weeks
 ##'   plot(inc[1:10])
 ##'   inc[-c(11:15)] # remove weeks 11-15
-##'   plot(inc[-c(11:15]))
+##'   plot(inc[-c(11:15)])
 ##' }
 ##'
 
