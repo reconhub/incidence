@@ -53,6 +53,7 @@ The main functions of the package include:
 
 <br>
 <br>
+
 # Vignettes
 
 An overview of *incidence* is provided below in the worked example below.
@@ -75,6 +76,7 @@ vignette("incidence_class", package="incidence")
 
 <br>
 <br>
+
 # Worked example: simulated Ebola outbreak
 
 ## Loading the data
