@@ -2,7 +2,8 @@
 
 
 
-![incidence logo](logo/banner.png)
+![incidence logo](http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png)
+
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
@@ -14,6 +15,8 @@ This package implements functions and classes to compute, handle, visualise and 
 from dates data.
 
 
+<br>
+<br>
 # Installing the package
 
 To install the devel version of the package, type:
@@ -26,6 +29,8 @@ Note that this requires the package *devtools* installed.
 
 
 
+<br>
+<br>
 # What does it do?
 
 The main functions of the package include:
@@ -41,6 +46,9 @@ The main functions of the package include:
 
 
 
+
+<br>
+<br>
 # Vignettes
 
 An overview of *incidence* is provided below in the worked example below.
@@ -48,6 +56,7 @@ More detailed tutorials are distributed as vignettes with the package:
 
 ```r
 vignette(package="incidence")
+#> no vignettes found
 ```
 
 To open these, type:
@@ -60,7 +69,8 @@ vignette("incidence_class", package="incidence")
 
 
 
-
+<br>
+<br>
 # Worked example: simulated Ebola outbreak
 
 ## Loading the data
@@ -561,8 +571,10 @@ plot(i.7.sex, fit=best.fit2)
 
 ![plot of chunk optim2](figs/optim2-1.png)
 
+<br>
+<br>
 
-### Contributors (by alphabetic order):
+# Contributors (by alphabetic order):
 - Thibaut Jombart (@thibautjombart)
 - Rich Fitzjohn (@richfitz)
 
@@ -570,4 +582,4 @@ Contributions are welcome via pull requests.
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-Maintainer: Thibaut Jombart (thibautjombart@gmail.com)
+**Maintainer:** Thibaut Jombart (thibautjombart@gmail.com)

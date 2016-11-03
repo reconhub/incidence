@@ -3,14 +3,15 @@
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  fig.width=10, 
+  fig.width=8, 
   fig.height=6, 
   fig.path="figs/"
 )
 ```
 
 
-![incidence logo](logo/banner.png)
+![incidence logo](http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png)
+
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
