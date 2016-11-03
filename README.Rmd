@@ -10,8 +10,10 @@ knitr::opts_chunk$set(
 ```
 
 
-![incidence logo](http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png)
+![](http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png)
 
+<br>
+<br>
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
@@ -25,6 +27,7 @@ from dates data.
 
 <br>
 <br>
+
 # Installing the package
 
 To install the devel version of the package, type:
@@ -38,6 +41,7 @@ Note that this requires the package *devtools* installed.
 
 <br>
 <br>
+
 # What does it do?
 
 The main functions of the package include:
