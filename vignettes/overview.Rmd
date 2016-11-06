@@ -35,8 +35,13 @@ content of `REAME.md`.
 <br>
 # Installing the package
 
-To install the devel version of the package, type:
+To install the current stable, CRAN version of the package, type:
 ```{r install, eval=FALSE}
+install.packages("incidence")
+```
+
+To benefit from the latest features and bug fixes, install the development, *github* version of the package using:
+```{r install2, eval=FALSE}
 devtools::install_github("reconhub/incidence")
 ```
 
