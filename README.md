@@ -5,16 +5,12 @@
 <img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
 
 <br>
-<br>
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg)](https://codecov.io/github/reconhub/incidence?branch=master)
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
-
-This package implements functions and classes to compute, handle, visualise and model incidences
-from dates data.
 
 
 <br>
@@ -83,13 +79,19 @@ vignette("incidence_class", package="incidence")
 <br>
 <br>
 
-# Worked example: simulated Ebola outbreak
+# A quick overview
+
+The following worked example provides a brief overview of the package's
+functionalities. For a complete introduction, see the `overview` vignette:
+```{r, eval = FALSE} vignette("overview", package="incidence") ```
+
 
 ## Loading the data
 
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
-[*outbreaks*](http://github.com/reconhub/outbreaks). We will compute incidence for various time
-steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from the
+package [*outbreaks*](http://github.com/reconhub/outbreaks). We will compute
+incidence for various time steps, calibrate two exponential models around the
+peak of the epidemic, and analyse the results.
 
 First, we load the data:
 
@@ -108,53 +110,26 @@ head(dat)
 
 
 ## Computing and plotting incidence
-We compute the daily incidence:
+We compute the weekly incidence:
 
 ```r
-i <- incidence(dat)
-i
+i.7 <- incidence(dat, interval=7)
+i.7
 #> <incidence object>
-#> [5888 cases from days 2014-04-07 to 2015-04-30]
+#> [5888 cases from days 2014-04-07 to 2015-04-27]
 #> 
-#> $counts: matrix with 389 rows and 1 columns
+#> $counts: matrix with 56 rows and 1 columns
 #> $n: 5888 cases in total
-#> $dates: 389 dates marking the left-side of bins
-#> $interval: 1 day
-#> $timespan: 389 days
-plot(i)
+#> $dates: 56 dates marking the left-side of bins
+#> $interval: 7 days
+#> $timespan: 386 days
+plot(i.7)
 ```
 
 ![plot of chunk incid1](figs/incid1-1.png)
 
-The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:
 
-```r
-## weekly
-i.7 <- incidence(dat, interval=7)
-plot(i.7)
-```
-
-![plot of chunk interv](figs/interv-1.png)
-
-```r
-
-## bi-weekly
-i.14 <- incidence(dat, interval=14)
-plot(i.14, border = "white")
-```
-
-![plot of chunk interv](figs/interv-2.png)
-
-```r
-
-## period of 30 days
-i.30 <- incidence(dat, interval=30)
-plot(i.30, border = "white")
-```
-
-![plot of chunk interv](figs/interv-3.png)
-
-`incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute incidence by gender:
+`incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
 
 ```r
 i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
@@ -173,94 +148,39 @@ plot(i.7.sex, stack = TRUE, border = "grey")
 
 ![plot of chunk gender](figs/gender-1.png)
 
-We can do the same for hospitals, using the 'clean' version of the dataset, with some customization of the legend:
-
-```r
-i.7.hosp <- with(ebola.sim.clean$linelist, 
-	 incidence(date.of.onset, interval=7, groups = hospital))
-i.7.hosp
-#> <incidence object>
-#> [5829 cases from days 2014-04-07 to 2015-04-27]
-#> [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]
-#> 
-#> $counts: matrix with 56 rows and 6 columns
-#> $n: 5829 cases in total
-#> $dates: 56 dates marking the left-side of bins
-#> $interval: 7 days
-#> $timespan: 386 days
-head(i.7.hosp$counts)
-#>      Connaught Hospital Military Hospital NA other
-#> [1,]                  0                 1  0     0
-#> [2,]                  1                 0  0     0
-#> [3,]                  0                 0  2     3
-#> [4,]                  1                 0  1     0
-#> [5,]                  3                 5  1     1
-#> [6,]                  2                 4  4     5
-#>      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital
-#> [1,]                                            0               0
-#> [2,]                                            0               0
-#> [3,]                                            0               0
-#> [4,]                                            1               1
-#> [5,]                                            1               1
-#> [6,]                                            1               1
-plot(i.7.hosp, stack=TRUE) + 
-    theme(legend.position= "top") + 
-    labs(fill="")
-```
-
-![plot of chunk hosp](figs/hosp-1.png)
-
-
 
 ## Handling `incidence` objects
 `incidence` objects can be manipulated easily. The `[` operator implements subetting of dates (first argument) and groups (second argument). 
-For instance, to keep only the peak of the distribution:
+For instance, to keep only the first 20 weeks of the epidemic:
 
 ```r
-i[100:250]
+i.7[1:20]
 #> <incidence object>
-#> [4103 cases from days 2014-07-15 to 2014-12-12]
+#> [797 cases from days 2014-04-07 to 2014-08-18]
 #> 
-#> $counts: matrix with 151 rows and 1 columns
-#> $n: 4103 cases in total
-#> $dates: 151 dates marking the left-side of bins
-#> $interval: 1 day
-#> $timespan: 151 days
-plot(i[100:250])
-```
-
-![plot of chunk middle](figs/middle-1.png)
-
-Or to keep every other week:
-
-```r
-i.7[c(TRUE,FALSE)]
-#> <incidence object>
-#> [2891 cases from days 2014-04-07 to 2015-04-20]
-#> 
-#> $counts: matrix with 28 rows and 1 columns
-#> $n: 2891 cases in total
-#> $dates: 28 dates marking the left-side of bins
+#> $counts: matrix with 20 rows and 1 columns
+#> $n: 797 cases in total
+#> $dates: 20 dates marking the left-side of bins
 #> $interval: 7 days
-#> $timespan: 379 days
-plot(i.7[c(TRUE,FALSE)])
+#> $timespan: 134 days
+plot(i.7[1:20])
 ```
 
-![plot of chunk stripes](figs/stripes-1.png)
+![plot of chunk start](figs/start-1.png)
 
 Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
 
 ```r
-i.tail <- subset(i, from=as.Date("2015-01-01"))
+i.tail <- subset(i.7, from=as.Date("2015-01-01"))
 i.tail
 #> <incidence object>
-#> [1205 cases from days 2015-01-01 to 2015-04-30]
+#> [1156 cases from days 2015-01-05 to 2015-04-27]
 #> 
-#> $counts: matrix with 120 rows and 1 columns
-#> $n: 1205 cases in total
-#> $dates: 120 dates marking the left-side of bins
-#> $interval: 1 day
-#> $timespan: 120 days
+#> $counts: matrix with 17 rows and 1 columns
+#> $n: 1156 cases in total
+#> $dates: 17 dates marking the left-side of bins
+#> $interval: 7 days
+#> $timespan: 113 days
 plot(i.tail, border="white")
 ```
 
@@ -285,23 +205,6 @@ plot(i.7.outcome, stack = TRUE, border = "grey")
 
 ![plot of chunk i7outcome](figs/i7outcome-1.png)
 
-By default, `incidence` treats missing data (NA) as a separate group (see argument `na_as_group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
-
-```r
-i.7.outcome[,1:2]
-#> <incidence object>
-#> [3905 cases from days 2014-04-07 to 2015-04-27]
-#> [2 groups: Death, NA]
-#> 
-#> $counts: matrix with 56 rows and 2 columns
-#> $n: 3905 cases in total
-#> $dates: 56 dates marking the left-side of bins
-#> $interval: 7 days
-#> $timespan: 386 days
-plot(i.7.outcome[,1:2], stack = TRUE, border = "grey")
-```
-
-![plot of chunk groupsub](figs/groupsub-1.png)
 
 Groups can also be collapsed into a single time series using `pool`:
 
@@ -385,60 +288,7 @@ plot(i.7[1:20], fit = early.fit)
 
 
 In this case, we would ideally like to fit two models, before and after the peak of the epidemic.
-This is possible using the following approach, if you know what date to use to split the data in two phases:
-
-```r
-fit.both <- fit(i.7, split=as.Date("2014-10-15"))
-fit.both
-#> $before
-#> <incidence_fit object>
-#> 
-#> $lm: regression of log-incidence over time
-#> 
-#> $info: list containing the following items:
-#>   $r (daily growth rate):
-#> [1] 0.02741985
-#> 
-#>   $r.conf (confidence interval):
-#>           2.5 %     97.5 %
-#> [1,] 0.02407933 0.03076038
-#> 
-#>   $doubling (doubling time in days):
-#> [1] 25.27902
-#> 
-#>   $doubling.conf (confidence interval):
-#>         2.5 %   97.5 %
-#> [1,] 22.53377 28.78598
-#> 
-#>   $pred: data.frame of incidence predictions (28 rows, 5 columns)
-#> 
-#> $after
-#> <incidence_fit object>
-#> 
-#> $lm: regression of log-incidence over time
-#> 
-#> $info: list containing the following items:
-#>   $r (daily growth rate):
-#> [1] -0.01014465
-#> 
-#>   $r.conf (confidence interval):
-#>            2.5 %       97.5 %
-#> [1,] -0.01127733 -0.009011981
-#> 
-#>   $halving (halving time in days):
-#> [1] 68.32636
-#> 
-#>   $halving.conf (confidence interval):
-#>         2.5 %   97.5 %
-#> [1,] 61.46379 76.91397
-#> 
-#>   $pred: data.frame of incidence predictions (28 rows, 5 columns)
-plot(i.7, fit=fit.both)
-```
-
-![plot of chunk fit.both](figs/fit.both-1.png)
-
-This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e. the one maximizing the average fit of both models), we use:
+This is possible using the following approach, in which the best possible splitting date (i.e. the one maximizing the average fit of both models), is determined automatically:
 
 ```r
 best.fit <- fit_optim_split(i.7)
@@ -519,69 +369,6 @@ plot(i.7, fit=best.fit$fit)
 
 ![plot of chunk optim](figs/optim-2.png)
 
-These models are very good approximation of these data, showing a doubling time of 23.2 days during the first phase, and a halving time of 68.2 days during the second.
-
-
-Note that `fit` will also take groups into account if incidence has been computed for several groups:
-
-```r
-best.fit2 <- fit_optim_split(i.7.sex)$fit
-best.fit2
-#> $before
-#> <incidence_fit object>
-#> 
-#> $lm: regression of log-incidence over time
-#> 
-#> $info: list containing the following items:
-#>   $r (daily growth rate):
-#>          f          m 
-#> 0.02381854 0.02640719 
-#> 
-#>   $r.conf (confidence interval):
-#>        2.5 %     97.5 %
-#> f 0.02097832 0.02665876
-#> m 0.01955031 0.03326408
-#> 
-#>   $doubling (doubling time in days):
-#>        f        m 
-#> 29.10116 26.24842 
-#> 
-#>   $doubling.conf (confidence interval):
-#>      2.5 %   97.5 %
-#> f 26.00073 33.04111
-#> m 20.83771 35.45454
-#> 
-#>   $pred: data.frame of incidence predictions (46 rows, 6 columns)
-#> 
-#> $after
-#> <incidence_fit object>
-#> 
-#> $lm: regression of log-incidence over time
-#> 
-#> $info: list containing the following items:
-#>   $r (daily growth rate):
-#>           f           m 
-#> -0.01002305 -0.01056026 
-#> 
-#>   $r.conf (confidence interval):
-#>         2.5 %       97.5 %
-#> f -0.01110163 -0.008944473
-#> m -0.01316417 -0.007956340
-#> 
-#>   $halving (halving time in days):
-#>        f        m 
-#> 69.15531 65.63734 
-#> 
-#>   $halving.conf (confidence interval):
-#>      2.5 %   97.5 %
-#> f 62.43653 77.49447
-#> m 52.65406 87.11885
-#> 
-#>   $pred: data.frame of incidence predictions (62 rows, 6 columns)
-plot(i.7.sex, fit=best.fit2)
-```
-
-![plot of chunk optim2](figs/optim2-1.png)
 
 <br>
 <br>

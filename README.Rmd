@@ -13,16 +13,12 @@ knitr::opts_chunk$set(
 <img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
 
 <br>
-<br>
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg)](https://codecov.io/github/reconhub/incidence?branch=master)
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
-
-This package implements functions and classes to compute, handle, visualise and model incidences
-from dates data.
 
 
 <br>
@@ -86,13 +82,19 @@ vignette("incidence_class", package="incidence")
 <br>
 <br>
 
-# Worked example: simulated Ebola outbreak
+# A quick overview
+
+The following worked example provides a brief overview of the package's
+functionalities. For a complete introduction, see the `overview` vignette:
+```{r, eval = FALSE} vignette("overview", package="incidence") ```
+
 
 ## Loading the data
 
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
-[*outbreaks*](http://github.com/reconhub/outbreaks). We will compute incidence for various time
-steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from the
+package [*outbreaks*](http://github.com/reconhub/outbreaks). We will compute
+incidence for various time steps, calibrate two exponential models around the
+peak of the epidemic, and analyse the results.
 
 First, we load the data:
 ```{r, data}
@@ -107,66 +109,33 @@ head(dat)
 
 
 ## Computing and plotting incidence
-We compute the daily incidence:
+We compute the weekly incidence:
 ```{r, incid1}
-i <- incidence(dat)
-i
-plot(i)
-```
-
-The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:
-```{r, interv}
-## weekly
 i.7 <- incidence(dat, interval=7)
+i.7
 plot(i.7)
-
-## bi-weekly
-i.14 <- incidence(dat, interval=14)
-plot(i.14, border = "white")
-
-## period of 30 days
-i.30 <- incidence(dat, interval=30)
-plot(i.30, border = "white")
-
 ```
 
-`incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute incidence by gender:
+
+`incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
 ```{r, gender}
 i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
-We can do the same for hospitals, using the 'clean' version of the dataset, with some customization of the legend:
-```{r, hosp}
-i.7.hosp <- with(ebola.sim.clean$linelist, 
-	 incidence(date.of.onset, interval=7, groups = hospital))
-i.7.hosp
-head(i.7.hosp$counts)
-plot(i.7.hosp, stack=TRUE) + 
-    theme(legend.position= "top") + 
-    labs(fill="")
-```
-
-
 
 ## Handling `incidence` objects
 `incidence` objects can be manipulated easily. The `[` operator implements subetting of dates (first argument) and groups (second argument). 
-For instance, to keep only the peak of the distribution:
-```{r, middle}
-i[100:250]
-plot(i[100:250])
-```
-
-Or to keep every other week:
-```{r, stripes}
-i.7[c(TRUE,FALSE)]
-plot(i.7[c(TRUE,FALSE)])
+For instance, to keep only the first 20 weeks of the epidemic:
+```{r, start}
+i.7[1:20]
+plot(i.7[1:20])
 ```
 
 Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
 ```{r, tail}
-i.tail <- subset(i, from=as.Date("2015-01-01"))
+i.tail <- subset(i.7, from=as.Date("2015-01-01"))
 i.tail
 plot(i.tail, border="white")
 ```
@@ -178,11 +147,6 @@ i.7.outcome
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
-By default, `incidence` treats missing data (NA) as a separate group (see argument `na_as_group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
-```{r, groupsub}
-i.7.outcome[,1:2]
-plot(i.7.outcome[,1:2], stack = TRUE, border = "grey")
-```
 
 Groups can also be collapsed into a single time series using `pool`:
 ```{r, pool}
@@ -224,29 +188,13 @@ plot(i.7[1:20], fit = early.fit)
 
 
 In this case, we would ideally like to fit two models, before and after the peak of the epidemic.
-This is possible using the following approach, if you know what date to use to split the data in two phases:
-```{r, fit.both}
-fit.both <- fit(i.7, split=as.Date("2014-10-15"))
-fit.both
-plot(i.7, fit=fit.both)
-```
-
-This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e. the one maximizing the average fit of both models), we use:
+This is possible using the following approach, in which the best possible splitting date (i.e. the one maximizing the average fit of both models), is determined automatically:
 ```{r, optim}
 best.fit <- fit_optim_split(i.7)
 best.fit
 plot(i.7, fit=best.fit$fit)
 ```
 
-These models are very good approximation of these data, showing a doubling time of `r round(best.fit$fit$before$info$doubling,1)` days during the first phase, and a halving time of `r round(best.fit$fit$after$info$halving,1)` days during the second.
-
-
-Note that `fit` will also take groups into account if incidence has been computed for several groups:
-```{r, optim2}
-best.fit2 <- fit_optim_split(i.7.sex)$fit
-best.fit2
-plot(i.7.sex, fit=best.fit2)
-```
 
 <br>
 <br>
