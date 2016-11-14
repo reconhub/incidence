@@ -42,17 +42,17 @@
     
     
 <div class="contents">
-<div class="figure">
-<img src="http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png"></div>
-<p><br><br></p>
+<p><img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png"></p>
+<p><br></p>
 <p><a href="https://travis-ci.org/reconhub/incidence"><img src="https://travis-ci.org/reconhub/incidence.svg?branch=master" alt="Travis-CI Build Status"></a></p>
 <p><a href="https://codecov.io/github/reconhub/incidence?branch=master"><img src="https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg" alt="Coverage Status"></a></p>
 <p><a href="https://cran.r-project.org/package=incidence"><img src="http://www.r-pkg.org/badges/version/incidence" alt="CRAN_Status_Badge"></a></p>
-<p>This package implements functions and classes to compute, handle, visualise and model incidences from dates data.</p>
 <p><br><br></p>
 <div id="installing-the-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor"><a href="#installing-the-package" class="anchor"> </a>Installing the package</h1></div>
-<p>To install the devel version of the package, type:</p>
+<p>To install the current stable, CRAN version of the package, type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"incidence"</span>)</code></pre></div>
+<p>To benefit from the latest features and bug fixes, install the development, <em>github</em> version of the package using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"reconhub/incidence"</span>)</code></pre></div>
 <p>Note that this requires the package <em>devtools</em> installed.</p>
 <p><br><br></p>
@@ -81,8 +81,9 @@
 <span class="kw">vignette</span>(<span class="st">"incidence_class"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</code></pre></div>
 <p><br><br></p>
 </div>
-<div id="worked-example-simulated-ebola-outbreak" class="section level1">
-<h1 class="hasAnchor"><a href="#worked-example-simulated-ebola-outbreak" class="anchor"> </a>Worked example: simulated Ebola outbreak</h1>
+<div id="a-quick-overview" class="section level1">
+<h1 class="hasAnchor"><a href="#a-quick-overview" class="anchor"> </a>A quick overview</h1>
+<p>The following worked example provides a brief overview of the package&rsquo;s functionalities. For a complete introduction, see the <code>overview</code> vignette: <code>{r, eval = FALSE} vignette("overview", package="incidence")</code></p>
 <div id="loading-the-data" class="section level2">
 <h2 class="hasAnchor"><a href="#loading-the-data" class="anchor"> </a>Loading the data</h2>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. We will compute incidence for various time steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.</p>
@@ -100,35 +101,20 @@ dat &lt;-<span class="st"> </span>ebola.sim$linelist$date.of.onset
 </div>
 <div id="computing-and-plotting-incidence" class="section level2">
 <h2 class="hasAnchor"><a href="#computing-and-plotting-incidence" class="anchor"> </a>Computing and plotting incidence</h2>
-<p>We compute the daily incidence:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat)
-i
+<p>We compute the weekly incidence:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>)
+i<span class="fl">.7</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-30]</span>
+<span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 389 rows and 1 columns</span>
+<span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
 <span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 389 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 day</span>
-<span class="co">#&gt; $timespan: 389 days</span>
-<span class="kw">plot</span>(i)</code></pre></div>
-<p><img src="figs/incid1-1.png" width="768"></p>
-<p>The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## weekly
-i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>)
+<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
+<span class="co">#&gt; $interval: 7 days</span>
+<span class="co">#&gt; $timespan: 386 days</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>)</code></pre></div>
-<p><img src="figs/interv-1.png" width="768"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-## bi-weekly
-i<span class="fl">.14</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">14</span>)
-<span class="kw">plot</span>(i<span class="fl">.14</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
-<p><img src="figs/interv-2.png" width="768"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-## period of 30 days
-i<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">30</span>)
-<span class="kw">plot</span>(i<span class="fl">.30</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
-<p><img src="figs/interv-3.png" width="768"></p>
-<p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender:</p>
+<p><img src="figs/incid1-1.png" width="768"></p>
+<p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute the weekly incidence by gender:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.sex &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> ebola.sim$linelist$gender)
 i<span class="fl">.7</span>.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
@@ -142,76 +128,32 @@ i<span class="fl">.7</span>.sex
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>.sex, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
 <p><img src="figs/gender-1.png" width="768"></p>
-<p>We can do the same for hospitals, using the &lsquo;clean&rsquo; version of the dataset, with some customization of the legend:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.hosp &lt;-<span class="st"> </span><span class="kw">with</span>(ebola.sim.clean$linelist, 
-     <span class="kw"><a href="reference/incidence.html">incidence</a></span>(date.of.onset, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> hospital))
-i<span class="fl">.7</span>.hosp
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span>
-<span class="co">#&gt; $n: 5829 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="kw">head</span>(i<span class="fl">.7</span>.hosp$counts)
-<span class="co">#&gt;      Connaught Hospital Military Hospital NA other</span>
-<span class="co">#&gt; [1,]                  0                 1  0     0</span>
-<span class="co">#&gt; [2,]                  1                 0  0     0</span>
-<span class="co">#&gt; [3,]                  0                 0  2     3</span>
-<span class="co">#&gt; [4,]                  1                 0  1     0</span>
-<span class="co">#&gt; [5,]                  3                 5  1     1</span>
-<span class="co">#&gt; [6,]                  2                 4  4     5</span>
-<span class="co">#&gt;      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital</span>
-<span class="co">#&gt; [1,]                                            0               0</span>
-<span class="co">#&gt; [2,]                                            0               0</span>
-<span class="co">#&gt; [3,]                                            0               0</span>
-<span class="co">#&gt; [4,]                                            1               1</span>
-<span class="co">#&gt; [5,]                                            1               1</span>
-<span class="co">#&gt; [6,]                                            1               1</span>
-<span class="kw">plot</span>(i<span class="fl">.7</span>.hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) +<span class="st"> </span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) +<span class="st"> </span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">""</span>)</code></pre></div>
-<p><img src="figs/hosp-1.png" width="768"></p>
 </div>
 <div id="handling-incidence-objects" class="section level2">
 <h2 class="hasAnchor"><a href="#handling-incidence-objects" class="anchor"> </a>Handling <code>incidence</code> objects</h2>
-<p><code>incidence</code> objects can be manipulated easily. The <code>[</code> operator implements subetting of dates (first argument) and groups (second argument). For instance, to keep only the peak of the distribution:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i[<span class="dv">100</span>:<span class="dv">250</span>]
+<p><code>incidence</code> objects can be manipulated easily. The <code>[</code> operator implements subetting of dates (first argument) and groups (second argument). For instance, to keep only the first 20 weeks of the epidemic:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [4103 cases from days 2014-07-15 to 2014-12-12]</span>
+<span class="co">#&gt; [797 cases from days 2014-04-07 to 2014-08-18]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 151 rows and 1 columns</span>
-<span class="co">#&gt; $n: 4103 cases in total</span>
-<span class="co">#&gt; $dates: 151 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 day</span>
-<span class="co">#&gt; $timespan: 151 days</span>
-<span class="kw">plot</span>(i[<span class="dv">100</span>:<span class="dv">250</span>])</code></pre></div>
-<p><img src="figs/middle-1.png" width="768"></p>
-<p>Or to keep every other week:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)]
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [2891 cases from days 2014-04-07 to 2015-04-20]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 28 rows and 1 columns</span>
-<span class="co">#&gt; $n: 2891 cases in total</span>
-<span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span>
+<span class="co">#&gt; $counts: matrix with 20 rows and 1 columns</span>
+<span class="co">#&gt; $n: 797 cases in total</span>
+<span class="co">#&gt; $dates: 20 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 379 days</span>
-<span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)])</code></pre></div>
-<p><img src="figs/stripes-1.png" width="768"></p>
+<span class="co">#&gt; $timespan: 134 days</span>
+<span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>])</code></pre></div>
+<p><img src="figs/start-1.png" width="768"></p>
 <p>Some temporal subsetting can be even simpler using <code>subset</code>, which permits to retain data within a specified time window:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.tail &lt;-<span class="st"> </span><span class="kw">subset</span>(i, <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">"2015-01-01"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.tail &lt;-<span class="st"> </span><span class="kw">subset</span>(i<span class="fl">.7</span>, <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">"2015-01-01"</span>))
 i.tail
 <span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [1205 cases from days 2015-01-01 to 2015-04-30]</span>
+<span class="co">#&gt; [1156 cases from days 2015-01-05 to 2015-04-27]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 120 rows and 1 columns</span>
-<span class="co">#&gt; $n: 1205 cases in total</span>
-<span class="co">#&gt; $dates: 120 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 day</span>
-<span class="co">#&gt; $timespan: 120 days</span>
+<span class="co">#&gt; $counts: matrix with 17 rows and 1 columns</span>
+<span class="co">#&gt; $n: 1156 cases in total</span>
+<span class="co">#&gt; $dates: 17 dates marking the left-side of bins</span>
+<span class="co">#&gt; $interval: 7 days</span>
+<span class="co">#&gt; $timespan: 113 days</span>
 <span class="kw">plot</span>(i.tail, <span class="dt">border=</span><span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs/tail-1.png" width="768"></p>
 <p>Subsetting groups can also matter. For instance, let&rsquo;s try and visualise the incidence based on onset of symptoms by outcome:</p>
@@ -228,19 +170,6 @@ i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>.outcome, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
 <p><img src="figs/i7outcome-1.png" width="768"></p>
-<p>By default, <code>incidence</code> treats missing data (NA) as a separate group (see argument <code>na_as_group</code>). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome[,<span class="dv">1</span>:<span class="dv">2</span>]
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [3905 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [2 groups: Death, NA]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
-<span class="co">#&gt; $n: 3905 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="kw">plot</span>(i<span class="fl">.7</span>.outcome[,<span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
-<p><img src="figs/groupsub-1.png" width="768"></p>
 <p>Groups can also be collapsed into a single time series using <code>pool</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.pooled &lt;-<span class="st"> </span><span class="kw"><a href="reference/pool.html">pool</a></span>(i<span class="fl">.7</span>.outcome)
 i.pooled
@@ -290,55 +219,7 @@ early.fit
 <p>However, a better way to display these predictions is adding them to the incidence plot using the argument <code>fit</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>], <span class="dt">fit =</span> early.fit)</code></pre></div>
 <p><img src="figs/unnamed-chunk-3-1.png" width="768"></p>
-<p>In this case, we would ideally like to fit two models, before and after the peak of the epidemic. This is possible using the following approach, if you know what date to use to split the data in two phases:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.both &lt;-<span class="st"> </span><span class="kw"><a href="reference/fit.html">fit</a></span>(i<span class="fl">.7</span>, <span class="dt">split=</span><span class="kw">as.Date</span>(<span class="st">"2014-10-15"</span>))
-fit.both
-<span class="co">#&gt; $before</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt; [1] 0.02741985</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;           2.5 %     97.5 %</span>
-<span class="co">#&gt; [1,] 0.02407933 0.03076038</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling (doubling time in days):</span>
-<span class="co">#&gt; [1] 25.27902</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %   97.5 %</span>
-<span class="co">#&gt; [1,] 22.53377 28.78598</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (28 rows, 5 columns)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $after</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt; [1] -0.01014465</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;            2.5 %       97.5 %</span>
-<span class="co">#&gt; [1,] -0.01127733 -0.009011981</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving (halving time in days):</span>
-<span class="co">#&gt; [1] 68.32636</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %   97.5 %</span>
-<span class="co">#&gt; [1,] 61.46379 76.91397</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (28 rows, 5 columns)</span>
-<span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit=</span>fit.both)</code></pre></div>
-<p><img src="figs/fit.both-1.png" width="768"></p>
-<p>This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e.&nbsp;the one maximizing the average fit of both models), we use:</p>
+<p>In this case, we would ideally like to fit two models, before and after the peak of the epidemic. This is possible using the following approach, in which the best possible splitting date (i.e.&nbsp;the one maximizing the average fit of both models), is determined automatically:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.fit &lt;-<span class="st"> </span><span class="kw"><a href="reference/fit.html">fit_optim_split</a></span>(i<span class="fl">.7</span>)
 best.fit
 <span class="co">#&gt; $df</span>
@@ -410,63 +291,6 @@ best.fit
 <p><img src="figs/optim-1.png" width="768"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit=</span>best.fit$fit)</code></pre></div>
 <p><img src="figs/optim-2.png" width="768"></p>
-<p>These models are very good approximation of these data, showing a doubling time of 23.2 days during the first phase, and a halving time of 68.2 days during the second.</p>
-<p>Note that <code>fit</code> will also take groups into account if incidence has been computed for several groups:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.fit2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/fit.html">fit_optim_split</a></span>(i<span class="fl">.7</span>.sex)$fit
-best.fit2
-<span class="co">#&gt; $before</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt;          f          m </span>
-<span class="co">#&gt; 0.02381854 0.02640719 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;        2.5 %     97.5 %</span>
-<span class="co">#&gt; f 0.02097832 0.02665876</span>
-<span class="co">#&gt; m 0.01955031 0.03326408</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling (doubling time in days):</span>
-<span class="co">#&gt;        f        m </span>
-<span class="co">#&gt; 29.10116 26.24842 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling.conf (confidence interval):</span>
-<span class="co">#&gt;      2.5 %   97.5 %</span>
-<span class="co">#&gt; f 26.00073 33.04111</span>
-<span class="co">#&gt; m 20.83771 35.45454</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (46 rows, 6 columns)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $after</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt;           f           m </span>
-<span class="co">#&gt; -0.01002305 -0.01056026 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %       97.5 %</span>
-<span class="co">#&gt; f -0.01110163 -0.008944473</span>
-<span class="co">#&gt; m -0.01316417 -0.007956340</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving (halving time in days):</span>
-<span class="co">#&gt;        f        m </span>
-<span class="co">#&gt; 69.15531 65.63734 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving.conf (confidence interval):</span>
-<span class="co">#&gt;      2.5 %   97.5 %</span>
-<span class="co">#&gt; f 62.43653 77.49447</span>
-<span class="co">#&gt; m 52.65406 87.11885</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (62 rows, 6 columns)</span>
-<span class="kw">plot</span>(i<span class="fl">.7</span>.sex, <span class="dt">fit=</span>best.fit2)</code></pre></div>
-<p><img src="figs/optim2-1.png" width="768"></p>
 <p><br><br></p>
 </div>
 </div>

@@ -41,7 +41,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-11-03</h4>
+            <h4 class="date">2016-11-14</h4>
           </div>
 
     
@@ -74,6 +74,8 @@ i
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$gender)
+<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date),</span>
+<span class="co">#&gt; interval, ...): partial argument match of 'group' to 'groups'</span>
 i.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -86,6 +88,8 @@ i.sex
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$hospital)
+<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date),</span>
+<span class="co">#&gt; interval, ...): partial argument match of 'group' to 'groups'</span>
 i.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -102,11 +106,11 @@ i.hosp
 <h2 class="hasAnchor"><html><body><a href="#default-behaviour" class="anchor"> </a></body></html>Default behaviour</h2>
 <p>By default, the function uses grey for single time series, and colors from the color palette <code>pal1</code> when incidence is computed by groups:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i)</code></pre></div>
-<p><img src="figs-custom/default-1.png" width="960"></p>
+<p><img src="figs-custom/default-1.png" width="768"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex)</code></pre></div>
-<p><img src="figs-custom/default-2.png" width="960"></p>
+<p><img src="figs-custom/default-2.png" width="768"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp)</code></pre></div>
-<p><img src="figs-custom/default-3.png" width="960"></p>
+<p><img src="figs-custom/default-3.png" width="768"></p>
 <p>However, some of these defaults can be altered through the various arguments of the function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence:::plot.incidence)
 <span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span>
@@ -122,21 +126,21 @@ i.hosp
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">2</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">4</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
-<p><img src="figs-custom/pal1-1.png" width="960"></p>
+<p><img src="figs-custom/pal1-1.png" width="768"></p>
 <p>This pallette also has a light and a dark version:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1dark"</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1"</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1light"</span>)</code></pre></div>
-<p><img src="figs-custom/pal2-1.png" width="960"></p>
+<p><img src="figs-custom/pal2-1.png" width="768"></p>
 </div>
 <div id="using-different-palettes" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#using-different-palettes" class="anchor"> </a></body></html>Using different palettes</h3>
 <p>Other color palettes can be provided via <code>col_pal</code>. Various palettes are part of the base R distribution, and many more are provided in additional packages. We provide a couple of examples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, <span class="dt">col_pal =</span> rainbow)</code></pre></div>
-<p><img src="figs-custom/palettes-1.png" width="960"></p>
+<p><img src="figs-custom/palettes-1.png" width="768"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex, <span class="dt">col_pal =</span> cm.colors)</code></pre></div>
-<p><img src="figs-custom/palettes-2.png" width="960"></p>
+<p><img src="figs-custom/palettes-2.png" width="768"></p>
 </div>
 <div id="specifying-colors-manually" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#specifying-colors-manually" class="anchor"> </a></body></html>Specifying colors manually</h3>
@@ -144,18 +148,18 @@ i.hosp
 <div id="example-1-changing-a-single-color" class="section level4">
 <h4 class="hasAnchor"><html><body><a href="#example-1-changing-a-single-color" class="anchor"> </a></body></html>Example 1: changing a single color</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i, <span class="dt">color =</span> <span class="st">"darkred"</span>)</code></pre></div>
-<p><img src="figs-custom/colors1-1.png" width="960"></p>
+<p><img src="figs-custom/colors1-1.png" width="768"></p>
 </div>
 <div id="example-2-changing-several-colors-note-that-naming-colors-is-optional" class="section level4">
 <h4 class="hasAnchor"><html><body><a href="#example-2-changing-several-colors-note-that-naming-colors-is-optional" class="anchor"> </a></body></html>Example 2: changing several colors (note that naming colors is optional)</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex, <span class="dt">color =</span> <span class="kw">c</span>(<span class="dt">m =</span> <span class="st">"orange2"</span>, <span class="dt">f =</span> <span class="st">"purple3"</span>))</code></pre></div>
-<p><img src="figs-custom/colors2-1.png" width="960"></p>
+<p><img src="figs-custom/colors2-1.png" width="768"></p>
 </div>
 <div id="example-3-using-color-to-highlight-specific-groups" class="section level4">
 <h4 class="hasAnchor"><html><body><a href="#example-3-using-color-to-highlight-specific-groups" class="anchor"> </a></body></html>Example 3: using color to highlight specific groups</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, 
      <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">"#ac3973"</span>, <span class="st">"#6666ff"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>))</code></pre></div>
-<p><img src="figs-custom/colors3-1.png" width="960"></p>
+<p><img src="figs-custom/colors3-1.png" width="768"></p>
 <p><br><br> # Useful <em>ggplot2</em> tweaks</p>
 <p>Numerous tweaks for <em>ggplot2</em> are documented online. In the following, we merely provide a few useful tips in the context of <em>incidence</em>.</p>
 </div>
@@ -169,12 +173,12 @@ i.hosp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
 <span class="kw">plot</span>(i) +
 <span class="st">   </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%d %b %Y"</span>))</code></pre></div>
-<p><img src="figs-custom/scales1-1.png" width="960"></p>
+<p><img src="figs-custom/scales1-1.png" width="768"></p>
 <p>And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span>:<span class="dv">50</span>]) +<span class="st">  </span>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%a %d %B %Y"</span>)) +
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>))</code></pre></div>
-<p><img src="figs-custom/scales2-1.png" width="960"></p>
+<p><img src="figs-custom/scales2-1.png" width="768"></p>
 <p>Note that you can save customisations for later use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rotate.big &lt;-<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>))</code></pre></div>
 </div>
@@ -182,7 +186,7 @@ i.hosp
 <h3 class="hasAnchor"><html><body><a href="#changing-the-grid" class="anchor"> </a></body></html>Changing the grid</h3>
 <p>The last example above illustrates that it can be useful to have denser annotations of the <em>x</em>-axis, especially over short time periods. Here, we provide an example where we try to zoom on the peak of the epidemic, using the data by hospital:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp)</code></pre></div>
-<p><img src="figs-custom/grid1-1.png" width="960"></p>
+<p><img src="figs-custom/grid1-1.png" width="768"></p>
 <p>Let us look at the data 40 days before and after the 1st of October:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">period &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2014-10-01"</span>) +<span class="st"> </span><span class="kw">c</span>(-<span class="dv">40</span>, <span class="dv">40</span>)
 i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from=</span>period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])
@@ -191,7 +195,7 @@ detailed.x &lt;-<span class="st"> </span><span class="kw">scale_x_date</span>(<s
                            <span class="dt">date_minor_breaks=</span><span class="st">"week"</span>)
 
 <span class="kw">plot</span>(i.zoom, <span class="dt">border=</span><span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big</code></pre></div>
-<p><img src="figs-custom/grid2-1.png" width="960"></p>
+<p><img src="figs-custom/grid2-1.png" width="768"></p>
 </div>
 </div>
 <div id="changing-the-legend" class="section level2">
@@ -201,7 +205,7 @@ detailed.x &lt;-<span class="st"> </span><span class="kw">scale_x_date</span>(<s
 p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>), 
           <span class="dt">legend.position=</span><span class="st">"top"</span>, <span class="dt">legend.direction=</span><span class="st">"horizontal"</span>, 
           <span class="dt">legend.title =</span> <span class="kw">element_blank</span>())</code></pre></div>
-<p><img src="figs-custom/legend1-1.png" width="960"></p>
+<p><img src="figs-custom/legend1-1.png" width="768"></p>
 </div>
 </div>
   </div>
