@@ -2,7 +2,7 @@
 
 
 
-<img src="http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
+<img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
 
 <br>
 <br>
