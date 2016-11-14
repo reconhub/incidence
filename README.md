@@ -2,7 +2,7 @@
 
 
 
-![](http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png)
+<img src="http://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
 
 <br>
 <br>
@@ -22,7 +22,13 @@ from dates data.
 
 # Installing the package
 
-To install the devel version of the package, type:
+To install the current stable, CRAN version of the package, type:
+
+```r
+install.packages("incidence")
+```
+
+To benefit from the latest features and bug fixes, install the development, *github* version of the package using:
 
 ```r
 devtools::install_github("reconhub/incidence")
