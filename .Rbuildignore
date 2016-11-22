@@ -11,3 +11,4 @@ figs/*
 logo/*
 ^README-.*\.png$
 ^CONDUCT\.md$
+docs/

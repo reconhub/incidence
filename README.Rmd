@@ -98,8 +98,7 @@ The following websites are available:
 [http://github.com/reconhub/incidence](http://github.com/reconhub/incidence)
 
 - The *incidence* page on CRAN: <br>
-[http://cran.r-project.org/web/packages/incidence/index.html](http://cran.r-project.org/web/packages/incidence/index.html)
-
+[https://CRAN.R-project.org/package=incidence](https://CRAN.R-project.org/package=incidence)
 
 
 <br>
