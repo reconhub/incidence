@@ -1,5 +1,8 @@
 
 
+```
+## Loading required package: printr
+```
 
 
 <img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
@@ -86,6 +89,7 @@ vignette("incidence_class", package="incidence")
 ```
 
 <br>
+<br>
 
 ## Websites
 
@@ -98,15 +102,15 @@ The following websites are available:
 [http://github.com/reconhub/incidence](http://github.com/reconhub/incidence)
 
 - The *incidence* page on CRAN: <br>
-[http://cran.r-project.org/web/packages/incidence/index.html](http://cran.r-project.org/web/packages/incidence/index.html)
+[https://CRAN.R-project.org/package=incidence](https://CRAN.R-project.org/package=incidence)
 
 
-
+<br>
 <br>
 
 ## Getting help online
 
-Bug reports and feature requests should be posted on *github* using the [*issue*](http://github.com/reconhub/incidence/issues) system. All other questions should be posted on the **RECON forum**:
+Bug reports and feature requests should be posted on *github* using the [*issue*](http://github.com/reconhub/incidence/issues) system. All other questions should be posted on the **RECON forum**: <br>
 [http://www.repidemicsconsortium.org/forum/](http://www.repidemicsconsortium.org/forum/)
 
 
@@ -117,8 +121,7 @@ Bug reports and feature requests should be posted on *github* using the [*issue*
 # A quick overview
 
 The following worked example provides a brief overview of the package's
-functionalities. For a complete introduction, see the `overview` vignette:
-```{r, eval = FALSE} vignette("overview", package="incidence") ```
+functionalities. See the [*vignettes section*](#vignettes) for more detailed tutorials.
 
 
 ## Loading the data
