@@ -1,3 +1,3 @@
-incidence 0.0.1 (2016-12-01)
+incidence 1.0.0 (2016-11-03)
 ==================
-This is the first release of the incidence package!
+First release of the incidence package on CRAN!
