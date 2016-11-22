@@ -68,7 +68,7 @@ The main functions of the package include:
 # Resources
 
 <br>
-<a id="vignettes"><a>
+
 ## Vignettes
 
 An overview of *incidence* is provided below in the worked example below.

@@ -13,6 +13,8 @@ incidence 1.0.1 (2016-11-23)
 * Vignettes titles are now correctly displayed on CRAN (they read '*Vignette title*').
 
 
+<br>
+<br>
 
 incidence 1.0.0 (2016-11-03)
 ==================
