@@ -69,6 +69,14 @@ More detailed tutorials are distributed as vignettes with the package:
 vignette(package="incidence")
 ```
 
+
+
+|Item            |Title                             |
+|:---------------|:---------------------------------|
+|customize_plot  |Customise graphics (source, html) |
+|incidence_class |Incidence class (source, html)    |
+|overview        |Overview (source, html)           |
+
 To open these, type:
 
 ```r

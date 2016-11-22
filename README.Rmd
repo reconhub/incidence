@@ -8,6 +8,8 @@ knitr::opts_chunk$set(
   fig.path="figs/",
   echo = TRUE
 )
+
+require("printr")
 ```
 
 
