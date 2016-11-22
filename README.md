@@ -58,6 +58,8 @@ The main functions of the package include:
 
 # Resources
 
+<br>
+
 ## Vignettes
 
 An overview of *incidence* is provided below in the worked example below.
@@ -65,7 +67,6 @@ More detailed tutorials are distributed as vignettes with the package:
 
 ```r
 vignette(package="incidence")
-#> no vignettes found
 ```
 
 To open these, type:
@@ -76,19 +77,24 @@ vignette("customize_plot", package="incidence")
 vignette("incidence_class", package="incidence")
 ```
 
+<br>
+
 ## Websites
 
 The following websites are available:
 
-- The official *incidence* website, providing an overview of the package's functionalities, up-to-date tutorials and documentation:
+- The official *incidence* website, providing an overview of the package's functionalities, up-to-date tutorials and documentation: <br>
 [http://www.repidemicsconsortium.org/incidence/](http://www.repidemicsconsortium.org/incidence/)
 
-- The *incidence* project on *github*, useful for developers, contributors, and users wanting to post issues, bug reports and feature requests:
+- The *incidence* project on *github*, useful for developers, contributors, and users wanting to post issues, bug reports and feature requests: <br>
 [http://github.com/reconhub/incidence](http://github.com/reconhub/incidence)
 
-- The *incidence* page on CRAN:
+- The *incidence* page on CRAN: <br>
 [http://cran.r-project.org/web/packages/incidence/index.html](http://cran.r-project.org/web/packages/incidence/index.html)
 
+
+
+<br>
 
 ## Getting help online
 
