@@ -68,7 +68,7 @@ The main functions of the package include:
 # Resources
 
 <br>
-
+<a id="vignettes"><a>
 ## Vignettes
 
 An overview of *incidence* is provided below in the worked example below.
@@ -118,7 +118,7 @@ Bug reports and feature requests should be posted on *github* using the [*issue*
 # A quick overview
 
 The following worked example provides a brief overview of the package's
-functionalities. See the [*vignettes section*](Vignettes) for more detailed tutorials.
+functionalities. See the [*vignettes section*](#vignettes) for more detailed tutorials.
 
 
 ## Loading the data
