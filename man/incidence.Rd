@@ -51,7 +51,7 @@ following items:
 \itemize{
 
 \item dates: The dates marking the left side of the bins used for counting
-evens.
+events.
 
 \item counts: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).
@@ -72,7 +72,7 @@ various formats. A fixed interval, provided as numbers of days, is used to
 define time intervals. Counts within an interval always include the first
 date, after which they are labelled, and exclude the second. For instance,
 intervals labelled as 0,3,6,... mean that the first bin includes days 0, 1
-and 2, the second interval includes 3, 4 and 5m etc.
+and 2, the second interval includes 3, 4 and 5 etc.
 }
 \details{
 For details about the \code{incidence class}, see the dedicated

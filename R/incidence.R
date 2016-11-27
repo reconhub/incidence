@@ -78,6 +78,8 @@
 ##'
 ##' @rdname incidence
 ##'
+##' @import ISOweek
+##'
 ##' @export
 ##'
 ##' @examples
