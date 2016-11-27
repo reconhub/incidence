@@ -213,14 +213,14 @@ incidence.Date <- function(dates, interval = 1L, ...) {
     interval <- as.integer(round(interval))
     if (interval == 7L) {
       first.isoweek <- ISOweek::date2ISOweek(first.date)
-      str_sub(first.isoweek, -1) <- "1"
+      substr(first.isoweek, 10, 10) <- "1"
       first.date <- ISOweek::ISOweek2date(first.isoweek)
     }
     out <- incidence.integer(as.integer(dates - first.date), interval, ...)
     out$dates <- first.date + out$dates
     if (interval == 7L) {
       # dates are the first days of corresponding ISOweeks.
-      out$isoweeks <- str_sub(ISOweek::date2ISOweek(out$dates), 1, 8)
+      out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
     }
     out
 }
