@@ -11,7 +11,8 @@ URL: http://www.repidemicsconsortium.org/incidence/
 BugReports: http://github.com/reconhub/incidence/issues
 RoxygenNote: 5.0.1
 Imports:
-    ggplot2
+    ggplot2, 
+    ISOweek
 Suggests:
     outbreaks,
     testthat,
