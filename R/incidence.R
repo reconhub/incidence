@@ -78,6 +78,8 @@
 ##'
 ##' @rdname incidence
 ##'
+##' @importFrom utils head tail
+##'
 ##' @export
 ##'
 ##' @examples
@@ -256,7 +258,7 @@ print.incidence <- function(x, ...) {
   cat("<incidence object>\n")
   cat(sprintf("[%d cases from days %s to %s]\n",
               sum(x$n), min(x$dates), max(x$dates)))
-  if (x$interval == 7L) {
+  if (x$interval == 7L & "isoweeks" %in% names(x)) {
     cat(sprintf("[%d cases from ISO weeks %s to %s]\n",
                 sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
   }
