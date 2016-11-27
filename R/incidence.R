@@ -256,6 +256,10 @@ print.incidence <- function(x, ...) {
   cat("<incidence object>\n")
   cat(sprintf("[%d cases from days %s to %s]\n",
               sum(x$n), min(x$dates), max(x$dates)))
+  if (x$interval == 7L) {
+    cat(sprintf("[%d cases from ISO weeks %s to %s]\n",
+                sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
+  }
   if (ncol(x$counts) > 1L) {
       groups.txt <- paste(colnames(x$counts), collapse = ", ")
       cat(sprintf("[%d groups: %s]\n", ncol(x$counts), groups.txt))
