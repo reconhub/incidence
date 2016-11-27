@@ -5,7 +5,7 @@
 ##' define time intervals. Counts within an interval always include the first
 ##' date, after which they are labelled, and exclude the second. For instance,
 ##' intervals labelled as 0,3,6,... mean that the first bin includes days 0, 1
-##' and 2, the second interval includes 3, 4 and 5m etc.
+##' and 2, the second interval includes 3, 4 and 5 etc.
 ##'
 ##' @param dates A vector of dates, which can be provided as objects of the
 ##' class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
@@ -25,7 +25,7 @@
 ##' \itemize{
 ##'
 ##' \item dates: The dates marking the left side of the bins used for counting
-##' evens.
+##' events.
 ##'
 ##' \item counts: A matrix of incidence counts, which one column per group (and
 ##' a single column if no groups were used).
@@ -138,15 +138,18 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
     first.date <- min(dates)
     last.date <- max(dates)
     interval <- as.integer(round(interval))
+    if (interval == 7L) {
+      first.date <- 0L
+    }
 
     ## function to compute counts of dates with defined breaks
     count.dates <- function(dates, breaks){
-        counts <- table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE))
+        counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
         as.integer(counts)
     }
 
     ## define breaks here
-    breaks <- seq(first.date, last.date, by=interval) # 'd1' in expl above
+    breaks <- seq(first.date, last.date, by = interval) # 'd1' in expl above
     breaks <- as.integer(breaks)
 
     ## compute counts within bins defined by the breaks
@@ -162,7 +165,7 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
 
     out <- list(dates = breaks, # left side of bins (incl left, excl right)
                 counts = counts, # computed incidence, 1 col / group
-                timespan = diff(range(breaks, na.rm=TRUE)) + 1,
+                timespan = diff(range(breaks, na.rm = TRUE)) + 1,
                 interval = interval, # fixed bin size
                 n = sum(counts)) # total number of cases
     class(out) <- "incidence"
@@ -207,8 +210,18 @@ incidence.Date <- function(dates, interval = 1L, ...) {
     dates <- check_dates(dates)
 
     first.date <- min(dates, na.rm = TRUE)
+    interval <- as.integer(round(interval))
+    if (interval == 7L) {
+      first.isoweek <- date2ISOweek(first.date)
+      str_sub(first.isoweek, -1) <- "1"
+      first.date <- ISOweek2date(first.isoweek)
+    }
     out <- incidence.integer(as.integer(dates - first.date), interval, ...)
     out$dates <- first.date + out$dates
+    if (interval == 7L) {
+      # dates are the first days of corresponding ISOweeks.
+      out$isoweeks <- str_sub(date2ISOweek(out$dates), 1, 8)
+    }
     out
 }
 
@@ -253,7 +266,7 @@ print.incidence <- function(x, ...) {
   cat(sprintf("$dates: %d dates marking the left-side of bins\n",
               length(x$dates)))
   cat(sprintf("$interval: %d %s\n",
-              x$interval, ifelse(x$interval<2, "day", "days")))
+              x$interval, ifelse(x$interval < 2, "day", "days")))
   cat(sprintf("$timespan: %d days\n\n", x$timespan))
   invisible(x)
 }
@@ -268,7 +281,7 @@ print.incidence <- function(x, ...) {
 check_dates <- function(dates){
     ## make sure input can be used
     to.remove <- !is.finite(dates)
-    if (sum(to.remove)>0) {
+    if (sum(to.remove) > 0) {
         message(sprintf(
             "%d non-finite values (NA, Inf) where removed from the data.\n",
                         sum(to.remove)))
