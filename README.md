@@ -408,14 +408,21 @@ plot(i.7, fit=best.fit$fit)
 ![plot of chunk optim](figs/optim-2.png)
 
 
+
+
 <br>
 <br>
 
 # Contributors (by alphabetic order):
-- Thibaut Jombart (@thibautjombart)
-- Rich Fitzjohn (@richfitz)
+- [Thibaut Jombart](https://github.com/thibautjombart)
+- [Rich Fitzjohn](https://github.com/richfitz)
 
-Contributions are welcome via pull requests.
+See details of contributions on: <br>
+https://github.com/reconhub/epicontacts/graphs/contributors
+
+
+
+Contributions are welcome via **pull requests**.
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
