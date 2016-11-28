@@ -20,9 +20,9 @@ incidence(dates, interval = 1L, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 
-\method{incidence}{Date}(dates, interval = 1L, ...)
+\method{incidence}{Date}(dates, interval = 1L, iso_week = TRUE, ...)
 
-\method{incidence}{POSIXt}(dates, interval = 1L, ...)
+\method{incidence}{POSIXt}(dates, interval = 1L, iso_week = TRUE, ...)
 
 \method{print}{incidence}(x, ...)
 }
@@ -39,8 +39,10 @@ used for computing the incidence; defaults to 1 day.}
 \item{groups}{An optional factor defining groups of observations for which
 incidence should be computed separately.}
 
-\item{na_as_group}{A logical indicating if missing group (NA) should be
+\item{na_as_group}{A logical value indicating if missing group (NA) should be
 treated as a separate group.}
+
+\item{iso_week}{A logical value indicating if the returning \code{incidence} should be ISO week-based when computing weekly incidence (interval = 7). defaults to be TRUE.}
 
 \item{x}{An 'incidence' object.}
 }
@@ -51,7 +53,7 @@ following items:
 \itemize{
 
 \item dates: The dates marking the left side of the bins used for counting
-events.
+events. When ISO week-based weekly incidence is computed, the dates are the first days of corresponding isoweeks.
 
 \item counts: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).
@@ -64,6 +66,7 @@ incidence.
 
 \item n: The total number of cases.
 
+\item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when ISO week-based weekly incidence is computed.
 }
 }
 \description{
@@ -93,16 +96,20 @@ if(require(outbreaks)) {
   plot(inc)
 
   ## weekly incidence
-  inc.week <- incidence(onset, interval = 7)
+  inc.week <- incidence(onset, interval = 7, iso_week = FALSE)
   inc.week
   plot(inc.week)
   plot(inc.week, border = "white") # with visible border
+  inc.isoweek <- incidence(onset, interval = 7, iso_week = TRUE)
+  inc.isoweek
   ## use group information
   sex <- ebola.sim$linelist$gender
-  inc.week.gender <- incidence(onset, interval = 7, groups = sex)
+  inc.week.gender <- incidence(onset, interval = 7, groups = sex, iso_week = FALSE)
   inc.week.gender
   head(inc.week.gender$counts)
   plot(inc.week.gender)
+  inc.isoweek.gender <- incidence(onset, interval = 7, groups = sex, iso_week = TRUE)
+  inc.isoweek.gender
 }
 
 

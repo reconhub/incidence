@@ -73,7 +73,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            alpha = .7, xlab = "", ylab = NULL) {
 
     ## extract data in suitable format for ggplot2
-    df <- as.data.frame(x, long=TRUE)
+    df <- as.data.frame(x, long = TRUE)
     n.groups <- ncol(x$counts)
 
 
@@ -104,7 +104,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     x.axis.txt <- paste("dates", x$interval/2, sep = "+")
 
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = x.axis.txt, y = "counts")) +
-        ggplot2::geom_bar(stat="identity", width = x$interval,
+        ggplot2::geom_bar(stat = "identity", width = x$interval,
                           position = stack.txt,
                           color = border, alpha = alpha) +
             ggplot2::labs(x = xlab, y = ylab)
@@ -145,7 +145,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     ## colors.
 
     if (ncol(x$counts) < 2) {
-        out <- out + ggplot2::aes(fill='a') +
+        out <- out + ggplot2::aes(fill = 'a') +
             ggplot2::scale_fill_manual(values = color, guide = FALSE)
     } else {
         ## find group colors
@@ -163,7 +163,5 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
             ggplot2::scale_color_manual(values = group.colors)
         }
     }
-
     out
 }
-
