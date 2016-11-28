@@ -48,7 +48,7 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
                              groups = TRUE){
     to.keep <- x$dates >= from & x$dates <= to
 
-    if (sum(to.keep) <1) {
+    if (sum(to.keep) < 1) {
         stop("No data retained.")
     }
 
@@ -74,9 +74,12 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
     }
 
     out <- x
-    out$counts <- out$counts[i, j, drop=FALSE]
+    out$counts <- out$counts[i, j, drop = FALSE]
     out$dates <- out$dates[i]
-    out$timespan <-  diff(range(out$dates, na.rm=TRUE)) + 1
+    if (x$interval == 7L & "isoweeks" %in% names(x)) {
+      out$isoweeks <- out$isoweeks[i]
+    }
+    out$timespan <-  diff(range(out$dates, na.rm = TRUE)) + 1
     out$n <- sum(out$counts)
     out
 }
