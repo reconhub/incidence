@@ -51,9 +51,7 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
     if (sum(to.keep) < 1) {
         stop("No data retained.")
     }
-
     x[to.keep, groups]
-
 }
 
 

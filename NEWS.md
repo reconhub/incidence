@@ -1,3 +1,14 @@
+incidence 1.0.2 (2016-11-28)
+==================
+
+### NEW FEATURES
+
+* add an argument `iso_week` to incidence.Date() and incidence.POSIXt() to support ISO week-based incidence when computing weekly incidence.
+
+
+<br>
+<br>
+
 incidence 1.0.1 (2016-11-23)
 ==================
 
