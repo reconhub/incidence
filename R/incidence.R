@@ -147,7 +147,7 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
     last.date <- max(dates)
     interval <- as.integer(round(interval))
     if ("iso_week" %in% names(dots)) {
-      if (interval == 7L & dots$iso_week == TRUE) {
+      if (interval == 7L && dots$iso_week == TRUE) {
         first.date <- 0L
       }
     }
@@ -223,14 +223,14 @@ incidence.Date <- function(dates, interval = 1L, iso_week = TRUE, ...) {
 
     first.date <- min(dates, na.rm = TRUE)
     interval <- as.integer(round(interval))
-    if (interval == 7L & iso_week) {
+    if (interval == 7L && iso_week) {
       first.isoweek <- ISOweek::date2ISOweek(first.date)
       substr(first.isoweek, 10, 10) <- "1"
       first.date <- ISOweek::ISOweek2date(first.isoweek)
     }
     out <- incidence.integer(as.integer(dates - first.date), interval = interval, iso_week = iso_week, ...)
     out$dates <- first.date + out$dates
-    if (interval == 7L & iso_week) {
+    if (interval == 7L && iso_week) {
       # dates are the first days of corresponding ISOweeks.
       out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
     }
@@ -267,7 +267,7 @@ print.incidence <- function(x, ...) {
   cat("<incidence object>\n")
   cat(sprintf("[%d cases from days %s to %s]\n",
               sum(x$n), min(x$dates), max(x$dates)))
-  if (x$interval == 7L & "isoweeks" %in% names(x)) {
+  if (x$interval == 7L && "isoweeks" %in% names(x)) {
     cat(sprintf("[%d cases from ISO weeks %s to %s]\n",
                 sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
   }
