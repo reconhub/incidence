@@ -1,5 +1,5 @@
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message=FALSE, results='hide'}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
