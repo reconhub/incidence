@@ -23,6 +23,8 @@ require("printr")
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
 
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/incidence)](https://cran.r-project.org/package=incidence)
+
 
 <br>
 <br>
