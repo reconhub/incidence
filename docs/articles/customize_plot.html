@@ -35,7 +35,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-11-22</h4>
+            <h4 class="date">2016-12-02</h4>
           </div>
 
     
@@ -68,6 +68,8 @@ i
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$gender)
+<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date),</span>
+<span class="co">#&gt; interval, ...): partial argument match of 'group' to 'groups'</span>
 i.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -80,6 +82,8 @@ i.sex
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$hospital)
+<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date),</span>
+<span class="co">#&gt; interval, ...): partial argument match of 'group' to 'groups'</span>
 i.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
