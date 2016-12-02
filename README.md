@@ -16,7 +16,6 @@
 
 
 <br>
-<br>
 
 # Installing the package
 
@@ -36,7 +35,6 @@ Note that this requires the package *devtools* installed.
 
 
 
-<br>
 <br>
 
 # What does it do?
@@ -62,7 +60,6 @@ The main features of the package include:
 
 
 
-<br>
 <br>
 
 # Resources
