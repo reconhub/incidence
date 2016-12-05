@@ -1,8 +1,5 @@
 
 
-```
-## Loading required package: printr
-```
 
 
 <img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
@@ -70,15 +67,8 @@ More detailed tutorials are distributed as vignettes with the package:
 
 ```r
 vignette(package="incidence")
+#> Vignettes not found
 ```
-
-
-
-|Item            |Title                             |
-|:---------------|:---------------------------------|
-|customize_plot  |Customise graphics (source, html) |
-|incidence_class |Incidence class (source, html)    |
-|overview        |Overview (source, html)           |
 
 To open these, type:
 
@@ -155,6 +145,7 @@ i.7 <- incidence(dat, interval=7)
 i.7
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> 
 #> $counts: matrix with 56 rows and 1 columns
 #> $n: 5888 cases in total
@@ -164,7 +155,7 @@ i.7
 plot(i.7)
 ```
 
-![plot of chunk incid1](figs/incid1-1.png)
+![](figs/incid1-1.png)<!-- -->
 
 
 `incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
@@ -174,6 +165,7 @@ i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
 i.7.sex
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> [2 groups: f, m]
 #> 
 #> $counts: matrix with 56 rows and 2 columns
@@ -184,7 +176,7 @@ i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
-![plot of chunk gender](figs/gender-1.png)
+![](figs/gender-1.png)<!-- -->
 
 
 ## Handling `incidence` objects
@@ -195,6 +187,7 @@ For instance, to keep only the first 20 weeks of the epidemic:
 i.7[1:20]
 #> <incidence object>
 #> [797 cases from days 2014-04-07 to 2014-08-18]
+#> [797 cases from ISO weeks 2014-W15 to 2014-W34]
 #> 
 #> $counts: matrix with 20 rows and 1 columns
 #> $n: 797 cases in total
@@ -204,7 +197,7 @@ i.7[1:20]
 plot(i.7[1:20])
 ```
 
-![plot of chunk start](figs/start-1.png)
+![](figs/start-1.png)<!-- -->
 
 Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
 
@@ -213,6 +206,7 @@ i.tail <- subset(i.7, from=as.Date("2015-01-01"))
 i.tail
 #> <incidence object>
 #> [1156 cases from days 2015-01-05 to 2015-04-27]
+#> [1156 cases from ISO weeks 2015-W02 to 2015-W18]
 #> 
 #> $counts: matrix with 17 rows and 1 columns
 #> $n: 1156 cases in total
@@ -222,7 +216,7 @@ i.tail
 plot(i.tail, border="white")
 ```
 
-![plot of chunk tail](figs/tail-1.png)
+![](figs/tail-1.png)<!-- -->
 
 Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
 
@@ -231,6 +225,7 @@ i.7.outcome <- incidence(dat, 7, groups=ebola.sim$linelist$outcome)
 i.7.outcome
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> [3 groups: Death, NA, Recover]
 #> 
 #> $counts: matrix with 56 rows and 3 columns
@@ -241,7 +236,7 @@ i.7.outcome
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
-![plot of chunk i7outcome](figs/i7outcome-1.png)
+![](figs/i7outcome-1.png)<!-- -->
 
 
 Groups can also be collapsed into a single time series using `pool`:
@@ -251,6 +246,7 @@ i.pooled <- pool(i.7.outcome)
 i.pooled
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> 
 #> $counts: matrix with 56 rows and 1 columns
 #> $n: 5888 cases in total
@@ -280,7 +276,7 @@ As a start, we can calibrate a model on the first 20 weeks of the epidemic:
 plot(i.7[1:20])
 ```
 
-![plot of chunk fit1](figs/fit1-1.png)
+![](figs/fit1-1.png)<!-- -->
 
 ```r
 early.fit <- fit(i.7[1:20])
@@ -314,7 +310,7 @@ The resulting objects can be plotted, in which case the prediction and its confi
 plot(early.fit)
 ```
 
-![plot of chunk unnamed-chunk-2](figs/unnamed-chunk-2-1.png)
+![](figs/unnamed-chunk-2-1.png)<!-- -->
 
 However, a better way to display these predictions is adding them to the incidence plot using the argument `fit`:
 
@@ -322,7 +318,7 @@ However, a better way to display these predictions is adding them to the inciden
 plot(i.7[1:20], fit = early.fit)
 ```
 
-![plot of chunk unnamed-chunk-3](figs/unnamed-chunk-3-1.png)
+![](figs/unnamed-chunk-3-1.png)<!-- -->
 
 
 In this case, we would ideally like to fit two models, before and after the peak of the epidemic.
@@ -399,19 +395,20 @@ best.fit
 #> $plot
 ```
 
-![plot of chunk optim](figs/optim-1.png)
+![](figs/optim-1.png)<!-- -->
 
 ```r
 plot(i.7, fit=best.fit$fit)
 ```
 
-![plot of chunk optim](figs/optim-2.png)
+![](figs/optim-2.png)<!-- -->
 
 
 <br>
 <br>
 
 # Contributors (by alphabetic order):
+- Jun Cai (@caijun)
 - Thibaut Jombart (@thibautjombart)
 - Rich Fitzjohn (@richfitz)
 

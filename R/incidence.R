@@ -364,4 +364,3 @@ check_groups <- function(groups, dates, na_as_group){
     }
     factor(groups)
 }
-

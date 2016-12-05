@@ -1,3 +1,8 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -9,7 +14,7 @@ knitr::opts_chunk$set(
   echo = TRUE
 )
 
-require("printr")
+require("printr", quietly = TRUE)
 ```
 
 
@@ -231,6 +236,7 @@ plot(i.7, fit=best.fit$fit)
 <br>
 
 # Contributors (by alphabetic order):
+- Jun Cai (@caijun)
 - Thibaut Jombart (@thibautjombart)
 - Rich Fitzjohn (@richfitz)
 
