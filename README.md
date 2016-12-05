@@ -4,11 +4,6 @@
 ## Loading required package: printr
 ```
 
-```
-## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-## logical.return = TRUE, : there is no package called 'printr'
-```
-
 
 <img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
 
@@ -75,7 +70,7 @@ More detailed tutorials are distributed as vignettes with the package:
 
 ```r
 vignette(package="incidence")
-#> no vignettes found
+#> Vignettes not found
 ```
 
 To open these, type:
