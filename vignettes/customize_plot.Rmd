@@ -163,7 +163,7 @@ The package *scales* can be used to change the way dates are labelled (see `?str
 
 ```{r, scales1}
 library(scales)
-plot(i) +
+plot(i, labels_iso_week = FALSE) +
    scale_x_date(labels = date_format("%d %b %Y"))
 ```
 
