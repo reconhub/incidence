@@ -42,7 +42,7 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
         colnames(counts) <- "counts"
     }
 
-    if (x$interval == 7L && "isoweeks" %in% names(x)) {
+    if ("isoweeks" %in% names(x)) {
       out <- cbind.data.frame(dates = x$dates, isoweeks = x$isoweeks, counts)
     } else {
       out <- cbind.data.frame(dates = x$dates, counts)
@@ -50,10 +50,9 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
 
     ## handle the long format here
     if (long && ncol(x$counts) > 1) {
-        n.groups <- ncol(out) - 1
         groups <- factor(rep(colnames(x$counts), each = nrow(out)))
         counts <- as.vector(x$counts)
-        if (x$interval == 7L && "isoweeks" %in% names(x)) {
+        if ("isoweeks" %in% names(x)) {
           out <- data.frame(dates = out$dates, isoweeks = out$isoweeks, counts = counts, groups = groups)
         } else {
           out <- data.frame(dates = out$dates, counts = counts, groups = groups)
