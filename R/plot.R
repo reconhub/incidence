@@ -174,11 +174,11 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     if (labels_iso_week && "isoweeks" %in% names(x)) {
       out_build <- ggplot2::ggplot_build(out)
       x.major_source <- out_build$layout$panel_ranges[[1]]$x.major_source
-      idx <- sapply(x.major_source, function(x.ms) {
-        which.min(abs(as.numeric(df$dates) - x.ms))
-      })
-      breaks <- df$dates[idx]
-      labels <- df$isoweeks[idx]
+      dates.major_source <- as.Date(x.major_source, origin = "1970-01-01")
+      isoweeks.major_source <- ISOweek::date2ISOweek(dates.major_source)
+      substr(isoweeks.major_source, 10, 10) <- "1"
+      breaks <- ISOweek::ISOweek2date(isoweeks.major_source)
+      labels <- substr(isoweeks.major_source, 1, 8)
       out <- out + ggplot2::scale_x_date(breaks = breaks, labels = labels)
     }
     out
