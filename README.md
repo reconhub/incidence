@@ -1,8 +1,5 @@
 
 
-```
-## Loading required package: printr
-```
 
 
 <img src="https://raw.githubusercontent.com/reconhub/incidence/master/logo/banner.png">
