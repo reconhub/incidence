@@ -66,7 +66,7 @@ An overview of *incidence* is provided below in the worked example below.
 More detailed tutorials are distributed as vignettes with the package:
 
 ```r
-vignette(package="incidence")
+vignette(package = "incidence")
 #> Vignettes not found
 ```
 
@@ -141,7 +141,7 @@ head(dat)
 We compute the weekly incidence:
 
 ```r
-i.7 <- incidence(dat, interval=7)
+i.7 <- incidence(dat, interval = 7)
 i.7
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -161,7 +161,7 @@ plot(i.7)
 `incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
 
 ```r
-i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
+i.7.sex <- incidence(dat, interval = 7, groups = ebola.sim$linelist$gender)
 i.7.sex
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -202,7 +202,7 @@ plot(i.7[1:20])
 Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
 
 ```r
-i.tail <- subset(i.7, from=as.Date("2015-01-01"))
+i.tail <- subset(i.7, from = as.Date("2015-01-01"))
 i.tail
 #> <incidence object>
 #> [1156 cases from days 2015-01-05 to 2015-04-27]
@@ -213,7 +213,7 @@ i.tail
 #> $dates: 17 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 113 days
-plot(i.tail, border="white")
+plot(i.tail, border = "white")
 ```
 
 ![](figs/tail-1.png)<!-- -->
@@ -221,7 +221,7 @@ plot(i.tail, border="white")
 Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
 
 ```r
-i.7.outcome <- incidence(dat, 7, groups=ebola.sim$linelist$outcome)
+i.7.outcome <- incidence(dat, 7, groups = ebola.sim$linelist$outcome)
 i.7.outcome
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -398,7 +398,7 @@ best.fit
 ![](figs/optim-1.png)<!-- -->
 
 ```r
-plot(i.7, fit=best.fit$fit)
+plot(i.7, fit = best.fit$fit)
 ```
 
 ![](figs/optim-2.png)<!-- -->
@@ -408,9 +408,9 @@ plot(i.7, fit=best.fit$fit)
 <br>
 
 # Contributors (by alphabetic order):
-- Jun Cai (@caijun)
-- Thibaut Jombart (@thibautjombart)
-- Rich Fitzjohn (@richfitz)
+- Jun Cai ([\@caijun](https://github.com/caijun))
+- Thibaut Jombart ([\@thibautjombart](https://github.com/thibautjombart))
+- Rich Fitzjohn ([\@richfitz](https://github.com/richfitz))
 
 Contributions are welcome via pull requests.
 

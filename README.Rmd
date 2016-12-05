@@ -8,9 +8,9 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.width=8,
-  fig.height=6,
-  fig.path="figs/",
+  fig.width = 8,
+  fig.height = 6,
+  fig.path = "figs/",
   echo = TRUE
 )
 
@@ -79,7 +79,7 @@ The main functions of the package include:
 An overview of *incidence* is provided below in the worked example below.
 More detailed tutorials are distributed as vignettes with the package:
 ```{r, vignettes, eval = TRUE, echo = TRUE}
-vignette(package="incidence")
+vignette(package = "incidence")
 ```
 
 To open these, type:
@@ -147,7 +147,7 @@ head(dat)
 ## Computing and plotting incidence
 We compute the weekly incidence:
 ```{r, incid1}
-i.7 <- incidence(dat, interval=7)
+i.7 <- incidence(dat, interval = 7)
 i.7
 plot(i.7)
 ```
@@ -155,7 +155,7 @@ plot(i.7)
 
 `incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
 ```{r, gender}
-i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
+i.7.sex <- incidence(dat, interval = 7, groups = ebola.sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
@@ -171,14 +171,14 @@ plot(i.7[1:20])
 
 Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
 ```{r, tail}
-i.tail <- subset(i.7, from=as.Date("2015-01-01"))
+i.tail <- subset(i.7, from = as.Date("2015-01-01"))
 i.tail
-plot(i.tail, border="white")
+plot(i.tail, border = "white")
 ```
 
 Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
 ```{r, i7outcome}
-i.7.outcome <- incidence(dat, 7, groups=ebola.sim$linelist$outcome)
+i.7.outcome <- incidence(dat, 7, groups = ebola.sim$linelist$outcome)
 i.7.outcome
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
@@ -228,7 +228,7 @@ This is possible using the following approach, in which the best possible splitt
 ```{r, optim}
 best.fit <- fit_optim_split(i.7)
 best.fit
-plot(i.7, fit=best.fit$fit)
+plot(i.7, fit = best.fit$fit)
 ```
 
 
@@ -236,9 +236,9 @@ plot(i.7, fit=best.fit$fit)
 <br>
 
 # Contributors (by alphabetic order):
-- Jun Cai (@caijun)
-- Thibaut Jombart (@thibautjombart)
-- Rich Fitzjohn (@richfitz)
+- Jun Cai ([\@caijun](https://github.com/caijun))
+- Thibaut Jombart ([\@thibautjombart](https://github.com/thibautjombart))
+- Rich Fitzjohn ([\@richfitz](https://github.com/richfitz))
 
 Contributions are welcome via pull requests.
 
