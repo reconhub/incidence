@@ -42,7 +42,9 @@
     
 <div class="contents">
 <p>This vignette provides some tips for the most common customisations of graphics produced by <code>plot.incidence</code>. Our graphics use <em>ggplot2</em>, which is a distinct graphical system from base graphics. If you want advanced customisation of your incidence plots, we recommend following an introduction to <em>ggplot2</em>.</p>
-<p><br><br> # Example data: simulated Ebola outbreak</p>
+<p><br></p>
+<div id="example-data-simulated-ebola-outbreak" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#example-data-simulated-ebola-outbreak" class="anchor"> </a></body></html>Example data: simulated Ebola outbreak</h1>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>: <code>ebola.sim.clean</code>.</p>
 <p>First, we load the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
@@ -93,7 +95,10 @@ i.hosp
 <span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span></code></pre></div>
-<p><br><br> # The <code>plot.incidence</code> function</p>
+<p><br></p>
+</div>
+<div id="the-plot-incidence-function" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#the-plot-incidence-function" class="anchor"> </a></body></html>The <code>plot.incidence</code> function</h1>
 <p>When calling <code>plot</code> on an <em>incidence</em> object, the function <code>plot.incidence</code> is implicitely used. To access its documentation, use <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code>. In this section, we illustrate existing customizations.</p>
 <div id="default-behaviour" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#default-behaviour" class="anchor"> </a></body></html>Default behaviour</h2>
@@ -153,11 +158,14 @@ i.hosp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, 
      <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">"#ac3973"</span>, <span class="st">"#6666ff"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>))</code></pre></div>
 <p><img src="figs-custom/colors3-1.png" width="768"></p>
-<p><br><br> # Useful <em>ggplot2</em> tweaks</p>
+<p><br></p>
+</div>
+</div>
+</div>
+</div>
+<div id="useful-ggplot2-tweaks" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#useful-ggplot2-tweaks" class="anchor"> </a></body></html>Useful <em>ggplot2</em> tweaks</h1>
 <p>Numerous tweaks for <em>ggplot2</em> are documented online. In the following, we merely provide a few useful tips in the context of <em>incidence</em>.</p>
-</div>
-</div>
-</div>
 <div id="changing-dates-on-the-x-axis" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#changing-dates-on-the-x-axis" class="anchor"> </a></body></html>Changing dates on the <em>x</em>-axis</h2>
 <div id="changing-date-format" class="section level3">
@@ -201,15 +209,19 @@ p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.
 <p><img src="figs-custom/legend1-1.png" width="768"></p>
 </div>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
       <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked"><li><a href="#default-behaviour">Default behaviour</a></li>
+      <ul class="nav nav-pills nav-stacked"><li><a href="#example-data-simulated-ebola-outbreak">Example data: simulated Ebola outbreak</a></li>
+      <li><a href="#the-plot.incidence-function">The <code>plot.incidence</code> function</a><ul class="nav nav-pills nav-stacked"><li><a href="#default-behaviour">Default behaviour</a></li>
       <li><a href="#changing-colors">Changing colors</a></li>
-      <li><a href="#changing-dates-on-the-x-axis">Changing dates on the <em>x</em>-axis</a></li>
+      </ul></li>
+      <li><a href="#useful-ggplot2-tweaks">Useful <em>ggplot2</em> tweaks</a><ul class="nav nav-pills nav-stacked"><li><a href="#changing-dates-on-the-x-axis">Changing dates on the <em>x</em>-axis</a></li>
       <li><a href="#changing-the-legend">Changing the legend</a></li>
+      </ul></li>
       </ul></div>
       </div>
 
