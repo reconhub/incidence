@@ -132,50 +132,22 @@ i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
-<span class="kw">head</span>(i<span class="fl">.7</span>.hosp$counts)</code></pre></div>
-<table class="table"><thead><tr class="header"><th align="right">Connaught Hospital</th>
-<th align="right">Military Hospital</th>
-<th align="right">NA</th>
-<th align="right">other</th>
-<th align="right">Princess Christian Maternity Hospital (PCMH)</th>
-<th align="right">Rokupa Hospital</th>
-</tr></thead><tbody><tr class="odd"><td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">0</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr><tr class="odd"><td align="right">3</td>
-<td align="right">5</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">2</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr></tbody></table><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>.hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) +<span class="st"> </span>
+<span class="kw">head</span>(i<span class="fl">.7</span>.hosp$counts)
+<span class="co">#&gt;      Connaught Hospital Military Hospital NA other</span>
+<span class="co">#&gt; [1,]                  0                 1  0     0</span>
+<span class="co">#&gt; [2,]                  1                 0  0     0</span>
+<span class="co">#&gt; [3,]                  0                 0  2     3</span>
+<span class="co">#&gt; [4,]                  1                 0  1     0</span>
+<span class="co">#&gt; [5,]                  3                 5  1     1</span>
+<span class="co">#&gt; [6,]                  2                 4  4     5</span>
+<span class="co">#&gt;      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital</span>
+<span class="co">#&gt; [1,]                                            0               0</span>
+<span class="co">#&gt; [2,]                                            0               0</span>
+<span class="co">#&gt; [3,]                                            0               0</span>
+<span class="co">#&gt; [4,]                                            1               1</span>
+<span class="co">#&gt; [5,]                                            1               1</span>
+<span class="co">#&gt; [6,]                                            1               1</span>
+<span class="kw">plot</span>(i<span class="fl">.7</span>.hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">""</span>)</code></pre></div>
 <p><img src="figs-overview/hosp-1.png" width="768"></p>
