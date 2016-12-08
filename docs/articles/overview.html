@@ -35,7 +35,7 @@
       <h1>Overview of the incidence package</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-12-02</h4>
+            <h4 class="date">2016-12-08</h4>
           </div>
 
     
@@ -108,6 +108,7 @@ i<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw"><a h
 i<span class="fl">.7</span>.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [2 groups: f, m]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
@@ -123,6 +124,7 @@ i<span class="fl">.7</span>.sex
 i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span>
@@ -196,6 +198,7 @@ i<span class="fl">.7</span>.hosp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [2891 cases from days 2014-04-07 to 2015-04-20]</span>
+<span class="co">#&gt; [2891 cases from ISO weeks 2014-W15 to 2015-W17]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 28 rows and 1 columns</span>
 <span class="co">#&gt; $n: 2891 cases in total</span>
@@ -222,6 +225,7 @@ i.tail
 i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [3 groups: Death, NA, Recover]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 3 columns</span>
@@ -235,6 +239,7 @@ i<span class="fl">.7</span>.outcome
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome[,<span class="dv">1</span>:<span class="dv">2</span>]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [3905 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [3905 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [2 groups: Death, NA]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
@@ -249,6 +254,7 @@ i<span class="fl">.7</span>.outcome
 i.pooled
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
 <span class="co">#&gt; $n: 5888 cases in total</span>

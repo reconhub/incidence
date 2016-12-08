@@ -35,7 +35,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-12-02</h4>
+            <h4 class="date">2016-12-08</h4>
           </div>
 
     
@@ -55,11 +55,12 @@ onset &lt;-<span class="st"> </span>ebola.sim.clean$linelist$date.of.onset
 <span class="kw">head</span>(onset)
 <span class="co">#&gt; [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26"</span>
 <span class="co">#&gt; [6] "2014-04-25"</span></code></pre></div>
-<p>We compute the daily incidence:</p>
+<p>We compute the weekly incidence:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>)
 i
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
 <span class="co">#&gt; $n: 5829 cases in total</span>
@@ -68,11 +69,10 @@ i
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$gender)
-<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date),</span>
-<span class="co">#&gt; interval, ...): partial argument match of 'group' to 'groups'</span>
 i.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [2 groups: f, m]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
@@ -82,11 +82,10 @@ i.sex
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$hospital)
-<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date),</span>
-<span class="co">#&gt; interval, ...): partial argument match of 'group' to 'groups'</span>
 i.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span>
@@ -115,14 +114,14 @@ i.hosp
 <h2 class="hasAnchor"><html><body><a href="#changing-colors" class="anchor"> </a></body></html>Changing colors</h2>
 <div id="the-default-palette" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#the-default-palette" class="anchor"> </a></body></html>The default palette</h3>
-<p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>pal1</code>. It&rsquo;s behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
+<p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>pal1</code>. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">2</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">4</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
 <p><img src="figs-custom/pal1-1.png" width="768"></p>
 <p>This pallette also has a light and a dark version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1dark"</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1"</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1light"</span>)</code></pre></div>
@@ -171,10 +170,10 @@ i.hosp
 <p>And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span>:<span class="dv">50</span>]) +<span class="st">  </span>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%a %d %B %Y"</span>)) +
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</code></pre></div>
 <p><img src="figs-custom/scales2-1.png" width="768"></p>
 <p>Note that you can save customisations for later use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rotate.big &lt;-<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rotate.big &lt;-<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</code></pre></div>
 </div>
 <div id="changing-the-grid" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#changing-the-grid" class="anchor"> </a></body></html>Changing the grid</h3>
@@ -183,21 +182,21 @@ i.hosp
 <p><img src="figs-custom/grid1-1.png" width="768"></p>
 <p>Let us look at the data 40 days before and after the 1st of October:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">period &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2014-10-01"</span>) +<span class="st"> </span><span class="kw">c</span>(-<span class="dv">40</span>, <span class="dv">40</span>)
-i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from=</span>period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])
+i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from =</span> period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])
 detailed.x &lt;-<span class="st"> </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%a %d %B %Y"</span>), 
                            <span class="dt">date_breaks =</span> <span class="st">"2 weeks"</span>, 
-                           <span class="dt">date_minor_breaks=</span><span class="st">"week"</span>)
+                           <span class="dt">date_minor_breaks =</span> <span class="st">"week"</span>)
 
-<span class="kw">plot</span>(i.zoom, <span class="dt">border=</span><span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big</code></pre></div>
+<span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big</code></pre></div>
 <p><img src="figs-custom/grid2-1.png" width="768"></p>
 </div>
 </div>
 <div id="changing-the-legend" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#changing-the-legend" class="anchor"> </a></body></html>Changing the legend</h2>
 <p>The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object <code>p</code> and customize the legend:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border=</span><span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
-p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>), 
-          <span class="dt">legend.position=</span><span class="st">"top"</span>, <span class="dt">legend.direction=</span><span class="st">"horizontal"</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
+p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>), 
+          <span class="dt">legend.position =</span> <span class="st">"top"</span>, <span class="dt">legend.direction =</span> <span class="st">"horizontal"</span>, 
           <span class="dt">legend.title =</span> <span class="kw">element_blank</span>())</code></pre></div>
 <p><img src="figs-custom/legend1-1.png" width="768"></p>
 </div>

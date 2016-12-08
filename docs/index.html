@@ -42,7 +42,7 @@
 <p><a href="https://codecov.io/github/reconhub/incidence?branch=master"><img src="https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg" alt="Coverage Status"></a></p>
 <p><a href="https://cran.r-project.org/package=incidence"><img src="http://www.r-pkg.org/badges/version/incidence" alt="CRAN_Status_Badge"></a></p>
 <p><a href="https://cran.r-project.org/package=incidence"><img src="https://cranlogs.r-pkg.org/badges/incidence" alt="CRAN Downloads"></a></p>
-<p><br><br></p>
+<p><br></p>
 <div id="installing-the-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor"><a href="#installing-the-package" class="anchor"> </a>Installing the package</h1></div>
 <p>To install the current stable, CRAN version of the package, type:</p>
@@ -50,7 +50,7 @@
 <p>To benefit from the latest features and bug fixes, install the development, <em>github</em> version of the package using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"reconhub/incidence"</span>)</code></pre></div>
 <p>Note that this requires the package <em>devtools</em> installed.</p>
-<p><br><br></p>
+<p><br></p>
 </div>
 <div id="what-does-it-do" class="section level1">
 <h1 class="hasAnchor"><a href="#what-does-it-do" class="anchor"> </a>What does it do?</h1>
@@ -63,7 +63,7 @@
 <li><p><strong><code>subset</code></strong>: subset an <em>incidence</em> object by specifying a time window.</p></li>
 <li><p><strong><code>pool</code></strong>: pool incidence from different groups into one global incidence time series.</p></li>
 <li><p><strong><code>as.data.frame</code></strong>: converts an <em>incidence</em> object into a <code>data.frame</code> containing dates and incidence values.</p></li>
-</ul><p><br><br></p>
+</ul><p><br></p>
 </div>
 <div id="resources" class="section level1">
 <h1 class="hasAnchor"><a href="#resources" class="anchor"> </a>Resources</h1>
@@ -118,6 +118,7 @@ dat &lt;-<span class="st"> </span>ebola.sim$linelist$date.of.onset
 i<span class="fl">.7</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
 <span class="co">#&gt; $n: 5888 cases in total</span>
@@ -131,6 +132,7 @@ i<span class="fl">.7</span>
 i<span class="fl">.7</span>.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [2 groups: f, m]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
@@ -147,6 +149,7 @@ i<span class="fl">.7</span>.sex
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [797 cases from days 2014-04-07 to 2014-08-18]</span>
+<span class="co">#&gt; [797 cases from ISO weeks 2014-W15 to 2014-W34]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 20 rows and 1 columns</span>
 <span class="co">#&gt; $n: 797 cases in total</span>
@@ -160,6 +163,7 @@ i<span class="fl">.7</span>.sex
 i.tail
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [1156 cases from days 2015-01-05 to 2015-04-27]</span>
+<span class="co">#&gt; [1156 cases from ISO weeks 2015-W02 to 2015-W18]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 17 rows and 1 columns</span>
 <span class="co">#&gt; $n: 1156 cases in total</span>
@@ -173,6 +177,7 @@ i.tail
 i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [3 groups: Death, NA, Recover]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 3 columns</span>
@@ -187,6 +192,7 @@ i<span class="fl">.7</span>.outcome
 i.pooled
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
 <span class="co">#&gt; $n: 5888 cases in total</span>
@@ -310,6 +316,7 @@ best.fit
 <h1 class="hasAnchor"><a href="#contributors-by-alphabetic-order" class="anchor"> </a>Contributors (by alphabetic order):</h1>
 <ul><li><a href="https://github.com/thibautjombart">Thibaut Jombart</a></li>
 <li><a href="https://github.com/richfitz">Rich Fitzjohn</a></li>
+<li><a href="https://github.com/caijun">Tony Tsai</a></li>
 </ul><p>See details of contributions on: <br><a href="https://github.com/reconhub/epicontacts/graphs/contributors" class="uri">https://github.com/reconhub/epicontacts/graphs/contributors</a></p>
 <p>Contributions are welcome via <strong>pull requests</strong>.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
@@ -325,6 +332,7 @@ best.fit
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE">LICENSE</a></p>
 <h2>Developers</h2><ul class="list-unstyled"><li>Thibaut Jombart <br><small class="roles"> Author, maintainer </small> </li>
 <li>Rich FitzJohn <br><small class="roles"> Author </small> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul></div>
 
 </div>
