@@ -4,7 +4,7 @@ incidence 1.0.2 (2016-12-05)
 ### NEW FEATURES
 
 * add an argument `iso_week` to incidence.Date() and incidence.POSIXt() to support ISO week-based incidence when computing weekly incidence.
-* add an argument `x.labels_iso_week` to plot.incidence() to label x axis tick marks with ISO weeks when plotting ISO week-based weekly incidence.
+* add an argument `labels_iso_week` to plot.incidence() to label x axis tick marks with ISO weeks when plotting ISO week-based weekly incidence.
 
 
 <br>
