@@ -189,7 +189,6 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
         after <- extract_info(lm2, x2, level)
         out <- list(before = before, after = after)
     }
-
     out
 }
 

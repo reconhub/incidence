@@ -49,7 +49,7 @@ class(onset)
 head(onset)
 ```
 
-We compute the daily incidence:
+We compute the weekly incidence:
 ```{r, incid1}
 i <- incidence(onset, interval = 7)
 i
@@ -93,17 +93,17 @@ args(incidence:::plot.incidence)
 
 ### The default palette
 
-A color palette is a function which outputs a specified number of colors. By default, the color used in *incidence* is called `pal1`. It's behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:
+A color palette is a function which outputs a specified number of colors. By default, the color used in *incidence* is called `pal1`. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:
 ```{r, pal1,   fig.height = 8}
-par(mfrow=c(3,1), mar=c(4,2,1,1))
+par(mfrow = c(3,1), mar = c(4,2,1,1))
 barplot(1:2, col = pal1(2))
 barplot(1:4, col = pal1(4))
 barplot(1:20, col = pal1(20))
 ```
 
 This pallette also has a light and a dark version:
-```{r, pal2,   fig.height = 8}
-par(mfrow=c(3,1))
+```{r, pal2, fig.height = 8}
+par(mfrow = c(3,1))
 barplot(1:20, col = pal1dark(20), main = "palette:  pal1dark")
 barplot(1:20, col = pal1(20), main = "palette:  pal1")
 barplot(1:20, col = pal1light(20), main = "palette:  pal1light")
@@ -171,12 +171,12 @@ And for another example, with a subset of the data (first 50 days), using more d
 ```{r, scales2}
 plot(i[1:50]) +  
   scale_x_date(labels = date_format("%a %d %B %Y")) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 ```
 
 Note that you can save customisations for later use:
 ```{r, scales3}
-rotate.big <- theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12))
+rotate.big <- theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 ```
 
 
@@ -191,12 +191,12 @@ plot(i.hosp)
 Let us look at the data 40 days before and after the 1st of October:
 ```{r, grid2}
 period <- as.Date("2014-10-01") + c(-40, 40)
-i.zoom <- subset(i.hosp, from=period[1], to = period[2])
+i.zoom <- subset(i.hosp, from = period[1], to = period[2])
 detailed.x <- scale_x_date(labels = date_format("%a %d %B %Y"), 
                            date_breaks = "2 weeks", 
-                           date_minor_breaks="week")
+                           date_minor_breaks = "week")
 
-plot(i.zoom, border="black") + detailed.x + rotate.big
+plot(i.zoom, border = "black") + detailed.x + rotate.big
 ```
 
 
@@ -206,9 +206,9 @@ plot(i.zoom, border="black") + detailed.x + rotate.big
 The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object `p` and customize the legend:
 
 ```{r, legend1}
-p <- plot(i.zoom, border="black") + detailed.x + rotate.big
-p + theme(axis.text.x = element_text(angle = 45, hjust = 1, size=12), 
-          legend.position="top", legend.direction="horizontal", 
+p <- plot(i.zoom, border = "black") + detailed.x + rotate.big
+p + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12), 
+          legend.position = "top", legend.direction = "horizontal", 
           legend.title = element_blank())
 ```
 

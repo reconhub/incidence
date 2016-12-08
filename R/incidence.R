@@ -4,8 +4,8 @@
 ##' various formats. A fixed interval, provided as numbers of days, is used to
 ##' define time intervals. Counts within an interval always include the first
 ##' date, after which they are labelled, and exclude the second. For instance,
-##' intervals labelled as 0,3,6,... mean that the first bin includes days 0, 1
-##' and 2, the second interval includes 3, 4 and 5m etc.
+##' intervals labelled as 0, 3, 6, ... mean that the first bin includes days 0, 1
+##' and 2, the second interval includes 3, 4 and 5 etc.
 ##'
 ##' @param dates A vector of dates, which can be provided as objects of the
 ##' class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
@@ -25,7 +25,7 @@
 ##' \itemize{
 ##'
 ##' \item dates: The dates marking the left side of the bins used for counting
-##' evens.
+##' events. When ISO week-based weekly incidence is computed, the dates are the first days of corresponding isoweeks.
 ##'
 ##' \item counts: A matrix of incidence counts, which one column per group (and
 ##' a single column if no groups were used).
@@ -38,6 +38,7 @@
 ##'
 ##' \item n: The total number of cases.
 ##'
+##' \item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when ISO week-based weekly incidence is computed.
 ##' }
 ##'
 ##' @details For details about the \code{incidence class}, see the dedicated
@@ -78,6 +79,8 @@
 ##'
 ##' @rdname incidence
 ##'
+##' @importFrom utils head tail
+##'
 ##' @export
 ##'
 ##' @examples
@@ -95,16 +98,20 @@
 ##'   plot(inc)
 ##'
 ##'   ## weekly incidence
-##'   inc.week <- incidence(onset, interval = 7)
+##'   inc.week <- incidence(onset, interval = 7, iso_week = FALSE)
 ##'   inc.week
 ##'   plot(inc.week)
 ##'   plot(inc.week, border = "white") # with visible border
+##'   inc.isoweek <- incidence(onset, interval = 7, iso_week = TRUE)
+##'   inc.isoweek
 ##'   ## use group information
 ##'   sex <- ebola.sim$linelist$gender
-##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
+##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex, iso_week = FALSE)
 ##'   inc.week.gender
 ##'   head(inc.week.gender$counts)
 ##'   plot(inc.week.gender)
+##'   inc.isoweek.gender <- incidence(onset, interval = 7, groups = sex, iso_week = TRUE)
+##'   inc.isoweek.gender
 ##' }
 ##'
 ##'
@@ -124,11 +131,12 @@ incidence <- function(dates, interval = 1L, ...) {
 ##' @export
 ##' @rdname incidence
 ##'
-##' @param na_as_group A logical indicating if missing group (NA) should be
+##' @param na_as_group A logical value indicating if missing group (NA) should be
 ##' treated as a separate group.
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
                               na_as_group = TRUE, ...) {
+    dots <- list(...)
     ## make sure input can be used
     dates <- check_dates(dates)
     interval <- check_interval(interval)
@@ -138,15 +146,20 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
     first.date <- min(dates)
     last.date <- max(dates)
     interval <- as.integer(round(interval))
+    if ("iso_week" %in% names(dots)) {
+      if (interval == 7L && dots$iso_week == TRUE) {
+        first.date <- 0L
+      }
+    }
 
     ## function to compute counts of dates with defined breaks
     count.dates <- function(dates, breaks){
-        counts <- table(cut(as.integer(dates), breaks=c(breaks, Inf), right=FALSE))
+        counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
         as.integer(counts)
     }
 
     ## define breaks here
-    breaks <- seq(first.date, last.date, by=interval) # 'd1' in expl above
+    breaks <- seq(first.date, last.date, by = interval) # 'd1' in expl above
     breaks <- as.integer(breaks)
 
     ## compute counts within bins defined by the breaks
@@ -162,7 +175,7 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
 
     out <- list(dates = breaks, # left side of bins (incl left, excl right)
                 counts = counts, # computed incidence, 1 col / group
-                timespan = diff(range(breaks, na.rm=TRUE)) + 1,
+                timespan = diff(range(breaks, na.rm = TRUE)) + 1,
                 interval = interval, # fixed bin size
                 n = sum(counts)) # total number of cases
     class(out) <- "incidence"
@@ -201,14 +214,26 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 ##' @export
 ##' @rdname incidence
+##' @param iso_week A logical value indicating if the returning \code{incidence} should be ISO week-based when computing weekly incidence (interval = 7). defaults to be TRUE.
 
-incidence.Date <- function(dates, interval = 1L, ...) {
+incidence.Date <- function(dates, interval = 1L, iso_week = TRUE, ...) {
     ## make sure input can be used
     dates <- check_dates(dates)
+    stopifnot(is.logical(iso_week))
 
     first.date <- min(dates, na.rm = TRUE)
-    out <- incidence.integer(as.integer(dates - first.date), interval, ...)
+    interval <- as.integer(round(interval))
+    if (interval == 7L && iso_week) {
+      first.isoweek <- ISOweek::date2ISOweek(first.date)
+      substr(first.isoweek, 10, 10) <- "1"
+      first.date <- ISOweek::ISOweek2date(first.isoweek)
+    }
+    out <- incidence.integer(as.integer(dates - first.date), interval = interval, iso_week = iso_week, ...)
     out$dates <- first.date + out$dates
+    if (interval == 7L && iso_week) {
+      # dates are the first days of corresponding ISOweeks.
+      out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
+    }
     out
 }
 
@@ -220,11 +245,11 @@ incidence.Date <- function(dates, interval = 1L, ...) {
 ##' @export
 ##' @rdname incidence
 
-incidence.POSIXt <- function(dates, interval = 1L, ...) {
+incidence.POSIXt <- function(dates, interval = 1L, iso_week = TRUE, ...) {
     ## make sure input can be used
     dates <- check_dates(dates)
 
-    ret <- incidence(as.Date(dates), interval, ...)
+    ret <- incidence(as.Date(dates), interval = interval, iso_week = iso_week, ...)
     f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
     ret$dates <- f(ret$dates)
     ret
@@ -239,10 +264,13 @@ incidence.POSIXt <- function(dates, interval = 1L, ...) {
 ##' @param x An 'incidence' object.
 
 print.incidence <- function(x, ...) {
-
   cat("<incidence object>\n")
   cat(sprintf("[%d cases from days %s to %s]\n",
               sum(x$n), min(x$dates), max(x$dates)))
+  if (x$interval == 7L && "isoweeks" %in% names(x)) {
+    cat(sprintf("[%d cases from ISO weeks %s to %s]\n",
+                sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
+  }
   if (ncol(x$counts) > 1L) {
       groups.txt <- paste(colnames(x$counts), collapse = ", ")
       cat(sprintf("[%d groups: %s]\n", ncol(x$counts), groups.txt))
@@ -253,7 +281,7 @@ print.incidence <- function(x, ...) {
   cat(sprintf("$dates: %d dates marking the left-side of bins\n",
               length(x$dates)))
   cat(sprintf("$interval: %d %s\n",
-              x$interval, ifelse(x$interval<2, "day", "days")))
+              x$interval, ifelse(x$interval < 2, "day", "days")))
   cat(sprintf("$timespan: %d days\n\n", x$timespan))
   invisible(x)
 }
@@ -268,18 +296,16 @@ print.incidence <- function(x, ...) {
 check_dates <- function(dates){
     ## make sure input can be used
     to.remove <- !is.finite(dates)
-    if (sum(to.remove)>0) {
+    if (sum(to.remove) > 0) {
         message(sprintf(
             "%d non-finite values (NA, Inf) where removed from the data.\n",
                         sum(to.remove)))
         dates <- dates[!to.remove]
 
     }
-
     if (length(dates) < 1) {
         stop("At least one (non-NA) date must be provided")
     }
-
     dates
 }
 
