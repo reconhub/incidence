@@ -1,4 +1,4 @@
-incidence 1.0.2 (2016-12-05)
+incidence 1.1.0 (2016-12-09)
 ==================
 
 ### NEW FEATURES
@@ -29,5 +29,4 @@ incidence 1.0.1 (2016-11-23)
 incidence 1.0.0 (2016-11-03)
 ==================
 First release of the incidence package on CRAN!
-
 

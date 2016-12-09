@@ -408,9 +408,9 @@ plot(i.7, fit = best.fit$fit)
 <br>
 
 # Contributors (by alphabetic order):
-- Jun Cai ([@caijun](https://github.com/caijun))
-- Thibaut Jombart ([@thibautjombart](https://github.com/thibautjombart))
-- Rich Fitzjohn ([@richfitz](https://github.com/richfitz))
+- [Thibaut Jombart](https://github.com/thibautjombart)
+- [Rich Fitzjohn](https://github.com/richfitz)
+- [Jun Cai](https://github.com/caijun)
 
 Contributions are welcome via pull requests.
 
