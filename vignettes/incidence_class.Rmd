@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 This vignette details the structure of *incidence* objects, as produced by the `incidence` function.
 
 <br>
-<br>
+
 # Structure of an *incidence* object.
 
 We generate a toy dataset of dates to examine the content of *incidence* objects.
@@ -90,7 +90,7 @@ class(dat)
 i$dates
 ```
 
-The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 2-8, the second bin counts events from 9-15, etc.
+The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 5-6, the second bin counts events from 7-8, etc.
 
 
 

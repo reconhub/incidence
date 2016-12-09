@@ -35,20 +35,25 @@
       <h1>Overview of the incidence package</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-12-02</h4>
+            <h4 class="date">2016-12-08</h4>
           </div>
 
     
     
 <div class="contents">
 <p><em>incidence</em> implements functions and classes to compute, handle, visualise and model incidences from dates data. This vignette provides an overview of current features. It largely reproduces the content of <code>REAME.md</code>.</p>
-<p><br><br> # Installing the package</p>
+<p><br></p>
+<div id="installing-the-package" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#installing-the-package" class="anchor"> </a></body></html>Installing the package</h1>
 <p>To install the current stable, CRAN version of the package, type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"incidence"</span>)</code></pre></div>
 <p>To benefit from the latest features and bug fixes, install the development, <em>github</em> version of the package using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"reconhub/incidence"</span>)</code></pre></div>
 <p>Note that this requires the package <em>devtools</em> installed.</p>
-<p><br><br> # What does it do?</p>
+<p><br></p>
+</div>
+<div id="what-does-it-do" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#what-does-it-do" class="anchor"> </a></body></html>What does it do?</h1>
 <p>The main functions of the package include:</p>
 <ul><li><strong><code>incidence</code></strong>: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class <em>incidence</em>.</li>
 <li><strong><code>plot</code></strong>: this method (see <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code> for details) plots <em>incidence</em> objects, and can also add predictions of the model(s) contained in an <em>incidence_fit</em> object (or a list of such objects).</li>
@@ -57,7 +62,10 @@
 <li><strong><code>[</code></strong>: lower-level subsetan of <em>incidence</em> objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. <code>x[i, j]</code>, where <code>x</code> is the <em>incidence</em> object, <code>i</code> a subset of dates, and <code>j</code> a subset of groups.</li>
 <li><strong><code>subset</code></strong>: subset an <em>incidence</em> object by specifying a time window.</li>
 <li><strong><code>pool</code></strong>: pool incidence from different groups into one global incidence time series.</li>
-</ul><p><br><br> # Worked example: simulated Ebola outbreak</p>
+</ul><p><br></p>
+</div>
+<div id="worked-example-simulated-ebola-outbreak" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#worked-example-simulated-ebola-outbreak" class="anchor"> </a></body></html>Worked example: simulated Ebola outbreak</h1>
 <div id="loading-the-data" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#loading-the-data" class="anchor"> </a></body></html>Loading the data</h2>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. We will compute incidence for various time steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.</p>
@@ -108,6 +116,7 @@ i<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw"><a h
 i<span class="fl">.7</span>.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [2 groups: f, m]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
@@ -123,6 +132,7 @@ i<span class="fl">.7</span>.sex
 i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span>
@@ -130,50 +140,22 @@ i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
-<span class="kw">head</span>(i<span class="fl">.7</span>.hosp$counts)</code></pre></div>
-<table class="table"><thead><tr class="header"><th align="right">Connaught Hospital</th>
-<th align="right">Military Hospital</th>
-<th align="right">NA</th>
-<th align="right">other</th>
-<th align="right">Princess Christian Maternity Hospital (PCMH)</th>
-<th align="right">Rokupa Hospital</th>
-</tr></thead><tbody><tr class="odd"><td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">0</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr><tr class="odd"><td align="right">3</td>
-<td align="right">5</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">2</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr></tbody></table><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>.hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) +<span class="st"> </span>
+<span class="kw">head</span>(i<span class="fl">.7</span>.hosp$counts)
+<span class="co">#&gt;      Connaught Hospital Military Hospital NA other</span>
+<span class="co">#&gt; [1,]                  0                 1  0     0</span>
+<span class="co">#&gt; [2,]                  1                 0  0     0</span>
+<span class="co">#&gt; [3,]                  0                 0  2     3</span>
+<span class="co">#&gt; [4,]                  1                 0  1     0</span>
+<span class="co">#&gt; [5,]                  3                 5  1     1</span>
+<span class="co">#&gt; [6,]                  2                 4  4     5</span>
+<span class="co">#&gt;      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital</span>
+<span class="co">#&gt; [1,]                                            0               0</span>
+<span class="co">#&gt; [2,]                                            0               0</span>
+<span class="co">#&gt; [3,]                                            0               0</span>
+<span class="co">#&gt; [4,]                                            1               1</span>
+<span class="co">#&gt; [5,]                                            1               1</span>
+<span class="co">#&gt; [6,]                                            1               1</span>
+<span class="kw">plot</span>(i<span class="fl">.7</span>.hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">""</span>)</code></pre></div>
 <p><img src="figs-overview/hosp-1.png" width="768"></p>
@@ -196,6 +178,7 @@ i<span class="fl">.7</span>.hosp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [2891 cases from days 2014-04-07 to 2015-04-20]</span>
+<span class="co">#&gt; [2891 cases from ISO weeks 2014-W15 to 2015-W17]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 28 rows and 1 columns</span>
 <span class="co">#&gt; $n: 2891 cases in total</span>
@@ -222,6 +205,7 @@ i.tail
 i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [3 groups: Death, NA, Recover]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 3 columns</span>
@@ -235,6 +219,7 @@ i<span class="fl">.7</span>.outcome
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome[,<span class="dv">1</span>:<span class="dv">2</span>]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [3905 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [3905 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [2 groups: Death, NA]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
@@ -249,6 +234,7 @@ i<span class="fl">.7</span>.outcome
 i.pooled
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
 <span class="co">#&gt; $n: 5888 cases in total</span>
@@ -472,15 +458,19 @@ best.fit2
 <p><img src="figs-overview/optim2-1.png" width="768"></p>
 </div>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
       <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked"><li><a href="#loading-the-data">Loading the data</a></li>
+      <ul class="nav nav-pills nav-stacked"><li><a href="#installing-the-package">Installing the package</a></li>
+      <li><a href="#what-does-it-do">What does it do?</a></li>
+      <li><a href="#worked-example-simulated-ebola-outbreak">Worked example: simulated Ebola outbreak</a><ul class="nav nav-pills nav-stacked"><li><a href="#loading-the-data">Loading the data</a></li>
       <li><a href="#computing-and-plotting-incidence">Computing and plotting incidence</a></li>
       <li><a href="#handling-incidence-objects">Handling <code>incidence</code> objects</a></li>
       <li><a href="#modelling-incidence">Modelling incidence</a></li>
+      </ul></li>
       </ul></div>
       </div>
 

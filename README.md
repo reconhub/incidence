@@ -151,6 +151,7 @@ i.7 <- incidence(dat, interval=7)
 i.7
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> 
 #> $counts: matrix with 56 rows and 1 columns
 #> $n: 5888 cases in total
@@ -170,6 +171,7 @@ i.7.sex <- incidence(dat, interval=7, groups = ebola.sim$linelist$gender)
 i.7.sex
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> [2 groups: f, m]
 #> 
 #> $counts: matrix with 56 rows and 2 columns
@@ -191,6 +193,7 @@ For instance, to keep only the first 20 weeks of the epidemic:
 i.7[1:20]
 #> <incidence object>
 #> [797 cases from days 2014-04-07 to 2014-08-18]
+#> [797 cases from ISO weeks 2014-W15 to 2014-W34]
 #> 
 #> $counts: matrix with 20 rows and 1 columns
 #> $n: 797 cases in total
@@ -209,6 +212,7 @@ i.tail <- subset(i.7, from=as.Date("2015-01-01"))
 i.tail
 #> <incidence object>
 #> [1156 cases from days 2015-01-05 to 2015-04-27]
+#> [1156 cases from ISO weeks 2015-W02 to 2015-W18]
 #> 
 #> $counts: matrix with 17 rows and 1 columns
 #> $n: 1156 cases in total
@@ -227,6 +231,7 @@ i.7.outcome <- incidence(dat, 7, groups=ebola.sim$linelist$outcome)
 i.7.outcome
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> [3 groups: Death, NA, Recover]
 #> 
 #> $counts: matrix with 56 rows and 3 columns
@@ -247,6 +252,7 @@ i.pooled <- pool(i.7.outcome)
 i.pooled
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #> 
 #> $counts: matrix with 56 rows and 1 columns
 #> $n: 5888 cases in total
@@ -411,8 +417,10 @@ plot(i.7, fit=best.fit$fit)
 # Contributors (by alphabetic order):
 - [Thibaut Jombart](https://github.com/thibautjombart)
 - [Rich Fitzjohn](https://github.com/richfitz)
+- [Jun Cai](https://github.com/caijun)
 
-See details of contributions on: <br>
+See details of contributions on:
+<br>
 https://github.com/reconhub/epicontacts/graphs/contributors
 
 

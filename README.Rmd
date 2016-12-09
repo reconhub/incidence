@@ -240,8 +240,10 @@ plot(i.7, fit=best.fit$fit)
 # Contributors (by alphabetic order):
 - [Thibaut Jombart](https://github.com/thibautjombart)
 - [Rich Fitzjohn](https://github.com/richfitz)
+- [Jun Cai](https://github.com/caijun)
 
-See details of contributions on: <br>
+See details of contributions on:
+<br>
 https://github.com/reconhub/epicontacts/graphs/contributors
 
 

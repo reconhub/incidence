@@ -75,15 +75,22 @@ test_that("construction - Date input", {
   
   ## USING DAILY INCIDENCE
   set.seed(as.numeric(Sys.time()))
-  dat <- as.integer(sample(-3:100, 50, replace=TRUE))
-  dat.dates <- as.Date("2016-09-20") + dat
+  dat <- as.integer(c(-3, sample(-3:100, 50, replace=TRUE)))
+
+  ## note: the choice of dates here makes sure first date is 28 Dec 2015, which
+  ## starts an iso week, so that counts will be comparable with/without iso
+  
+  dat.dates <- as.Date("2015-12-31") + dat
   x <- incidence(dat)
   x.dates <- incidence(dat.dates)
+  x.7 <- incidence(dat.dates, 7L, iso_week = FALSE)
+  x.7.iso <- incidence(dat.dates, 7L)
   
   ## compare outputs
   expect_equal(x$counts, x.dates$counts)
   expect_is(x$dates, "integer")
   expect_is(x.dates$dates, "Date")
+  expect_equal(x.7$counts, x.7.iso$counts)
 })
 
 

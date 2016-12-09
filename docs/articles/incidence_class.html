@@ -35,14 +35,16 @@
       <h1>Details of the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-12-02</h4>
+            <h4 class="date">2016-12-08</h4>
           </div>
 
     
     
 <div class="contents">
 <p>This vignette details the structure of <em>incidence</em> objects, as produced by the <code>incidence</code> function.</p>
-<p><br><br> # Structure of an <em>incidence</em> object.</p>
+<p><br></p>
+<div id="structure-of-an-incidence-object-" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#structure-of-an-incidence-object-" class="anchor"> </a></body></html>Structure of an <em>incidence</em> object.</h1>
 <p>We generate a toy dataset of dates to examine the content of <em>incidence</em> objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(incidence)
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -63,8 +65,6 @@ i
 <p><img src="figs-class/i-1.png" width="768"></p>
 <p>We also compute incidence by gender:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">2</span>, <span class="dt">group =</span> sex)
-<span class="co">#&gt; Warning in incidence.integer(dat, interval = 2, group = sex): partial</span>
-<span class="co">#&gt; argument match of 'group' to 'groups'</span>
 i.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [200 cases from days 5 to 49]</span>
@@ -90,7 +90,14 @@ i.sex
 <span class="co">#&gt; [1]  5  7  9 11 13 15</span>
 
 ## use numeric indexing
-<span class="kw">head</span>(i[[<span class="dv">2</span>]])</code></pre></div>
+<span class="kw">head</span>(i[[<span class="dv">2</span>]])
+<span class="co">#&gt;      [,1]</span>
+<span class="co">#&gt; [1,]    3</span>
+<span class="co">#&gt; [2,]    0</span>
+<span class="co">#&gt; [3,]    1</span>
+<span class="co">#&gt; [4,]    0</span>
+<span class="co">#&gt; [5,]    1</span>
+<span class="co">#&gt; [6,]    0</span></code></pre></div>
 <p>In the following sections, we examine each of the components of the object.</p>
 <div id="dates" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#dates" class="anchor"> </a></body></html><code>$dates</code></h2>
@@ -102,7 +109,7 @@ i.sex
 
 i$dates
 <span class="co">#&gt;  [1]  5  7  9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49</span></code></pre></div>
-<p>The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 2-8, the second bin counts events from 9-15, etc.</p>
+<p>The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 5-6, the second bin counts events from 7-8, etc.</p>
 </div>
 <div id="counts" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#counts" class="anchor"> </a></body></html><code>$counts</code></h2>
@@ -112,325 +119,159 @@ i$dates
 <span class="kw">storage.mode</span>(i$counts)
 <span class="co">#&gt; [1] "integer"</span>
 
-i$counts</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.sex$counts</code></pre></div>
-<table class="table"><thead><tr class="header"><th align="right">female</th>
-<th align="right">male</th>
-</tr></thead><tbody><tr class="odd"><td align="right">1</td>
-<td align="right">2</td>
-</tr><tr class="even"><td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">0</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">1</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">0</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">2</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">2</td>
-<td align="right">1</td>
-</tr><tr class="odd"><td align="right">2</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">3</td>
-<td align="right">2</td>
-</tr><tr class="odd"><td align="right">5</td>
-<td align="right">4</td>
-</tr><tr class="even"><td align="right">3</td>
-<td align="right">1</td>
-</tr><tr class="odd"><td align="right">3</td>
-<td align="right">2</td>
-</tr><tr class="even"><td align="right">6</td>
-<td align="right">6</td>
-</tr><tr class="odd"><td align="right">6</td>
-<td align="right">7</td>
-</tr><tr class="even"><td align="right">7</td>
-<td align="right">9</td>
-</tr><tr class="odd"><td align="right">10</td>
-<td align="right">5</td>
-</tr><tr class="even"><td align="right">15</td>
-<td align="right">10</td>
-</tr><tr class="odd"><td align="right">16</td>
-<td align="right">12</td>
-</tr><tr class="even"><td align="right">19</td>
-<td align="right">9</td>
-</tr><tr class="odd"><td align="right">18</td>
-<td align="right">7</td>
-</tr></tbody></table><p>Note that a <code>data.frame</code> containing <em>dates</em> and <em>counts</em> can be obtained using <code>as.data.frame</code>:</p>
+i$counts
+<span class="co">#&gt;       [,1]</span>
+<span class="co">#&gt;  [1,]    3</span>
+<span class="co">#&gt;  [2,]    0</span>
+<span class="co">#&gt;  [3,]    1</span>
+<span class="co">#&gt;  [4,]    0</span>
+<span class="co">#&gt;  [5,]    1</span>
+<span class="co">#&gt;  [6,]    0</span>
+<span class="co">#&gt;  [7,]    1</span>
+<span class="co">#&gt;  [8,]    0</span>
+<span class="co">#&gt;  [9,]    3</span>
+<span class="co">#&gt; [10,]    3</span>
+<span class="co">#&gt; [11,]    3</span>
+<span class="co">#&gt; [12,]    5</span>
+<span class="co">#&gt; [13,]    9</span>
+<span class="co">#&gt; [14,]    4</span>
+<span class="co">#&gt; [15,]    5</span>
+<span class="co">#&gt; [16,]   12</span>
+<span class="co">#&gt; [17,]   13</span>
+<span class="co">#&gt; [18,]   16</span>
+<span class="co">#&gt; [19,]   15</span>
+<span class="co">#&gt; [20,]   25</span>
+<span class="co">#&gt; [21,]   28</span>
+<span class="co">#&gt; [22,]   28</span>
+<span class="co">#&gt; [23,]   25</span>
+i.sex$counts
+<span class="co">#&gt;       female male</span>
+<span class="co">#&gt;  [1,]      1    2</span>
+<span class="co">#&gt;  [2,]      0    0</span>
+<span class="co">#&gt;  [3,]      0    1</span>
+<span class="co">#&gt;  [4,]      0    0</span>
+<span class="co">#&gt;  [5,]      1    0</span>
+<span class="co">#&gt;  [6,]      0    0</span>
+<span class="co">#&gt;  [7,]      0    1</span>
+<span class="co">#&gt;  [8,]      0    0</span>
+<span class="co">#&gt;  [9,]      2    1</span>
+<span class="co">#&gt; [10,]      2    1</span>
+<span class="co">#&gt; [11,]      2    1</span>
+<span class="co">#&gt; [12,]      3    2</span>
+<span class="co">#&gt; [13,]      5    4</span>
+<span class="co">#&gt; [14,]      3    1</span>
+<span class="co">#&gt; [15,]      3    2</span>
+<span class="co">#&gt; [16,]      6    6</span>
+<span class="co">#&gt; [17,]      6    7</span>
+<span class="co">#&gt; [18,]      7    9</span>
+<span class="co">#&gt; [19,]     10    5</span>
+<span class="co">#&gt; [20,]     15   10</span>
+<span class="co">#&gt; [21,]     16   12</span>
+<span class="co">#&gt; [22,]     19    9</span>
+<span class="co">#&gt; [23,]     18    7</span></code></pre></div>
+<p>Note that a <code>data.frame</code> containing <em>dates</em> and <em>counts</em> can be obtained using <code>as.data.frame</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## basic conversion
-<span class="kw">as.data.frame</span>(i)</code></pre></div>
-<table class="table"><thead><tr class="header"><th align="right">dates</th>
-<th align="right">counts</th>
-</tr></thead><tbody><tr class="odd"><td align="right">5</td>
-<td align="right">3</td>
-</tr><tr class="even"><td align="right">7</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">9</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">11</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">13</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">15</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">17</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">19</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">21</td>
-<td align="right">3</td>
-</tr><tr class="even"><td align="right">23</td>
-<td align="right">3</td>
-</tr><tr class="odd"><td align="right">25</td>
-<td align="right">3</td>
-</tr><tr class="even"><td align="right">27</td>
-<td align="right">5</td>
-</tr><tr class="odd"><td align="right">29</td>
-<td align="right">9</td>
-</tr><tr class="even"><td align="right">31</td>
-<td align="right">4</td>
-</tr><tr class="odd"><td align="right">33</td>
-<td align="right">5</td>
-</tr><tr class="even"><td align="right">35</td>
-<td align="right">12</td>
-</tr><tr class="odd"><td align="right">37</td>
-<td align="right">13</td>
-</tr><tr class="even"><td align="right">39</td>
-<td align="right">16</td>
-</tr><tr class="odd"><td align="right">41</td>
-<td align="right">15</td>
-</tr><tr class="even"><td align="right">43</td>
-<td align="right">25</td>
-</tr><tr class="odd"><td align="right">45</td>
-<td align="right">28</td>
-</tr><tr class="even"><td align="right">47</td>
-<td align="right">28</td>
-</tr><tr class="odd"><td align="right">49</td>
-<td align="right">25</td>
-</tr></tbody></table><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(i.sex)</code></pre></div>
-<table class="table"><thead><tr class="header"><th align="right">dates</th>
-<th align="right">female</th>
-<th align="right">male</th>
-</tr></thead><tbody><tr class="odd"><td align="right">5</td>
-<td align="right">1</td>
-<td align="right">2</td>
-</tr><tr class="even"><td align="right">7</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">9</td>
-<td align="right">0</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">11</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">13</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">15</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">17</td>
-<td align="right">0</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">19</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">21</td>
-<td align="right">2</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">23</td>
-<td align="right">2</td>
-<td align="right">1</td>
-</tr><tr class="odd"><td align="right">25</td>
-<td align="right">2</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">27</td>
-<td align="right">3</td>
-<td align="right">2</td>
-</tr><tr class="odd"><td align="right">29</td>
-<td align="right">5</td>
-<td align="right">4</td>
-</tr><tr class="even"><td align="right">31</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr><tr class="odd"><td align="right">33</td>
-<td align="right">3</td>
-<td align="right">2</td>
-</tr><tr class="even"><td align="right">35</td>
-<td align="right">6</td>
-<td align="right">6</td>
-</tr><tr class="odd"><td align="right">37</td>
-<td align="right">6</td>
-<td align="right">7</td>
-</tr><tr class="even"><td align="right">39</td>
-<td align="right">7</td>
-<td align="right">9</td>
-</tr><tr class="odd"><td align="right">41</td>
-<td align="right">10</td>
-<td align="right">5</td>
-</tr><tr class="even"><td align="right">43</td>
-<td align="right">15</td>
-<td align="right">10</td>
-</tr><tr class="odd"><td align="right">45</td>
-<td align="right">16</td>
-<td align="right">12</td>
-</tr><tr class="even"><td align="right">47</td>
-<td align="right">19</td>
-<td align="right">9</td>
-</tr><tr class="odd"><td align="right">49</td>
-<td align="right">18</td>
-<td align="right">7</td>
-</tr></tbody></table><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">as.data.frame</span>(i)
+<span class="co">#&gt;    dates counts</span>
+<span class="co">#&gt; 1      5      3</span>
+<span class="co">#&gt; 2      7      0</span>
+<span class="co">#&gt; 3      9      1</span>
+<span class="co">#&gt; 4     11      0</span>
+<span class="co">#&gt; 5     13      1</span>
+<span class="co">#&gt; 6     15      0</span>
+<span class="co">#&gt; 7     17      1</span>
+<span class="co">#&gt; 8     19      0</span>
+<span class="co">#&gt; 9     21      3</span>
+<span class="co">#&gt; 10    23      3</span>
+<span class="co">#&gt; 11    25      3</span>
+<span class="co">#&gt; 12    27      5</span>
+<span class="co">#&gt; 13    29      9</span>
+<span class="co">#&gt; 14    31      4</span>
+<span class="co">#&gt; 15    33      5</span>
+<span class="co">#&gt; 16    35     12</span>
+<span class="co">#&gt; 17    37     13</span>
+<span class="co">#&gt; 18    39     16</span>
+<span class="co">#&gt; 19    41     15</span>
+<span class="co">#&gt; 20    43     25</span>
+<span class="co">#&gt; 21    45     28</span>
+<span class="co">#&gt; 22    47     28</span>
+<span class="co">#&gt; 23    49     25</span>
+<span class="kw">as.data.frame</span>(i.sex)
+<span class="co">#&gt;    dates female male</span>
+<span class="co">#&gt; 1      5      1    2</span>
+<span class="co">#&gt; 2      7      0    0</span>
+<span class="co">#&gt; 3      9      0    1</span>
+<span class="co">#&gt; 4     11      0    0</span>
+<span class="co">#&gt; 5     13      1    0</span>
+<span class="co">#&gt; 6     15      0    0</span>
+<span class="co">#&gt; 7     17      0    1</span>
+<span class="co">#&gt; 8     19      0    0</span>
+<span class="co">#&gt; 9     21      2    1</span>
+<span class="co">#&gt; 10    23      2    1</span>
+<span class="co">#&gt; 11    25      2    1</span>
+<span class="co">#&gt; 12    27      3    2</span>
+<span class="co">#&gt; 13    29      5    4</span>
+<span class="co">#&gt; 14    31      3    1</span>
+<span class="co">#&gt; 15    33      3    2</span>
+<span class="co">#&gt; 16    35      6    6</span>
+<span class="co">#&gt; 17    37      6    7</span>
+<span class="co">#&gt; 18    39      7    9</span>
+<span class="co">#&gt; 19    41     10    5</span>
+<span class="co">#&gt; 20    43     15   10</span>
+<span class="co">#&gt; 21    45     16   12</span>
+<span class="co">#&gt; 22    47     19    9</span>
+<span class="co">#&gt; 23    49     18    7</span>
+
 ## long format for ggplot2
-<span class="kw">as.data.frame</span>(i.sex, <span class="dt">long =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<table class="table"><thead><tr class="header"><th align="right">dates</th>
-<th align="right">counts</th>
-<th align="left">groups</th>
-</tr></thead><tbody><tr class="odd"><td align="right">5</td>
-<td align="right">1</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">7</td>
-<td align="right">0</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">9</td>
-<td align="right">0</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">11</td>
-<td align="right">0</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">13</td>
-<td align="right">1</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">15</td>
-<td align="right">0</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">17</td>
-<td align="right">0</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">19</td>
-<td align="right">0</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">21</td>
-<td align="right">2</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">23</td>
-<td align="right">2</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">25</td>
-<td align="right">2</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">27</td>
-<td align="right">3</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">29</td>
-<td align="right">5</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">31</td>
-<td align="right">3</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">33</td>
-<td align="right">3</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">35</td>
-<td align="right">6</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">37</td>
-<td align="right">6</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">39</td>
-<td align="right">7</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">41</td>
-<td align="right">10</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">43</td>
-<td align="right">15</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">45</td>
-<td align="right">16</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">47</td>
-<td align="right">19</td>
-<td align="left">female</td>
-</tr><tr class="odd"><td align="right">49</td>
-<td align="right">18</td>
-<td align="left">female</td>
-</tr><tr class="even"><td align="right">5</td>
-<td align="right">2</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">7</td>
-<td align="right">0</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">9</td>
-<td align="right">1</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">11</td>
-<td align="right">0</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">13</td>
-<td align="right">0</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">15</td>
-<td align="right">0</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">17</td>
-<td align="right">1</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">19</td>
-<td align="right">0</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">21</td>
-<td align="right">1</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">23</td>
-<td align="right">1</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">25</td>
-<td align="right">1</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">27</td>
-<td align="right">2</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">29</td>
-<td align="right">4</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">31</td>
-<td align="right">1</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">33</td>
-<td align="right">2</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">35</td>
-<td align="right">6</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">37</td>
-<td align="right">7</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">39</td>
-<td align="right">9</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">41</td>
-<td align="right">5</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">43</td>
-<td align="right">10</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">45</td>
-<td align="right">12</td>
-<td align="left">male</td>
-</tr><tr class="odd"><td align="right">47</td>
-<td align="right">9</td>
-<td align="left">male</td>
-</tr><tr class="even"><td align="right">49</td>
-<td align="right">7</td>
-<td align="left">male</td>
-</tr></tbody></table><p>Note that <code>incidence</code> has an argument called <code>na_as_group</code> which is <code>TRUE</code> by default, which will pool all missing groups into a separate group, in which case it will be a separate column in <code>$counts</code>.</p>
+<span class="kw">as.data.frame</span>(i.sex, <span class="dt">long =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt;    dates counts groups</span>
+<span class="co">#&gt; 1      5      1 female</span>
+<span class="co">#&gt; 2      7      0 female</span>
+<span class="co">#&gt; 3      9      0 female</span>
+<span class="co">#&gt; 4     11      0 female</span>
+<span class="co">#&gt; 5     13      1 female</span>
+<span class="co">#&gt; 6     15      0 female</span>
+<span class="co">#&gt; 7     17      0 female</span>
+<span class="co">#&gt; 8     19      0 female</span>
+<span class="co">#&gt; 9     21      2 female</span>
+<span class="co">#&gt; 10    23      2 female</span>
+<span class="co">#&gt; 11    25      2 female</span>
+<span class="co">#&gt; 12    27      3 female</span>
+<span class="co">#&gt; 13    29      5 female</span>
+<span class="co">#&gt; 14    31      3 female</span>
+<span class="co">#&gt; 15    33      3 female</span>
+<span class="co">#&gt; 16    35      6 female</span>
+<span class="co">#&gt; 17    37      6 female</span>
+<span class="co">#&gt; 18    39      7 female</span>
+<span class="co">#&gt; 19    41     10 female</span>
+<span class="co">#&gt; 20    43     15 female</span>
+<span class="co">#&gt; 21    45     16 female</span>
+<span class="co">#&gt; 22    47     19 female</span>
+<span class="co">#&gt; 23    49     18 female</span>
+<span class="co">#&gt; 24     5      2   male</span>
+<span class="co">#&gt; 25     7      0   male</span>
+<span class="co">#&gt; 26     9      1   male</span>
+<span class="co">#&gt; 27    11      0   male</span>
+<span class="co">#&gt; 28    13      0   male</span>
+<span class="co">#&gt; 29    15      0   male</span>
+<span class="co">#&gt; 30    17      1   male</span>
+<span class="co">#&gt; 31    19      0   male</span>
+<span class="co">#&gt; 32    21      1   male</span>
+<span class="co">#&gt; 33    23      1   male</span>
+<span class="co">#&gt; 34    25      1   male</span>
+<span class="co">#&gt; 35    27      2   male</span>
+<span class="co">#&gt; 36    29      4   male</span>
+<span class="co">#&gt; 37    31      1   male</span>
+<span class="co">#&gt; 38    33      2   male</span>
+<span class="co">#&gt; 39    35      6   male</span>
+<span class="co">#&gt; 40    37      7   male</span>
+<span class="co">#&gt; 41    39      9   male</span>
+<span class="co">#&gt; 42    41      5   male</span>
+<span class="co">#&gt; 43    43     10   male</span>
+<span class="co">#&gt; 44    45     12   male</span>
+<span class="co">#&gt; 45    47      9   male</span>
+<span class="co">#&gt; 46    49      7   male</span></code></pre></div>
+<p>Note that <code>incidence</code> has an argument called <code>na_as_group</code> which is <code>TRUE</code> by default, which will pool all missing groups into a separate group, in which case it will be a separate column in <code>$counts</code>.</p>
 </div>
 <div id="timespan" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#timespan" class="anchor"> </a></body></html><code>$timespan</code></h2>
@@ -461,16 +302,18 @@ i$counts</code></pre></div>
 <span class="co">#&gt;    119     81</span></code></pre></div>
 </div>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
       <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked"><li><a href="#dates"><code>$dates</code></a></li>
+      <ul class="nav nav-pills nav-stacked"><li><a href="#structure-of-an-incidence-object.">Structure of an <em>incidence</em> object.</a><ul class="nav nav-pills nav-stacked"><li><a href="#dates"><code>$dates</code></a></li>
       <li><a href="#counts"><code>$counts</code></a></li>
       <li><a href="#timespan"><code>$timespan</code></a></li>
       <li><a href="#interval"><code>$interval</code></a></li>
       <li><a href="#n"><code>$n</code></a></li>
+      </ul></li>
       </ul></div>
       </div>
 

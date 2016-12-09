@@ -32,7 +32,7 @@ introduction to *ggplot2*.
 
 
 <br>
-<br>
+
 # Example data: simulated Ebola outbreak
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
@@ -66,7 +66,7 @@ i.hosp
 
 
 <br>
-<br>
+
 # The `plot.incidence` function
 
 When calling `plot` on an *incidence* object, the function `plot.incidence` is implicitely used. To access its documentation, use `?plot.incidence`. In this section, we illustrate existing customizations.
@@ -147,7 +147,7 @@ plot(i.hosp,
 
 
 <br>
-<br>
+
 # Useful *ggplot2* tweaks
 
 Numerous tweaks for *ggplot2* are documented online. In the following, we merely provide a few useful tips in the context of *incidence*.
