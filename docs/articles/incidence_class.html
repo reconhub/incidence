@@ -35,14 +35,16 @@
       <h1>Details of the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-11-22</h4>
+            <h4 class="date">2016-12-09</h4>
           </div>
 
     
     
 <div class="contents">
 <p>This vignette details the structure of <em>incidence</em> objects, as produced by the <code>incidence</code> function.</p>
-<p><br><br> # Structure of an <em>incidence</em> object.</p>
+<p><br></p>
+<div id="structure-of-an-incidence-object-" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#structure-of-an-incidence-object-" class="anchor"> </a></body></html>Structure of an <em>incidence</em> object.</h1>
 <p>We generate a toy dataset of dates to examine the content of <em>incidence</em> objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(incidence)
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -63,6 +65,8 @@ i
 <p><img src="figs-class/i-1.png" width="768"></p>
 <p>We also compute incidence by gender:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">2</span>, <span class="dt">group =</span> sex)
+<span class="co">#&gt; Warning in incidence.integer(dat, interval = 2, group = sex): partial</span>
+<span class="co">#&gt; argument match of 'group' to 'groups'</span>
 i.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [200 cases from days 5 to 49]</span>
@@ -100,7 +104,7 @@ i.sex
 
 i$dates
 <span class="co">#&gt;  [1]  5  7  9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49</span></code></pre></div>
-<p>The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 2-8, the second bin counts events from 9-15, etc.</p>
+<p>The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 5-6, the second bin counts events from 7-8, etc.</p>
 </div>
 <div id="counts" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#counts" class="anchor"> </a></body></html><code>$counts</code></h2>
@@ -459,16 +463,18 @@ i$counts</code></pre></div>
 <span class="co">#&gt;    119     81</span></code></pre></div>
 </div>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
       <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked"><li><a href="#dates"><code>$dates</code></a></li>
+      <ul class="nav nav-pills nav-stacked"><li><a href="#structure-of-an-incidence-object.">Structure of an <em>incidence</em> object.</a><ul class="nav nav-pills nav-stacked"><li><a href="#dates"><code>$dates</code></a></li>
       <li><a href="#counts"><code>$counts</code></a></li>
       <li><a href="#timespan"><code>$timespan</code></a></li>
       <li><a href="#interval"><code>$interval</code></a></li>
       <li><a href="#n"><code>$n</code></a></li>
+      </ul></li>
       </ul></div>
       </div>
 

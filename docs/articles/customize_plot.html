@@ -35,14 +35,16 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-11-22</h4>
+            <h4 class="date">2016-12-09</h4>
           </div>
 
     
     
 <div class="contents">
 <p>This vignette provides some tips for the most common customisations of graphics produced by <code>plot.incidence</code>. Our graphics use <em>ggplot2</em>, which is a distinct graphical system from base graphics. If you want advanced customisation of your incidence plots, we recommend following an introduction to <em>ggplot2</em>.</p>
-<p><br><br> # Example data: simulated Ebola outbreak</p>
+<p><br></p>
+<div id="example-data-simulated-ebola-outbreak" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#example-data-simulated-ebola-outbreak" class="anchor"> </a></body></html>Example data: simulated Ebola outbreak</h1>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>: <code>ebola.sim.clean</code>.</p>
 <p>First, we load the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
@@ -55,11 +57,12 @@ onset &lt;-<span class="st"> </span>ebola.sim.clean$linelist$date.of.onset
 <span class="kw">head</span>(onset)
 <span class="co">#&gt; [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26"</span>
 <span class="co">#&gt; [6] "2014-04-25"</span></code></pre></div>
-<p>We compute the daily incidence:</p>
+<p>We compute the weekly incidence:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>)
 i
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
 <span class="co">#&gt; $n: 5829 cases in total</span>
@@ -68,9 +71,12 @@ i
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$gender)
+<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date), interval =</span>
+<span class="co">#&gt; interval, : partial argument match of 'group' to 'groups'</span>
 i.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [2 groups: f, m]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
@@ -80,9 +86,12 @@ i.sex
 <span class="co">#&gt; $timespan: 386 days</span>
 
 i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$hospital)
+<span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date), interval =</span>
+<span class="co">#&gt; interval, : partial argument match of 'group' to 'groups'</span>
 i.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
+<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
 <span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span>
@@ -90,7 +99,10 @@ i.hosp
 <span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span></code></pre></div>
-<p><br><br> # The <code>plot.incidence</code> function</p>
+<p><br></p>
+</div>
+<div id="the-plot-incidence-function" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#the-plot-incidence-function" class="anchor"> </a></body></html>The <code>plot.incidence</code> function</h1>
 <p>When calling <code>plot</code> on an <em>incidence</em> object, the function <code>plot.incidence</code> is implicitely used. To access its documentation, use <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code>. In this section, we illustrate existing customizations.</p>
 <div id="default-behaviour" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#default-behaviour" class="anchor"> </a></body></html>Default behaviour</h2>
@@ -111,14 +123,14 @@ i.hosp
 <h2 class="hasAnchor"><html><body><a href="#changing-colors" class="anchor"> </a></body></html>Changing colors</h2>
 <div id="the-default-palette" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#the-default-palette" class="anchor"> </a></body></html>The default palette</h3>
-<p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>pal1</code>. It&rsquo;s behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
+<p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>pal1</code>. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">2</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">4</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
 <p><img src="figs-custom/pal1-1.png" width="768"></p>
 <p>This pallette also has a light and a dark version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1dark"</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1"</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1light"</span>)</code></pre></div>
@@ -150,11 +162,14 @@ i.hosp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, 
      <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">"#ac3973"</span>, <span class="st">"#6666ff"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>))</code></pre></div>
 <p><img src="figs-custom/colors3-1.png" width="768"></p>
-<p><br><br> # Useful <em>ggplot2</em> tweaks</p>
+<p><br></p>
+</div>
+</div>
+</div>
+</div>
+<div id="useful-ggplot2-tweaks" class="section level1">
+<h1 class="hasAnchor"><html><body><a href="#useful-ggplot2-tweaks" class="anchor"> </a></body></html>Useful <em>ggplot2</em> tweaks</h1>
 <p>Numerous tweaks for <em>ggplot2</em> are documented online. In the following, we merely provide a few useful tips in the context of <em>incidence</em>.</p>
-</div>
-</div>
-</div>
 <div id="changing-dates-on-the-x-axis" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#changing-dates-on-the-x-axis" class="anchor"> </a></body></html>Changing dates on the <em>x</em>-axis</h2>
 <div id="changing-date-format" class="section level3">
@@ -167,10 +182,10 @@ i.hosp
 <p>And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span>:<span class="dv">50</span>]) +<span class="st">  </span>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%a %d %B %Y"</span>)) +
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</code></pre></div>
 <p><img src="figs-custom/scales2-1.png" width="768"></p>
 <p>Note that you can save customisations for later use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rotate.big &lt;-<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rotate.big &lt;-<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</code></pre></div>
 </div>
 <div id="changing-the-grid" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#changing-the-grid" class="anchor"> </a></body></html>Changing the grid</h3>
@@ -179,23 +194,24 @@ i.hosp
 <p><img src="figs-custom/grid1-1.png" width="768"></p>
 <p>Let us look at the data 40 days before and after the 1st of October:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">period &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2014-10-01"</span>) +<span class="st"> </span><span class="kw">c</span>(-<span class="dv">40</span>, <span class="dv">40</span>)
-i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from=</span>period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])
+i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from =</span> period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])
 detailed.x &lt;-<span class="st"> </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%a %d %B %Y"</span>), 
                            <span class="dt">date_breaks =</span> <span class="st">"2 weeks"</span>, 
-                           <span class="dt">date_minor_breaks=</span><span class="st">"week"</span>)
+                           <span class="dt">date_minor_breaks =</span> <span class="st">"week"</span>)
 
-<span class="kw">plot</span>(i.zoom, <span class="dt">border=</span><span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big</code></pre></div>
+<span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big</code></pre></div>
 <p><img src="figs-custom/grid2-1.png" width="768"></p>
 </div>
 </div>
 <div id="changing-the-legend" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#changing-the-legend" class="anchor"> </a></body></html>Changing the legend</h2>
 <p>The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object <code>p</code> and customize the legend:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border=</span><span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
-p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size=</span><span class="dv">12</span>), 
-          <span class="dt">legend.position=</span><span class="st">"top"</span>, <span class="dt">legend.direction=</span><span class="st">"horizontal"</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
+p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>), 
+          <span class="dt">legend.position =</span> <span class="st">"top"</span>, <span class="dt">legend.direction =</span> <span class="st">"horizontal"</span>, 
           <span class="dt">legend.title =</span> <span class="kw">element_blank</span>())</code></pre></div>
 <p><img src="figs-custom/legend1-1.png" width="768"></p>
+</div>
 </div>
 </div>
   </div>
@@ -203,10 +219,13 @@ p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
       <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked"><li><a href="#default-behaviour">Default behaviour</a></li>
+      <ul class="nav nav-pills nav-stacked"><li><a href="#example-data-simulated-ebola-outbreak">Example data: simulated Ebola outbreak</a></li>
+      <li><a href="#the-plot.incidence-function">The <code>plot.incidence</code> function</a><ul class="nav nav-pills nav-stacked"><li><a href="#default-behaviour">Default behaviour</a></li>
       <li><a href="#changing-colors">Changing colors</a></li>
-      <li><a href="#changing-dates-on-the-x-axis">Changing dates on the <em>x</em>-axis</a></li>
+      </ul></li>
+      <li><a href="#useful-ggplot2-tweaks">Useful <em>ggplot2</em> tweaks</a><ul class="nav nav-pills nav-stacked"><li><a href="#changing-dates-on-the-x-axis">Changing dates on the <em>x</em>-axis</a></li>
       <li><a href="#changing-the-legend">Changing the legend</a></li>
+      </ul></li>
       </ul></div>
       </div>
 
