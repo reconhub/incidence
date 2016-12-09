@@ -41,6 +41,9 @@
 ##' @param ylab The label to be used for the y-axis; by default, a label will be
 ##' generated automatically according to the time interval used in incidence
 ##' computation.
+##' @param labels_iso_week a logical value indicating whether labels x axis tick
+##' marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
+##' incidence; defaults to be TRUE.
 ##'
 ##' @examples
 ##'
@@ -55,22 +58,26 @@
 ##'   ## weekly incidence
 ##'   inc.week <- incidence(onset, interval = 7)
 ##'   inc.week
-##'   plot(inc.week)
+##'   plot(inc.week) # default to label x axis tick marks with isoweeks
+##'   plot(inc.week, labels_iso_week = FALSE) # label x axis tick marks with dates
 ##'   plot(inc.week, border = "white") # with visible border
 ##'
 ##'   ## use group information
 ##'   sex <- ebola.sim$linelist$gender
 ##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
 ##'   plot(inc.week.gender)
+##'   plot(inc.week.gender, labels_iso_week = FALSE)
 ##'
 ##'   ## adding fit
 ##'   fit <- fit_optim_split(inc.week.gender)$fit
 ##'   plot(inc.week.gender, fit = fit)
+##'   plot(inc.week.gender, fit = fit, labels_iso_week = FALSE)
 ##' }
 ##'
 plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            color = "black", border = NA, col_pal = pal1,
-                           alpha = .7, xlab = "", ylab = NULL) {
+                           alpha = .7, xlab = "", ylab = NULL, labels_iso_week = TRUE) {
+    stopifnot(is.logical(labels_iso_week))
 
     ## extract data in suitable format for ggplot2
     df <- as.data.frame(x, long = TRUE)
@@ -102,7 +109,6 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     ## here is add x$interval / 2 to the x-axis.
 
     x.axis.txt <- paste("dates", x$interval/2, sep = "+")
-
     out <- ggplot2::ggplot(df, ggplot2::aes_string(x = x.axis.txt, y = "counts")) +
         ggplot2::geom_bar(stat = "identity", width = x$interval,
                           position = stack.txt,
@@ -162,6 +168,18 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
             out <- out + ggplot2::aes_string(color = "groups") +
             ggplot2::scale_color_manual(values = group.colors)
         }
+    }
+
+    ## Replace labels of x axis tick marks with ISOweeks
+    if (labels_iso_week && "isoweeks" %in% names(x)) {
+      out_build <- ggplot2::ggplot_build(out)
+      x.major_source <- out_build$layout$panel_ranges[[1]]$x.major_source
+      dates.major_source <- as.Date(x.major_source, origin = "1970-01-01")
+      isoweeks.major_source <- ISOweek::date2ISOweek(dates.major_source)
+      substr(isoweeks.major_source, 10, 10) <- "1"
+      breaks <- ISOweek::ISOweek2date(isoweeks.major_source)
+      labels <- substr(isoweeks.major_source, 1, 8)
+      out <- out + ggplot2::scale_x_date(breaks = breaks, labels = labels)
     }
     out
 }

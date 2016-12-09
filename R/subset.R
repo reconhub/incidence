@@ -74,7 +74,7 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
     out <- x
     out$counts <- out$counts[i, j, drop = FALSE]
     out$dates <- out$dates[i]
-    if (x$interval == 7L && "isoweeks" %in% names(x)) {
+    if ("isoweeks" %in% names(x)) {
       out$isoweeks <- out$isoweeks[i]
     }
     out$timespan <-  diff(range(out$dates, na.rm = TRUE)) + 1
