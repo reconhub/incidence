@@ -72,11 +72,7 @@ An overview of *incidence* is provided below in the worked example below.
 More detailed tutorials are distributed as vignettes with the package:
 
 ```r
-<<<<<<< HEAD
 vignette(package = "incidence")
-=======
-vignette(package="incidence")
->>>>>>> reconhub/isoweek
 #> Vignettes not found
 ```
 
@@ -422,14 +418,11 @@ plot(i.7, fit = best.fit$fit)
 - [Thibaut Jombart](https://github.com/thibautjombart)
 - [Rich Fitzjohn](https://github.com/richfitz)
 - [Jun Cai](https://github.com/caijun)
-<<<<<<< HEAD
-=======
 
 See details of contributions on:
 <br>
-https://github.com/reconhub/epicontacts/graphs/contributors
+https://github.com/reconhub/incidence/graphs/contributors
 
->>>>>>> reconhub/isoweek
 
 Contributions are welcome via **pull requests**.
 

@@ -246,14 +246,11 @@ plot(i.7, fit = best.fit$fit)
 - [Thibaut Jombart](https://github.com/thibautjombart)
 - [Rich Fitzjohn](https://github.com/richfitz)
 - [Jun Cai](https://github.com/caijun)
-<<<<<<< HEAD
-=======
 
 See details of contributions on:
 <br>
-https://github.com/reconhub/epicontacts/graphs/contributors
+https://github.com/reconhub/incidence/graphs/contributors
 
->>>>>>> reconhub/isoweek
 
 Contributions are welcome via **pull requests**.
 
