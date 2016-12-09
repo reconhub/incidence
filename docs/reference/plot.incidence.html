@@ -83,7 +83,7 @@ function, using the package <code>ggplot2</code>.</p>
     <pre><span class='co'># S3 method for incidence</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fu'>is.null</span>(<span class='no'>fit</span>),
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels_iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -116,6 +116,10 @@ opaque and 0 fully transparent; defaults to 0.7.</dd>
       <dd>The label to be used for the y-axis; by default, a label will be
 generated automatically according to the time interval used in incidence
 computation.</dd>
+      <dt>labels_iso_week</dt>
+      <dd>a logical value indicating whether labels x axis tick
+marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
+incidence; defaults to be TRUE.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -137,17 +141,20 @@ objects.</p>
   <span class='co'>## weekly incidence</span>
   <span class='no'>inc.week</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>)
   <span class='no'>inc.week</span>
-  <span class='fu'>plot</span>(<span class='no'>inc.week</span>)
+  <span class='fu'>plot</span>(<span class='no'>inc.week</span>) <span class='co'># default to label x axis tick marks with isoweeks</span>
+  <span class='fu'>plot</span>(<span class='no'>inc.week</span>, <span class='kw'>labels_iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># label x axis tick marks with dates</span>
   <span class='fu'>plot</span>(<span class='no'>inc.week</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>) <span class='co'># with visible border</span>
 
   <span class='co'>## use group information</span>
   <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola.sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
   <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>)
+  <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>, <span class='kw'>labels_iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
   <span class='co'>## adding fit</span>
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fit.html'>fit_optim_split</a></span>(<span class='no'>inc.week.gender</span>)$<span class='no'>fit</span>
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>fit</span>)
+  <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>fit</span>, <span class='kw'>labels_iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 }</div><img src='plot.incidence-2.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
   </div>

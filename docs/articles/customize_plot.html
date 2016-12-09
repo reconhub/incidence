@@ -116,7 +116,8 @@ i.hosp
 <p>However, some of these defaults can be altered through the various arguments of the function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence:::plot.incidence)
 <span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span>
-<span class="co">#&gt;     border = NA, col_pal = pal1, alpha = 0.7, xlab = "", ylab = NULL) </span>
+<span class="co">#&gt;     border = NA, col_pal = pal1, alpha = 0.7, xlab = "", ylab = NULL, </span>
+<span class="co">#&gt;     labels_iso_week = TRUE) </span>
 <span class="co">#&gt; NULL</span></code></pre></div>
 </div>
 <div id="changing-colors" class="section level2">
@@ -176,13 +177,15 @@ i.hosp
 <h3 class="hasAnchor"><html><body><a href="#changing-date-format" class="anchor"> </a></body></html>Changing date format</h3>
 <p>By default, the dates indicated on the <em>x</em>-axis of an incidence plot may not have the suitable format. The package <em>scales</em> can be used to change the way dates are labelled (see <code>?strptime</code> for possible formats):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
-<span class="kw">plot</span>(i) +
+<span class="kw">plot</span>(i, <span class="dt">labels_iso_week =</span> <span class="ot">FALSE</span>) +
 <span class="st">   </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%d %b %Y"</span>))</code></pre></div>
 <p><img src="figs-custom/scales1-1.png" width="768"></p>
 <p>And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span>:<span class="dv">50</span>]) +<span class="st">  </span>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">labels =</span> <span class="kw">date_format</span>(<span class="st">"%a %d %B %Y"</span>)) +
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))
+<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
+<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
 <p><img src="figs-custom/scales2-1.png" width="768"></p>
 <p>Note that you can save customisations for later use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rotate.big &lt;-<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</code></pre></div>
@@ -199,7 +202,9 @@ detailed.x &lt;-<span class="st"> </span><span class="kw">scale_x_date</span>(<s
                            <span class="dt">date_breaks =</span> <span class="st">"2 weeks"</span>, 
                            <span class="dt">date_minor_breaks =</span> <span class="st">"week"</span>)
 
-<span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big</code></pre></div>
+<span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
+<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
+<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
 <p><img src="figs-custom/grid2-1.png" width="768"></p>
 </div>
 </div>
@@ -207,6 +212,8 @@ detailed.x &lt;-<span class="st"> </span><span class="kw">scale_x_date</span>(<s
 <h2 class="hasAnchor"><html><body><a href="#changing-the-legend" class="anchor"> </a></body></html>Changing the legend</h2>
 <p>The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object <code>p</code> and customize the legend:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
+<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
+<span class="co">#&gt; will replace the existing scale.</span>
 p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>), 
           <span class="dt">legend.position =</span> <span class="st">"top"</span>, <span class="dt">legend.direction =</span> <span class="st">"horizontal"</span>, 
           <span class="dt">legend.title =</span> <span class="kw">element_blank</span>())</code></pre></div>
