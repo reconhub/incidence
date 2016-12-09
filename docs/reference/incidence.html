@@ -80,8 +80,8 @@
 various formats. A fixed interval, provided as numbers of days, is used to
 define time intervals. Counts within an interval always include the first
 date, after which they are labelled, and exclude the second. For instance,
-intervals labelled as 0,3,6,... mean that the first bin includes days 0, 1
-and 2, the second interval includes 3, 4 and 5m etc.</p>
+intervals labelled as 0, 3, 6, ... mean that the first bin includes days 0, 1
+and 2, the second interval includes 3, 4 and 5 etc.</p>
     
 
     <pre><span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
@@ -98,10 +98,10 @@ and 2, the second interval includes 3, 4 and 5m etc.</p>
 <span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for Date</span>
-<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for POSIXt</span>
-<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
 <span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
@@ -121,8 +121,10 @@ used for computing the incidence; defaults to 1 day.</dd>
       <dd>An optional factor defining groups of observations for which
 incidence should be computed separately.</dd>
       <dt>na_as_group</dt>
-      <dd>A logical indicating if missing group (NA) should be
+      <dd>A logical value indicating if missing group (NA) should be
 treated as a separate group.</dd>
+      <dt>iso_week</dt>
+      <dd>A logical value indicating if the returning <code>incidence</code> should be ISO week-based when computing weekly incidence (interval = 7). defaults to be TRUE.</dd>
       <dt>x</dt>
       <dd>An &#39;incidence&#39; object.</dd>
     </dl>
@@ -133,7 +135,7 @@ treated as a separate group.</dd>
 following items:</p>
     <p><ul>
 <li> dates: The dates marking the left side of the bins used for counting
-evens.</p>
+events. When ISO week-based weekly incidence is computed, the dates are the first days of corresponding isoweeks.</p>
     <p></li>
 <li> counts: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).</p>
@@ -146,6 +148,8 @@ incidence.</p>
     <p></li>
 <li> n: The total number of cases.</p>
     <p></li>
+<li> isoweeks: ISO 8601 week format yyyy-Www, which is returned only when ISO week-based weekly incidence is computed.
+</li>
 </ul></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -211,17 +215,31 @@ class.</p>
   <span class='fu'>plot</span>(<span class='no'>inc</span>)
 
   <span class='co'>## weekly incidence</span>
-  <span class='no'>inc.week</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>)
+  <span class='no'>inc.week</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   <span class='no'>inc.week</span>
   <span class='fu'>plot</span>(<span class='no'>inc.week</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>) <span class='co'># with visible border</span>
+  <span class='no'>inc.isoweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='no'>inc.isoweek</span>
   <span class='co'>## use group information</span>
   <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola.sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
-  <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>)
+  <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   <span class='no'>inc.week.gender</span>
   <span class='fu'>head</span>(<span class='no'>inc.week.gender</span>$<span class='no'>counts</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>)
-}</div><img src='incidence-8.png' alt='' width='540' height='400' /><div class='input'>
+  <span class='no'>inc.isoweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='no'>inc.isoweek.gender</span>
+}</div><div class='output co'>#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
+#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]
+#&gt; [2 groups: f, m]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 2 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 386 days
+#&gt; </div><div class='input'>
 
 </div></pre>
   </div>
