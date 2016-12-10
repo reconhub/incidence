@@ -6,16 +6,17 @@ test_that("plot for incidence object", {
 
   set.seed(1)
   dat <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
+  dat2 <- as.Date("2016-01-02") + dat
   sex <- sample(c("female", "male"), 200, replace = TRUE)
 
   i <- incidence(dat)
   i.3 <- incidence(dat, 3L)
   i.14 <- incidence(dat, 14L)
   i.sex <- incidence(dat, 7L, groups = sex)
+  i.isoweek <- incidence(dat2, 7L)
   fit.i <- suppressWarnings(fit(i))
   fit.i.2 <- suppressWarnings(fit(i, split = 30))
   fit.sex <- suppressWarnings(fit(i.sex))
-
 
   p.fit.i <- plot(fit.i)
   p.fit.i.2 <- plot(i, fit = fit.i.2, color = "lightblue")
@@ -30,6 +31,8 @@ test_that("plot for incidence object", {
   p.sex.3 <- plot(i.sex, fit = fit.sex, col_pal = rainbow)
   p.sex.4 <- plot(i.sex, fit = fit.sex,
                   color = c(male = "salmon3",female = "gold2"))
+  p.isoweek <- plot(i.isoweek)
+  p.isoweek.2 <- plot(i.isoweek, labels_iso_week = FALSE)
 
   expect_equal_to_reference(p.fit.i, file = "rds/p.fit.i.rds")
   expect_equal_to_reference(p.fit.i.2, file = "rds/p.fit.i.2.rds")
@@ -43,7 +46,8 @@ test_that("plot for incidence object", {
   expect_equal_to_reference(p.sex.2, file = "rds/p.sex.2.rds")
   expect_equal_to_reference(p.sex.3, file = "rds/p.sex.3.rds")
   expect_equal_to_reference(p.sex.4, file = "rds/p.sex.4.rds")
-
+  expect_equal_to_reference(p.isoweek, file = "rds/p.isoweek.rds")
+  expect_equal_to_reference(p.isoweek.2, file = "rds/p.isoweek.2.rds")
 
   ## errors
   expect_error(plot(i, fit = "tamere"),
