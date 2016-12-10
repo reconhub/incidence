@@ -211,8 +211,13 @@ test_that("Printing returns the object", {
 
   x <- incidence(as.Date("2001-01-01"))
   y <- incidence(1:2, groups = factor(1:2))
+  dat <- as.integer(sample(-3:100, 50, replace = TRUE))
+  dat.dates <- as.Date("2016-09-20") + dat
+  z <- incidence(dat.dates, interval = 7)
   expect_equal_to_reference(capture.output(print(x)),
                             file = "rds/print1.rds")
   expect_equal_to_reference(capture.output(print(y)),
                             file = "rds/print2.rds")
+  expect_equal_to_reference(capture.output(print(z)),
+                            file = "rds/print3.rds")
 })
