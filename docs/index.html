@@ -71,9 +71,17 @@
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor"><a href="#vignettes" class="anchor"> </a>Vignettes</h2>
 <p>An overview of <em>incidence</em> is provided below in the worked example below. More detailed tutorials are distributed as vignettes with the package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="dt">package=</span><span class="st">"incidence"</span>)
-<span class="co">#&gt; Vignettes not found</span></code></pre></div>
-<p>To open these, type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">"incidence"</span>)</code></pre></div>
+<table class="table"><caption>Vignettes in incidence</caption>
+<thead><tr class="header"><th align="left">Item</th>
+<th align="left">Title</th>
+</tr></thead><tbody><tr class="odd"><td align="left">customize_plot</td>
+<td align="left">Customise graphics (source, html)</td>
+</tr><tr class="even"><td align="left">incidence_class</td>
+<td align="left">Incidence class (source, html)</td>
+</tr><tr class="odd"><td align="left">overview</td>
+<td align="left">Overview (source, html)</td>
+</tr></tbody></table><p>To open these, type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">"overview"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)
 <span class="kw">vignette</span>(<span class="st">"customize_plot"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)
 <span class="kw">vignette</span>(<span class="st">"incidence_class"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</code></pre></div>
@@ -114,7 +122,7 @@ dat &lt;-<span class="st"> </span>ebola.sim$linelist$date.of.onset
 <div id="computing-and-plotting-incidence" class="section level2">
 <h2 class="hasAnchor"><a href="#computing-and-plotting-incidence" class="anchor"> </a>Computing and plotting incidence</h2>
 <p>We compute the weekly incidence:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>)
 i<span class="fl">.7</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -128,7 +136,7 @@ i<span class="fl">.7</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>)</code></pre></div>
 <p><img src="figs/incid1-1.png" width="768"></p>
 <p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute the weekly incidence by gender:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.sex &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> ebola.sim$linelist$gender)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.sex &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">groups =</span> ebola.sim$linelist$gender)
 i<span class="fl">.7</span>.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -159,7 +167,7 @@ i<span class="fl">.7</span>.sex
 <span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>])</code></pre></div>
 <p><img src="figs/start-1.png" width="768"></p>
 <p>Some temporal subsetting can be even simpler using <code>subset</code>, which permits to retain data within a specified time window:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.tail &lt;-<span class="st"> </span><span class="kw">subset</span>(i<span class="fl">.7</span>, <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">"2015-01-01"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.tail &lt;-<span class="st"> </span><span class="kw">subset</span>(i<span class="fl">.7</span>, <span class="dt">from =</span> <span class="kw">as.Date</span>(<span class="st">"2015-01-01"</span>))
 i.tail
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [1156 cases from days 2015-01-05 to 2015-04-27]</span>
@@ -170,10 +178,10 @@ i.tail
 <span class="co">#&gt; $dates: 17 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 113 days</span>
-<span class="kw">plot</span>(i.tail, <span class="dt">border=</span><span class="st">"white"</span>)</code></pre></div>
+<span class="kw">plot</span>(i.tail, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs/tail-1.png" width="768"></p>
 <p>Subsetting groups can also matter. For instance, let&rsquo;s try and visualise the incidence based on onset of symptoms by outcome:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups=</span>ebola.sim$linelist$outcome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups =</span> ebola.sim$linelist$outcome)
 i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -307,7 +315,7 @@ best.fit
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $plot</span></code></pre></div>
 <p><img src="figs/optim-1.png" width="768"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit=</span>best.fit$fit)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit =</span> best.fit$fit)</code></pre></div>
 <p><img src="figs/optim-2.png" width="768"></p>
 <p><br><br></p>
 </div>
@@ -317,7 +325,7 @@ best.fit
 <ul><li><a href="https://github.com/thibautjombart">Thibaut Jombart</a></li>
 <li><a href="https://github.com/richfitz">Rich Fitzjohn</a></li>
 <li><a href="https://github.com/caijun">Jun Cai</a></li>
-</ul><p>See details of contributions on: <br><a href="https://github.com/reconhub/epicontacts/graphs/contributors" class="uri">https://github.com/reconhub/epicontacts/graphs/contributors</a></p>
+</ul><p>See details of contributions on: <br><a href="https://github.com/reconhub/incidence/graphs/contributors" class="uri">https://github.com/reconhub/incidence/graphs/contributors</a></p>
 <p>Contributions are welcome via <strong>pull requests</strong>.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 <p><strong>Maintainer:</strong> Thibaut Jombart (<a href="mailto:thibautjombart@gmail.com">thibautjombart@gmail.com</a>)</p>
