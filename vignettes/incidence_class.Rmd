@@ -15,14 +15,15 @@ vignette: >
 
 
 
-```{r, echo = FALSE}
+```{r, options, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  fig.width=8, 
+  fig.width=7, 
   fig.height=5, 
   fig.path="figs-class/"
 )
+
 ```
 
 
@@ -161,4 +162,30 @@ Note that to obtain the number of cases by groups, one can use:
 ```{r, n2}
 apply(i.sex$counts, 2, sum)
 ```
+
+
+
+
+
+## `$isoweeks`
+
+The `$isoweeks` component is optional, and used to store iso weeks whenever they have been used. Iso weeks are used by default when weekly incidence is computed from dates (see argument `iso_week` in `?incidence`).
+```{r, isoweek}
+library(outbreaks)
+dat <- ebola.sim$linelist$date.of.onset
+i.7 <- incidence(dat, 7L)
+i.7
+i.7$isoweeks
+```
+
+The correspondence between iso weeks and dates can be derived by comparing the respective items:
+```{r, isoweek2}
+head(with(i.7, cbind.data.frame(dates, isoweeks)))
+```
+
+Both dates and iso weeks are returned when converting an `incidence` object to `data.frame`:
+```{r, isoweek3}
+head(as.data.frame(i.7))
+```
+
 

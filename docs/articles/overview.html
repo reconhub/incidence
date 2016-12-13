@@ -35,7 +35,7 @@
       <h1>Overview of the incidence package</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2016-12-09</h4>
+            <h4 class="date">2016-12-13</h4>
           </div>
 
     
@@ -95,22 +95,22 @@ i
 <span class="co">#&gt; $interval: 1 day</span>
 <span class="co">#&gt; $timespan: 389 days</span>
 <span class="kw">plot</span>(i)</code></pre></div>
-<p><img src="figs-overview/incid1-1.png" width="768"></p>
+<p><img src="figs-overview/incid1-1.png" width="672"></p>
 <p>The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## weekly
 i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>)
 <span class="kw">plot</span>(i<span class="fl">.7</span>)</code></pre></div>
-<p><img src="figs-overview/interv-1.png" width="768"></p>
+<p><img src="figs-overview/interv-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 ## bi-weekly
 i<span class="fl">.14</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">14</span>)
 <span class="kw">plot</span>(i<span class="fl">.14</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
-<p><img src="figs-overview/interv-2.png" width="768"></p>
+<p><img src="figs-overview/interv-2.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 ## period of 30 days
 i<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">30</span>)
 <span class="kw">plot</span>(i<span class="fl">.30</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
-<p><img src="figs-overview/interv-3.png" width="768"></p>
+<p><img src="figs-overview/interv-3.png" width="672"></p>
 <p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> ebola.sim$linelist$gender)
 i<span class="fl">.7</span>.sex
@@ -125,7 +125,7 @@ i<span class="fl">.7</span>.sex
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>.sex, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
-<p><img src="figs-overview/gender-1.png" width="768"></p>
+<p><img src="figs-overview/gender-1.png" width="672"></p>
 <p>We can do the same for hospitals, using the &lsquo;clean&rsquo; version of the dataset, with some customization of the legend:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.hosp &lt;-<span class="st"> </span><span class="kw">with</span>(ebola.sim.clean$linelist, 
      <span class="kw"><a href="../reference/incidence.html">incidence</a></span>(date.of.onset, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> hospital))
@@ -140,53 +140,25 @@ i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
-<span class="kw">head</span>(i<span class="fl">.7</span>.hosp$counts)</code></pre></div>
-<table class="table"><thead><tr class="header"><th align="right">Connaught Hospital</th>
-<th align="right">Military Hospital</th>
-<th align="right">NA</th>
-<th align="right">other</th>
-<th align="right">Princess Christian Maternity Hospital (PCMH)</th>
-<th align="right">Rokupa Hospital</th>
-</tr></thead><tbody><tr class="odd"><td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="odd"><td align="right">0</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr><tr class="even"><td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr><tr class="odd"><td align="right">3</td>
-<td align="right">5</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr><tr class="even"><td align="right">2</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr></tbody></table><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>.hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) +<span class="st"> </span>
+<span class="kw">head</span>(i<span class="fl">.7</span>.hosp$counts)
+<span class="co">#&gt;      Connaught Hospital Military Hospital NA other</span>
+<span class="co">#&gt; [1,]                  0                 1  0     0</span>
+<span class="co">#&gt; [2,]                  1                 0  0     0</span>
+<span class="co">#&gt; [3,]                  0                 0  2     3</span>
+<span class="co">#&gt; [4,]                  1                 0  1     0</span>
+<span class="co">#&gt; [5,]                  3                 5  1     1</span>
+<span class="co">#&gt; [6,]                  2                 4  4     5</span>
+<span class="co">#&gt;      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital</span>
+<span class="co">#&gt; [1,]                                            0               0</span>
+<span class="co">#&gt; [2,]                                            0               0</span>
+<span class="co">#&gt; [3,]                                            0               0</span>
+<span class="co">#&gt; [4,]                                            1               1</span>
+<span class="co">#&gt; [5,]                                            1               1</span>
+<span class="co">#&gt; [6,]                                            1               1</span>
+<span class="kw">plot</span>(i<span class="fl">.7</span>.hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">""</span>)</code></pre></div>
-<p><img src="figs-overview/hosp-1.png" width="768"></p>
+<p><img src="figs-overview/hosp-1.png" width="672"></p>
 </div>
 <div id="handling-incidence-objects" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#handling-incidence-objects" class="anchor"> </a></body></html>Handling <code>incidence</code> objects</h2>
@@ -201,7 +173,7 @@ i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; $interval: 1 day</span>
 <span class="co">#&gt; $timespan: 151 days</span>
 <span class="kw">plot</span>(i[<span class="dv">100</span>:<span class="dv">250</span>])</code></pre></div>
-<p><img src="figs-overview/middle-1.png" width="768"></p>
+<p><img src="figs-overview/middle-1.png" width="672"></p>
 <p>Or to keep every other week:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
@@ -214,7 +186,7 @@ i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 379 days</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)])</code></pre></div>
-<p><img src="figs-overview/stripes-1.png" width="768"></p>
+<p><img src="figs-overview/stripes-1.png" width="672"></p>
 <p>Some temporal subsetting can be even simpler using <code>subset</code>, which permits to retain data within a specified time window:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.tail &lt;-<span class="st"> </span><span class="kw">subset</span>(i, <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">"2015-01-01"</span>))
 i.tail
@@ -227,7 +199,7 @@ i.tail
 <span class="co">#&gt; $interval: 1 day</span>
 <span class="co">#&gt; $timespan: 120 days</span>
 <span class="kw">plot</span>(i.tail, <span class="dt">border=</span><span class="st">"white"</span>)</code></pre></div>
-<p><img src="figs-overview/tail-1.png" width="768"></p>
+<p><img src="figs-overview/tail-1.png" width="672"></p>
 <p>Subsetting groups can also matter. For instance, let&rsquo;s try and visualise the incidence based on onset of symptoms by outcome:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups=</span>ebola.sim$linelist$outcome)
 i<span class="fl">.7</span>.outcome
@@ -242,7 +214,7 @@ i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>.outcome, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
-<p><img src="figs-overview/i7outcome-1.png" width="768"></p>
+<p><img src="figs-overview/i7outcome-1.png" width="672"></p>
 <p>By default, <code>incidence</code> treats missing data (NA) as a separate group (see argument <code>na_as_group</code>). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome[,<span class="dv">1</span>:<span class="dv">2</span>]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
@@ -256,7 +228,7 @@ i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>.outcome[,<span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
-<p><img src="figs-overview/groupsub-1.png" width="768"></p>
+<p><img src="figs-overview/groupsub-1.png" width="672"></p>
 <p>Groups can also be collapsed into a single time series using <code>pool</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.pooled &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pool.html">pool</a></span>(i<span class="fl">.7</span>.outcome)
 i.pooled
@@ -278,7 +250,7 @@ i.pooled
 <p>where <em>y</em> is the incidence, <em>r</em> is the growth rate, <em>t</em> is the number of days since a specific point in time (typically the start of the outbreak), and <em>b</em> is the intercept.</p>
 <p>Such model can be fitted to any incidence object using <code>fit</code>. Of course, a single log-linear model is not sufficient for modelling our time series, as there is clearly an growing and a decreasing phase. As a start, we can calibrate a model on the first 20 weeks of the epidemic:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>])</code></pre></div>
-<p><img src="figs-overview/fit1-1.png" width="768"></p>
+<p><img src="figs-overview/fit1-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">early.fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit</a></span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>])
 early.fit
 <span class="co">#&gt; &lt;incidence_fit object&gt;</span>
@@ -303,10 +275,10 @@ early.fit
 <span class="co">#&gt;   $pred: data.frame of incidence predictions (20 rows, 5 columns)</span></code></pre></div>
 <p>The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(early.fit)</code></pre></div>
-<p><img src="figs-overview/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="figs-overview/unnamed-chunk-2-1.png" width="672"></p>
 <p>However, a better way to display these predictions is adding them to the incidence plot using the argument <code>fit</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>], <span class="dt">fit =</span> early.fit)</code></pre></div>
-<p><img src="figs-overview/unnamed-chunk-3-1.png" width="768"></p>
+<p><img src="figs-overview/unnamed-chunk-3-1.png" width="672"></p>
 <p>In this case, we would ideally like to fit two models, before and after the peak of the epidemic. This is possible using the following approach, if you know what date to use to split the data in two phases:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.both &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit</a></span>(i<span class="fl">.7</span>, <span class="dt">split=</span><span class="kw">as.Date</span>(<span class="st">"2014-10-15"</span>))
 fit.both
@@ -354,7 +326,7 @@ fit.both
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   $pred: data.frame of incidence predictions (28 rows, 5 columns)</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit=</span>fit.both)</code></pre></div>
-<p><img src="figs-overview/fit.both-1.png" width="768"></p>
+<p><img src="figs-overview/fit.both-1.png" width="672"></p>
 <p>This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e.&nbsp;the one maximizing the average fit of both models), we use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit_optim_split</a></span>(i<span class="fl">.7</span>)
 best.fit
@@ -424,9 +396,9 @@ best.fit
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $plot</span></code></pre></div>
-<p><img src="figs-overview/optim-1.png" width="768"></p>
+<p><img src="figs-overview/optim-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit=</span>best.fit$fit)</code></pre></div>
-<p><img src="figs-overview/optim-2.png" width="768"></p>
+<p><img src="figs-overview/optim-2.png" width="672"></p>
 <p>These models are very good approximation of these data, showing a doubling time of 23.2 days during the first phase, and a halving time of 68.2 days during the second.</p>
 <p>Note that <code>fit</code> will also take groups into account if incidence has been computed for several groups:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.fit2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit_optim_split</a></span>(i<span class="fl">.7</span>.sex)$fit
@@ -483,7 +455,7 @@ best.fit2
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   $pred: data.frame of incidence predictions (62 rows, 6 columns)</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>.sex, <span class="dt">fit=</span>best.fit2)</code></pre></div>
-<p><img src="figs-overview/optim2-1.png" width="768"></p>
+<p><img src="figs-overview/optim2-1.png" width="672"></p>
 </div>
 </div>
 </div>
