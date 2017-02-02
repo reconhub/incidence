@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 [![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
 
-[![Coverage Status](https://img.shields.io/codecov/c/github/reconhub/incidence/master.svg)](https://codecov.io/github/reconhub/incidence?branch=master)
+[![Coverage Status](https://codecov.io/github/reconhub/incidence/coverage.svg?branch=master)](https://codecov.io/github/reconhub/incidence?branch=master)
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
 

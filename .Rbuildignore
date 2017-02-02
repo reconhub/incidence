@@ -12,3 +12,4 @@ logo/*
 ^README-.*\.png$
 ^CONDUCT\.md$
 docs/
+misc/
