@@ -1,7 +1,6 @@
 language: r
 cache: packages
 warnings_are_errors: true
-r_github_packages: hadley/ggplot2
 
 after_success:
   - Rscript -e 'covr::codecov()'
