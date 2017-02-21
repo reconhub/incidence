@@ -74,7 +74,7 @@
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(incidence)
 
-dat &lt;-<span class="st"> </span>ebola.sim$linelist$date.of.onset
+dat &lt;-<span class="st"> </span>ebola_sim$linelist$date.of.onset
 <span class="kw">class</span>(dat)
 <span class="co">#&gt; [1] "Date"</span>
 <span class="kw">head</span>(dat)
@@ -112,7 +112,7 @@ i<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw"><a h
 <span class="kw">plot</span>(i<span class="fl">.30</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs-overview/interv-3.png" width="672"></p>
 <p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> ebola.sim$linelist$gender)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> ebola_sim$linelist$gender)
 i<span class="fl">.7</span>.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -127,7 +127,7 @@ i<span class="fl">.7</span>.sex
 <span class="kw">plot</span>(i<span class="fl">.7</span>.sex, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
 <p><img src="figs-overview/gender-1.png" width="672"></p>
 <p>We can do the same for hospitals, using the &lsquo;clean&rsquo; version of the dataset, with some customization of the legend:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.hosp &lt;-<span class="st"> </span><span class="kw">with</span>(ebola.sim.clean$linelist, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.hosp &lt;-<span class="st"> </span><span class="kw">with</span>(ebola_sim_clean$linelist, 
      <span class="kw"><a href="../reference/incidence.html">incidence</a></span>(date.of.onset, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> hospital))
 i<span class="fl">.7</span>.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
@@ -201,7 +201,7 @@ i.tail
 <span class="kw">plot</span>(i.tail, <span class="dt">border=</span><span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs-overview/tail-1.png" width="672"></p>
 <p>Subsetting groups can also matter. For instance, let&rsquo;s try and visualise the incidence based on onset of symptoms by outcome:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups=</span>ebola.sim$linelist$outcome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups=</span>ebola_sim$linelist$outcome)
 i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>

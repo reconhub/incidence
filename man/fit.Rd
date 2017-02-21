@@ -3,8 +3,8 @@
 \name{fit}
 \alias{fit}
 \alias{fit_optim_split}
-\alias{plot.incidence_fit}
 \alias{print.incidence_fit}
+\alias{plot.incidence_fit}
 \title{Fit exponential models to incidence data}
 \usage{
 fit(x, split = NULL, level = 0.95, quiet = FALSE)
@@ -108,7 +108,7 @@ of the two models is obtained.
 \examples{
 
 if (require(outbreaks)) {
-  dat <- ebola.sim$linelist$date.of.onset
+  dat <- ebola_sim$linelist$date.of.onset
 
  ## EXAMPLE WITH A SINGLE MODEL
 
@@ -144,11 +144,10 @@ plot(i.7, fit=f3$fit)
 }
 
 }
-\author{
-Thibaut Jombart \email{thibautjombart@gmail.com}
-}
 \seealso{
 the \code{\link{incidence}} function to generate the 'incidence'
 objects.
 }
-
+\author{
+Thibaut Jombart \email{thibautjombart@gmail.com}
+}

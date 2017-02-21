@@ -307,7 +307,7 @@ i.sex$counts
 <h2 class="hasAnchor"><html><body><a href="#isoweeks" class="anchor"> </a></body></html><code>$isoweeks</code></h2>
 <p>The <code>$isoweeks</code> component is optional, and used to store iso weeks whenever they have been used. Iso weeks are used by default when weekly incidence is computed from dates (see argument <code>iso_week</code> in <code><a href="../reference/incidence.html">?incidence</a></code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
-dat &lt;-<span class="st"> </span>ebola.sim$linelist$date.of.onset
+dat &lt;-<span class="st"> </span>ebola_sim$linelist$date.of.onset
 i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, 7L)
 i<span class="fl">.7</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>

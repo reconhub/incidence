@@ -45,13 +45,13 @@
 <p><br></p>
 <div id="example-data-simulated-ebola-outbreak" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#example-data-simulated-ebola-outbreak" class="anchor"> </a></body></html>Example data: simulated Ebola outbreak</h1>
-<p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>: <code>ebola.sim.clean</code>.</p>
+<p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>: <code>ebola_sim_clean</code>.</p>
 <p>First, we load the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(incidence)
 
-onset &lt;-<span class="st"> </span>ebola.sim.clean$linelist$date.of.onset
+onset &lt;-<span class="st"> </span>ebola_sim_clean$linelist$date.of.onset
 <span class="kw">class</span>(onset)
 <span class="co">#&gt; [1] "Date"</span>
 <span class="kw">head</span>(onset)
@@ -70,7 +70,7 @@ i
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
 
-i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$gender)
+i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean$linelist$gender)
 <span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date), interval =</span>
 <span class="co">#&gt; interval, : partial argument match of 'group' to 'groups'</span>
 i.sex
@@ -85,7 +85,7 @@ i.sex
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
 
-i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola.sim.clean$linelist$hospital)
+i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean$linelist$hospital)
 <span class="co">#&gt; Warning in incidence.integer(as.integer(dates - first.date), interval =</span>
 <span class="co">#&gt; interval, : partial argument match of 'group' to 'groups'</span>
 i.hosp

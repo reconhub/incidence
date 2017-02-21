@@ -207,7 +207,7 @@ class.</p>
 #&gt; </div><div class='input'>
 <span class='co'>## example using simulated dataset</span>
 <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
-  <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola.sim</span>$<span class='no'>linelist</span>$<span class='no'>date.of.onset</span>
+  <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date.of.onset</span>
 
   <span class='co'>## daily incidence</span>
   <span class='no'>inc</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>)
@@ -222,7 +222,7 @@ class.</p>
   <span class='no'>inc.isoweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
   <span class='no'>inc.isoweek</span>
   <span class='co'>## use group information</span>
-  <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola.sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
+  <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
   <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   <span class='no'>inc.week.gender</span>
   <span class='fu'>head</span>(<span class='no'>inc.week.gender</span>$<span class='no'>counts</span>)

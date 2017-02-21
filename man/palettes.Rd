@@ -2,9 +2,11 @@
 % Please edit documentation in R/palettes.R
 \name{pal1}
 \alias{pal1}
+\alias{palettes}
+\alias{pal1light}
 \alias{pal1dark}
 \alias{pal1light}
-\alias{palettes}
+\alias{pal1dark}
 \title{Color palettes used in incidence}
 \usage{
 pal1(n)
@@ -30,4 +32,3 @@ plot(1:100, cex=8, pch=20, col = pal1dark(100), main="palette: pal1dark")
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}
 }
-

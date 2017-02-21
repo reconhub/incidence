@@ -34,10 +34,9 @@ as.data.frame(i)
 as.data.frame(i, long = TRUE)
 
 }
-\author{
-Thibaut Jombart \email{thibautjombart@gmail.com}, Rich Fitzjohn
-}
 \seealso{
 the \code{\link{incidence}} function to generate the 'incidence' objects.
 }
-
+\author{
+Thibaut Jombart \email{thibautjombart@gmail.com}, Rich Fitzjohn
+}
