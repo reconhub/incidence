@@ -2,11 +2,11 @@
 % Please edit documentation in R/incidence.R
 \name{incidence}
 \alias{incidence}
+\alias{incidence.integer}
+\alias{incidence.default}
+\alias{incidence.numeric}
 \alias{incidence.Date}
 \alias{incidence.POSIXt}
-\alias{incidence.default}
-\alias{incidence.integer}
-\alias{incidence.numeric}
 \alias{print.incidence}
 \title{Compute incidence of events from a vector of dates.}
 \usage{
@@ -88,7 +88,7 @@ incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
 
 ## example using simulated dataset
 if(require(outbreaks)) {
-  onset <- ebola.sim$linelist$date.of.onset
+  onset <- ebola_sim$linelist$date.of.onset
 
   ## daily incidence
   inc <- incidence(onset)
@@ -103,7 +103,7 @@ if(require(outbreaks)) {
   inc.isoweek <- incidence(onset, interval = 7, iso_week = TRUE)
   inc.isoweek
   ## use group information
-  sex <- ebola.sim$linelist$gender
+  sex <- ebola_sim$linelist$gender
   inc.week.gender <- incidence(onset, interval = 7, groups = sex, iso_week = FALSE)
   inc.week.gender
   head(inc.week.gender$counts)
@@ -113,9 +113,6 @@ if(require(outbreaks)) {
 }
 
 
-}
-\author{
-Thibaut Jombart, Rich Fitzjohn
 }
 \seealso{
 The main other functions of the package include:
@@ -146,4 +143,6 @@ class.
 
 }
 }
-
+\author{
+Thibaut Jombart, Rich Fitzjohn
+}

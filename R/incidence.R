@@ -90,7 +90,7 @@
 ##'
 ##' ## example using simulated dataset
 ##' if(require(outbreaks)) {
-##'   onset <- ebola.sim$linelist$date.of.onset
+##'   onset <- ebola_sim$linelist$date.of.onset
 ##'
 ##'   ## daily incidence
 ##'   inc <- incidence(onset)
@@ -105,7 +105,7 @@
 ##'   inc.isoweek <- incidence(onset, interval = 7, iso_week = TRUE)
 ##'   inc.isoweek
 ##'   ## use group information
-##'   sex <- ebola.sim$linelist$gender
+##'   sex <- ebola_sim$linelist$gender
 ##'   inc.week.gender <- incidence(onset, interval = 7, groups = sex, iso_week = FALSE)
 ##'   inc.week.gender
 ##'   head(inc.week.gender$counts)

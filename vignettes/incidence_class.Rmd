@@ -172,7 +172,7 @@ apply(i.sex$counts, 2, sum)
 The `$isoweeks` component is optional, and used to store iso weeks whenever they have been used. Iso weeks are used by default when weekly incidence is computed from dates (see argument `iso_week` in `?incidence`).
 ```{r, isoweek}
 library(outbreaks)
-dat <- ebola.sim$linelist$date.of.onset
+dat <- ebola_sim$linelist$date.of.onset
 i.7 <- incidence(dat, 7L)
 i.7
 i.7$isoweeks

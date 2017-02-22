@@ -1,3 +1,14 @@
+incidence 1.1.1 (2017-02-15)
+==================
+
+### BUG FIXES
+
+* adapting to new names of datasets in
+  [*outbreaks*](http://repidemicsconsortium.org/outbreaks): `ebola.sim` ->
+  `ebola_sim` and `ebola.sim.clean` -> `ebola_sim_clean`
+
+
+
 incidence 1.1.0 (2016-12-13)
 ==================
 

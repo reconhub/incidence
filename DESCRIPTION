@@ -1,7 +1,7 @@
 Package: incidence
 Type: Package
 Title: Compute, Handle, Plot and Model Incidence of Dated Events
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(person("Thibaut", "Jombart", role = c("aut", "cre"), email =
   "thibautjombart@gmail.com"), person("Rich", "FitzJohn", role = "aut", email =
   "rich.fitzjohn@gmail.com"), person("Jun", "Cai", role = "ctb", email = "cai-j12@mails.tsinghua.edu.cn") )
@@ -9,7 +9,7 @@ Description: Provides functions and classes to compute, handle and visualise inc
 License: MIT + file LICENSE
 URL: http://www.repidemicsconsortium.org/incidence/
 BugReports: http://github.com/reconhub/incidence/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0
 Imports:
     ggplot2, 
     ISOweek

@@ -36,7 +36,7 @@ introduction to *ggplot2*.
 # Example data: simulated Ebola outbreak
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
-[*outbreaks*](http://github.com/reconhub/outbreaks): `ebola.sim.clean`.
+[*outbreaks*](http://github.com/reconhub/outbreaks): `ebola_sim_clean`.
 
 First, we load the data:
 ```{r, data}
@@ -44,7 +44,7 @@ library(outbreaks)
 library(ggplot2)
 library(incidence)
 
-onset <- ebola.sim.clean$linelist$date.of.onset
+onset <- ebola_sim_clean$linelist$date.of.onset
 class(onset)
 head(onset)
 ```
@@ -54,10 +54,10 @@ We compute the weekly incidence:
 i <- incidence(onset, interval = 7)
 i
 
-i.sex <- incidence(onset, interval = 7, group =  ebola.sim.clean$linelist$gender)
+i.sex <- incidence(onset, interval = 7, group =  ebola_sim_clean$linelist$gender)
 i.sex
 
-i.hosp <- incidence(onset, interval = 7, group =  ebola.sim.clean$linelist$hospital)
+i.hosp <- incidence(onset, interval = 7, group =  ebola_sim_clean$linelist$hospital)
 i.hosp
 
 ```

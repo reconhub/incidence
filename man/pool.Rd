@@ -30,11 +30,10 @@ pool(i[,c(1,3)])
 pool(i[,c(1,3)])$counts
 
 }
-\author{
-Thibaut Jombart \email{thibautjombart@gmail.com}
-}
 \seealso{
 The \code{\link{incidence}} function to generate the 'incidence'
 objects.
 }
-
+\author{
+Thibaut Jombart \email{thibautjombart@gmail.com}
+}

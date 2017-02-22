@@ -153,7 +153,7 @@ library(outbreaks)
 library(ggplot2)
 library(incidence)
 
-dat <- ebola.sim$linelist$date.of.onset
+dat <- ebola_sim$linelist$date.of.onset
 class(dat)
 head(dat)
 ```
@@ -170,7 +170,7 @@ plot(i.7)
 
 `incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
 ```{r, gender}
-i.7.sex <- incidence(dat, interval = 7, groups = ebola.sim$linelist$gender)
+i.7.sex <- incidence(dat, interval = 7, groups = ebola_sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
@@ -193,7 +193,7 @@ plot(i.tail, border = "white")
 
 Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
 ```{r, i7outcome}
-i.7.outcome <- incidence(dat, 7, groups = ebola.sim$linelist$outcome)
+i.7.outcome <- incidence(dat, 7, groups = ebola_sim$linelist$outcome)
 i.7.outcome
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```

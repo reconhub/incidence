@@ -49,7 +49,7 @@ function, using the package \code{ggplot2}.
 \examples{
 
 if(require(outbreaks)) {
-  onset <- ebola.sim$linelist$date.of.onset
+  onset <- ebola_sim$linelist$date.of.onset
 
   ## daily incidence
   inc <- incidence(onset)
@@ -64,7 +64,7 @@ if(require(outbreaks)) {
   plot(inc.week, border = "white") # with visible border
 
   ## use group information
-  sex <- ebola.sim$linelist$gender
+  sex <- ebola_sim$linelist$gender
   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
   plot(inc.week.gender)
   plot(inc.week.gender, labels_iso_week = FALSE)
@@ -76,11 +76,10 @@ if(require(outbreaks)) {
 }
 
 }
-\author{
-Thibaut Jombart \email{thibautjombart@gmail.com}
-}
 \seealso{
 The \code{\link{incidence}} function to generate the 'incidence'
 objects.
 }
-
+\author{
+Thibaut Jombart \email{thibautjombart@gmail.com}
+}
