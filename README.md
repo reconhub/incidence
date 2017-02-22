@@ -75,8 +75,17 @@ More detailed tutorials are distributed as vignettes with the package:
 
 ```r
 vignette(package = "incidence")
-#> Vignettes not found
 ```
+
+
+
+Table: Vignettes in incidence
+
+Item              Title                             
+----------------  ----------------------------------
+customize_plot    Customise graphics (source, html) 
+incidence_class   Incidence class (source, html)    
+overview          Overview (source, html)           
 
 
 
