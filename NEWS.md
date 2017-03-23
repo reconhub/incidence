@@ -1,3 +1,18 @@
+incidence 1.1.2 (2017-04-15)
+==================
+
+### BUG FIXES
+
+* it is now possible to subset an incidence object based on `Date` dates using
+  numeric values, which are interpreted as number of intervals since the first
+  date (origin = 1)
+
+* NAs are no longer removed from the input dates, as it would cause mismatches
+  with grouping factors.
+
+
+
+
 incidence 1.1.1 (2017-02-15)
 ==================
 
