@@ -42,7 +42,9 @@ incidence should be computed separately.}
 \item{na_as_group}{A logical value indicating if missing group (NA) should be
 treated as a separate group.}
 
-\item{iso_week}{A logical value indicating if the returning \code{incidence} should be ISO week-based when computing weekly incidence (interval = 7). defaults to be TRUE.}
+\item{iso_week}{A logical value indicating if the returning \code{incidence}
+should be ISO week-based when computing weekly incidence (interval =
+7). defaults to be TRUE.}
 
 \item{x}{An 'incidence' object.}
 }
@@ -53,7 +55,8 @@ following items:
 \itemize{
 
 \item dates: The dates marking the left side of the bins used for counting
-events. When ISO week-based weekly incidence is computed, the dates are the first days of corresponding isoweeks.
+events. When ISO week-based weekly incidence is computed, the dates are the
+first days of corresponding isoweeks.
 
 \item counts: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).
@@ -66,7 +69,9 @@ incidence.
 
 \item n: The total number of cases.
 
-\item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when ISO week-based weekly incidence is computed.
+\item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
+ISO week-based weekly incidence is computed.
+
 }
 }
 \description{

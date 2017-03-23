@@ -145,13 +145,11 @@ test_that("corner cases", {
                "At least one \\(non-NA\\) date must be provided")
 
   expect_error(incidence(NULL),
-               "At least one \\(non-NA\\) date must be provided")
+               "dates is NULL")
 
   expect_error(incidence(Inf),
                "At least one \\(non-NA\\) date must be provided")
 
-  expect_message(incidence(c(1,NA,NA)),
-                 "2 non-finite values \\(NA, Inf\\) where removed from the data")
 })
 
 

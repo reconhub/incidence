@@ -25,7 +25,8 @@
 ##' \itemize{
 ##'
 ##' \item dates: The dates marking the left side of the bins used for counting
-##' events. When ISO week-based weekly incidence is computed, the dates are the first days of corresponding isoweeks.
+##' events. When ISO week-based weekly incidence is computed, the dates are the
+##' first days of corresponding isoweeks.
 ##'
 ##' \item counts: A matrix of incidence counts, which one column per group (and
 ##' a single column if no groups were used).
@@ -38,7 +39,9 @@
 ##'
 ##' \item n: The total number of cases.
 ##'
-##' \item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when ISO week-based weekly incidence is computed.
+##' \item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
+##' ISO week-based weekly incidence is computed.
+##'
 ##' }
 ##'
 ##' @details For details about the \code{incidence class}, see the dedicated
@@ -136,50 +139,50 @@ incidence <- function(dates, interval = 1L, ...) {
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
                               na_as_group = TRUE, ...) {
-    dots <- list(...)
-    ## make sure input can be used
-    dates <- check_dates(dates)
-    interval <- check_interval(interval)
-    groups <- check_groups(groups, dates, na_as_group)
+  dots <- list(...)
+  ## make sure input can be used
+  dates <- check_dates(dates)
+  interval <- check_interval(interval)
+  groups <- check_groups(groups, dates, na_as_group)
 
-    ## check interval
-    first.date <- min(dates)
-    last.date <- max(dates)
-    interval <- as.integer(round(interval))
-    if ("iso_week" %in% names(dots)) {
-      if (interval == 7L && dots$iso_week == TRUE) {
-        first.date <- 0L
-      }
+  ## check interval
+  first.date <- min(dates, na.rm = TRUE)
+  last.date <- max(dates, na.rm = TRUE)
+  interval <- as.integer(round(interval))
+  if ("iso_week" %in% names(dots)) {
+    if (interval == 7L && dots$iso_week == TRUE) {
+      first.date <- 0L
     }
+  }
 
-    ## function to compute counts of dates with defined breaks
-    count.dates <- function(dates, breaks){
-        counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
-        as.integer(counts)
-    }
+  ## function to compute counts of dates with defined breaks
+  count.dates <- function(dates, breaks){
+    counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
+    as.integer(counts)
+  }
 
-    ## define breaks here
-    breaks <- seq(first.date, last.date, by = interval) # 'd1' in expl above
-    breaks <- as.integer(breaks)
+  ## define breaks here
+  breaks <- seq(first.date, last.date, by = interval) # 'd1' in expl above
+  breaks <- as.integer(breaks)
 
-    ## compute counts within bins defined by the breaks
-    if (!is.null(groups)) {
-        counts <- tapply(dates, groups, count.dates, breaks)
-        counts <- matrix(as.integer(unlist(counts)),
-                         ncol = length(levels(groups)))
-        colnames(counts) <- levels(groups)
-    } else {
-        counts <- count.dates(dates, breaks)
-        counts <- matrix(as.integer(counts), ncol = 1L)
-    }
+  ## compute counts within bins defined by the breaks
+  if (!is.null(groups)) {
+    counts <- tapply(dates, groups, count.dates, breaks)
+    counts <- matrix(as.integer(unlist(counts)),
+                     ncol = length(levels(groups)))
+    colnames(counts) <- levels(groups)
+  } else {
+    counts <- count.dates(dates, breaks)
+    counts <- matrix(as.integer(counts), ncol = 1L)
+  }
 
-    out <- list(dates = breaks, # left side of bins (incl left, excl right)
-                counts = counts, # computed incidence, 1 col / group
-                timespan = diff(range(breaks, na.rm = TRUE)) + 1,
-                interval = interval, # fixed bin size
-                n = sum(counts)) # total number of cases
-    class(out) <- "incidence"
-    out
+  out <- list(dates = breaks, # left side of bins (incl left, excl right)
+              counts = counts, # computed incidence, 1 col / group
+              timespan = diff(range(breaks, na.rm = TRUE)) + 1,
+              interval = interval, # fixed bin size
+              n = sum(counts)) # total number of cases
+  class(out) <- "incidence"
+  out
 }
 
 
@@ -198,14 +201,14 @@ incidence.default <- incidence.integer
 ##' @rdname incidence
 
 incidence.numeric <- function(dates, interval = 1L, ...) {
-    ## make sure input can be used
-    dates <- check_dates(dates)
+  ## make sure input can be used
+  dates <- check_dates(dates)
 
-    message("Dates stored as decimal numbers were floored.\n")
-    dates <- as.integer(floor(dates))
-    out <- incidence.integer(dates, interval, ...)
-    out$dates <- as.numeric(out$dates)
-    out
+  message("Dates stored as decimal numbers were floored.\n")
+  dates <- as.integer(floor(dates))
+  out <- incidence.integer(dates, interval, ...)
+  out$dates <- as.numeric(out$dates)
+  out
 }
 
 
@@ -214,27 +217,30 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 ##' @export
 ##' @rdname incidence
-##' @param iso_week A logical value indicating if the returning \code{incidence} should be ISO week-based when computing weekly incidence (interval = 7). defaults to be TRUE.
+##' @param iso_week A logical value indicating if the returning \code{incidence}
+##'   should be ISO week-based when computing weekly incidence (interval =
+##'   7). defaults to be TRUE.
 
 incidence.Date <- function(dates, interval = 1L, iso_week = TRUE, ...) {
-    ## make sure input can be used
-    dates <- check_dates(dates)
-    stopifnot(is.logical(iso_week))
+  ## make sure input can be used
+  dates <- check_dates(dates)
+  stopifnot(is.logical(iso_week))
 
-    first.date <- min(dates, na.rm = TRUE)
-    interval <- as.integer(round(interval))
-    if (interval == 7L && iso_week) {
-      first.isoweek <- ISOweek::date2ISOweek(first.date)
-      substr(first.isoweek, 10, 10) <- "1"
-      first.date <- ISOweek::ISOweek2date(first.isoweek)
-    }
-    out <- incidence.integer(as.integer(dates - first.date), interval = interval, iso_week = iso_week, ...)
-    out$dates <- first.date + out$dates
-    if (interval == 7L && iso_week) {
-      # dates are the first days of corresponding ISOweeks.
-      out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
-    }
-    out
+  first.date <- min(dates, na.rm = TRUE)
+  interval <- as.integer(round(interval))
+  if (interval == 7L && iso_week) {
+    first.isoweek <- ISOweek::date2ISOweek(first.date)
+    substr(first.isoweek, 10, 10) <- "1"
+    first.date <- ISOweek::ISOweek2date(first.isoweek)
+  }
+  out <- incidence.integer(as.integer(dates - first.date),
+                           interval = interval, iso_week = iso_week, ...)
+  out$dates <- first.date + out$dates
+  if (interval == 7L && iso_week) {
+    # dates are the first days of corresponding ISOweeks.
+    out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
+  }
+  out
 }
 
 
@@ -246,13 +252,13 @@ incidence.Date <- function(dates, interval = 1L, iso_week = TRUE, ...) {
 ##' @rdname incidence
 
 incidence.POSIXt <- function(dates, interval = 1L, iso_week = TRUE, ...) {
-    ## make sure input can be used
-    dates <- check_dates(dates)
+  ## make sure input can be used
+  dates <- check_dates(dates)
 
-    ret <- incidence(as.Date(dates), interval = interval, iso_week = iso_week, ...)
-    f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
-    ret$dates <- f(ret$dates)
-    ret
+  ret <- incidence(as.Date(dates), interval = interval, iso_week = iso_week, ...)
+  f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
+  ret$dates <- f(ret$dates)
+  ret
 }
 
 
@@ -272,8 +278,8 @@ print.incidence <- function(x, ...) {
                 sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
   }
   if (ncol(x$counts) > 1L) {
-      groups.txt <- paste(colnames(x$counts), collapse = ", ")
-      cat(sprintf("[%d groups: %s]\n", ncol(x$counts), groups.txt))
+    groups.txt <- paste(colnames(x$counts), collapse = ", ")
+    cat(sprintf("[%d groups: %s]\n", ncol(x$counts), groups.txt))
   }
   cat(sprintf("\n$counts: matrix with %d rows and %d columns\n",
               nrow(x$counts), ncol(x$counts)))
@@ -291,22 +297,23 @@ print.incidence <- function(x, ...) {
 
 
 ## This function is non-exported; it merely checks that usable data are
-## provided, and returns data without NAs.
+## provided, and non-finite values (set to NA).
 
 check_dates <- function(dates){
-    ## make sure input can be used
-    to.remove <- !is.finite(dates)
-    if (sum(to.remove) > 0) {
-        message(sprintf(
-            "%d non-finite values (NA, Inf) where removed from the data.\n",
-                        sum(to.remove)))
-        dates <- dates[!to.remove]
 
-    }
-    if (length(dates) < 1) {
-        stop("At least one (non-NA) date must be provided")
-    }
-    dates
+  if (is.null(dates)) {
+    stop("dates is NULL")
+  }
+
+  not_finite <- !is.finite(dates)
+  if (sum(not_finite) > 0) {
+       dates[not_finite] <- NA
+  }
+  if (sum(!is.na(dates)) < 1) {
+    stop("At least one (non-NA) date must be provided")
+  }
+
+  dates
 }
 
 
@@ -319,24 +326,24 @@ check_dates <- function(dates){
 ## - finite
 ## - of length 1
 check_interval <- function(interval){
-    if (missing(interval) || is.null(interval)) {
-        stop("Interval is missing or NULL")
-    }
-    if (length(interval) != 1L) {
-        stop(sprintf(
-            "Exactly one value should be provided as interval (%d provided)",
-             length(interval)))
-    }
-    if (!is.finite(interval)) {
-        stop("Interval is not finite")
-    }
-    interval <- as.integer(round(old <- interval))
-    if (interval < 1L) {
-        stop(sprintf(
-            "Interval must be at least 1 (input: %.3f; after rounding: %d)",
-                     old, interval))
-    }
-    interval
+  if (missing(interval) || is.null(interval)) {
+    stop("Interval is missing or NULL")
+  }
+  if (length(interval) != 1L) {
+    stop(sprintf(
+      "Exactly one value should be provided as interval (%d provided)",
+      length(interval)))
+  }
+  if (!is.finite(interval)) {
+    stop("Interval is not finite")
+  }
+  interval <- as.integer(round(old <- interval))
+  if (interval < 1L) {
+    stop(sprintf(
+      "Interval must be at least 1 (input: %.3f; after rounding: %d)",
+      old, interval))
+  }
+  interval
 }
 
 
@@ -348,19 +355,19 @@ check_interval <- function(interval){
 ## - of the same length as 'dates'
 ##
 ## It also treats missing groups (NA) as a separate group is needed.
-##
+
 check_groups <- function(groups, dates, na_as_group){
-    if (is.null(groups)) {
-        return(NULL)
-    }
-    if (na_as_group) {
-        groups <- as.character(groups)
-        groups[is.na(groups)] <- "NA"
-    }
-    if (length(groups) != length(dates)) {
-        stop(sprintf(
-            "'groups' does not have the same length as dates (%d vs %d)",
-             length(groups), length(dates)))
-    }
-    factor(groups)
+  if (is.null(groups)) {
+    return(NULL)
+  }
+  if (na_as_group) {
+    groups <- as.character(groups)
+    groups[is.na(groups)] <- "NA"
+  }
+  if (length(groups) != length(dates)) {
+    stop(sprintf(
+      "'groups' does not have the same length as dates (%d vs %d)",
+      length(groups), length(dates)))
+  }
+  factor(groups)
 }
