@@ -46,12 +46,25 @@
 
 subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
                              groups = TRUE){
-    to.keep <- x$dates >= from & x$dates <= to
 
-    if (sum(to.keep) < 1) {
-        stop("No data retained.")
-    }
-    x[to.keep, groups]
+  ## We need to make sure the comparison with dates is going to work. As for the
+  ## [ operator, 'from' and 'to' are assumed to be expressed in the same way as
+  ## the x$dates.
+
+  if (is.numeric(from) && inherits(x$dates, "Date")) {
+    from <- min(x$dates) + (from - 1L) * x$interval
+  }
+
+  if (is.numeric(to) && inherits(x$dates, "Date")) {
+    to <- min(x$dates) + (to - 1L) * x$interval
+  }
+
+  to.keep <- x$dates >= from & x$dates <= to
+
+  if (sum(to.keep) < 1) {
+    stop("No data retained.")
+  }
+  x[to.keep, groups]
 }
 
 
