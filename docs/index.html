@@ -63,7 +63,7 @@
 <p><br></p>
 <div id="installing-the-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#installing-the-package" class="anchor"> </a>Installing the package</h1></div>
+<a href="#installing-the-package" class="anchor"></a>Installing the package</h1></div>
 <p>To install the current stable, CRAN version of the package, type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"incidence"</span>)</code></pre></div>
 <p>To benefit from the latest features and bug fixes, install the development, <em>github</em> version of the package using:</p>
@@ -73,7 +73,7 @@
 </div>
 <div id="what-does-it-do" class="section level1">
 <h1 class="hasAnchor">
-<a href="#what-does-it-do" class="anchor"> </a>What does it do?</h1>
+<a href="#what-does-it-do" class="anchor"></a>What does it do?</h1>
 <p>The main features of the package include:</p>
 <ul>
 <li><p><strong><code>incidence</code></strong>: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class <em>incidence</em>.</p></li>
@@ -89,34 +89,15 @@
 </div>
 <div id="resources" class="section level1">
 <h1 class="hasAnchor">
-<a href="#resources" class="anchor"> </a>Resources</h1>
+<a href="#resources" class="anchor"></a>Resources</h1>
 <p><br></p>
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#vignettes" class="anchor"> </a>Vignettes</h2>
+<a href="#vignettes" class="anchor"></a>Vignettes</h2>
+<pre><code>#&gt; Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+#&gt; logical.return = TRUE, : there is no package called 'printr'</code></pre>
 <p>An overview of <em>incidence</em> is provided below in the worked example below. More detailed tutorials are distributed as vignettes with the package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">"incidence"</span>)</code></pre></div>
-<table class="table">
-<caption>Vignettes in incidence</caption>
-<thead><tr class="header">
-<th align="left">Item</th>
-<th align="left">Title</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">customize_plot</td>
-<td align="left">Customise graphics (source, html)</td>
-</tr>
-<tr class="even">
-<td align="left">incidence_class</td>
-<td align="left">Incidence class (source, html)</td>
-</tr>
-<tr class="odd">
-<td align="left">overview</td>
-<td align="left">Overview (source, html)</td>
-</tr>
-</tbody>
-</table>
 <p>To open these, type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">"overview"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)
 <span class="kw">vignette</span>(<span class="st">"customize_plot"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)
@@ -125,7 +106,7 @@
 </div>
 <div id="websites" class="section level2">
 <h2 class="hasAnchor">
-<a href="#websites" class="anchor"> </a>Websites</h2>
+<a href="#websites" class="anchor"></a>Websites</h2>
 <p>The following websites are available:</p>
 <ul>
 <li><p>The official <em>incidence</em> website, providing an overview of the package’s functionalities, up-to-date tutorials and documentation: <br><a href="http://www.repidemicsconsortium.org/incidence/" class="uri">http://www.repidemicsconsortium.org/incidence/</a></p></li>
@@ -136,18 +117,18 @@
 </div>
 <div id="getting-help-online" class="section level2">
 <h2 class="hasAnchor">
-<a href="#getting-help-online" class="anchor"> </a>Getting help online</h2>
+<a href="#getting-help-online" class="anchor"></a>Getting help online</h2>
 <p>Bug reports and feature requests should be posted on <em>github</em> using the <a href="http://github.com/reconhub/incidence/issues"><em>issue</em></a> system. All other questions should be posted on the <strong>RECON forum</strong>: <br><a href="http://www.repidemicsconsortium.org/forum/" class="uri">http://www.repidemicsconsortium.org/forum/</a></p>
 <p><br><br></p>
 </div>
 </div>
 <div id="a-quick-overview" class="section level1">
 <h1 class="hasAnchor">
-<a href="#a-quick-overview" class="anchor"> </a>A quick overview</h1>
+<a href="#a-quick-overview" class="anchor"></a>A quick overview</h1>
 <p>The following worked example provides a brief overview of the package’s functionalities. See the <a href="#vignettes"><em>vignettes section</em></a> for more detailed tutorials.</p>
 <div id="loading-the-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#loading-the-data" class="anchor"> </a>Loading the data</h2>
+<a href="#loading-the-data" class="anchor"></a>Loading the data</h2>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. We will compute incidence for various time steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.</p>
 <p>First, we load the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
@@ -163,7 +144,7 @@ dat &lt;-<span class="st"> </span>ebola_sim$linelist$date.of.onset
 </div>
 <div id="computing-and-plotting-incidence" class="section level2">
 <h2 class="hasAnchor">
-<a href="#computing-and-plotting-incidence" class="anchor"> </a>Computing and plotting incidence</h2>
+<a href="#computing-and-plotting-incidence" class="anchor"></a>Computing and plotting incidence</h2>
 <p>We compute the weekly incidence:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>)
 i<span class="fl">.7</span>
@@ -196,7 +177,7 @@ i<span class="fl">.7</span>.sex
 </div>
 <div id="handling-incidence-objects" class="section level2">
 <h2 class="hasAnchor">
-<a href="#handling-incidence-objects" class="anchor"> </a>Handling <code>incidence</code> objects</h2>
+<a href="#handling-incidence-objects" class="anchor"></a>Handling <code>incidence</code> objects</h2>
 <p><code>incidence</code> objects can be manipulated easily. The <code>[</code> operator implements subetting of dates (first argument) and groups (second argument). For instance, to keep only the first 20 weeks of the epidemic:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>]
 <span class="co">#&gt; &lt;incidence object&gt;</span>
@@ -256,7 +237,7 @@ i.pooled
 </div>
 <div id="modelling-incidence" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling-incidence" class="anchor"> </a>Modelling incidence</h2>
+<a href="#modelling-incidence" class="anchor"></a>Modelling incidence</h2>
 <p>Incidence data, excluding zeros, can be modelled using log-linear regression of the form: log(<em>y</em>) = <em>r</em> x <em>t</em> + <em>b</em></p>
 <p>where <em>y</em> is the incidence, <em>r</em> is the growth rate, <em>t</em> is the number of days since a specific point in time (typically the start of the outbreak), and <em>b</em> is the intercept.</p>
 <p>Such model can be fitted to any incidence object using <code>fit</code>. Of course, a single log-linear model is not sufficient for modelling our time series, as there is clearly an growing and a decreasing phase. As a start, we can calibrate a model on the first 20 weeks of the epidemic:</p>
@@ -367,7 +348,7 @@ best.fit
 </div>
 <div id="contributors-by-alphabetic-order" class="section level1">
 <h1 class="hasAnchor">
-<a href="#contributors-by-alphabetic-order" class="anchor"> </a>Contributors (by alphabetic order):</h1>
+<a href="#contributors-by-alphabetic-order" class="anchor"></a>Contributors (by alphabetic order):</h1>
 <ul>
 <li><a href="https://github.com/thibautjombart">Thibaut Jombart</a></li>
 <li><a href="https://github.com/richfitz">Rich Fitzjohn</a></li>
