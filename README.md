@@ -68,22 +68,8 @@ The main features of the package include:
 
 ## Vignettes
 
-
-```
-#> Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-#> logical.return = TRUE, : there is no package called 'printr'
-```
-
 An overview of *incidence* is provided below in the worked example below.
 More detailed tutorials are distributed as vignettes with the package:
-
-```r
-vignette(package = "incidence")
-```
-
-
-
-To open these, type:
 
 ```r
 vignette("overview", package="incidence")
