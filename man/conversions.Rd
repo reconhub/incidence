@@ -66,7 +66,7 @@ as.data.frame(i, long = TRUE)
 i$counts
 new_i <- as.incidence(i$counts, i$dates)
 new_i
-all_equal(i, new_i)
+all.equal(i, new_i)
 
 }
 \seealso{
