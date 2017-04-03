@@ -1,0 +1,86 @@
+---
+title: "Conversions to and from the incidence class"
+author: "Thibaut Jombart"
+date: "`r Sys.Date()`"
+output:
+   rmarkdown::html_vignette:
+     toc: true
+     toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Conversions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=7, 
+  fig.height=5, 
+  fig.path="figs-conversion/"
+)
+```
+
+
+This vignette documents to types of conversion which can be made using the *incidence* class:
+
+- *'exports'*: conversion from an *incidence* object to another type of object;
+   this can be useful for processing incidence data in another software, or for
+   reporting results.
+
+- *'imports'*conversion from already computed incidence into an *incidence*
+   object; this can be useful for using features of the *incidence* package for
+   data handling and plotting with incidence data computed elsewhere.
+
+
+
+<br>
+
+# Exporting results
+
+To export results, we first compute bi-weekly incidence by gender from the simulated Ebola data used in the [overview vignette](http://www.repidemicsconsortium.org/incidence/articles/overview.html):
+
+```{r example, eval=FALSE}
+library(outbreaks)
+library(incidence)
+dat <- ebola_sim$linelist$date.of.onset
+i.14 <- incidence(dat, interval = 14, groups = ebola_sim$linelist$gender)
+i.14
+plot(i.14, border = "white")
+```
+
+To export the data to a `data.frame`, one simply needs:
+```{r}
+as.data.frame(i.14)
+```
+
+The first column contains the dates marking the (inclusive) left side of the
+time intervals used for computing incidence, and the other columns give counts
+for the different groups. This function also has an option for exporting data as
+a 'long' format, i.e. with a column for 'groups' and a column for counts. This
+format can be useful especially when working with *ggplot2*, which expect data
+in this shape:
+
+```{r, long}
+df <- as.data.frame(i.14, long = TRUE)
+head(df)
+tail(df)
+
+## example of custom plot using steps:
+library(ggplot2)
+ggplot(df, aes(x = dates, y = counts)) + geom_step(aes(color = groups))
+```
+
+
+Finally, note that when ISO weeks are used, these are also reported in the output:
+```{r, long}
+i.7 <- incidence(dat, interval = 7)
+i.7
+plot(i.7, border = "white")
+head(as.data.frame(i.7))
+tail(as.data.frame(i.7))
+
+```
