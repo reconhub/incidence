@@ -35,6 +35,7 @@ check_dates <- function(x, ...) {
         note)
       warning(msg)
     }
+    return(x)
   }
 
 
