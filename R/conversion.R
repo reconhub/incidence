@@ -131,9 +131,12 @@ as.incidence <- function(x, ...) {
 #'   case of weekly incidence; defaults to \code{TRUE}.
 #'
 
-as.incidence.matrix <- function(x, dates, interval = NULL,
+as.incidence.matrix <- function(x, dates = NULL, interval = NULL,
                                 isoweeks = TRUE, ...) {
 
+  if (is.null(dates)) {
+    dates <- seq.int(nrow(x))
+  }
   dates <- check_dates(dates, error_on_NA = TRUE)
 
 
@@ -187,7 +190,7 @@ as.incidence.matrix <- function(x, dates, interval = NULL,
 #'
 #' @rdname conversions
 
-as.incidence.data.frame <- function(x, dates, interval = NULL,
+as.incidence.data.frame <- function(x, dates = NULL, interval = NULL,
                                     isoweeks = TRUE, ...) {
   as.incidence(as.matrix(x), dates, interval, isoweeks, ...)
 }
@@ -201,7 +204,7 @@ as.incidence.data.frame <- function(x, dates, interval = NULL,
 #'
 #' @rdname conversions
 
-as.incidence.numeric <- function(x, dates, interval = NULL,
+as.incidence.numeric <- function(x, dates = NULL, interval = NULL,
                                  isoweeks = TRUE, ...) {
   as.incidence(as.matrix(x), dates, interval, isoweeks, ...)
 }

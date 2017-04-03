@@ -12,14 +12,14 @@
 
 as.incidence(x, ...)
 
-\method{as.incidence}{matrix}(x, dates, interval = NULL, isoweeks = TRUE,
-  ...)
-
-\method{as.incidence}{data.frame}(x, dates, interval = NULL,
+\method{as.incidence}{matrix}(x, dates = NULL, interval = NULL,
   isoweeks = TRUE, ...)
 
-\method{as.incidence}{numeric}(x, dates, interval = NULL, isoweeks = TRUE,
-  ...)
+\method{as.incidence}{data.frame}(x, dates = NULL, interval = NULL,
+  isoweeks = TRUE, ...)
+
+\method{as.incidence}{numeric}(x, dates = NULL, interval = NULL,
+  isoweeks = TRUE, ...)
 }
 \arguments{
 \item{x}{An \code{incidence} object, or an object to be converted as
