@@ -19,5 +19,6 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    scales
+    scales,
+    plotly
 VignetteBuilder: knitr
