@@ -2,17 +2,44 @@
 % Please edit documentation in R/conversion.R
 \name{as.data.frame.incidence}
 \alias{as.data.frame.incidence}
+\alias{as.incidence}
+\alias{as.incidence.matrix}
+\alias{as.incidence.data.frame}
+\alias{as.incidence.numeric}
 \title{Conversion of indence objects}
 \usage{
 \method{as.data.frame}{incidence}(x, ..., long = FALSE)
+
+as.incidence(x, ...)
+
+\method{as.incidence}{matrix}(x, dates, interval = NULL, isoweeks = TRUE,
+  ...)
+
+\method{as.incidence}{data.frame}(x, dates, interval = NULL,
+  isoweeks = TRUE, ...)
+
+\method{as.incidence}{numeric}(x, dates, interval = NULL, isoweeks = TRUE,
+  ...)
 }
 \arguments{
-\item{x}{An \code{incidence} object.}
+\item{x}{An \code{incidence} object, or an object to be converted as
+\code{incidence} (see details).}
 
 \item{...}{Further arguments passed to other functions (no used).}
 
 \item{long}{A logical indicating if the output data.frame should be 'long', i.e. where a single
 column containing 'groups' is added in case of data computed on several groups.}
+
+\item{dates}{A vector of dates, each corresponding to the (inclusive) lower
+limit of the bins.}
+
+\item{interval}{An integer indicating the time interval used in the
+computation of the incidence. If NULL, it will be determined from the first
+time interval between provided dates. If only one date is provided, it will
+trigger an error.}
+
+\item{isoweeks}{A logical indicating whether isoweeks should be used in the
+case of weekly incidence; defaults to \code{TRUE}.}
 }
 \description{
 These functions convert \code{incidence} objects into other classes.
@@ -32,6 +59,14 @@ as.data.frame(i)
 
 ## same, 'long format'
 as.data.frame(i, long = TRUE)
+
+
+
+## conversion from a matrix of counts to an incidence object
+i$counts
+new_i <- as.incidence(i$counts, i$dates)
+new_i
+all_equal(i, new_i)
 
 }
 \seealso{

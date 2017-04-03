@@ -41,7 +41,12 @@ test_that("construction - default, integer input", {
   expect_equal(sum(x$counts), length(dat))
   expect_equal(sum(x$counts), x$n)
   expect_true(all(diff(x$dates) == x$interval))
+
 })
+
+
+
+
 
 
 test_that("construction - ISO week", {
@@ -68,26 +73,40 @@ test_that("construction - ISO week", {
   expect_equal(sum(inc.isoweek$counts), length(dat))
   expect_equal(sum(inc.isoweek$counts), inc.isoweek$n)
   expect_true(all(diff(inc.isoweek$dates) == inc.isoweek$interval))
+
 })
+
+
+
+
 
 
 test_that("construction - numeric input", {
   skip_on_cran()
 
   ## USING DAILY INCIDENCE
-  set.seed(as.numeric(Sys.time()))
-  dat.num <- runif(50, -3, 10)
-  dat.int <- as.integer(floor(dat.num))
-  expect_message(incidence(dat.num),
-                 "Dates stored as decimal numbers were floored")
-  x.num <- incidence(dat.num)
-  x.int <- incidence(dat.int)
+  set.seed(1)
+  dat_int <- sample(-3:10, 100, replace = TRUE)
+  dat_num <- dat_int + 0.1
+
+  msg <- paste0("Flooring from non-integer date caused approximations:\n",
+                "Mean relative difference: 0.0228833")
+  expect_warning(incidence(dat_num),
+                 msg)
+
+  x_num <- suppressWarnings(incidence(dat_num))
+  x_int <- incidence(dat_int)
 
   ## compare outputs
-  expect_equal(x.num, x.int)
-  expect_is(x.num$dates, "numeric")
-  expect_is(x.int$dates, "integer")
+  expect_equal(x_num, x_int)
+  expect_is(x_num$dates, "numeric")
+  expect_is(x_int$dates, "integer")
+
 })
+
+
+
+
 
 
 test_that("construction - Date input", {

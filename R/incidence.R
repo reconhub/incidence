@@ -202,10 +202,8 @@ incidence.default <- incidence.integer
 
 incidence.numeric <- function(dates, interval = 1L, ...) {
   ## make sure input can be used
-  dates <- check_dates(dates)
 
-  message("Dates stored as decimal numbers were floored.\n")
-  dates <- as.integer(floor(dates))
+  dates <- as.integer(check_dates(dates))
   out <- incidence.integer(dates, interval, ...)
   out$dates <- as.numeric(out$dates)
   out
@@ -295,79 +293,3 @@ print.incidence <- function(x, ...) {
 
 
 
-
-## This function is non-exported; it merely checks that usable data are
-## provided, and non-finite values (set to NA).
-
-check_dates <- function(dates){
-
-  if (is.null(dates)) {
-    stop("dates is NULL")
-  }
-
-  not_finite <- !is.finite(dates)
-  if (sum(not_finite) > 0) {
-       dates[not_finite] <- NA
-  }
-  if (sum(!is.na(dates)) < 1) {
-    stop("At least one (non-NA) date must be provided")
-  }
-
-  dates
-}
-
-
-
-
-
-## Non-exported function, enforces that an interval is:
-## - strictly positive
-## - integer (rounded)
-## - finite
-## - of length 1
-check_interval <- function(interval){
-  if (missing(interval) || is.null(interval)) {
-    stop("Interval is missing or NULL")
-  }
-  if (length(interval) != 1L) {
-    stop(sprintf(
-      "Exactly one value should be provided as interval (%d provided)",
-      length(interval)))
-  }
-  if (!is.finite(interval)) {
-    stop("Interval is not finite")
-  }
-  interval <- as.integer(round(old <- interval))
-  if (interval < 1L) {
-    stop(sprintf(
-      "Interval must be at least 1 (input: %.3f; after rounding: %d)",
-      old, interval))
-  }
-  interval
-}
-
-
-
-
-
-## Non-exported function, enforces that 'groups' is either NULL or:
-## - a factor
-## - of the same length as 'dates'
-##
-## It also treats missing groups (NA) as a separate group is needed.
-
-check_groups <- function(groups, dates, na_as_group){
-  if (is.null(groups)) {
-    return(NULL)
-  }
-  if (na_as_group) {
-    groups <- as.character(groups)
-    groups[is.na(groups)] <- "NA"
-  }
-  if (length(groups) != length(dates)) {
-    stop(sprintf(
-      "'groups' does not have the same length as dates (%d vs %d)",
-      length(groups), length(dates)))
-  }
-  factor(groups)
-}

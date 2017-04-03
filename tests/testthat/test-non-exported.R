@@ -1,8 +1,38 @@
 context("Non-exported functions")
 
+test_that("check_dates works", {
+  msg <- "NA detected in the dates"
+  expect_error(check_dates(c(1,2,NA), TRUE), msg)
+
+  msg <- paste0("Flooring from non-integer date caused approximations:\n",
+                "Mean relative difference: 0.1")
+  expect_warning(check_dates(1.1), msg)
+
+  msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
+                "Date, POSIXct, integer, numeric, character")
+  expect_error(check_dates(factor("2001-01-01")), msg)
+
+  x <- list(1L,
+            as.POSIXct("2001-01-01"),
+            as.Date("2001-01-01") + 1:10,
+            1.0,
+            100:1)
+  for(e in x) {
+    expect_equal(e, check_dates(e))
+  }
+
+  expect_equal(check_dates("2001-01-01"), as.Date("2001-01-01"))
+
+})
+
+
+
+
+
+
 test_that("check_interval", {
   skip_on_cran()
-  
+
   expect_error(check_interval(),
                "Interval is missing or NULL")
   expect_error(check_interval(NULL),
@@ -26,12 +56,13 @@ test_that("check_interval", {
 
 
 
+
 test_that("check_groups", {
   skip_on_cran()
-  
+
   expect_is(check_groups(1, 1, FALSE), "factor")
   expect_error(check_groups(1, 1:2, FALSE),
-               "'groups' does not have the same length as dates \\(1 vs 2\\)")
+               "'x' does not have the same length as dates \\(1 vs 2\\)")
   expect_equal(check_groups(NULL,NULL,FALSE), NULL)
   expect_equal(check_groups(c(1,1,2,NA,2), 1:5, na_as_group=FALSE),
                factor(c(1,1,2,NA,2)))

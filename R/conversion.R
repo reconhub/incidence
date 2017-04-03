@@ -26,17 +26,11 @@
 #'
 #'
 #' @details Conversion to \code{incidence} objects should only be done when the
-#'   original dates are not available. In such case, the following inputs are acceptable:
-#'
-#' \itemize{
-#'
-#' \item x: a \code{matrix} or a \code{data.frame} containing incidence counts,
-#' corresponding to the \code{$counts}, i.e. groups in columns and dates bins in
-#' rows; \code{integer} vectors will be coerced to a matrix directly.
-#'
-#' \item dates: a vector of dates, each corresponding to the (inclusive) lower
-#' limit of the bins.
-#'
+#'   original dates are not available. In such case, the argument \code{x}
+#'   should be a matrix corresponding to the \code{$counts} element of an
+#'   \code{incidence} object, i.e. giving counts with time intervals in rows and
+#'   named groups in columns. In the absence of groups, a single unnamed columns
+#'   should be given. \code{data.frame} and vectors will be coerced to a matrix.
 #'
 #' }
 #'
@@ -56,6 +50,15 @@
 #'
 #' ## same, 'long format'
 #' as.data.frame(i, long = TRUE)
+#'
+#'
+#'
+#' ## conversion from a matrix of counts to an incidence object
+#' i$counts
+#' new_i <- as.incidence(i$counts, i$dates)
+#' new_i
+#' all_equal(i, new_i)
+#'
 
 as.data.frame.incidence <- function(x, ..., long = FALSE){
     counts <- x$counts
@@ -113,6 +116,7 @@ as.incidence <- function(x, ...) {
 
 
 #' @export
+#'
 #' @rdname conversions
 #'
 #' @param dates A vector of dates, each corresponding to the (inclusive) lower
@@ -129,7 +133,8 @@ as.incidence <- function(x, ...) {
 
 as.incidence.matrix <- function(x, dates, interval = NULL,
                                 isoweeks = TRUE, ...) {
-  dates <- check_dates(dates)
+
+  dates <- check_dates(dates, error_on_NA = TRUE)
 
 
   ## determine interval
@@ -141,19 +146,27 @@ as.incidence.matrix <- function(x, dates, interval = NULL,
     } else {
       interval <- as.integer(diff(dates[1:2]))
     }
+  } else {
+    interval <- check_interval(interval)
   }
 
 
   ## generate fake dates
+
   x_vector <- as.vector(x)
-  fake_dates <- rep(dates, x_vector)
+  fake_dates <- rep(rep(dates, ncol(x)), x_vector)
 
 
   ## determine groups
 
   if (ncol(x) > 1L) {
     x_groups <- colnames(x)
-    fake_groups <- rep(x_groups, x_vector)
+    if (is.null(x_groups)) {
+      msg <- "Columns should be named to label groups."
+      stop(msg)
+    }
+    group_sizes <- colSums(x)
+    fake_groups <- rep(x_groups, group_sizes)
   } else {
     fake_groups <- NULL
   }
@@ -165,3 +178,30 @@ as.incidence.matrix <- function(x, dates, interval = NULL,
             isoweeks = isoweeks)
 }
 
+
+
+
+
+
+#' @export
+#'
+#' @rdname conversions
+
+as.incidence.data.frame <- function(x, dates, interval = NULL,
+                                    isoweeks = TRUE, ...) {
+  as.incidence(as.matrix(x), dates, interval, isoweeks, ...)
+}
+
+
+
+
+
+
+#' @export
+#'
+#' @rdname conversions
+
+as.incidence.numeric <- function(x, dates, interval = NULL,
+                                 isoweeks = TRUE, ...) {
+  as.incidence(as.matrix(x), dates, interval, isoweeks, ...)
+}
