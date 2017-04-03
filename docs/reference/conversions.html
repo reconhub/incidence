@@ -82,14 +82,29 @@
     
 
     <pre><span class='co'># S3 method for incidence</span>
-<span class='fu'>as.data.frame</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>as.data.frame</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for matrix</span>
+<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>)
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for numeric</span>
+<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An <code>incidence</code> object.</p></td>
+      <td><p>An <code>incidence</code> object, or an object to be converted as
+<code>incidence</code> (see details).</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -99,6 +114,23 @@
       <th>long</th>
       <td><p>A logical indicating if the output data.frame should be 'long', i.e. where a single
 column containing 'groups' is added in case of data computed on several groups.</p></td>
+    </tr>
+    <tr>
+      <th>dates</th>
+      <td><p>A vector of dates, each corresponding to the (inclusive) lower
+limit of the bins.</p></td>
+    </tr>
+    <tr>
+      <th>interval</th>
+      <td><p>An integer indicating the time interval used in the
+computation of the incidence. If NULL, it will be determined from the first
+time interval between provided dates. If only one date is provided, it will
+trigger an error.</p></td>
+    </tr>
+    <tr>
+      <th>isoweeks</th>
+      <td><p>A logical indicating whether isoweeks should be used in the
+case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
     </tr>
     </table>
     
@@ -113,7 +145,8 @@ column containing 'groups' is added in case of data computed on several groups.<
 <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='fu'>sample</span>(<span class='fu'>c</span>(<span class='st'>"m"</span>,<span class='st'>"f"</span>), <span class='fu'>length</span>(<span class='no'>data</span>), <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 
 <span class='co'>## get incidence per group (sex)</span>
-<span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>data</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>)</div><div class='output co'>#&gt; <span class='message'>Dates stored as decimal numbers were floored.</span></div><div class='input'><span class='no'>i</span></div><div class='output co'>#&gt; &lt;incidence object&gt;
+<span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>data</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>)
+<span class='no'>i</span></div><div class='output co'>#&gt; &lt;incidence object&gt;
 #&gt; [17 cases from days 0 to 26]
 #&gt; [2 groups: f, m]
 #&gt; 
@@ -122,7 +155,7 @@ column containing 'groups' is added in case of data computed on several groups.<
 #&gt; $dates: 27 dates marking the left-side of bins
 #&gt; $interval: 1 day
 #&gt; $timespan: 27 days
-#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>i</span>)</div><img src='as.data.frame.incidence-6.png' alt='' width='540' height='400' /><div class='input'>
+#&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>i</span>)</div><img src='as.data.frame.incidence-4.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'>## convert to data.frame</span>
 <span class='fu'>as.data.frame</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt;    dates f m
 #&gt; 1      0 0 1
@@ -208,6 +241,47 @@ column containing 'groups' is added in case of data computed on several groups.<
 #&gt; 52    24      0      m
 #&gt; 53    25      0      m
 #&gt; 54    26      1      m</div><div class='input'>
+
+
+<span class='co'>## conversion from a matrix of counts to an incidence object</span>
+<span class='no'>i</span>$<span class='no'>counts</span></div><div class='output co'>#&gt;       f m
+#&gt;  [1,] 0 1
+#&gt;  [2,] 2 1
+#&gt;  [3,] 0 1
+#&gt;  [4,] 0 1
+#&gt;  [5,] 0 3
+#&gt;  [6,] 3 1
+#&gt;  [7,] 0 1
+#&gt;  [8,] 0 1
+#&gt;  [9,] 0 0
+#&gt; [10,] 0 1
+#&gt; [11,] 0 0
+#&gt; [12,] 0 0
+#&gt; [13,] 0 0
+#&gt; [14,] 0 0
+#&gt; [15,] 0 0
+#&gt; [16,] 0 0
+#&gt; [17,] 0 0
+#&gt; [18,] 0 0
+#&gt; [19,] 0 0
+#&gt; [20,] 0 0
+#&gt; [21,] 0 0
+#&gt; [22,] 0 0
+#&gt; [23,] 0 0
+#&gt; [24,] 0 0
+#&gt; [25,] 0 0
+#&gt; [26,] 0 0
+#&gt; [27,] 0 1</div><div class='input'><span class='no'>new_i</span> <span class='kw'>&lt;-</span> <span class='fu'>as.incidence</span>(<span class='no'>i</span>$<span class='no'>counts</span>, <span class='no'>i</span>$<span class='no'>dates</span>)
+<span class='no'>new_i</span></div><div class='output co'>#&gt; &lt;incidence object&gt;
+#&gt; [17 cases from days 0 to 26]
+#&gt; [2 groups: f, m]
+#&gt; 
+#&gt; $counts: matrix with 27 rows and 2 columns
+#&gt; $n: 17 cases in total
+#&gt; $dates: 27 dates marking the left-side of bins
+#&gt; $interval: 1 day
+#&gt; $timespan: 27 days
+#&gt; </div><div class='input'><span class='fu'>all.equal</span>(<span class='no'>i</span>, <span class='no'>new_i</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

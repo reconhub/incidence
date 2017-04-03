@@ -53,7 +53,7 @@
       <h1>Overview of the incidence package</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2017-03-31</h4>
+            <h4 class="date">2017-04-03</h4>
           </div>
 
     
@@ -76,20 +76,15 @@
 <a href="#what-does-it-do" class="anchor"></a>What does it do?</h1>
 <p>The main functions of the package include:</p>
 <ul>
-<li>
-<strong><code>incidence</code></strong>: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class <em>incidence</em>.</li>
-<li>
-<strong><code>plot</code></strong>: this method (see <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code> for details) plots <em>incidence</em> objects, and can also add predictions of the model(s) contained in an <em>incidence_fit</em> object (or a list of such objects).</li>
-<li>
-<strong><code>fit</code></strong>: fit one or two exponential models (i.e. linear regression on log-incidence) to an <em>incidence</em> object; two models are calibrated only if a date is provided to split the time series in two (argument <code>split</code>); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class <em>incidence_fit</em>, each of which contains various useful information (e.g. growth rate <em>r</em>, doubling/halving time, predictions and confidence intervals).</li>
-<li>
-<strong><code>fit_optim_split</code></strong>: finds the optimal date to split the time series in two, typically around the peak of the epidemic.</li>
-<li>
-<strong><code>[</code></strong>: lower-level subsetan of <em>incidence</em> objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. <code>x[i, j]</code>, where <code>x</code> is the <em>incidence</em> object, <code>i</code> a subset of dates, and <code>j</code> a subset of groups.</li>
-<li>
-<strong><code>subset</code></strong>: subset an <em>incidence</em> object by specifying a time window.</li>
-<li>
-<strong><code>pool</code></strong>: pool incidence from different groups into one global incidence time series.</li>
+<li><p><strong><code>incidence</code></strong>: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class <em>incidence</em>.</p></li>
+<li><p><strong><code>plot</code></strong>: this method (see <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code> for details) plots <em>incidence</em> objects, and can also add predictions of the model(s) contained in an <em>incidence_fit</em> object (or a list of such objects).</p></li>
+<li><p><strong><code>fit</code></strong>: fit one or two exponential models (i.e. linear regression on log-incidence) to an <em>incidence</em> object; two models are calibrated only if a date is provided to split the time series in two (argument <code>split</code>); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class <em>incidence_fit</em>, each of which contains various useful information (e.g. growth rate <em>r</em>, doubling/halving time, predictions and confidence intervals).</p></li>
+<li><p><strong><code>fit_optim_split</code></strong>: finds the optimal date to split the time series in two, typically around the peak of the epidemic.</p></li>
+<li><p><strong><code>[</code></strong>: lower-level subsetan of <em>incidence</em> objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. <code>x[i, j]</code>, where <code>x</code> is the <em>incidence</em> object, <code>i</code> a subset of dates, and <code>j</code> a subset of groups.</p></li>
+<li><p><strong><code>subset</code></strong>: subset an <em>incidence</em> object by specifying a time window.</p></li>
+<li><p><strong><code>pool</code></strong>: pool incidence from different groups into one global incidence time series.</p></li>
+<li><p><strong><code>as.data.frame</code></strong>: converts an <em>incidence</em> object to a regular <em>data.frame</em>.</p></li>
+<li><p><strong><code>as.incidence</code></strong>: creates an <em>incidence</em> object from already computed incidence data, provided as a <em>matrix</em>, a <em>data.frame</em>, or a numeric vector.</p></li>
 </ul>
 <p><br></p>
 </div>

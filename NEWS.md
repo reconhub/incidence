@@ -1,3 +1,20 @@
+incidence 1.2.0 (2017-04-03)
+============================
+
+### NEW FEATURES
+
+* new generic *as.incidence*, to create incidence objects from already computed
+  incidences. Methods for: matrix, data.frame, numeric vectors.
+
+* better processing of input dates, including: automatic conversion from
+  characters, issuing errors for factors, and silently converting numeric
+  vectors which are essentially integers (issuing a warning otherwise).
+
+* new tests
+
+
+
+
 incidence 1.1.2 (2017-03-24)
 ==================
 
