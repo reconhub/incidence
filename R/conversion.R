@@ -32,8 +32,6 @@
 #'   named groups in columns. In the absence of groups, a single unnamed columns
 #'   should be given. \code{data.frame} and vectors will be coerced to a matrix.
 #'
-#' }
-#'
 #'
 #' @examples
 #' ## create fake data
@@ -135,7 +133,12 @@ as.incidence.matrix <- function(x, dates = NULL, interval = NULL,
                                 isoweeks = TRUE, ...) {
 
   if (is.null(dates)) {
-    dates <- seq.int(nrow(x))
+    if (!is.null(interval)) {
+      interval <- check_interval(interval)
+      dates <- seq(1, length = nrow(x), by = interval)
+    } else{
+      dates <- seq(1, length = nrow(x), by = 1L)
+    }
   }
   dates <- check_dates(dates, error_on_NA = TRUE)
 

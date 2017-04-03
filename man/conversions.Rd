@@ -44,6 +44,14 @@ case of weekly incidence; defaults to \code{TRUE}.}
 \description{
 These functions convert \code{incidence} objects into other classes.
 }
+\details{
+Conversion to \code{incidence} objects should only be done when the
+  original dates are not available. In such case, the argument \code{x}
+  should be a matrix corresponding to the \code{$counts} element of an
+  \code{incidence} object, i.e. giving counts with time intervals in rows and
+  named groups in columns. In the absence of groups, a single unnamed columns
+  should be given. \code{data.frame} and vectors will be coerced to a matrix.
+}
 \examples{
 ## create fake data
 data <- c(0,1,1,2,1,3,4,5,5,5,5,4,4,26,6,7,9)

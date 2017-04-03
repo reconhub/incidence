@@ -43,18 +43,18 @@ This vignette documents to types of conversion which can be made using the *inci
 
 To export results, we first compute bi-weekly incidence by gender from the simulated Ebola data used in the [overview vignette](http://www.repidemicsconsortium.org/incidence/articles/overview.html):
 
-```{r example, eval=FALSE}
+```{r example}
 library(outbreaks)
 library(incidence)
 dat <- ebola_sim$linelist$date.of.onset
-i.14 <- incidence(dat, interval = 14, groups = ebola_sim$linelist$gender)
-i.14
-plot(i.14, border = "white")
+i_14 <- incidence(dat, interval = 14, groups = ebola_sim$linelist$gender)
+i_14
+plot(i_14, border = "white")
 ```
 
 To export the data to a `data.frame`, one simply needs:
 ```{r}
-as.data.frame(i.14)
+as.data.frame(i_14)
 ```
 
 The first column contains the dates marking the (inclusive) left side of the
@@ -65,7 +65,7 @@ format can be useful especially when working with *ggplot2*, which expect data
 in this shape:
 
 ```{r, long}
-df <- as.data.frame(i.14, long = TRUE)
+df <- as.data.frame(i_14, long = TRUE)
 head(df)
 tail(df)
 
@@ -76,11 +76,89 @@ ggplot(df, aes(x = dates, y = counts)) + geom_step(aes(color = groups))
 
 
 Finally, note that when ISO weeks are used, these are also reported in the output:
-```{r, long}
-i.7 <- incidence(dat, interval = 7)
-i.7
-plot(i.7, border = "white")
-head(as.data.frame(i.7))
-tail(as.data.frame(i.7))
+```{r, iso}
+i_7 <- incidence(dat, interval = 7)
+i_7
+plot(i_7, border = "white")
+head(as.data.frame(i_7))
+tail(as.data.frame(i_7))
 
 ```
+
+
+
+
+<br>
+
+# Importing pre-computed incidence
+
+The function `as.incidence` facilitates the conversion of pre-computed
+incidences to an *incidence* object. Typically, the input will be imported into
+R from a *.csv* file or other spreadsheet formats.
+
+
+`as.incidence` is a generic with methods for several types of objects (see
+`?as.incidence`). The main method is `matrix`, as other types are coerced to
+`matrix` first and then passed to `as.incidence.matrix`:
+
+```{r, conversions}
+args(incidence:::as.incidence.matrix)
+```
+
+The only mandatory argument `x` is a table of counts, with time intervals in
+rows and groups in columns; if there are no groups, then the column doesn't need
+a name; but if there are several groups, then columns should be named to
+indicate group labels. Optionally, `dates` can be provided to indicate the
+(inclusive) lower bounds of the time intervals, corresponding to the rows of
+`x`; most sensible date formats will do; if indicated as a character string,
+make sure the format is `YYYY-mm-dd`, e.g. `2017-04-01` for the 1st April 2017.
+
+
+Let us illustrate the conversion using a simple vector of incidence:
+```{r}
+vec <- c(1,2,3,0,3,2,4,1,2,1)
+
+i <- as.incidence(vec)
+i
+
+plot(vec, type = "s")
+plot(i, border = "white")
+
+```
+
+Assuming the above incidences are computed weekly, we would then use:
+```{r}
+i <- as.incidence(vec, interval = 7)
+i
+plot(i, border = "white")
+
+```
+
+Note that in this case, incidences have been treated as per week, and
+corresponding dates in days have been computed during the conversion (the first
+day is always '1'), so that the first days of weeks 1, 2, 3... are:
+```{r}
+i$dates
+```
+
+In practice, it is best to provide the actual dates marking the lower bounds of
+the time intervals. We can illustrate this by a round trip using the example of
+the previous section:
+
+```{r, round_trip}
+## convertion: incidence --> data.frame:
+i_14
+df <- as.data.frame(i_14)
+head(df)
+tail(df)
+
+## conversion: data.frame --> incidence
+new_i <- as.incidence(df[,-1], df$dates)
+new_i
+
+## check round trip
+identical(new_i, i_14)
+
+```
+
+

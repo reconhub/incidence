@@ -75,6 +75,7 @@ More detailed tutorials are distributed as vignettes with the package:
 vignette("overview", package="incidence")
 vignette("customize_plot", package="incidence")
 vignette("incidence_class", package="incidence")
+vignette("conversions", package="incidence")
 ```
 
 <br>

@@ -87,16 +87,16 @@
 <span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for matrix</span>
-<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)
+<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)</pre>
+<span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +133,15 @@ trigger an error.</p></td>
 case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Conversion to <code>incidence</code> objects should only be done when the
+  original dates are not available. In such case, the argument <code>x</code>
+  should be a matrix corresponding to the <code>$counts</code> element of an
+  <code>incidence</code> object, i.e. giving counts with time intervals in rows and
+  named groups in columns. In the absence of groups, a single unnamed columns
+  should be given. <code>data.frame</code> and vectors will be coerced to a matrix.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -289,6 +298,8 @@ case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>

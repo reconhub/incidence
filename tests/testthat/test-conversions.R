@@ -47,6 +47,7 @@ test_that("as.incidence works", {
   expect_equal(as.incidence(as.vector(i1$counts), i1$dates), i1)
   expect_equal(as.incidence(i2$counts, i2$dates), i2)
   expect_equal(as.incidence(i3$counts, i3$dates), i3)
+  expect_equal(as.incidence(rep(1,10)), incidence(1:10))
 
   msg <- "Interval needs to be specified if there is only one date."
   expect_error(as.incidence(i3$counts[1,,drop=FALSE], i3$dates[1]),
