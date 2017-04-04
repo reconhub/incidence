@@ -53,7 +53,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2017-04-03</h4>
+            <h4 class="date">2017-04-04</h4>
           </div>
 
     
@@ -63,7 +63,7 @@
 <p><br></p>
 <div id="example-data-simulated-ebola-outbreak" class="section level1">
 <h1 class="hasAnchor">
-<a href="#example-data-simulated-ebola-outbreak" class="anchor"></a>Example data: simulated Ebola outbreak</h1>
+<html><body><a href="#example-data-simulated-ebola-outbreak" class="anchor"> </a></body></html>Example data: simulated Ebola outbreak</h1>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>: <code>ebola_sim_clean</code>.</p>
 <p>First, we load the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
@@ -118,11 +118,11 @@ i.hosp
 </div>
 <div id="the-plot-incidence-function" class="section level1">
 <h1 class="hasAnchor">
-<a href="#the-plot-incidence-function" class="anchor"></a>The <code>plot.incidence</code> function</h1>
+<html><body><a href="#the-plot-incidence-function" class="anchor"> </a></body></html>The <code>plot.incidence</code> function</h1>
 <p>When calling <code>plot</code> on an <em>incidence</em> object, the function <code>plot.incidence</code> is implicitely used. To access its documentation, use <code><a href="../reference/plot.incidence.html">?plot.incidence</a></code>. In this section, we illustrate existing customizations.</p>
 <div id="default-behaviour" class="section level2">
 <h2 class="hasAnchor">
-<a href="#default-behaviour" class="anchor"></a>Default behaviour</h2>
+<html><body><a href="#default-behaviour" class="anchor"> </a></body></html>Default behaviour</h2>
 <p>By default, the function uses grey for single time series, and colors from the color palette <code>pal1</code> when incidence is computed by groups:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i)</code></pre></div>
 <p><img src="figs-custom/default-1.png" width="672"></p>
@@ -139,26 +139,26 @@ i.hosp
 </div>
 <div id="changing-colors" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changing-colors" class="anchor"></a>Changing colors</h2>
+<html><body><a href="#changing-colors" class="anchor"> </a></body></html>Changing colors</h2>
 <div id="the-default-palette" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-default-palette" class="anchor"></a>The default palette</h3>
+<html><body><a href="#the-default-palette" class="anchor"> </a></body></html>The default palette</h3>
 <p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>pal1</code>. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">2</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">4</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">2</span>))
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">4</span>))
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
 <p><img src="figs-custom/pal1-1.png" width="672"></p>
 <p>This pallette also has a light and a dark version:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1dark"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1light"</span>)</code></pre></div>
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1dark"</span>)
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1"</span>)
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/pal1.html">pal1light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1light"</span>)</code></pre></div>
 <p><img src="figs-custom/pal2-1.png" width="672"></p>
 </div>
 <div id="using-different-palettes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#using-different-palettes" class="anchor"></a>Using different palettes</h3>
+<html><body><a href="#using-different-palettes" class="anchor"> </a></body></html>Using different palettes</h3>
 <p>Other color palettes can be provided via <code>col_pal</code>. Various palettes are part of the base R distribution, and many more are provided in additional packages. We provide a couple of examples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, <span class="dt">col_pal =</span> rainbow)</code></pre></div>
 <p><img src="figs-custom/palettes-1.png" width="672"></p>
@@ -167,23 +167,23 @@ i.hosp
 </div>
 <div id="specifying-colors-manually" class="section level3">
 <h3 class="hasAnchor">
-<a href="#specifying-colors-manually" class="anchor"></a>Specifying colors manually</h3>
+<html><body><a href="#specifying-colors-manually" class="anchor"> </a></body></html>Specifying colors manually</h3>
 <p>Colors can be specified manually using the argument <code>color</code>; note that whenever incidence is computed by groups, the number of colors must match the number of groups, otherwise <code>color</code> is ignored.</p>
 <div id="example-1-changing-a-single-color" class="section level4">
 <h4 class="hasAnchor">
-<a href="#example-1-changing-a-single-color" class="anchor"></a>Example 1: changing a single color</h4>
+<html><body><a href="#example-1-changing-a-single-color" class="anchor"> </a></body></html>Example 1: changing a single color</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i, <span class="dt">color =</span> <span class="st">"darkred"</span>)</code></pre></div>
 <p><img src="figs-custom/colors1-1.png" width="672"></p>
 </div>
 <div id="example-2-changing-several-colors-note-that-naming-colors-is-optional" class="section level4">
 <h4 class="hasAnchor">
-<a href="#example-2-changing-several-colors-note-that-naming-colors-is-optional" class="anchor"></a>Example 2: changing several colors (note that naming colors is optional)</h4>
+<html><body><a href="#example-2-changing-several-colors-note-that-naming-colors-is-optional" class="anchor"> </a></body></html>Example 2: changing several colors (note that naming colors is optional)</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex, <span class="dt">color =</span> <span class="kw">c</span>(<span class="dt">m =</span> <span class="st">"orange2"</span>, <span class="dt">f =</span> <span class="st">"purple3"</span>))</code></pre></div>
 <p><img src="figs-custom/colors2-1.png" width="672"></p>
 </div>
 <div id="example-3-using-color-to-highlight-specific-groups" class="section level4">
 <h4 class="hasAnchor">
-<a href="#example-3-using-color-to-highlight-specific-groups" class="anchor"></a>Example 3: using color to highlight specific groups</h4>
+<html><body><a href="#example-3-using-color-to-highlight-specific-groups" class="anchor"> </a></body></html>Example 3: using color to highlight specific groups</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, 
      <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">"#ac3973"</span>, <span class="st">"#6666ff"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>))</code></pre></div>
 <p><img src="figs-custom/colors3-1.png" width="672"></p>
@@ -194,14 +194,14 @@ i.hosp
 </div>
 <div id="useful-ggplot2-tweaks" class="section level1">
 <h1 class="hasAnchor">
-<a href="#useful-ggplot2-tweaks" class="anchor"></a>Useful <em>ggplot2</em> tweaks</h1>
+<html><body><a href="#useful-ggplot2-tweaks" class="anchor"> </a></body></html>Useful <em>ggplot2</em> tweaks</h1>
 <p>Numerous tweaks for <em>ggplot2</em> are documented online. In the following, we merely provide a few useful tips in the context of <em>incidence</em>.</p>
 <div id="changing-dates-on-the-x-axis" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changing-dates-on-the-x-axis" class="anchor"></a>Changing dates on the <em>x</em>-axis</h2>
+<html><body><a href="#changing-dates-on-the-x-axis" class="anchor"> </a></body></html>Changing dates on the <em>x</em>-axis</h2>
 <div id="changing-date-format" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changing-date-format" class="anchor"></a>Changing date format</h3>
+<html><body><a href="#changing-date-format" class="anchor"> </a></body></html>Changing date format</h3>
 <p>By default, the dates indicated on the <em>x</em>-axis of an incidence plot may not have the suitable format. The package <em>scales</em> can be used to change the way dates are labelled (see <code>?strptime</code> for possible formats):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
 <span class="kw">plot</span>(i, <span class="dt">labels_iso_week =</span> <span class="ot">FALSE</span>) +
@@ -219,7 +219,7 @@ i.hosp
 </div>
 <div id="changing-the-grid" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changing-the-grid" class="anchor"></a>Changing the grid</h3>
+<html><body><a href="#changing-the-grid" class="anchor"> </a></body></html>Changing the grid</h3>
 <p>The last example above illustrates that it can be useful to have denser annotations of the <em>x</em>-axis, especially over short time periods. Here, we provide an example where we try to zoom on the peak of the epidemic, using the data by hospital:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp)</code></pre></div>
 <p><img src="figs-custom/grid1-1.png" width="672"></p>
@@ -238,7 +238,7 @@ detailed.x &lt;-<span class="st"> </span><span class="kw">scale_x_date</span>(<s
 </div>
 <div id="changing-the-legend" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changing-the-legend" class="anchor"></a>Changing the legend</h2>
+<html><body><a href="#changing-the-legend" class="anchor"> </a></body></html>Changing the legend</h2>
 <p>The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object <code>p</code> and customize the legend:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
