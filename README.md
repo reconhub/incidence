@@ -13,7 +13,6 @@
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/incidence)](https://cran.r-project.org/package=incidence)
 
 
-<br>
 
 # Installing the package
 
@@ -33,7 +32,6 @@ Note that this requires the package *devtools* installed.
 
 
 
-<br>
 
 # What does it do?
 
@@ -58,11 +56,9 @@ The main features of the package include:
 
 
 
-<br>
+
 
 # Resources
-
-<br>
 
 ## Vignettes
 
@@ -76,8 +72,8 @@ vignette("incidence_class", package="incidence")
 vignette("conversions", package="incidence")
 ```
 
-<br>
-<br>
+
+
 
 ## Websites
 
@@ -93,8 +89,8 @@ The following websites are available:
 [https://CRAN.R-project.org/package=incidence](https://CRAN.R-project.org/package=incidence)
 
 
-<br>
-<br>
+
+
 
 ## Getting help online
 
@@ -103,8 +99,6 @@ Bug reports and feature requests should be posted on *github* using the [*issue*
 
 
 
-<br>
-<br>
 
 # A quick overview
 
@@ -402,8 +396,8 @@ plot(i.7, fit = best.fit$fit)
 ![plot of chunk optim](figs/optim-2.png)
 
 
-<br>
-<br>
+
+
 
 
 # Contributors (by alphabetic order):
