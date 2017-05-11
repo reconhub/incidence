@@ -46,7 +46,7 @@ To export results, we first compute bi-weekly incidence by gender from the simul
 ```{r example}
 library(outbreaks)
 library(incidence)
-dat <- ebola_sim$linelist$date.of.onset
+dat <- ebola_sim$linelist$date_of_onset
 i_14 <- incidence(dat, interval = 14, groups = ebola_sim$linelist$gender)
 i_14
 plot(i_14, border = "white")

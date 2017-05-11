@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -97,27 +99,40 @@
   <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>An <code>incidence</code> object, or an object to be converted as
-<code>incidence</code> (see details).</dd>
-      <dt>...</dt>
-      <dd>Further arguments passed to other functions (no used).</dd>
-      <dt>long</dt>
-      <dd>A logical indicating if the output data.frame should be &#39;long&#39;, i.e. where a single
-column containing &#39;groups&#39; is added in case of data computed on several groups.</dd>
-      <dt>dates</dt>
-      <dd>A vector of dates, each corresponding to the (inclusive) lower
-limit of the bins.</dd>
-      <dt>interval</dt>
-      <dd>An integer indicating the time interval used in the
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>An <code>incidence</code> object, or an object to be converted as
+<code>incidence</code> (see details).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Further arguments passed to other functions (no used).</p></td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td><p>A logical indicating if the output data.frame should be 'long', i.e. where a single
+column containing 'groups' is added in case of data computed on several groups.</p></td>
+    </tr>
+    <tr>
+      <th>dates</th>
+      <td><p>A vector of dates, each corresponding to the (inclusive) lower
+limit of the bins.</p></td>
+    </tr>
+    <tr>
+      <th>interval</th>
+      <td><p>An integer indicating the time interval used in the
 computation of the incidence. If NULL, it will be determined from the first
 time interval between provided dates. If only one date is provided, it will
-trigger an error.</dd>
-      <dt>isoweeks</dt>
-      <dd>A logical indicating whether isoweeks should be used in the
-case of weekly incidence; defaults to <code>TRUE</code>.</dd>
-    </dl>
+trigger an error.</p></td>
+    </tr>
+    <tr>
+      <th>isoweeks</th>
+      <td><p>A logical indicating whether isoweeks should be used in the
+case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -130,7 +145,7 @@ case of weekly incidence; defaults to <code>TRUE</code>.</dd>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>the <code><a href='incidence.html'>incidence</a></code> function to generate the &#39;incidence&#39; objects.</p>
+    <p>the <code><a href='incidence.html'>incidence</a></code> function to generate the 'incidence' objects.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

@@ -49,7 +49,7 @@ function, using the package \code{ggplot2}.
 \examples{
 
 if(require(outbreaks)) {
-  onset <- ebola_sim$linelist$date.of.onset
+  onset <- ebola_sim$linelist$date_of_onset
 
   ## daily incidence
   inc <- incidence(onset)
