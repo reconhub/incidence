@@ -93,13 +93,21 @@
 <li><p>new tests</p></li>
 </ul>
 </div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li><p>fixed issues caused by variables which changed names in some datasets of the <em>outbreaks</em> package, used in the documentation</p></li>
+<li><p>disabled by default the isoweeks in <code>incidence</code>; this part of the code will break with changes made in the devel version of <em>ggplot2</em>, which is now required by <em>plotly</em></p></li>
+</ul>
+</div>
 </div>
     <div id="incidence-1-1-2-2017-03-24" class="section level1">
 <h1 class="hasAnchor">
 <a href="#incidence-1-1-2-2017-03-24" class="anchor"></a>incidence 1.1.2 (2017-03-24)</h1>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>it is now possible to subset an incidence object based on <code>Date</code> dates using numeric values, which are interpreted as number of intervals since the first date (origin = 1)</p></li>
 <li><p>NAs are no longer removed from the input dates, as it would cause mismatches with grouping factors.</p></li>
@@ -109,9 +117,9 @@
     <div id="incidence-1-1-1-2017-02-15" class="section level1">
 <h1 class="hasAnchor">
 <a href="#incidence-1-1-1-2017-02-15" class="anchor"></a>incidence 1.1.1 (2017-02-15)</h1>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>adapting to new names of datasets in <a href="http://repidemicsconsortium.org/outbreaks"><em>outbreaks</em></a>: <code>ebola.sim</code> -&gt; <code>ebola_sim</code> and <code>ebola.sim.clean</code> -&gt; <code>ebola_sim_clean</code>
 </li>

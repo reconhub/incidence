@@ -76,7 +76,8 @@
 ##'
 plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            color = "black", border = NA, col_pal = pal1,
-                           alpha = .7, xlab = "", ylab = NULL, labels_iso_week = TRUE) {
+                           alpha = .7, xlab = "", ylab = NULL,
+                           labels_iso_week = !is.null(x$isoweeks)) {
     stopifnot(is.logical(labels_iso_week))
 
     ## extract data in suitable format for ggplot2
