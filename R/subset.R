@@ -32,7 +32,7 @@
 ##' @examples
 ##' ## example using simulated dataset
 ##' if(require(outbreaks)) {
-##'   onset <- ebola_sim$linelist$date.of.onset
+##'   onset <- ebola_sim$linelist$date_of_onset
 ##'
 ##'   ## weekly incidence
 ##'   inc <- incidence(onset, interval = 7)

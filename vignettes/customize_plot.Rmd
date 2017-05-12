@@ -44,7 +44,7 @@ library(outbreaks)
 library(ggplot2)
 library(incidence)
 
-onset <- ebola_sim_clean$linelist$date.of.onset
+onset <- ebola_sim_clean$linelist$date_of_onset
 class(onset)
 head(onset)
 ```

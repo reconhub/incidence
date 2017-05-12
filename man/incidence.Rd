@@ -93,7 +93,7 @@ incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
 
 ## example using simulated dataset
 if(require(outbreaks)) {
-  onset <- ebola_sim$linelist$date.of.onset
+  onset <- ebola_sim$linelist$date_of_onset
 
   ## daily incidence
   inc <- incidence(onset)

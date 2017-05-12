@@ -87,7 +87,7 @@
 ##' @examples
 ##'
 ##' if (require(outbreaks)) {
-##'   dat <- ebola_sim$linelist$date.of.onset
+##'   dat <- ebola_sim$linelist$date_of_onset
 ##'
 ##'  ## EXAMPLE WITH A SINGLE MODEL
 ##'

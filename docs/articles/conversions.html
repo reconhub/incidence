@@ -53,7 +53,7 @@
       <h1>Conversions to and from the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2017-04-04</h4>
+            <h4 class="date">2017-05-11</h4>
           </div>
 
     
@@ -67,11 +67,11 @@
 <p><br></p>
 <div id="exporting-results" class="section level1">
 <h1 class="hasAnchor">
-<html><body><a href="#exporting-results" class="anchor"> </a></body></html>Exporting results</h1>
+<a href="#exporting-results" class="anchor"></a>Exporting results</h1>
 <p>To export results, we first compute bi-weekly incidence by gender from the simulated Ebola data used in the <a href="http://www.repidemicsconsortium.org/incidence/articles/overview.html">overview vignette</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
 <span class="kw">library</span>(incidence)
-dat &lt;-<span class="st"> </span>ebola_sim$linelist$date.of.onset
+dat &lt;-<span class="st"> </span>ebola_sim$linelist$date_of_onset
 i_14 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">14</span>, <span class="dt">groups =</span> ebola_sim$linelist$gender)
 i_14
 <span class="co">#&gt; &lt;incidence object&gt;</span>
@@ -173,9 +173,9 @@ i_7
 </div>
 <div id="importing-pre-computed-incidence" class="section level1">
 <h1 class="hasAnchor">
-<html><body><a href="#importing-pre-computed-incidence" class="anchor"> </a></body></html>Importing pre-computed incidence</h1>
+<a href="#importing-pre-computed-incidence" class="anchor"></a>Importing pre-computed incidence</h1>
 <p>The function <code>as.incidence</code> facilitates the conversion of pre-computed incidences to an <em>incidence</em> object. Typically, the input will be imported into R from a <em>.csv</em> file or other spreadsheet formats.</p>
-<p><code>as.incidence</code> is a generic with methods for several types of objects (see <code><a href="../reference/as.data.frame.incidence.html">?as.incidence</a></code>). The main method is <code>matrix</code>, as other types are coerced to <code>matrix</code> first and then passed to <code>as.incidence.matrix</code>:</p>
+<p><code>as.incidence</code> is a generic with methods for several types of objects (see <code><a href="../reference/conversions.html">?as.incidence</a></code>). The main method is <code>matrix</code>, as other types are coerced to <code>matrix</code> first and then passed to <code>as.incidence.matrix</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence:::as.incidence.matrix)
 <span class="co">#&gt; function (x, dates = NULL, interval = NULL, isoweeks = TRUE, </span>
 <span class="co">#&gt;     ...) </span>
@@ -184,7 +184,7 @@ i_7
 <p>Let us illustrate the conversion using a simple vector of incidence:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)
 
-i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.data.frame.incidence.html">as.incidence</a></span>(vec)
+i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/conversions.html">as.incidence</a></span>(vec)
 i
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [19 cases from days 1 to 10]</span>
@@ -200,7 +200,7 @@ i
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs-conversion/unnamed-chunk-3-2.png" width="672"></p>
 <p>Assuming the above incidences are computed weekly, we would then use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.data.frame.incidence.html">as.incidence</a></span>(vec, <span class="dt">interval =</span> <span class="dv">7</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/conversions.html">as.incidence</a></span>(vec, <span class="dt">interval =</span> <span class="dv">7</span>)
 i
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [19 cases from days 1 to 64]</span>
@@ -246,7 +246,7 @@ df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(i_14)
 <span class="co">#&gt; 28 2015-04-20 28 31</span>
 
 ## conversion: data.frame --&gt; incidence
-new_i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.data.frame.incidence.html">as.incidence</a></span>(df[,-<span class="dv">1</span>], df$dates)
+new_i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/conversions.html">as.incidence</a></span>(df[,-<span class="dv">1</span>], df$dates)
 new_i
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-20]</span>

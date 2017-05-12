@@ -53,7 +53,7 @@
       <h1>Details of the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2017-04-04</h4>
+            <h4 class="date">2017-05-11</h4>
           </div>
 
     
@@ -63,7 +63,7 @@
 <p><br></p>
 <div id="structure-of-an-incidence-object-" class="section level1">
 <h1 class="hasAnchor">
-<html><body><a href="#structure-of-an-incidence-object-" class="anchor"> </a></body></html>Structure of an <em>incidence</em> object.</h1>
+<a href="#structure-of-an-incidence-object-" class="anchor"></a>Structure of an <em>incidence</em> object.</h1>
 <p>We generate a toy dataset of dates to examine the content of <em>incidence</em> objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(incidence)
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -120,8 +120,7 @@ i.sex
 <p>In the following sections, we examine each of the components of the object.</p>
 <div id="dates" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#dates" class="anchor"> </a></body></html>
-<code>$dates</code>
+<a href="#dates" class="anchor"></a><code>$dates</code>
 </h2>
 <p>The <code>$dates</code> component contains all the dates for which incidence have been computed, in the format of the input dataset (e.g. <code>Date</code>, <code>numeric</code>, <code>integer</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(i$dates)
@@ -135,8 +134,7 @@ i$dates
 </div>
 <div id="counts" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#counts" class="anchor"> </a></body></html>
-<code>$counts</code>
+<a href="#counts" class="anchor"></a><code>$counts</code>
 </h2>
 <p>The <code>$counts</code> component contains the actual incidence, i.e. counts of events for the defined bins. It is a <code>matrix</code> of <code>integers</code> where rows correspond to time intervals, with one column for each group for which incidence is computed (a single, unamed column if no groups were provided). If groups were provided, columns are named after the groups. We illustrate the difference comparing the two objects <code>i</code> and <code>i.sex</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(i$counts)
@@ -300,8 +298,7 @@ i.sex$counts
 </div>
 <div id="timespan" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#timespan" class="anchor"> </a></body></html>
-<code>$timespan</code>
+<a href="#timespan" class="anchor"></a><code>$timespan</code>
 </h2>
 <p>The <code>$timespan</code> component stores the length of the time period covered by the object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i$timespan
@@ -313,8 +310,7 @@ i.sex$counts
 </div>
 <div id="interval" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#interval" class="anchor"> </a></body></html>
-<code>$interval</code>
+<a href="#interval" class="anchor"></a><code>$interval</code>
 </h2>
 <p>The <code>$interval</code> component contains the length of the time interval for the bins:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i$interval
@@ -324,8 +320,7 @@ i.sex$counts
 </div>
 <div id="n" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#n" class="anchor"> </a></body></html>
-<code>$n</code>
+<a href="#n" class="anchor"></a><code>$n</code>
 </h2>
 <p>The <code>$n</code> component stores the total number of events in the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i$n
@@ -337,12 +332,11 @@ i.sex$counts
 </div>
 <div id="isoweeks" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#isoweeks" class="anchor"> </a></body></html>
-<code>$isoweeks</code>
+<a href="#isoweeks" class="anchor"></a><code>$isoweeks</code>
 </h2>
 <p>The <code>$isoweeks</code> component is optional, and used to store iso weeks whenever they have been used. Iso weeks are used by default when weekly incidence is computed from dates (see argument <code>iso_week</code> in <code><a href="../reference/incidence.html">?incidence</a></code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
-dat &lt;-<span class="st"> </span>ebola_sim$linelist$date.of.onset
+dat &lt;-<span class="st"> </span>ebola_sim$linelist$date_of_onset
 i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, 7L)
 i<span class="fl">.7</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>

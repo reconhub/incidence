@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -107,87 +109,87 @@ and 2, the second interval includes 3, 4 and 5 etc.</p>
 <span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>dates</dt>
-      <dd>A vector of dates, which can be provided as objects of the
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dates</th>
+      <td><p>A vector of dates, which can be provided as objects of the
 class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
-floored with a warning.</dd>
-      <dt>interval</dt>
-      <dd>An integer indicating the (fixed) size of the time interval
-used for computing the incidence; defaults to 1 day.</dd>
-      <dt>...</dt>
-      <dd>Additional arguments passed to other methods (none are used).</dd>
-      <dt>groups</dt>
-      <dd>An optional factor defining groups of observations for which
-incidence should be computed separately.</dd>
-      <dt>na_as_group</dt>
-      <dd>A logical value indicating if missing group (NA) should be
-treated as a separate group.</dd>
-      <dt>iso_week</dt>
-      <dd>A logical value indicating if the returning <code>incidence</code>
+floored with a warning.</p></td>
+    </tr>
+    <tr>
+      <th>interval</th>
+      <td><p>An integer indicating the (fixed) size of the time interval
+used for computing the incidence; defaults to 1 day.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to other methods (none are used).</p></td>
+    </tr>
+    <tr>
+      <th>groups</th>
+      <td><p>An optional factor defining groups of observations for which
+incidence should be computed separately.</p></td>
+    </tr>
+    <tr>
+      <th>na_as_group</th>
+      <td><p>A logical value indicating if missing group (NA) should be
+treated as a separate group.</p></td>
+    </tr>
+    <tr>
+      <th>iso_week</th>
+      <td><p>A logical value indicating if the returning <code>incidence</code>
 should be ISO week-based when computing weekly incidence (interval =
-7). defaults to be TRUE.</dd>
-      <dt>x</dt>
-      <dd>An &#39;incidence&#39; object.</dd>
-    </dl>
+7). defaults to be TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>An 'incidence' object.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An list with the class <code>incidence</code>, which contains the
-following items:</p>
-    <p><ul>
-<li> dates: The dates marking the left side of the bins used for counting
+following items:</p><ul>
+<li><p>dates: The dates marking the left side of the bins used for counting
 events. When ISO week-based weekly incidence is computed, the dates are the
-first days of corresponding isoweeks.</p>
-    <p></li>
-<li> counts: A matrix of incidence counts, which one column per group (and
-a single column if no groups were used).</p>
-    <p></li>
-<li> timespan: The length of the period for which incidence is computed, in
-days.</p>
-    <p></li>
-<li> interval: The bin size, in number of days; e.g. 7 indicates weekly
-incidence.</p>
-    <p></li>
-<li> n: The total number of cases.</p>
-    <p></li>
-<li> isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
-ISO week-based weekly incidence is computed.</p>
-    <p></li>
-</ul></p>
+first days of corresponding isoweeks.</p></li>
+<li><p>counts: A matrix of incidence counts, which one column per group (and
+a single column if no groups were used).</p></li>
+<li><p>timespan: The length of the period for which incidence is computed, in
+days.</p></li>
+<li><p>interval: The bin size, in number of days; e.g. 7 indicates weekly
+incidence.</p></li>
+<li><p>n: The total number of cases.</p></li>
+<li><p>isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
+ISO week-based weekly incidence is computed.</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For details about the <code>incidence class</code>, see the dedicated
-vignette: <code>vignette(&quot;incidence_class&quot;, package = &quot;incidence&quot;)</code></p>
+vignette: <code><a href='../articles/incidence_class.html'>vignette("incidence_class", package = "incidence")</a></code></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>The main other functions of the package include:
-<ul>
-<li> <code><a href='fit.html'>fit</a></code>: Fit log-linear model to computed incidence.</p>
-    <p></li>
-<li> <code><a href='fit.html'>fit_optim_split</a></code>: Find the optimal peak of the epidemic
-and fits log-linear models on either side of the peak.</p>
-    <p></li>
-<li> <code>subset</code>: Handling of <code>incidence</code>
-objects.</p>
-    <p></li>
-<li> <code><a href='pool.html'>pool</a></code>: Sum incidence over groups.</p>
-    <p></li>
-<li> <code>as.data.frame</code>: Convert an <code>incidence</code> object to a
-<code>data.frame</code>.</li>
-</ul></p>
-    <p>The following vignettes are also available:
-<ul>
-<li> <code>overview</code>: Provides an overview of the package&#39;s features.</p>
-    <p></li>
-<li> <code>customize_plot</code>: Provides some tips on finer plot customization.</p>
-    <p></li>
-<li> <code>incidence_class</code>: Details the content of the <code>incidence</code>
-class.</p>
-    <p></li>
-</ul></p>
+    <p>The main other functions of the package include:</p><ul>
+<li><p><code><a href='fit.html'>fit</a></code>: Fit log-linear model to computed incidence.</p></li>
+<li><p><code><a href='fit.html'>fit_optim_split</a></code>: Find the optimal peak of the epidemic
+and fits log-linear models on either side of the peak.</p></li>
+<li><p><code>subset</code>: Handling of <code>incidence</code>
+objects.</p></li>
+<li><p><code><a href='pool.html'>pool</a></code>: Sum incidence over groups.</p></li>
+<li><p><code>as.data.frame</code>: Convert an <code>incidence</code> object to a
+<code>data.frame</code>.</p></li>
+</ul>
+    <p>The following vignettes are also available:</p><ul>
+<li><p><code>overview</code>: Provides an overview of the package's features.</p></li>
+<li><p><code>customize_plot</code>: Provides some tips on finer plot customization.</p></li>
+<li><p><code>incidence_class</code>: Details the content of the <code>incidence</code>
+class.</p></li>
+</ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -211,7 +213,7 @@ class.</p>
 #&gt; </div><div class='input'>
 <span class='co'>## example using simulated dataset</span>
 <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
-  <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date.of.onset</span>
+  <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
   <span class='co'>## daily incidence</span>
   <span class='no'>inc</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>)

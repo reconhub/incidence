@@ -110,7 +110,7 @@ library(outbreaks)
 library(ggplot2)
 library(incidence)
 
-dat <- ebola_sim$linelist$date.of.onset
+dat <- ebola_sim$linelist$date_of_onset
 class(dat)
 head(dat)
 ```
@@ -142,15 +142,17 @@ plot(i.30, border = "white")
 
 `incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute incidence by gender:
 ```{r, gender}
-i.7.sex <- incidence(dat, interval=7, groups = ebola_sim$linelist$gender)
+i.7.sex <- incidence(dat, interval = 7, groups = ebola_sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
-We can do the same for hospitals, using the 'clean' version of the dataset, with some customization of the legend:
+We can do the same for hospitals, using the 'clean' version of the dataset, with
+some customization of the legend:
+
 ```{r, hosp}
 i.7.hosp <- with(ebola_sim_clean$linelist, 
-	 incidence(date.of.onset, interval=7, groups = hospital))
+	 incidence(date_of_onset, interval=7, groups = hospital))
 i.7.hosp
 head(i.7.hosp$counts)
 plot(i.7.hosp, stack=TRUE) + 

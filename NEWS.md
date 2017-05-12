@@ -21,6 +21,16 @@ incidence 1.2.0 (2017-04-03)
 * new tests
 
 
+### BUG FIXES
+
+* fixed issues caused by variables which changed names in some datasets of the
+  *outbreaks* package, used in the documentation
+
+* disabled by default the isoweeks in `incidence`; this part of the code will
+  break with changes made in the devel version of *ggplot2*, which is now
+  required by *plotly*
+  
+
 
 
 incidence 1.1.2 (2017-03-24)
