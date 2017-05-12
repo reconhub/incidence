@@ -260,17 +260,3 @@ best.fit2
 plot(i.7.sex, fit=best.fit2)
 ```
 
-
-
-
-## Interactive graphics
-
-As they use *ggplot2*, all graphics in *incidence* can be transformed into
-interactive graphics using *plotly*.
-
-```{r, message = FALSE}
-library(plotly)
-my_plot <- plot(i.7.sex, fit=best.fit2)
-ggplotly(my_plot)
-
-```

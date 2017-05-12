@@ -14,10 +14,6 @@ incidence 1.2.0 (2017-04-03)
   [*conversions*](http://www.repidemicsconsortium.org/incidence/articles/conversions.html)
   to and from *incidence* objects
 
-* the [*overview
-  vignette*](http://www.repidemicsconsortium.org/incidence/articles/overview.html)
-  now contains a section on interactive graphics using *plotly*
-
 * new tests
 
 
