@@ -136,9 +136,15 @@ incidence <- function(dates, interval = 1L, ...) {
 ##'
 ##' @param na_as_group A logical value indicating if missing group (NA) should be
 ##' treated as a separate group.
+##'
+##' @param last_date The last date to be included in the produced epicurve. If
+##'   \code{NULL} (default), the last date will be the most recent provided in
+##'   \code{dates}.
+##'
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
-                              na_as_group = TRUE, ...) {
+                              na_as_group = TRUE,
+                              last_date = NULL, ...) {
   dots <- list(...)
   ## make sure input can be used
   dates <- check_dates(dates)
@@ -146,12 +152,17 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
   groups <- check_groups(groups, dates, na_as_group)
 
   ## check interval
-  first.date <- min(dates, na.rm = TRUE)
-  last.date <- max(dates, na.rm = TRUE)
+  first_date <- min(dates, na.rm = TRUE)
+  if (is.null(last_date)) {
+    last_date <- max(dates, na.rm = TRUE)
+  } else if (!is.integer(last_date)) {
+    stop("last_date not provided as an integer")
+  }
+
   interval <- as.integer(round(interval))
   if ("iso_week" %in% names(dots)) {
     if (interval == 7L && dots$iso_week == TRUE) {
-      first.date <- 0L
+      first_date <- 0L
     }
   }
 
@@ -161,8 +172,9 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
     as.integer(counts)
   }
 
+
   ## define breaks here
-  breaks <- seq(first.date, last.date, by = interval) # 'd1' in expl above
+  breaks <- seq(first_date, last_date, by = interval) # 'd1' in expl above
   breaks <- as.integer(breaks)
 
   ## compute counts within bins defined by the breaks
@@ -219,25 +231,43 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 ##'   should be ISO week-based when computing weekly incidence (interval =
 ##'   7). defaults to be TRUE.
 
-incidence.Date <- function(dates, interval = 1L, iso_week = TRUE, ...) {
+incidence.Date <- function(dates, interval = 1L, iso_week = TRUE,
+                           last_date = NULL, ...) {
   ## make sure input can be used
   dates <- check_dates(dates)
   stopifnot(is.logical(iso_week))
 
-  first.date <- min(dates, na.rm = TRUE)
-  interval <- as.integer(round(interval))
-  if (interval == 7L && iso_week) {
-    first.isoweek <- ISOweek::date2ISOweek(first.date)
-    substr(first.isoweek, 10, 10) <- "1"
-    first.date <- ISOweek::ISOweek2date(first.isoweek)
+  first_date <- min(dates, na.rm = TRUE)
+  if (is.null(last_date)) {
+    last_date <- max(dates, na.rm = TRUE)
+  } else {
+    if (!inherits(last_date, "Date")) {
+      stop("last_date is not a Date object")
+    }
   }
-  out <- incidence.integer(as.integer(dates - first.date),
-                           interval = interval, iso_week = iso_week, ...)
-  out$dates <- first.date + out$dates
+  interval <- as.integer(round(interval))
+
+  if (interval == 7L && iso_week) {
+    first_isoweek <- ISOweek::date2ISOweek(first_date)
+    substr(first_isoweek, 10, 10) <- "1"
+    first_date <- ISOweek::ISOweek2date(first_isoweek)
+  }
+
+  dates_int <- as.integer(dates - first_date)
+  last_date_int <- as.integer(last_date - first_date)
+
+  out <- incidence.integer(dates_int,
+                           interval = interval,
+                           iso_week = iso_week,
+                           last_date = last_date_int,
+                           ...)
+
+  out$dates <- first_date + out$dates
   if (interval == 7L && iso_week) {
     # dates are the first days of corresponding ISOweeks.
     out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
   }
+
   out
 }
 
@@ -249,11 +279,12 @@ incidence.Date <- function(dates, interval = 1L, iso_week = TRUE, ...) {
 ##' @export
 ##' @rdname incidence
 
-incidence.POSIXt <- function(dates, interval = 1L, iso_week = TRUE, ...) {
+incidence.POSIXt <- function(dates, interval = 1L, ...) {
   ## make sure input can be used
   dates <- check_dates(dates)
 
-  ret <- incidence(as.Date(dates), interval = interval, iso_week = iso_week, ...)
+  ret <- incidence(as.Date(dates), interval, ...)
+
   f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
   ret$dates <- f(ret$dates)
   ret

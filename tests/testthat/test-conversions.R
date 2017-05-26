@@ -25,6 +25,7 @@ test_that("as.data.frame works", {
   expect_equal(df3, df4)
   expect_equal_to_reference(df5, file = "rds/df5.rds")
   expect_equal_to_reference(df6, file = "rds/df6.rds")
+
 })
 
 
