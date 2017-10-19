@@ -1,6 +1,5 @@
 context("Test plotting")
 
-
 test_that("plot for incidence object", {
   skip_on_cran()
 
@@ -29,24 +28,23 @@ test_that("plot for incidence object", {
   p.sex.2 <- plot(i.sex, fit = fit.sex)
   p.sex.3 <- plot(i.sex, fit = fit.sex, col_pal = rainbow)
   p.sex.4 <- plot(i.sex, fit = fit.sex,
-                  color = c(male = "salmon3",female = "gold2"))
+                  color = c(male = "salmon3", female = "gold2"))
   p.isoweek <- plot(i.isoweek)
   p.isoweek.2 <- plot(i.isoweek, labels_iso_week = FALSE)
 
-  expect_equal_to_reference(p.fit.i, file = "rds/p.fit.i.rds")
-  expect_equal_to_reference(p.fit.i.2, file = "rds/p.fit.i.2.rds")
-  expect_equal_to_reference(p.fit.sex, file = "rds/p.fit.sex.rds")
-  expect_equal_to_reference(p.i, file = "rds/p.i.rds")
-  expect_equal_to_reference(p.i.3, file = "rds/p.i.3.rds")
-  expect_equal_to_reference(p.i.14, file = "rds/p.i.14.rds")
-  expect_equal_to_reference(p.i.2, file = "rds/p.i.2.rds")
-  expect_equal_to_reference(p.i.3, file = "rds/p.i.3.rds")
-  expect_equal_to_reference(p.sex, file = "rds/p.sex.rds")
-  expect_equal_to_reference(p.sex.2, file = "rds/p.sex.2.rds")
-  expect_equal_to_reference(p.sex.3, file = "rds/p.sex.3.rds")
-  expect_equal_to_reference(p.sex.4, file = "rds/p.sex.4.rds")
-  expect_equal_to_reference(p.isoweek, file = "rds/p.isoweek.rds")
-  expect_equal_to_reference(p.isoweek.2, file = "rds/p.isoweek.2.rds")
+  vdiffr::expect_doppelganger("incidence fit", p.fit.i)
+  vdiffr::expect_doppelganger("incidence plot with two fitting models", p.fit.i.2)
+  vdiffr::expect_doppelganger("grouped incidence fit", p.fit.sex)
+  vdiffr::expect_doppelganger("incidence plot with default interval", p.i)
+  vdiffr::expect_doppelganger("incidence plot with interval of 14 days", p.i.14)
+  vdiffr::expect_doppelganger("incidence plot with specified color and alpha", p.i.2)
+  vdiffr::expect_doppelganger("incidence plot with interval of 3 days, fit and specified color", p.i.3)
+  vdiffr::expect_doppelganger("grouped incidence plot", p.sex)
+  vdiffr::expect_doppelganger("grouped incidence plot with fit", p.sex.2)
+  vdiffr::expect_doppelganger("grouped incidence plot with color palette", p.sex.3)
+  vdiffr::expect_doppelganger("grouped incidence plot with specified color", p.sex.4)
+  vdiffr::expect_doppelganger("incidence plot with isoweek labels", p.isoweek)
+  vdiffr::expect_doppelganger("incidence plot without isoweek labels", p.isoweek.2)
 
   ## errors
   expect_error(plot(i, fit = "tamere"),

@@ -41,13 +41,7 @@ test_that("construction - default, integer input", {
   expect_equal(sum(x$counts), length(dat))
   expect_equal(sum(x$counts), x$n)
   expect_true(all(diff(x$dates) == x$interval))
-
 })
-
-
-
-
-
 
 test_that("construction - ISO week", {
   skip_on_cran()
@@ -73,13 +67,7 @@ test_that("construction - ISO week", {
   expect_equal(sum(inc.isoweek$counts), length(dat))
   expect_equal(sum(inc.isoweek$counts), inc.isoweek$n)
   expect_true(all(diff(inc.isoweek$dates) == inc.isoweek$interval))
-
 })
-
-
-
-
-
 
 test_that("construction - numeric input", {
   skip_on_cran()
@@ -101,13 +89,7 @@ test_that("construction - numeric input", {
   expect_equal(x_num, x_int)
   expect_is(x_num$dates, "numeric")
   expect_is(x_int$dates, "integer")
-
 })
-
-
-
-
-
 
 test_that("construction - Date input", {
   skip_on_cran()
@@ -118,7 +100,6 @@ test_that("construction - Date input", {
 
   ## note: the choice of dates here makes sure first date is 28 Dec 2015, which
   ## starts an iso week, so that counts will be comparable with/without iso
-
   dat.dates <- as.Date("2015-12-31") + dat
   x <- incidence(dat)
   x.dates <- incidence(dat.dates)
@@ -131,7 +112,6 @@ test_that("construction - Date input", {
   expect_is(x.dates$dates, "Date")
   expect_equal(x.7$counts, x.7.iso$counts)
 })
-
 
 test_that("construction - POSIXct input", {
   skip_on_cran()
@@ -150,7 +130,6 @@ test_that("construction - POSIXct input", {
   expect_is(x.pos$dates, "POSIXct")
 })
 
-
 test_that("corner cases", {
   skip_on_cran()
 
@@ -168,9 +147,7 @@ test_that("corner cases", {
 
   expect_error(incidence(Inf),
                "At least one \\(non-NA\\) date must be provided")
-
 })
-
 
 test_that("Expected values, no group", {
   skip_on_cran()
@@ -198,7 +175,6 @@ test_that("Expected values, no group", {
   expect_equal_to_reference(res8, file = "rds/incidence.res8.rds")
 })
 
-
 test_that("Expected values, with groups", {
   skip_on_cran()
 
@@ -207,6 +183,7 @@ test_that("Expected values, with groups", {
     as.integer(c(0,0,0)),
     as.integer(c(0,1,2,2,3,5,7))
   )
+
   fac <- list(
     factor(c(1,1,2,2,2)),
     factor(c('a','b','a')),
@@ -221,7 +198,6 @@ test_that("Expected values, with groups", {
   expect_equal_to_reference(res.g.2, file = "rds/res.g.2.rds")
   expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
 })
-
 
 test_that("Printing returns the object", {
   skip_on_cran()

@@ -1,11 +1,10 @@
 context("Subset of incidence objects")
 
-
 test_that("[ operator for incidence objects", {
   skip_on_cran()
 
   set.seed(123)
-  dat <- as.integer(sample(-3:10, 50, replace=TRUE))
+  dat <- as.integer(sample(-3:10, 50, replace = TRUE))
   x <- incidence(dat)
   y <- incidence(dat + as.Date("2016-01-12"), 7L)
 
@@ -18,7 +17,6 @@ test_that("[ operator for incidence objects", {
   y.sub1 <- y[1:2]
   expect_equal_to_reference(y.sub1, file = "rds/y.sub1.rds")
   expect_equal(y[1:2]$isoweeks, y$isoweeks[1:2])
-
 })
 
 
@@ -28,7 +26,7 @@ test_that("subset for incidence objects", {
   skip_on_cran()
 
   set.seed(123)
-  dat <- as.integer(sample(-3:10, 50, replace=TRUE))
+  dat <- as.integer(sample(-3:10, 50, replace = TRUE))
   x <- incidence(dat)
 
   x.sub3 <- subset(x, from = 0)
@@ -49,15 +47,10 @@ test_that("subset for incidence objects", {
   expect_error(subset(x, from = Inf, to = -2319), "No data retained.")
 })
 
-
-
-
-
-
 test_that("numeric subset works with dates ", {
   skip_on_cran()
 
-  x <-  incidence(as.Date("2001-01-01")+1:10, 2L)
+  x <-  incidence(as.Date("2001-01-01") + 1:10, 2L)
 
   expect_equal(subset(x, from = 1, to = 2)$dates,
                x$dates[1:2])
@@ -67,5 +60,4 @@ test_that("numeric subset works with dates ", {
 
   expect_equal(as.data.frame(subset(x, from = 0, to = 1e3)),
                as.data.frame(x))
-
 })

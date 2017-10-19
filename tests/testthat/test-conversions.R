@@ -1,6 +1,5 @@
 context("Conversions of incidence objects")
 
-
 test_that("as.data.frame works", {
   skip_on_cran()
 
@@ -25,13 +24,7 @@ test_that("as.data.frame works", {
   expect_equal(df3, df4)
   expect_equal_to_reference(df5, file = "rds/df5.rds")
   expect_equal_to_reference(df6, file = "rds/df6.rds")
-
 })
-
-
-
-
-
 
 test_that("as.incidence works", {
   skip_on_cran()
@@ -51,11 +44,10 @@ test_that("as.incidence works", {
   expect_equal(as.incidence(rep(1,10)), incidence(1:10))
 
   msg <- "Interval needs to be specified if there is only one date."
-  expect_error(as.incidence(i3$counts[1,,drop=FALSE], i3$dates[1]),
+  expect_error(as.incidence(i3$counts[1,,drop = FALSE], i3$dates[1]),
                msg)
 
   msg <- "Columns should be named to label groups."
   expect_error(as.incidence(unname(i3$counts), i3$dates),
                msg)
-
 })
