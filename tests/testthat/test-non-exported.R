@@ -17,18 +17,12 @@ test_that("check_dates works", {
             as.Date("2001-01-01") + 1:10,
             1.0,
             100:1)
-  for(e in x) {
+  for (e in x) {
     expect_equal(e, check_dates(e))
   }
 
   expect_equal(check_dates("2001-01-01"), as.Date("2001-01-01"))
-
 })
-
-
-
-
-
 
 test_that("check_interval", {
   skip_on_cran()
@@ -52,21 +46,15 @@ test_that("check_interval", {
   expect_equal(check_interval(2.7), 3)
 })
 
-
-
-
-
-
 test_that("check_groups", {
   skip_on_cran()
 
   expect_is(check_groups(1, 1, FALSE), "factor")
   expect_error(check_groups(1, 1:2, FALSE),
                "'x' does not have the same length as dates \\(1 vs 2\\)")
-  expect_equal(check_groups(NULL,NULL,FALSE), NULL)
-  expect_equal(check_groups(c(1,1,2,NA,2), 1:5, na_as_group=FALSE),
-               factor(c(1,1,2,NA,2)))
-  expect_equal(check_groups(c(1,1,2,NA,2), 1:5, na_as_group=TRUE),
-               factor(c(1,1,2,"NA",2)))
+  expect_equal(check_groups(NULL, NULL, FALSE), NULL)
+  expect_equal(check_groups(c(1, 1, 2, NA, 2), 1:5, na_as_group = FALSE),
+               factor(c(1, 1, 2, NA, 2)))
+  expect_equal(check_groups(c(1,1,2,NA,2), 1:5, na_as_group = TRUE),
+               factor(c(1, 1, 2, "NA", 2)))
 })
-

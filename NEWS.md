@@ -1,3 +1,13 @@
+incidence 1.2.1 (2017-10-19)
+============================
+
+### BUG FIXES
+
+* fixed issues in testing incidence plots by employing *vdiffr* package.
+
+
+
+
 incidence 1.2.0 (2017-04-03)
 ============================
 
