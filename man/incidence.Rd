@@ -47,9 +47,9 @@ treated as a separate group.}
 \code{NULL} (default), the last date will be the most recent provided in
 \code{dates}.}
 
-\item{iso_week}{A logical value indicating if the returning \code{incidence}
-should be ISO week-based when computing weekly incidence (interval =
-7). defaults to be TRUE.}
+\item{iso_week}{A logical value indicating if dates of the weekly incidence
+should be using ISO week. Only applies when \code{interval = 7}. Defaults
+to be TRUE.}
 
 \item{x}{An 'incidence' object.}
 }

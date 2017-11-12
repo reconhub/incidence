@@ -231,9 +231,9 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 ##' @export
 ##' @rdname incidence
-##' @param iso_week A logical value indicating if the returning \code{incidence}
-##'   should be ISO week-based when computing weekly incidence (interval =
-##'   7). defaults to be TRUE.
+##' @param iso_week A logical value indicating if dates of the weekly incidence
+##'   should be using ISO week. Only applies when \code{interval = 7}. Defaults
+##'   to be TRUE.
 
 incidence.Date <- function(dates, interval = 1L, iso_week = TRUE,
                            last_date = NULL, ...) {
