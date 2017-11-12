@@ -155,7 +155,11 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
   first_date <- min(dates, na.rm = TRUE)
   if (is.null(last_date)) {
     last_date <- max(dates, na.rm = TRUE)
-  } else if (!is.integer(last_date)) {
+  }
+  if (is.numeric(last_date)) {
+    last_date <- as.integer(last_date)
+  }
+  if (!is.integer(last_date)) {
     stop("last_date not provided as an integer")
   }
 

@@ -140,6 +140,7 @@ as.incidence.matrix <- function(x, dates = NULL, interval = NULL,
       dates <- seq(1, length = nrow(x), by = 1L)
     }
   }
+
   dates <- check_dates(dates, error_on_NA = TRUE)
   last_date <- max(dates)
 
