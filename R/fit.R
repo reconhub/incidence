@@ -157,7 +157,13 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
                         sum(!to.keep)))
     }
     x <- x[to.keep]
-
+    ## If there is only one date with non-zero incidence
+    ## then no model cannot be fit. If there are no days with
+    ## non-zero incidence, creation of incidence object throws
+    ## error anyway.
+    if (x$timespan == 1) {
+        stop("Only 1 date with non-zero incidence. Cannot fit model to 1 data point.")
+    }
     ## model without split (1 model)
     if (is.null(split)) {
         df <- as.data.frame(x, long=TRUE)
