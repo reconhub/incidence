@@ -21,6 +21,11 @@ test_that("fit", {
   expect_equal_to_reference(capture.output(fit.i), file="rds/print.fit.i.rds")
   expect_equal_to_reference(capture.output(fit.i.sex), file="rds/print.fit.sex.rds")
 
+  ## errors
+  x <- incidence(c(1, 0, 0, 0), interval = 7)
+  expect_error(fit(x), "Only 1 date with non-zero incidence. Cannot fit model to 1 data point.")
+
+
 })
 
 
