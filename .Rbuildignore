@@ -16,3 +16,4 @@ misc/
 README.md
 README.html
 ^appveyor\.yml$
+bug_reports/*
