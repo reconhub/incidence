@@ -123,3 +123,20 @@ check_groups <- function(x, dates, na_as_group){
   }
   factor(x)
 }
+
+
+
+
+## This function takes a vector of Date objects, and an ideal number of breaks,
+## and generates a list with two components: $breaks, and $labels. $breaks
+## correspond to the first day of the matching iso week; $labels contains vector
+## of labels of the corresponding iso weeks.
+
+make_iso_weeks_breaks <- function(dates, n = 5) {
+  breaks_ini <- pretty(dates, n)
+  iso_weeks <- ISOweek::date2ISOweek(breaks_ini)
+  iso_weeks_day1 <- sub("-[1-7]+$", "-1", iso_weeks)
+  list(breaks = ISOweek::ISOweek2date(iso_weeks_day1),
+       labels = sub("-[1-7]+$", "", iso_weeks)
+       )
+}
