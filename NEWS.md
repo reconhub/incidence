@@ -1,3 +1,22 @@
+incidence 1.3.0 (2018-??-??)
+============================
+
+### BUG FIXES
+
+* fixed [issue](https://github.com/reconhub/incidence/issues/34) caused by new
+  version of `ggplot2`
+  
+### NEW FEATURES
+
+* the argument `n_breaks` has been added to `plot.incidence`, to specify the
+  ideal number of breaks for the date legends
+  
+* added the internal function `make_iso_weeks_breaks` to generate dates and
+  labels for date x-axis legends using ISO weeks
+  
+
+
+
 incidence 1.2.1 (2017-10-19)
 ============================
 
