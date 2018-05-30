@@ -97,6 +97,9 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
             ylab <- sprintf("Incidence by period of %d days",
                             x$interval)
         }
+      if (isTRUE(x$cumulative)) {
+        ylab <- sub("incidence", "cumulative incidence", ylab)
+      }
     }
 
     ## Handle stacking

@@ -196,7 +196,8 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
               counts = counts, # computed incidence, 1 col / group
               timespan = diff(range(breaks, na.rm = TRUE)) + 1,
               interval = interval, # fixed bin size
-              n = sum(counts)) # total number of cases
+              n = sum(counts), # total number of cases
+              cumulative = FALSE) # not cumulative at creation
   class(out) <- "incidence"
   out
 }
@@ -321,7 +322,11 @@ print.incidence <- function(x, ...) {
               length(x$dates)))
   cat(sprintf("$interval: %d %s\n",
               x$interval, ifelse(x$interval < 2, "day", "days")))
-  cat(sprintf("$timespan: %d days\n\n", x$timespan))
+  cat(sprintf("$timespan: %d days\n", x$timespan))
+  if (!is.null(x$cumulative)) {
+    cat(sprintf("$cumulative: %s\n", x$cumulative))
+  }
+  cat("\n")
   invisible(x)
 }
 
