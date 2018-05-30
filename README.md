@@ -51,7 +51,10 @@ The main features of the package include:
 
 - **`pool`**: pool incidence from different groups into one global incidence time series.
 
-- **`as.data.frame`**: converts an *incidence* object into a `data.frame` containing dates and incidence values.
+- **`cumulate`**: computes cumulative incidence over time from and `incidence` object.
+
+- **`as.data.frame`**: converts an *incidence* object into a `data.frame`
+  containing dates and incidence values.
 
 
 
@@ -120,7 +123,7 @@ library(outbreaks)
 library(ggplot2)
 library(incidence)
 
-dat <- ebola_sim$linelist$date.of.onset
+dat <- ebola_sim$linelist$date_of_onset
 class(dat)
 #> [1] "Date"
 head(dat)
@@ -144,6 +147,7 @@ i.7
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 386 days
+#> $cumulative: FALSE
 plot(i.7)
 ```
 
@@ -165,6 +169,7 @@ i.7.sex
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 386 days
+#> $cumulative: FALSE
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
@@ -186,6 +191,7 @@ i.7[1:20]
 #> $dates: 20 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 134 days
+#> $cumulative: FALSE
 plot(i.7[1:20])
 ```
 
@@ -205,12 +211,15 @@ i.tail
 #> $dates: 17 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 113 days
+#> $cumulative: FALSE
 plot(i.tail, border = "white")
 ```
 
 ![plot of chunk tail](figs/tail-1.png)
 
-Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
+Subsetting groups can also matter. For instance, let's try and visualise the
+incidence based on onset of symptoms by outcome:
+
 
 ```r
 i.7.outcome <- incidence(dat, 7, groups = ebola_sim$linelist$outcome)
@@ -225,10 +234,32 @@ i.7.outcome
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 386 days
+#> $cumulative: FALSE
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
 ![plot of chunk i7outcome](figs/i7outcome-1.png)
+
+To visualise the cumulative incidence:
+
+```r
+i.7.outcome.cum <- cumulative(i.7.outcome)
+#> Error in cumulative(i.7.outcome): could not find function "cumulative"
+i.7.outcome
+#> <incidence object>
+#> [5888 cases from days 2014-04-07 to 2015-04-27]
+#> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
+#> [3 groups: Death, NA, Recover]
+#> 
+#> $counts: matrix with 56 rows and 3 columns
+#> $n: 5888 cases in total
+#> $dates: 56 dates marking the left-side of bins
+#> $interval: 7 days
+#> $timespan: 386 days
+#> $cumulative: FALSE
+plot(i.7.outcome.cum)
+#> Error in plot(i.7.outcome.cum): object 'i.7.outcome.cum' not found
+```
 
 
 Groups can also be collapsed into a single time series using `pool`:
@@ -245,6 +276,7 @@ i.pooled
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 386 days
+#> $cumulative: FALSE
 identical(i.7$counts, i.pooled$counts)
 #> [1] TRUE
 ```
@@ -404,6 +436,7 @@ plot(i.7, fit = best.fit$fit)
 - [Thibaut Jombart](https://github.com/thibautjombart)
 - [Rich Fitzjohn](https://github.com/richfitz)
 - [Jun Cai](https://github.com/caijun)
+- [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
 
 See details of contributions on:
 <br>

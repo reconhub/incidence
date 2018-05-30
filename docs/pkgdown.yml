@@ -1,0 +1,9 @@
+pandoc: 1.16.0.2
+pkgdown: 1.0.0
+pkgdown_sha: ~
+articles:
+  conversions: conversions.html
+  customize_plot: customize_plot.html
+  incidence_class: incidence_class.html
+  overview: overview.html
+
