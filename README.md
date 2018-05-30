@@ -243,9 +243,8 @@ plot(i.7.outcome, stack = TRUE, border = "grey")
 To visualise the cumulative incidence:
 
 ```r
-i.7.outcome.cum <- cumulative(i.7.outcome)
-#> Error in cumulative(i.7.outcome): could not find function "cumulative"
-i.7.outcome
+i.7.outcome.cum <- cumulate(i.7.outcome)
+i.7.outcome.cum
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
 #> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
@@ -256,10 +255,11 @@ i.7.outcome
 #> $dates: 56 dates marking the left-side of bins
 #> $interval: 7 days
 #> $timespan: 386 days
-#> $cumulative: FALSE
+#> $cumulative: TRUE
 plot(i.7.outcome.cum)
-#> Error in plot(i.7.outcome.cum): object 'i.7.outcome.cum' not found
 ```
+
+![plot of chunk i7outcome_cum](figs/i7outcome_cum-1.png)
 
 
 Groups can also be collapsed into a single time series using `pool`:

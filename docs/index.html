@@ -245,7 +245,7 @@ i<span class="fl">.7</span>.outcome
 <p><img src="figs/i7outcome-1.png" width="768"></p>
 <p>To visualise the cumulative incidence:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="fl">.7</span>.outcome.cum &lt;-<span class="st"> </span><span class="kw"><a href="reference/cumulate.html">cumulate</a></span>(i<span class="fl">.7</span>.outcome)
-i<span class="fl">.7</span>.outcome
+i<span class="fl">.7</span>.outcome.cum
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
@@ -256,7 +256,7 @@ i<span class="fl">.7</span>.outcome
 <span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
+<span class="co">#&gt; $cumulative: TRUE</span>
 <span class="kw">plot</span>(i<span class="fl">.7</span>.outcome.cum)</code></pre></div>
 <p><img src="figs/i7outcome_cum-1.png" width="768"></p>
 <p>Groups can also be collapsed into a single time series using <code>pool</code>:</p>
