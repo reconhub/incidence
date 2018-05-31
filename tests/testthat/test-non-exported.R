@@ -58,3 +58,15 @@ test_that("check_groups", {
   expect_equal(check_groups(c(1,1,2,NA,2), 1:5, na_as_group = TRUE),
                factor(c(1, 1, 2, "NA", 2)))
 })
+
+
+
+test_that("make_iso_weeks_breaks works", {
+  ## uses references from:
+  ## https://en.wikipedia.org/wiki/ISO_week_date
+  ref <- as.Date("2018-05-01")
+  dates <- ref + (-1:20)
+
+  out <- make_iso_weeks_breaks(dates)
+  expect_equal_to_reference(out, file = "rds/ref_date_breaks_iso.rds")
+})
