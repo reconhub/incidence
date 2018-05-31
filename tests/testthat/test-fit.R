@@ -35,8 +35,10 @@ test_that("fit_optim_split", {
   i <- incidence(dat, 5L)
   i.sex <- incidence(dat, 5L, groups = sex)
 
-  expect_equal_to_reference(fit_optim_split(i), file = "rds/o.fit.i.rds")
-  expect_equal_to_reference(fit_optim_split(i.sex), file = "rds/o.fit.i.sex.rds")
+  expect_equal_to_reference(fit_optim_split(i, plot = FALSE),
+                            file = "rds/o.fit.i.rds")
+  expect_equal_to_reference(fit_optim_split(i.sex, plot = FALSE),
+                            file = "rds/o.fit.i.sex.rds")
 
   ## errors
   expect_error(fit_optim_split(i, window = -1),
