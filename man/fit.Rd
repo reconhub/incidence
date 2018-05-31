@@ -112,7 +112,7 @@ function \code{add_incidence_fit}.
 \examples{
 
 if (require(outbreaks)) {
-  dat <- ebola_sim$linelist$date_of_onset
+ dat <- ebola_sim$linelist$date_of_onset
 
  ## EXAMPLE WITH A SINGLE MODEL
 

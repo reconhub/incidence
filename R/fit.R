@@ -88,7 +88,7 @@
 #' @examples
 #'
 #' if (require(outbreaks)) {
-#'   dat <- ebola_sim$linelist$date_of_onset
+#'  dat <- ebola_sim$linelist$date_of_onset
 #'
 #'  ## EXAMPLE WITH A SINGLE MODEL
 #'
@@ -388,6 +388,17 @@ add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
 
   df <- x$info$pred
 
+  ## 'x' could be a list of fit, in which case all fits are added to the plot
+  if (is.list(x) && !inherits(x, "incidence_fit")) {
+    out <- p
+    for (e in x) {
+      if (inherits(e, "incidence_fit")) {
+        out <- add_incidence_fit(out, e, col_pal)
+      }
+    }
+    return(out)
+  }
+
   out <- suppressMessages(
     p + ggplot2::geom_line(
       data = df,
@@ -406,7 +417,8 @@ add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
     out <- out + ggplot2::aes_string(color = "groups") +
       ggplot2::scale_color_manual(values = col_pal(n.groups))
   }
-  p
+
+  out
 }
 
 
