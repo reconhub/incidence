@@ -30,15 +30,16 @@
 
 <meta property="og:title" content="Fit exponential models to incidence data — fit" />
 
-<meta property="og:description" content="The function fit fits two exponential models to incidence data, of
-the form: \(log(y) = r * t + b\) 
-where 'y' is the incidence, 't' is time (in days), 'r' is the growth rate,
-and 'b' is the origin. The function fit will fit one model by
-default, but will fit two models on either side of a splitting date
-(typically the peak of the epidemic) if the argument split is
-provided. The function fit_optim_split can be used to find the
-optimal 'splitting' date, defined as the one for which the best average R2
-of the two models is obtained." />
+<meta property="og:description" content="The function fit fits two exponential models to incidence data, of the
+form: \(log(y) = r * t + b\)  where 'y' is the incidence, 't' is time
+(in days), 'r' is the growth rate, and 'b' is the origin. The function
+fit will fit one model by default, but will fit two models on either
+side of a splitting date (typically the peak of the epidemic) if the argument
+split is provided. The function fit_optim_split can be used to
+find the optimal 'splitting' date, defined as the one for which the best
+average R2 of the two models is obtained. Plotting can be done using
+plot, or added to an existing incidence plot by the piping-friendly
+function add_incidence_fit." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +67,7 @@ of the two models is obtained." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.0</span>
       </span>
     </div>
 
@@ -128,15 +129,16 @@ of the two models is obtained." />
 
     <div class="ref-description">
     
-    <p>The function <code>fit</code> fits two exponential models to incidence data, of
-the form: \(log(y) = r * t + b\) <br />
-where 'y' is the incidence, 't' is time (in days), 'r' is the growth rate,
-and 'b' is the origin. The function <code>fit</code> will fit one model by
-default, but will fit two models on either side of a splitting date
-(typically the peak of the epidemic) if the argument <code>split</code> is
-provided. The function <code>fit_optim_split</code> can be used to find the
-optimal 'splitting' date, defined as the one for which the best average R2
-of the two models is obtained.</p>
+    <p>The function <code>fit</code> fits two exponential models to incidence data, of the
+form: \(log(y) = r * t + b\) <br /> where 'y' is the incidence, 't' is time
+(in days), 'r' is the growth rate, and 'b' is the origin. The function
+<code>fit</code> will fit one model by default, but will fit two models on either
+side of a splitting date (typically the peak of the epidemic) if the argument
+<code>split</code> is provided. The function <code>fit_optim_split</code> can be used to
+find the optimal 'splitting' date, defined as the one for which the best
+average R2 of the two models is obtained. Plotting can be done using
+<code>plot</code>, or added to an existing incidence plot by the piping-friendly
+function <code>add_incidence_fit</code>.</p>
     
     </div>
 
@@ -147,8 +149,10 @@ of the two models is obtained.</p>
 <span class='co'># S3 method for incidence_fit</span>
 <span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='fu'>add_incidence_fit</span>(<span class='no'>p</span>, <span class='no'>x</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>incidence_pal1</span>)
+
 <span class='co'># S3 method for incidence_fit</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>incidence_pal1</span>)</pre>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,10 +195,12 @@ output, showing the mean R2 for various splits.</p></td>
       <td><p>further arguments passed to other methods (not used)</p></td>
     </tr>
     <tr>
+      <th>p</th>
+      <td><p>An existing incidence plot.</p></td>
+    </tr>
+    <tr>
       <th>col_pal</th>
-      <td><p>The color palette to be used for the groups; defaults to
-<code>incidence_pal1</code>. See <code><a href='palettes.html'>incidence_pal1</a></code> for other palettes implemented in
-incidence.</p></td>
+      <td><p>A color palette, defaulting</p></td>
     </tr>
     </table>
     
@@ -249,35 +255,40 @@ objects.</p></div>
 
  <span class='co'>## EXAMPLE WITH A SINGLE MODEL</span>
 
-  <span class='co'>## compute weekly incidence</span>
-  <span class='no'>i.7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span><span class='kw'>=</span><span class='fl'>7</span>)
-  <span class='fu'>plot</span>(<span class='no'>i.7</span>)
-  <span class='fu'>plot</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
+ <span class='co'>## compute weekly incidence</span>
+ <span class='no'>i.7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span><span class='kw'>=</span><span class='fl'>7</span>)
+ <span class='fu'>plot</span>(<span class='no'>i.7</span>)
+ <span class='fu'>plot</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
 
-  <span class='co'>## fit a model on the first 20 weeks</span>
-  <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
-  <span class='no'>f</span>
-  <span class='fu'>names</span>(<span class='no'>f</span>)
-  <span class='fu'>head</span>(<span class='no'>f</span>$<span class='no'>pred</span>)
+ <span class='co'>## fit a model on the first 20 weeks</span>
+ <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
+ <span class='no'>f</span>
+ <span class='fu'>names</span>(<span class='no'>f</span>)
+ <span class='fu'>head</span>(<span class='no'>f</span>$<span class='no'>pred</span>)
 
-  <span class='co'>## plot model alone (not recommended)</span>
-  <span class='fu'>plot</span>(<span class='no'>f</span>)
+ <span class='co'>## plot model alone (not recommended)</span>
+ <span class='fu'>plot</span>(<span class='no'>f</span>)
 
  <span class='co'>## plot data and model (recommended)</span>
- <span class='fu'>plot</span>(<span class='no'>i.7</span>, <span class='kw'>fit</span><span class='kw'>=</span><span class='no'>f</span>)
- <span class='fu'>plot</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>25</span>], <span class='kw'>fit</span><span class='kw'>=</span><span class='no'>f</span>)
+ <span class='fu'>plot</span>(<span class='no'>i.7</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>f</span>)
+ <span class='fu'>plot</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>25</span>], <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>f</span>)
+
+<span class='co'>## piping versions</span>
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>magrittr</span>)) {
+  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'>add_incidence_fit</span>(<span class='no'>f</span>)
 
 
-<span class='co'>## EXAMPLE WITH 2 PHASES</span>
- <span class='co'>## specifying the peak manually</span>
- <span class='no'>f2</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>, <span class='kw'>split</span><span class='kw'>=</span><span class='fu'>as.Date</span>(<span class='st'>"2014-10-15"</span>))
- <span class='no'>f2</span>
- <span class='fu'>plot</span>(<span class='no'>i.7</span>, <span class='kw'>fit</span><span class='kw'>=</span><span class='no'>f2</span>)
+  <span class='co'>## EXAMPLE WITH 2 PHASES</span>
+  <span class='co'>## specifying the peak manually</span>
+  <span class='no'>f2</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2014-10-15"</span>))
+  <span class='no'>f2</span>
+  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'>add_incidence_fit</span>(<span class='no'>f2</span>)
 
-<span class='co'>## finding the best 'peak' date</span>
-<span class='no'>f3</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_optim_split</span>(<span class='no'>i.7</span>)
-<span class='no'>f3</span>
-<span class='fu'>plot</span>(<span class='no'>i.7</span>, <span class='kw'>fit</span><span class='kw'>=</span><span class='no'>f3</span>$<span class='no'>fit</span>)
+  <span class='co'>## finding the best 'peak' date</span>
+  <span class='no'>f3</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_optim_split</span>(<span class='no'>i.7</span>)
+  <span class='no'>f3</span>
+  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'>add_incidence_fit</span>(<span class='no'>f3</span>$<span class='no'>fit</span>)
+}
 }</div><div class='img'><img src='fit-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

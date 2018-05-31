@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.0</span>
       </span>
     </div>
 
@@ -114,13 +114,34 @@
       
     </div>
 
-    <div id="incidence-1-2-1-2017-10-19" class="section level1">
+    <div id="incidence-1-3-0-2018--" class="section level1">
 <h1 class="page-header">
-<a href="#incidence-1-2-1-2017-10-19" class="anchor"></a>incidence 1.2.1 (2017-10-19)<small> 2017-11-12 </small>
+<a href="#incidence-1-3-0-2018--" class="anchor"></a>incidence 1.3.0 (2018-??-??)<small> Unreleased </small>
 </h1>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>fixed <a href="https://github.com/reconhub/incidence/issues/34">issue</a> caused by new version of <code>ggplot2</code>
+</li>
+</ul>
+</div>
+<div id="new-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
+<ul>
+<li><p>the argument <code>n_breaks</code> has been added to <code>plot.incidence</code>, to specify the ideal number of breaks for the date legends</p></li>
+<li><p>added the internal function <code>make_iso_weeks_breaks</code> to generate dates and labels for date x-axis legends using ISO weeks</p></li>
+</ul>
+</div>
+</div>
+    <div id="incidence-1-2-1-2017-10-19" class="section level1">
+<h1 class="page-header">
+<a href="#incidence-1-2-1-2017-10-19" class="anchor"></a>incidence 1.2.1 (2017-10-19)<small> 2017-11-12 </small>
+</h1>
+<div id="bug-fixes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed issues in testing incidence plots by employing <em>vdiffr</em> package.</li>
 </ul>
@@ -130,9 +151,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-2-0-2017-04-03" class="anchor"></a>incidence 1.2.0 (2017-04-03)<small> 2017-05-15 </small>
 </h1>
-<div id="new-features" class="section level3">
+<div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>new generic <em>as.incidence</em>, to create incidence objects from already computed incidences. Methods for: matrix, data.frame, numeric vectors</p></li>
 <li><p>better processing of input dates, including: automatic conversion from characters, issuing errors for factors, and silently converting numeric vectors which are essentially integers (issuing a warning otherwise)</p></li>
@@ -140,9 +161,9 @@
 <li><p>new tests</p></li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>fixed issues caused by variables which changed names in some datasets of the <em>outbreaks</em> package, used in the documentation</p></li>
 <li><p>disabled by default the isoweeks in <code>incidence</code>; this part of the code will break with changes made in the devel version of <em>ggplot2</em>, which is now required by <em>plotly</em></p></li>
@@ -153,9 +174,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-1-2-2017-03-24" class="anchor"></a>incidence 1.1.2 (2017-03-24)<small> 2017-03-24 </small>
 </h1>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>it is now possible to subset an incidence object based on <code>Date</code> dates using numeric values, which are interpreted as number of intervals since the first date (origin = 1)</p></li>
 <li><p>NAs are no longer removed from the input dates, as it would cause mismatches with grouping factors.</p></li>
@@ -166,9 +187,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-1-1-2017-02-15" class="anchor"></a>incidence 1.1.1 (2017-02-15)<small> 2017-02-15 </small>
 </h1>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>adapting to new names of datasets in <a href="http://repidemicsconsortium.org/outbreaks"><em>outbreaks</em></a>: <code>ebola.sim</code> -&gt; <code>ebola_sim</code> and <code>ebola.sim.clean</code> -&gt; <code>ebola_sim_clean</code>
 </li>
@@ -179,9 +200,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-1-0-2016-12-13" class="anchor"></a>incidence 1.1.0 (2016-12-13)<small> 2016-12-13 </small>
 </h1>
-<div id="new-features-1" class="section level3">
+<div id="new-features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>add an argument <code>iso_week</code> to incidence.Date() and incidence.POSIXt() to support ISO week-based incidence when computing weekly incidence.</p></li>
 <li><p>add an argument <code>labels_iso_week</code> to plot.incidence() to label x axis tick marks with ISO weeks when plotting ISO week-based weekly incidence.</p></li>
@@ -193,9 +214,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-0-1-2016-11-23" class="anchor"></a>incidence 1.0.1 (2016-11-23)<small> 2016-11-22 </small>
 </h1>
-<div id="new-features-2" class="section level3">
+<div id="new-features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>The README.Rmd / README.md now contains information about various websites for <em>incidence</em> as well as guidelines for posting questions on the RECON forum.</p></li>
 <li><p>incidence now has a dedicated website <a href="http://www.repidemicsconsortium.org/incidence/" class="uri">http://www.repidemicsconsortium.org/incidence/</a> generated with <em>pkgdown</em></p></li>
@@ -222,6 +243,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#incidence-1-3-0-2018--">1.3.0</a></li>
         <li><a href="#incidence-1-2-1-2017-10-19">1.2.1</a></li>
         <li><a href="#incidence-1-2-0-2017-04-03">1.2.0</a></li>
         <li><a href="#incidence-1-1-2-2017-03-24">1.1.2</a></li>

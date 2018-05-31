@@ -59,7 +59,7 @@ function, using the package ggplot2." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.0</span>
       </span>
     </div>
 
@@ -129,7 +129,8 @@ function, using the package <code>ggplot2</code>.</p>
     <pre class="usage"><span class='co'># S3 method for incidence</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fu'>is.null</span>(<span class='no'>fit</span>),
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>incidence_pal1</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels_iso_week</span> <span class='kw'>=</span> !<span class='fu'>is.null</span>(<span class='no'>x</span>$<span class='no'>isoweeks</span>))</pre>
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels_iso_week</span> <span class='kw'>=</span> !<span class='fu'>is.null</span>(<span class='no'>x</span>$<span class='no'>isoweeks</span>),
+  <span class='kw'>n_breaks</span> <span class='kw'>=</span> <span class='fl'>6</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,6 +189,11 @@ computation.</p></td>
       <td><p>a logical value indicating whether labels x axis tick
 marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 incidence; defaults to be TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>n_breaks</th>
+      <td><p>the ideal number of breaks to be used for the x-axis
+labelling</p></td>
     </tr>
     </table>
     

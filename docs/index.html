@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.0</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
 <ul>
 <li><p><strong><code>incidence</code></strong>: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class <em>incidence</em>.</p></li>
 <li><p><strong><code>plot</code></strong>: this method (see <code><a href="reference/plot.incidence.html">?plot.incidence</a></code> for details) plots <em>incidence</em> objects, and can also add predictions of the model(s) contained in an <em>incidence_fit</em> object (or a list of such objects).</p></li>
-<li><p><strong><code>fit</code></strong>: fit one or two exponential models (i.e. linear regression on log-incidence) to an <em>incidence</em> object; two models are calibrated only if a date is provided to split the time series in two (argument <code>split</code>); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class <em>incidence_fit</em>, each of which contains various useful information (e.g. growth rate <em>r</em>, doubling/halving time, predictions and confidence intervals).</p></li>
+<li><p><strong><code>fit</code></strong>: fit one or two exponential models (i.e. linear regression on log-incidence) to an <em>incidence</em> object; two models are calibrated only if a date is provided to split the time series in two (argument <code>split</code>); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class <em>incidence_fit</em>, each of which contains various useful information (e.g. growth rate <em>r</em>, doubling/halving time, predictions and confidence intervals); results can be plotted using <code>plot</code>, or added to an existing <code>uncudence</code> plot using the piping-friendly function <code>add_incidence_fit</code>.</p></li>
 <li><p><strong><code>fit_optim_split</code></strong>: finds the optimal date to split the time series in two, typically around the peak of the epidemic.</p></li>
 <li><p><strong><code>[</code></strong>: lower-level subsetan of <em>incidence</em> objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. <code>x[i, j]</code>, where <code>x</code> is the <em>incidence</em> object, <code>i</code> a subset of dates, and <code>j</code> a subset of groups.</p></li>
 <li><p><strong><code>subset</code></strong>: subset an <em>incidence</em> object by specifying a time window.</p></li>
@@ -311,6 +311,10 @@ early.fit
 <p>However, a better way to display these predictions is adding them to the incidence plot using the argument <code>fit</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>], <span class="dt">fit =</span> early.fit)</code></pre></div>
 <p><img src="figs/unnamed-chunk-3-1.png" width="768"></p>
+<p>Alternatively, these can be piped using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+<span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span>:<span class="dv">20</span>]) %&gt;%<span class="st"> </span><span class="kw"><a href="reference/fit.html">add_incidence_fit</a></span>(early.fit)</code></pre></div>
+<p><img src="figs/pipe-1.png" width="768"></p>
 <p>In this case, we would ideally like to fit two models, before and after the peak of the epidemic. This is possible using the following approach, in which the best possible splitting date (i.e. the one maximizing the average fit of both models), is determined automatically:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.fit &lt;-<span class="st"> </span><span class="kw"><a href="reference/fit.html">fit_optim_split</a></span>(i<span class="fl">.7</span>)
 best.fit

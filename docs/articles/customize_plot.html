@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.0</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-05-30</h4>
+            <h4 class="date">2018-05-31</h4>
       
       
       <div class="hidden name"><code>customize_plot.Rmd</code></div>
@@ -170,8 +170,8 @@ i.hosp
 <p>However, some of these defaults can be altered through the various arguments of the function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence:::plot.incidence)
 <span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span>
-<span class="co">#&gt;     border = NA, col_pal = incidence_pal1, alpha = 0.7, xlab = "", ylab = NULL, </span>
-<span class="co">#&gt;     labels_iso_week = !is.null(x$isoweeks)) </span>
+<span class="co">#&gt;     border = NA, col_pal = incidence_pal1, alpha = 0.7, xlab = "", </span>
+<span class="co">#&gt;     ylab = NULL, labels_iso_week = !is.null(x$isoweeks), n_breaks = 6) </span>
 <span class="co">#&gt; NULL</span></code></pre></div>
 </div>
 <div id="changing-colors" class="section level2">

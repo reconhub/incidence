@@ -37,21 +37,39 @@ Note that this requires the package *devtools* installed.
 
 The main features of the package include:
 
-- **`incidence`**: compute incidence from dates in various formats; any fixed time interval can be used; the returned object is an instance of the (S3) class *incidence*.
+- **`incidence`**: compute incidence from dates in various formats; any fixed
+  time interval can be used; the returned object is an instance of the (S3)
+  class *incidence*.
 
-- **`plot`**: this method (see `?plot.incidence` for details) plots *incidence* objects, and can also add predictions of the model(s) contained in an  *incidence_fit* object (or a list of such objects).
+- **`plot`**: this method (see `?plot.incidence` for details) plots *incidence*
+  objects, and can also add predictions of the model(s) contained in an
+  *incidence_fit* object (or a list of such objects).
 
-- **`fit`**: fit one or two exponential models (i.e. linear regression on log-incidence) to an *incidence* object; two models are calibrated only if a date is provided to split the time series in two (argument `split`); this is typically useful to model the two phases of exponential growth, and decrease of an outbreak; each model returned is an instance of the (S3) class *incidence_fit*, each of which contains various useful information (e.g. growth rate *r*, doubling/halving time, predictions and confidence intervals).
+- **`fit`**: fit one or two exponential models (i.e. linear regression on
+  log-incidence) to an *incidence* object; two models are calibrated only if a
+  date is provided to split the time series in two (argument `split`); this is
+  typically useful to model the two phases of exponential growth, and decrease
+  of an outbreak; each model returned is an instance of the (S3) class
+  *incidence_fit*, each of which contains various useful information
+  (e.g. growth rate *r*, doubling/halving time, predictions and confidence
+  intervals); results can be plotted using `plot`, or added to an existing
+  `uncudence` plot using the piping-friendly function `add_incidence_fit`.
 
-- **`fit_optim_split`**: finds the optimal date to split the time series in two, typically around the peak of the epidemic.
+- **`fit_optim_split`**: finds the optimal date to split the time series in two,
+  typically around the peak of the epidemic.
 
-- **`[`**: lower-level subsetan of *incidence* objects, permiting to specify which dates and groups to retain; uses a syntax similar to matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates, and `j` a subset of groups.
+- **`[`**: lower-level subsetan of *incidence* objects, permiting to specify
+  which dates and groups to retain; uses a syntax similar to matrices,
+  i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates,
+  and `j` a subset of groups.
 
 - **`subset`**: subset an *incidence* object by specifying a time window.
 
-- **`pool`**: pool incidence from different groups into one global incidence time series.
+- **`pool`**: pool incidence from different groups into one global incidence
+  time series.
 
-- **`cumulate`**: computes cumulative incidence over time from and `incidence` object.
+- **`cumulate`**: computes cumulative incidence over time from and `incidence`
+  object.
 
 - **`as.data.frame`**: converts an *incidence* object into a `data.frame`
   containing dates and incidence values.
@@ -336,7 +354,9 @@ plot(early.fit)
 
 ![plot of chunk unnamed-chunk-2](figs/unnamed-chunk-2-1.png)
 
-However, a better way to display these predictions is adding them to the incidence plot using the argument `fit`:
+However, a better way to display these predictions is adding them to the
+incidence plot using the argument `fit`:
+
 
 ```r
 plot(i.7[1:20], fit = early.fit)
@@ -344,9 +364,20 @@ plot(i.7[1:20], fit = early.fit)
 
 ![plot of chunk unnamed-chunk-3](figs/unnamed-chunk-3-1.png)
 
+Alternatively, these can be piped using:
 
-In this case, we would ideally like to fit two models, before and after the peak of the epidemic.
-This is possible using the following approach, in which the best possible splitting date (i.e. the one maximizing the average fit of both models), is determined automatically:
+```r
+library(magrittr)
+plot(i.7[1:20]) %>% add_incidence_fit(early.fit)
+```
+
+![plot of chunk pipe](figs/pipe-1.png)
+
+
+In this case, we would ideally like to fit two models, before and after the peak
+of the epidemic.  This is possible using the following approach, in which the
+best possible splitting date (i.e. the one maximizing the average fit of both
+models), is determined automatically:
 
 ```r
 best.fit <- fit_optim_split(i.7)
