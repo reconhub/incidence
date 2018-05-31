@@ -74,7 +74,7 @@ When calling `plot` on an *incidence* object, the function `plot.incidence` is i
 
 ## Default behaviour
 
-By default, the function uses grey for single time series, and colors from the color palette `pal1` when incidence is computed by groups:
+By default, the function uses grey for single time series, and colors from the color palette `incidence_pal1` when incidence is computed by groups:
 ```{r, default}
 plot(i)
 plot(i.sex)
@@ -93,20 +93,20 @@ args(incidence:::plot.incidence)
 
 ### The default palette
 
-A color palette is a function which outputs a specified number of colors. By default, the color used in *incidence* is called `pal1`. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:
-```{r, pal1,   fig.height = 8}
+A color palette is a function which outputs a specified number of colors. By default, the color used in *incidence* is called `incidence_pal1`. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:
+```{r, incidence_pal1,   fig.height = 8}
 par(mfrow = c(3,1), mar = c(4,2,1,1))
-barplot(1:2, col = pal1(2))
-barplot(1:4, col = pal1(4))
-barplot(1:20, col = pal1(20))
+barplot(1:2, col = incidence_pal1(2))
+barplot(1:4, col = incidence_pal1(4))
+barplot(1:20, col = incidence_pal1(20))
 ```
 
 This pallette also has a light and a dark version:
 ```{r, pal2, fig.height = 8}
 par(mfrow = c(3,1))
-barplot(1:20, col = pal1dark(20), main = "palette:  pal1dark")
-barplot(1:20, col = pal1(20), main = "palette:  pal1")
-barplot(1:20, col = pal1light(20), main = "palette:  pal1light")
+barplot(1:20, col = incidence_pal1_dark(20), main = "palette:  incidence_pal1_dark")
+barplot(1:20, col = incidence_pal1(20), main = "palette:  incidence_pal1")
+barplot(1:20, col = incidence_pal1_light(20), main = "palette:  incidence_pal1_light")
 ```
 
 

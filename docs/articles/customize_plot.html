@@ -160,7 +160,7 @@ i.hosp
 <div id="default-behaviour" class="section level2">
 <h2 class="hasAnchor">
 <a href="#default-behaviour" class="anchor"></a>Default behaviour</h2>
-<p>By default, the function uses grey for single time series, and colors from the color palette <code>pal1</code> when incidence is computed by groups:</p>
+<p>By default, the function uses grey for single time series, and colors from the color palette <code>incidence_pal1</code> when incidence is computed by groups:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i)</code></pre></div>
 <p><img src="figs-custom/default-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex)</code></pre></div>
@@ -170,7 +170,7 @@ i.hosp
 <p>However, some of these defaults can be altered through the various arguments of the function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence:::plot.incidence)
 <span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span>
-<span class="co">#&gt;     border = NA, col_pal = pal1, alpha = 0.7, xlab = "", ylab = NULL, </span>
+<span class="co">#&gt;     border = NA, col_pal = incidence_pal1, alpha = 0.7, xlab = "", ylab = NULL, </span>
 <span class="co">#&gt;     labels_iso_week = !is.null(x$isoweeks)) </span>
 <span class="co">#&gt; NULL</span></code></pre></div>
 </div>
@@ -180,17 +180,17 @@ i.hosp
 <div id="the-default-palette" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-default-palette" class="anchor"></a>The default palette</h3>
-<p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>pal1</code>. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
+<p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>incidence_pal1</code>. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">2</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">4</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
-<p><img src="figs-custom/pal1-1.png" width="672"></p>
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">2</span>))
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">4</span>))
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
+<p><img src="figs-custom/incidence_pal1-1.png" width="672"></p>
 <p>This pallette also has a light and a dark version:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw">pal1dark</span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1dark"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw">pal1light</span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  pal1light"</span>)</code></pre></div>
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw">incidence_pal1_dark</span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_dark"</span>)
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1"</span>)
+<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw">incidence_pal1_light</span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_light"</span>)</code></pre></div>
 <p><img src="figs-custom/pal2-1.png" width="672"></p>
 </div>
 <div id="using-different-palettes" class="section level3">
