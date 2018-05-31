@@ -204,8 +204,15 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                                          labels = breaks_info$labels)
     } else {
       breaks <- pretty(x$dates, n_breaks)
-      out <- out + ggplot2::scale_x_date(breaks = breaks)
+      if (inherits(x$dates, "Date")) {
+        out <- out + ggplot2::scale_x_date(breaks = breaks)
+      } else if (inherits(x$dates, "POSIXct")) {
+        out <- out + ggplot2::scale_x_datetime(breaks = breaks)
+      } else {
+        out <- out + ggplot2::scale_x_continuous(breaks = breaks)
+      }
     }
   }
+
   out
 }
