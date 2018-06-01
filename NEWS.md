@@ -1,4 +1,15 @@
-incidence 1.3.0 (2018-??-??)
+incidence 1.3.1 (2018-06-05)
+============================
+
+### BUG FIXES
+
+* tweak of the plotting of `incidence` object to avoid conflicts with additional
+  geoms such as `geom_ribbon`, now used in `projections::add_projections`.
+
+
+
+
+incidence 1.3.0 (2018-06-01)
 ============================
 
 ### BUG FIXES
@@ -9,7 +20,7 @@ incidence 1.3.0 (2018-??-??)
 ### NEW FEATURES
 
 * the argument `n_breaks` has been added to `plot.incidence`, to specify the
-  ideal number of breaks for the date legends
+  ideal number of breaks for the date legends; will work with ggplot2 > 2.2.1
   
 * added the internal function `make_iso_weeks_breaks` to generate dates and
   labels for date x-axis legends using ISO weeks

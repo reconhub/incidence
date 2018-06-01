@@ -117,9 +117,14 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## x-offset as we need the 'position' argument for stacking. Best option
   ## here is add x$interval / 2 to the x-axis.
 
+  ## Important note: it seems safest to specify the aes() as part of the geom,
+  ## not in ggplot(), as it interacts badly with some other geoms like
+  ## geom_ribbon - used e.g. in projections::add_projections().
+
   x.axis.txt <- paste("dates", x$interval/2, sep = "+")
-  out <- ggplot2::ggplot(df, ggplot2::aes_string(x = x.axis.txt, y = "counts")) +
-    ggplot2::geom_bar(stat = "identity", width = x$interval,
+  out <- ggplot2::ggplot(df) +
+    ggplot2::geom_bar(ggplot2::aes_string(x = x.axis.txt, y = "counts"),
+                      stat = "identity", width = x$interval,
                       position = stack.txt,
                       color = border, alpha = alpha) +
     ggplot2::labs(x = xlab, y = ylab)
