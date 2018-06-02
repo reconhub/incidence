@@ -140,3 +140,16 @@ make_iso_weeks_breaks <- function(dates, n = 5) {
        labels = sub("-[1-7]+$", "", iso_weeks)
        )
 }
+
+
+
+
+## Implement isTRUE and isFALSE to avoid dep on R 3.5.0
+
+isFALSE <- function(x) {
+  is.logical(x) && length(x) == 1L && !is.na(x) && !x
+}
+
+isTRUE <- function(x) {
+  is.logical(x) && length(x) == 1L && !is.na(x) && x
+}
