@@ -75,7 +75,7 @@ The main functions of the package include:
 - **`fit_optim_split`**: finds the optimal date to split the time series in two,
     typically around the peak of the epidemic.
 
-- **`[`**: lower-level subsetan of *incidence* objects, permiting to specify
+- **`[`**: lower-level subset of *incidence* objects, permiting to specify
     which dates and groups to retain; uses a syntax similar to matrices,
     i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates,
     and `j` a subset of groups.
@@ -213,7 +213,7 @@ log(*y*) = *r* x *t* + *b*
 where *y* is the incidence, *r* is the growth rate, *t* is the number of days since a specific point in time (typically the start of the outbreak), and *b* is the intercept.
 
 Such model can be fitted to any incidence object using `fit`.
-Of course, a single log-linear model is not sufficient for modelling our time series, as there is clearly an growing and a decreasing phase.
+Of course, a single log-linear model is not sufficient for modelling our epidemic curve, as there is clearly an growing and a decreasing phase.
 As a start, we can calibrate a model on the first 20 weeks of the epidemic:
 
 
@@ -259,4 +259,3 @@ best.fit2 <- fit_optim_split(i.7.sex)$fit
 best.fit2
 plot(i.7.sex, fit=best.fit2)
 ```
-
