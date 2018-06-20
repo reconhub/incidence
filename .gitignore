@@ -4,4 +4,6 @@
 *.tar.gz
 *~
 inst/doc
+README.htmlincidence.Rcheck
+incidence.Rcheck/
 README.html
