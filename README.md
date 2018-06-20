@@ -11,7 +11,7 @@
 [![Coverage Status](https://codecov.io/github/reconhub/incidence/coverage.svg?branch=master)](https://codecov.io/github/reconhub/incidence?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/incidence)](https://cran.r-project.org/package=incidence)
-
+[![Downloads from Rstudio mirror](https://cranlogs.r-pkg.org/badges/grand-total/incidence)](http://www.r-pkg.org/pkg/incidence)
 
 
 # Installing the package
@@ -368,6 +368,11 @@ Alternatively, these can be piped using:
 
 ```r
 library(magrittr)
+#> 
+#> Attaching package: 'magrittr'
+#> The following objects are masked from 'package:testthat':
+#> 
+#>     equals, is_less_than, not
 plot(i.7[1:20]) %>% add_incidence_fit(early.fit)
 ```
 
