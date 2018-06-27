@@ -23,6 +23,52 @@
     <marker
        inkscape:isstock="true"
        style="overflow:visible"
+       id="marker10639"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#7c916f;fill-opacity:1;fill-rule:evenodd;stroke:#7c916f;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path10637"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker10543"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#7c916f;fill-opacity:1;fill-rule:evenodd;stroke:#7c916f;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path10541"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker10425"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         inkscape:connector-curvature="0"
+         id="path10423"
+         style="fill:#7c916f;fill-opacity:1;fill-rule:evenodd;stroke:#7c916f;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
        id="marker9953"
        refX="0"
        refY="0"
@@ -197,7 +243,7 @@
     <linearGradient
        id="linearGradient1222"
        osb:paint="solid"
-       gradientTransform="translate(-8,10)">
+       gradientTransform="translate(198,154)">
       <stop
          style="stop-color:#535d6c;stop-opacity:1;"
          offset="0"
@@ -231,7 +277,8 @@
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="Arrow2Mend">
+       inkscape:stockid="Arrow2Mend"
+       inkscape:collect="always">
       <path
          transform="scale(-0.6)"
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
@@ -1122,9 +1169,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.5910278"
-     inkscape:cx="271.08653"
-     inkscape:cy="270.34162"
+     inkscape:zoom="2.2500531"
+     inkscape:cx="279.58095"
+     inkscape:cy="275.83936"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2893,7 +2940,8 @@
          style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.90142393;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5925)" />
     </g>
     <g
-       id="g10355">
+       id="g10355"
+       transform="translate(-10)">
       <rect
          transform="matrix(0.76234593,0,0,0.84394298,-36.385506,255.47444)"
          style="fill:#6f7c91;fill-opacity:1;stroke:none;stroke-width:1.15843964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5925)"
@@ -3299,15 +3347,38 @@
          x="29.47995"
          sodipodi:role="line"
          id="tspan10113">f2 &lt;- fit(i[201:400], ...)</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path10419"
+       d="m 240.63576,910.75319 c -1.49167,51.82486 82.07133,47.09079 146.1059,47.12083"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#7c916f;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker10425)"
+       sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="483.08633"
-       y="816.76257"
-       id="text10117"><tspan
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient1222);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="235.47995"
+       y="974.96216"
+       id="text10595"><tspan
+         id="tspan10593"
          sodipodi:role="line"
-         id="tspan10115"
-         x="483.08633"
-         y="816.76257">t</tspan></text>
+         x="235.47995"
+         y="974.96216"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:1.25;font-family:inconsolata;-inkscape-font-specification:inconsolata;fill:url(#linearGradient1228);fill-opacity:1">plot(i) %&gt;%</tspan><tspan
+         sodipodi:role="line"
+         x="235.47995"
+         y="990.58716"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:1.25;font-family:inconsolata;-inkscape-font-specification:inconsolata;fill:url(#linearGradient1228);fill-opacity:1"
+         id="tspan10599">add_incidence_fit(f1) %&gt;%</tspan><tspan
+         sodipodi:role="line"
+         x="235.47995"
+         y="1006.2122"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:1.25;font-family:inconsolata;-inkscape-font-specification:inconsolata;fill:url(#linearGradient1228);fill-opacity:1"
+         id="tspan10601">add_incidence_fit(f2)</tspan></text>
+    <path
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#7c916f;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker10639)"
+       d="m 240.63576,1022.4634 h 146.1059"
+       id="path10611"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
