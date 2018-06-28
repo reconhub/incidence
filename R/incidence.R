@@ -178,7 +178,9 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
 
 
   ## define breaks here
-  breaks <- seq(first_date, last_date, by = interval) # 'd1' in expl above
+  # TODO: Fix replace this with breaks handler
+  # breaks <- seq(first_date, last_date, by = interval) # 'd1' in expl above
+  breaks <- make_breaks(first_date, last_date, interval)
   breaks <- as.integer(breaks)
 
   ## compute counts within bins defined by the breaks

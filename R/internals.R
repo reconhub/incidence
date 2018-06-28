@@ -101,6 +101,22 @@ check_interval <- function(x){
 }
 
 
+# TODO: Add function that creates the breakpoints for any input
+make_breaks <- function(first_date, last_date, the_interval) {
+  valid_intervals <- c("day", "week", "month", "quarter", "year",
+                       "days", "weeks", "months", "quarters", "years")
+  if (is.character(the_interval)) {
+    if (!the_interval %in% valid_intervals) {
+      suppressWarnings({
+        the_interval <- as.numeric(the_interval)
+      })
+      if (is.na(the_interval)) {
+        stop('The interval must be a number or one of the following: "day", "week", "month", "quarter" or "year"', call. = FALSE)
+      }
+    }
+  }
+  seq(first_date, last_date, by = the_interval)
+}
 
 
 
