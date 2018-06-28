@@ -6,6 +6,7 @@
 ^README\.Rmd$
 ^update_web\.sh$
 figure/*
+artwork/*
 ^codecov\.yml$
 figs/*
 logo/*
