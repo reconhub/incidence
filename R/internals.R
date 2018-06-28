@@ -87,9 +87,11 @@ check_interval <- function(x){
       length(x)))
   }
   if (!is.finite(x)) {
+    # TODO: Add criteria for Date intervals
+    #
     stop("Interval is not finite")
   }
-  x <- as.integer(round(old <- x))
+  x <- as.integer(round(old <- x)) # TODO: remove this force
   if (x < 1L) {
     stop(sprintf(
       "Interval must be at least 1 (input: %.3f; after rounding: %d)",
