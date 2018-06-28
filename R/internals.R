@@ -101,8 +101,17 @@ check_interval <- function(x){
 }
 
 
-# TODO: Add function that creates the breakpoints for any input
-make_breaks <- function(first_date, last_date, the_interval) {
+#' Validate potential character values for interval
+#'
+#' Characters are valid for intervals if they are of the
+#' form "day", "week", "month", etc. They can ALSO be
+#' valid if they are characters that convert to numbers.
+#'
+#' @param the_interval a character string of length one
+#'
+#' @return the character string OR a numeric value.
+#' @noRd
+valid_interval_character <- function(the_interval) {
   valid_intervals <- c("day", "week", "month", "quarter", "year",
                        "days", "weeks", "months", "quarters", "years")
   if (is.character(the_interval)) {
@@ -115,6 +124,24 @@ make_breaks <- function(first_date, last_date, the_interval) {
       }
     }
   }
+  the_interval
+}
+
+
+#' Make breaks with dates
+#'
+#' Because Date objects have a specific `seq` method, it's possible
+#' to make breaks with both integers and date objects. This function
+#' will check to make sure that the interval is valid.
+#'
+#' @param first_date an integer, numeric, or Date
+#' @param last_date an integer, numeric, or Date
+#' @param the_interval an integer or character
+#'
+#' @return
+#' @noRd
+make_breaks <- function(first_date, last_date, the_interval) {
+  the_interval <- valid_interval_character(the_interval)
   seq(first_date, last_date, by = the_interval)
 }
 
