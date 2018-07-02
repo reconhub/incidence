@@ -166,43 +166,6 @@ incidence.default <- function(dates, interval = 1L, ...) {
   check_dates(dates)
 }
 
-make_incidence <- function(dates, interval = 1L, groups = NULL,
-                           na_as_group = TRUE,
-                           last_date = NULL, ...) {
-  dots     <- list(...)
-
-  ## make sure input can be used
-  dates    <- check_dates(dates)
-  interval <- check_interval(interval)
-  groups   <- check_groups(groups, dates, na_as_group)
-
-  ## Check the interval and arrange the breaks
-  breaks   <- make_breaks_easier(dates, interval, last_date, dots)
-
-  ## compute counts within bins defined by the breaks
-  if (!is.null(groups)) {
-    counts <- tapply(dates, groups, count.dates, breaks)
-    counts <- matrix(as.integer(unlist(counts, use.names = FALSE)),
-                     ncol = length(levels(groups)))
-    colnames(counts) <- levels(groups)
-  } else {
-    counts <- count.dates(dates, breaks)
-    counts <- matrix(as.integer(counts), ncol = 1L)
-  }
-
-  out <- list(dates      = breaks,      # left side of bins (incl left, excl right)
-              counts     = counts,      # computed incidence, 1 col / group
-              timespan   = diff(range(breaks, na.rm = TRUE)) + 1,
-              interval   = interval,    # fixed bin size
-              n          = sum(counts), # total number of cases
-              cumulative = FALSE)       # not cumulative at creation
-  class(out) <- "incidence"
-  out
-}
-
-
-
-
 
 ##' @export
 ##' @rdname incidence
