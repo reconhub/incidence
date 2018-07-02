@@ -254,8 +254,12 @@ print.incidence <- function(x, ...) {
   cat(sprintf("$n: %d cases in total\n", x$n))
   cat(sprintf("$dates: %d dates marking the left-side of bins\n",
               length(x$dates)))
-  cat(sprintf("$interval: %d %s\n",
-              x$interval, ifelse(x$interval < 2, "day", "days")))
+  if (is.integer(x$interval)) {
+    cat(sprintf("$interval: %d %s\n",
+                x$interval, ifelse(x$interval < 2, "day", "days")))
+  } else {
+    cat(sprintf("$interval: 1 %s\n", x$interval))
+  }
   cat(sprintf("$timespan: %d days\n", x$timespan))
   if (!is.null(x$cumulative)) {
     cat(sprintf("$cumulative: %s\n", x$cumulative))
