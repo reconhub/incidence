@@ -145,62 +145,15 @@ incidence <- function(dates, interval = 1L, ...) {
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
                               na_as_group = TRUE,
                               last_date = NULL, ...) {
-  dots <- list(...)
-  ## make sure input can be used
-  dates <- check_dates(dates)
-  interval <- check_interval(interval)
-  groups <- check_groups(groups, dates, na_as_group)
-
-  ## check interval
-  first_date <- min(dates, na.rm = TRUE)
-  if (is.null(last_date)) {
-    last_date <- max(dates, na.rm = TRUE)
-  }
-  if (is.numeric(last_date)) {
-    last_date <- as.integer(last_date)
-  }
-  if (!is.integer(last_date)) {
-    stop("last_date not provided as an integer")
-  }
-
-  interval <- as.integer(round(interval))
-  if ("iso_week" %in% names(dots)) {
-    if (interval == 7L && dots$iso_week == TRUE) {
-      first_date <- 0L
-    }
-  }
-
-  ## function to compute counts of dates with defined breaks
-  count.dates <- function(dates, breaks){
-    counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
-    as.integer(counts)
-  }
-
-
-  ## define breaks here
-  # TODO: Fix replace this with breaks handler
-  # breaks <- seq(first_date, last_date, by = interval) # 'd1' in expl above
-  breaks <- make_breaks(first_date, last_date, interval)
-  # breaks <- as.integer(breaks)
-
-  ## compute counts within bins defined by the breaks
-  if (!is.null(groups)) {
-    counts <- tapply(dates, groups, count.dates, breaks)
-    counts <- matrix(as.integer(unlist(counts)),
-                     ncol = length(levels(groups)))
-    colnames(counts) <- levels(groups)
-  } else {
-    counts <- count.dates(dates, breaks)
-    counts <- matrix(as.integer(counts), ncol = 1L)
-  }
-
-  out <- list(dates = breaks, # left side of bins (incl left, excl right)
-              counts = counts, # computed incidence, 1 col / group
-              timespan = diff(range(breaks, na.rm = TRUE)) + 1,
-              interval = interval, # fixed bin size
-              n = sum(counts), # total number of cases
-              cumulative = FALSE) # not cumulative at creation
-  class(out) <- "incidence"
+  out <- make_incidence(dates = dates,
+                        interval = interval,
+                        groups = groups,
+                        na_as_group = na_as_group,
+                        last_date = last_date,
+                        ...)
+  out$dates    <- as.integer(out$dates)
+  out$timespan <- as.integer(out$timespan)
+  out$interval <- as.integer(out$interval)
   out
 }
 

@@ -60,4 +60,5 @@ test_that("numeric subset works with dates ", {
 
   expect_equal(as.data.frame(subset(x, from = 0, to = 1e3)),
                as.data.frame(x))
+  expect_identical(x, x[])
 })
