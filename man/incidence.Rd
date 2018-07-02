@@ -15,8 +15,7 @@ incidence(dates, interval = 1L, ...)
 \method{incidence}{integer}(dates, interval = 1L, groups = NULL,
   na_as_group = TRUE, last_date = NULL, ...)
 
-\method{incidence}{default}(dates, interval = 1L, groups = NULL,
-  na_as_group = TRUE, last_date = NULL, ...)
+\method{incidence}{default}(dates, interval = 1L, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 

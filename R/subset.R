@@ -90,7 +90,11 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
     if ("isoweeks" %in% names(x)) {
       out$isoweeks <- out$isoweeks[i]
     }
-    out$timespan <-  diff(range(out$dates, na.rm = TRUE)) + 1
+    # Need to use 1L here to keep things type-stable:
+    # double + integer = double
+    # integer + integer = integer
+    # Date + integer = Date
+    out$timespan <-  diff(range(out$dates, na.rm = TRUE)) + 1L
     out$n <- sum(out$counts)
     out
 }

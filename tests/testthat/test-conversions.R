@@ -9,7 +9,7 @@ test_that("as.data.frame works", {
   i <- incidence(dat, groups = fac)
   i.7 <- incidence(dat2, 7L, iso_weeks = TRUE)
   i.7.group <- incidence(dat2, 7L, iso_weeks = TRUE, groups = fac)
-  df <- as.data.frame(i)
+  df  <- as.data.frame(i)
   dfl <- as.data.frame(i, long = TRUE)
   df2 <- as.data.frame(incidence(1:2))
   df3 <- as.data.frame(i.7)
