@@ -47,7 +47,10 @@ test_that("construction - ISO week", {
   skip_on_cran()
 
   ## USING WEEKLY INCIDENCE
-  set.seed(as.numeric(Sys.time()))
+  # set.seed(as.numeric(Sys.time()))
+  # ZNK: Changing this to evaluate the date as an R expression so that the seed
+  #      stays constant per day for easier debugging
+  set.seed(eval(parse(text = as.character(Sys.Date()))))
   dat <- as.integer(sample(-3:100, 50, replace = TRUE))
   dat.dates <- as.Date("2016-09-20") + dat
   inc.week <- incidence(dat.dates, interval = 7, iso_week = FALSE)
