@@ -209,52 +209,27 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
 
 ##' @export
 ##' @rdname incidence
+incidence.default <- function(dates, interval = 1L, ...) {
+  check_dates(dates)
+}
 
-incidence.default <- function(dates, interval = 1L, groups = NULL,
-                              na_as_group = TRUE,
-                              last_date = NULL, ...) {
+make_incidence <- function(dates, interval = 1L, groups = NULL,
+                           na_as_group = TRUE,
+                           last_date = NULL, ...) {
   dots     <- list(...)
+
   ## make sure input can be used
   dates    <- check_dates(dates)
   interval <- check_interval(interval)
   groups   <- check_groups(groups, dates, na_as_group)
 
-  ## check interval
-  first_date <- min(dates, na.rm = TRUE)
-  if (is.null(last_date)) {
-    last_date <- max(dates, na.rm = TRUE)
-  }
-  if (is.numeric(last_date)) {
-    last_date <- as.integer(last_date)
-  }
-  if (!is.integer(last_date) && inherits(last_date, "Date")) {
-    stop("last_date not provided as an integer or Date")
-  }
-
-  if ("iso_week" %in% names(dots)) {
-    is_a_week <- (is.integer(interval) && interval == 7L) | (is.character(interval) && grepl(interval, "week"))
-    if (is_a_week && dots$iso_week == TRUE) {
-      first_date <- 0L
-    }
-  }
-
-  ## function to compute counts of dates with defined breaks
-  count.dates <- function(dates, breaks){
-    counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
-    as.integer(counts)
-  }
-
-
-  ## define breaks here
-  # TODO: Fix replace this with breaks handler
-  # breaks <- seq(first_date, last_date, by = interval) # 'd1' in expl above
-  breaks <- make_breaks(first_date, last_date, interval)
-  # breaks <- as.integer(breaks)
+  ## Check the interval and arrange the breaks
+  breaks   <- make_breaks_easier(dates, interval, last_date, dots)
 
   ## compute counts within bins defined by the breaks
   if (!is.null(groups)) {
     counts <- tapply(dates, groups, count.dates, breaks)
-    counts <- matrix(as.integer(unlist(counts)),
+    counts <- matrix(as.integer(unlist(counts, use.names = FALSE)),
                      ncol = length(levels(groups)))
     colnames(counts) <- levels(groups)
   } else {
@@ -262,12 +237,12 @@ incidence.default <- function(dates, interval = 1L, groups = NULL,
     counts <- matrix(as.integer(counts), ncol = 1L)
   }
 
-  out <- list(dates = breaks, # left side of bins (incl left, excl right)
-              counts = counts, # computed incidence, 1 col / group
-              timespan = diff(range(breaks, na.rm = TRUE)) + 1,
-              interval = interval, # fixed bin size
-              n = sum(counts), # total number of cases
-              cumulative = FALSE) # not cumulative at creation
+  out <- list(dates      = breaks,      # left side of bins (incl left, excl right)
+              counts     = counts,      # computed incidence, 1 col / group
+              timespan   = diff(range(breaks, na.rm = TRUE)) + 1,
+              interval   = interval,    # fixed bin size
+              n          = sum(counts), # total number of cases
+              cumulative = FALSE)       # not cumulative at creation
   class(out) <- "incidence"
   out
 }
@@ -281,9 +256,7 @@ incidence.default <- function(dates, interval = 1L, groups = NULL,
 
 incidence.numeric <- function(dates, interval = 1L, ...) {
   ## make sure input can be used
-
-  dates <- as.integer(check_dates(dates))
-  out <- incidence.integer(dates, interval, ...)
+  out       <- make_incidence(dates, interval, ...)
   out$dates <- as.numeric(out$dates)
   out
 }
@@ -301,36 +274,19 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 incidence.Date <- function(dates, interval = 1L, iso_week = TRUE,
                            last_date = NULL, ...) {
   ## make sure input can be used
-  dates <- check_dates(dates)
-  stopifnot(is.logical(iso_week))
-
-  first_date <- min(dates, na.rm = TRUE)
-  if (is.null(last_date)) {
-    last_date <- max(dates, na.rm = TRUE)
-  } else {
-    if (!inherits(last_date, "Date")) {
-      stop("last_date is not a Date object")
-    }
-  }
-  interval <- as.integer(round(interval))
-
-  if (interval == 7L && iso_week) {
-    first_isoweek <- ISOweek::date2ISOweek(first_date)
-    substr(first_isoweek, 10, 10) <- "1"
-    first_date <- ISOweek::ISOweek2date(first_isoweek)
+  if (!is.logical(iso_week)) {
+    stop("The argument `iso_week` must be either `TRUE` or `FALSE`.")
   }
 
-  dates_int <- as.integer(dates - first_date)
-  last_date_int <- as.integer(last_date - first_date)
-
-  out <- incidence.integer(dates_int,
-                           interval = interval,
-                           iso_week = iso_week,
-                           last_date = last_date_int,
-                           ...)
-
-  out$dates <- first_date + out$dates
-  if (interval == 7L && iso_week) {
+  if (!is.null(last_date) && !inherits(last_date, "Date")) {
+    stop("last_date is not a Date object")
+  }
+  out <- make_incidence(dates = dates,
+                        interval = interval,
+                        last_date = last_date,
+                        iso_week = iso_week,
+                        ...)
+  if (check_week(interval) && iso_week) {
     # dates are the first days of corresponding ISOweeks.
     out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
   }
