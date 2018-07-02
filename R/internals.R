@@ -13,7 +13,7 @@
 
 check_dates <- function(x, error_on_NA = FALSE, ...) {
   if (is.null(x)) {
-    stop("dates is NULL")
+    stop("dates is NULL", call. = FALSE)
   }
 
   if (is.character(x)) {
@@ -27,11 +27,11 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
 
   if (any(is.na(x)) && error_on_NA) {
     msg <- "NA detected in the dates"
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 
   if (sum(!is.na(x)) < 1) {
-    stop("At least one (non-NA) date must be provided")
+    stop("At least one (non-NA) date must be provided", call. = FALSE)
   }
 
   if (inherits(x, "Date")) {
@@ -53,7 +53,7 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
       msg <- paste0(
         "Flooring from non-integer date caused approximations:\n",
         note)
-      warning(msg)
+      warning(msg, call. = FALSE)
     }
     return(x)
   }
