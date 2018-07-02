@@ -149,6 +149,69 @@ make_breaks <- function(first_date, last_date, the_interval) {
   seq(first_date, last_date, by = the_interval)
 }
 
+#' Make breaks with dates
+#'
+#' Because Date objects have a specific `seq` method, it's possible
+#' to make breaks with both integers and date objects. This function
+#' will check to make sure that the interval is valid.
+#'
+#' @param date an integer, numeric, or Date vector
+#' @param the_interval an integer or character
+#' @param last_date an integer, numeric, or Date
+#' @param dots a named list of options
+#'
+#' @return
+#' @noRd
+#' @examples
+#'
+#' set.seed(999)
+#' d <- sample(10, replace = TRUE)
+#' make_breaks_easier(d, 2L)
+make_breaks_easier <- function(dates, the_interval, last_date = NULL, dots = 1L) {
+  ## check interval
+  first_date  <- min(dates, na.rm = TRUE)
+  if (is.null(last_date)) {
+    last_date <- max(dates, na.rm = TRUE)
+  }
+  if (is.numeric(last_date)) {
+    last_date <- as.integer(last_date)
+  }
+  if (!is.integer(last_date) && !inherits(last_date, "Date")) {
+    stop("last_date not provided as an integer or Date", call. = FALSE)
+  }
+  if ("iso_week" %in% names(dots)) {
+    is_a_week <- check_week(the_interval)
+    if (is_a_week && identical(dots$iso_week, TRUE)) {
+      first_isoweek <- ISOweek::date2ISOweek(first_date)
+      # first_date <- 0L
+      substr(first_isoweek, 10, 10) <- "1"
+      first_date <- ISOweek::ISOweek2date(first_isoweek)
+    }
+  }
+  the_interval <- valid_interval_character(the_interval)
+  seq(first_date, last_date, by = the_interval)
+}
+
+check_week <- function(the_interval) {
+  num_week  <- is.numeric(the_interval) && the_interval == 7
+  int_week  <- is.integer(the_interval) && the_interval == 7L
+  char_week <- is.character(the_interval) && grepl(the_interval, "week")
+  num_week || int_week || char_week
+}
+
+#' Count dates within bins
+#'
+#' @param dates a vector of dates, integers, or numerics
+#' @param breaks an ordered vector of dates or integers
+#'
+#' @return an integer vector of the number of incidences per date
+#' @noRd
+#'
+count.dates <- function(dates, breaks){
+  counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
+  as.integer(counts)
+}
+
 
 
 ## Non-exported function, enforces that 'groups' is either NULL or:
