@@ -28,6 +28,9 @@ test_that("construction - default, integer input", {
   dat <- as.integer(sample(-3:10, 50, replace = TRUE))
   x <- incidence(dat, 3)
 
+  ## String numbers can be interpreted as intervals
+  expect_identical(x, incidence(dat, "3"))
+
   ## classes
   expect_is(x, "incidence")
   expect_is(x$dates, class(dat))
@@ -107,13 +110,17 @@ test_that("construction - Date input", {
   x <- incidence(dat)
   x.dates <- incidence(dat.dates)
   x.7 <- incidence(dat.dates, 7L, iso_week = FALSE)
-  x.7.iso <- incidence(dat.dates, 7L)
+  x.7.iso <- incidence(dat.dates, "week")
 
   ## compare outputs
   expect_equal(x$counts, x.dates$counts)
   expect_is(x$dates, "integer")
   expect_is(x.dates$dates, "Date")
   expect_equal(x.7$counts, x.7.iso$counts)
+
+  ## Printing will be different with text-based interval
+  expect_output(print(x.7), "\\$interval: 7 days")
+  expect_output(print(x.7.iso), "\\$interval: 1 week")
 })
 
 test_that("construction - POSIXct input", {
@@ -150,6 +157,15 @@ test_that("corner cases", {
 
   expect_error(incidence(Inf),
                "At least one \\(non-NA\\) date must be provided")
+
+  expect_error(incidence(1, "grind"),
+               "The interval must be a number or one of the following")
+
+  expect_error(incidence(as.Date(Sys.Date()), iso_week = "TRUE"),
+               "The argument `iso_week` must be either `TRUE` or `FALSE`")
+
+  expect_error(incidence(as.Date(Sys.Date()), last_date = "core"),
+               "last_date is not a Date object")
 })
 
 test_that("Expected values, no group", {
