@@ -153,5 +153,5 @@ class.
 }
 }
 \author{
-Thibaut Jombart, Rich Fitzjohn
+Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar
 }

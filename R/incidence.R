@@ -78,7 +78,7 @@
 ##'
 ##'
 ##'
-##' @author Thibaut Jombart, Rich Fitzjohn
+##' @author Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar
 ##'
 ##' @rdname incidence
 ##'
