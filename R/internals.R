@@ -27,6 +27,7 @@
 ##'
 ##' @param ... Additional arguments passed to other methods (none are used).
 ##'
+##' @author Zhian Kamvar
 ##' @return an incidence object
 ##' @noRd
 make_incidence <- function(dates, interval = 1L, groups = NULL,
@@ -170,6 +171,7 @@ check_interval <- function(x){
 #'
 #' @param the_interval a character string of length one
 #'
+#' @author Zhian Kamvar
 #' @return the character string OR a numeric value.
 #' @noRd
 valid_interval_character <- function(the_interval) {
@@ -199,6 +201,7 @@ valid_interval_character <- function(the_interval) {
 #' @param last_date an integer, numeric, or Date
 #' @param the_interval an integer or character
 #'
+#' @author Zhian Kamvar
 #' @return
 #' @noRd
 make_breaks <- function(first_date, last_date, the_interval) {
@@ -217,7 +220,8 @@ make_breaks <- function(first_date, last_date, the_interval) {
 #' @param last_date an integer, numeric, or Date
 #' @param dots a named list of options
 #'
-#' @return
+#' @author Zhian Kamvar
+#' @return a vector of integers or Dates
 #' @noRd
 #' @examples
 #'
@@ -240,7 +244,6 @@ make_breaks_easier <- function(dates, the_interval, last_date = NULL, dots = 1L)
     is_a_week <- check_week(the_interval)
     if (is_a_week && identical(dots$iso_week, TRUE)) {
       first_isoweek <- ISOweek::date2ISOweek(first_date)
-      # first_date <- 0L
       substr(first_isoweek, 10, 10) <- "1"
       first_date <- ISOweek::ISOweek2date(first_isoweek)
     }
@@ -261,6 +264,7 @@ check_week <- function(the_interval) {
 #' @param dates a vector of dates, integers, or numerics
 #' @param breaks an ordered vector of dates or integers
 #'
+#' @author Thibaut Jombart
 #' @return an integer vector of the number of incidences per date
 #' @noRd
 #'
