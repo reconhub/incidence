@@ -2,46 +2,19 @@
 % Please edit documentation in R/find_peak.R
 \name{find_peak}
 \alias{find_peak}
-\title{Estimate the peak date of an incidence curve using bootstrap}
+\title{Find the peak date of an incidence curve}
 \usage{
-find_peak(x, n = 100, alpha = 0.05)
+find_peak(x)
 }
 \arguments{
 \item{x}{An \code{incidence} object.}
-
-\item{n}{The number of bootstrap datasets to be generated; defaults to 100.}
-
-\item{alpha}{The type 1 error chosen for the confidence interval; defaults to
-0.05.}
 }
 \value{
-A list containing the following items:
-\itemize{
-\item \code{observed}: the peak incidence of the original dataset
-\item \code{estimated}: the mean peak time of the bootstrap datasets
-\item \code{ci}: the confidence interval based on bootstrap datasets
-\item \code{peaks}: the peak times of the bootstrap datasets
-}
+The date of the (first) highest incidence in the data.
 }
 \description{
-This function can be used to estimate the peak of an epidemic curve stored as
-\code{incidence}, using bootstrap. See \link[incidence:bootstrap]{incidence::bootstrap} for more information
-on the resampling.
-}
-\details{
-Input dates are resampled with replacement to form bootstrapped
-datasets; the peak is reported for each, resulting in a distribution of
-peak times. When there are ties for peak incidence, only the first date is
-reported.
-
-Note that the bootstrapping approach used for estimating the peak time makes
-the following assumptions:
-\itemize{
-\item the total number of event is known (no uncertainty on total incidence)
-\item dates with no events (zero incidence) will never be in bootstrapped datasets
-\item the reporting is assumed to be constant over time, i.e. every case is
-equally likely to be reported
-}
+This function can be used to find the peak of an epidemic curve stored as an
+\code{incidence} object.
 }
 \examples{
 
@@ -56,27 +29,18 @@ if (require(outbreaks) && require(ggplot2)) {
   plot(x)
 
   ## find 95\% CI for peak time using bootstrap
-  peak_data <- find_peak(i)
-  peak_data
-  summary(peak_data$peaks)
+  find_peak(i)
+
 
   ## show confidence interval
-  plot(i) + geom_vline(xintercept = peak_data$ci, col = "red", lty = 2)
-
-  ## show the distribution of bootstrapped peaks
-  df <- data.frame(peak = peak_data$peaks)
-  plot(i) + geom_density(data = df,
-                         aes(x = peak, y = 10 * ..scaled..),
-                         alpha = .2, fill = "red", color = "red")
+  plot(i) + geom_vline(xintercept = find_peak(i), col = "red", lty = 2)
 
 }
 
 }
 \seealso{
-\link[incidence:bootstrap]{incidence::bootstrap} for the bootstrapping underlying this
-approach
+\link[incidence:estimate_peak]{incidence::estimate_peak} for bootstrap estimates of the peak time
 }
 \author{
-Thibaut Jombart \email{thibautjombart@gmail.com}, with inputs on
-caveats from Michael Höhle.
+Thibaut Jombart \email{thibautjombart@gmail.com}.
 }
