@@ -74,6 +74,15 @@ The main features of the package include:
 - **`as.data.frame`**: converts an *incidence* object into a `data.frame`
   containing dates and incidence values.
 
+- **`bootstrap`**: generates a bootstrapped *incidence* object by re-sampling,
+  with replacement, the original dates of events.
+
+- **`find_peak`**: uses bootstrap to estimate the peak time of a partially
+  observed outbreak.
+
+
+
+
 
 
 
@@ -469,11 +478,10 @@ plot(i.7, fit = best.fit$fit)
 
 
 # Contributors (by alphabetic order):
-- [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
-- [Jun Cai](https://github.com/caijun)
-- [Rich Fitzjohn](https://github.com/richfitz)
 - [Thibaut Jombart](https://github.com/thibautjombart)
-- [Zhian Kamvar](https://github.com/zkamvar)
+- [Rich Fitzjohn](https://github.com/richfitz)
+- [Jun Cai](https://github.com/caijun)
+- [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
 
 See details of contributions on:
 <br>
