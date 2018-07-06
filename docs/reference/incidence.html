@@ -66,7 +66,7 @@ and 2, the second interval includes 3, 4 and 5 etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1</span>
       </span>
     </div>
 
@@ -144,8 +144,7 @@ and 2, the second interval includes 3, 4 and 5 etc.</p>
   <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for numeric</span>
 <span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
@@ -290,11 +289,13 @@ class.</p></li>
   <span class='no'>inc.isoweek</span>
   <span class='co'>## use group information</span>
   <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
-  <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+                               <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   <span class='no'>inc.week.gender</span>
   <span class='fu'>head</span>(<span class='no'>inc.week.gender</span>$<span class='no'>counts</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>)
-  <span class='no'>inc.isoweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='no'>inc.isoweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+                                  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
   <span class='no'>inc.isoweek.gender</span>
 }</div><div class='output co'>#&gt; &lt;incidence object&gt;
 #&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -327,7 +328,7 @@ class.</p></li>
 
     <h2>Author</h2>
     
-Thibaut Jombart, Rich Fitzjohn
+Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar
 
   </div>
 </div>

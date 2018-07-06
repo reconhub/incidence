@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.3.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-06-20</h4>
+            <h4 class="date">2018-07-06</h4>
       
       
       <div class="hidden name"><code>customize_plot.Rmd</code></div>
@@ -242,7 +242,9 @@ i.hosp
 <p>By default, the dates indicated on the <em>x</em>-axis of an incidence plot may not have the suitable format. The package <em>scales</em> can be used to change the way dates are labelled (see <code>?strptime</code> for possible formats):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
 <span class="kw">plot</span>(i, <span class="dt">labels_iso_week =</span> <span class="ot">FALSE</span>) +
-<span class="st">   </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%d %b %Y"</span>))</code></pre></div>
+<span class="st">   </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%d %b %Y"</span>))
+<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
+<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
 <p><img src="figs-custom/scales1-1.png" width="672"></p>
 <p>And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span>:<span class="dv">50</span>]) +<span class="st">  </span>
