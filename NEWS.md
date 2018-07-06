@@ -1,3 +1,13 @@
+incidence 1.4.1 (date tbc)
+============================
+
+### NEW FEATURES
+
+* new function `bootstrap` to bootstrap epicurves stored as `incidence` objects.
+
+
+
+
 incidence 1.3.1 (2018-06-11)
 ============================
 
