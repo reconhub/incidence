@@ -2,7 +2,7 @@
 % Please edit documentation in R/find_peak.R
 \name{find_peak}
 \alias{find_peak}
-\title{Estimate the peak of an incidence curve}
+\title{Estimate the peak date of an incidence curve using bootstrap}
 \usage{
 find_peak(x, n = 100, alpha = 0.05)
 }
@@ -10,6 +10,9 @@ find_peak(x, n = 100, alpha = 0.05)
 \item{x}{An \code{incidence} object.}
 
 \item{n}{The number of bootstrap datasets to be generated; defaults to 100.}
+
+\item{alpha}{The type 1 error chosen for the confidence interval; defaults to
+0.05.}
 }
 \value{
 A list containing the following items:
@@ -30,6 +33,15 @@ Input dates are resampled with replacement to form bootstrapped
 datasets; the peak is reported for each, resulting in a distribution of
 peak times. When there are ties for peak incidence, only the first date is
 reported.
+
+Note that the bootstrapping approach used for estimating the peak time makes
+the following assumptions:
+\itemize{
+\item the total number of event is known (no uncertainty on total incidence)
+\item dates with no events (zero incidence) will never be in bootstrapped datasets
+\item the reporting is assumed to be constant over time, i.e. every case is
+equally likely to be reported
+}
 }
 \examples{
 
@@ -65,5 +77,6 @@ if (require(outbreaks) && require(ggplot2)) {
 approach
 }
 \author{
-Thibaut Jombart \email{thibautjombart@gmail.com}
+Thibaut Jombart \email{thibautjombart@gmail.com}, with inputs on
+caveats from Michael Höhle.
 }

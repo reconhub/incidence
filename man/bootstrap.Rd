@@ -39,26 +39,11 @@ if (require(outbreaks) && require(ggplot2)) {
   x
   plot(x)
 
-  ## use it to find CI for epidemic peak
-  find_peak <- function(x) x$dates[which.max(pool(x)$counts)]
-  find_peak(i)
-
-  ## peaks on 100 bootstrap samples
-  peak_boot <- replicate(100,
-                         find_peak(bootstrap(i)),
-                         simplify = FALSE)
-
-  ## convert to vector without losing Date class
-  peak_boot <- do.call(c, peak_boot)
-
-  ## check distribution of peaking times
-  summary(peak_boot)
-  plot(i) + geom_density(data = data.frame(peak = peak_boot),
-                         aes(x = peak, y = 10 * ..scaled..),
-                         alpha = .2, fill = "red", color = "red")
-
 }
 
+}
+\seealso{
+\link[incidence:find_peak]{incidence::find_peak} to use estimate peak date using bootstrap
 }
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}

@@ -1,10 +1,11 @@
-#' Estimate the peak of an incidence curve
+#' Estimate the peak date of an incidence curve using bootstrap
 #'
 #' This function can be used to estimate the peak of an epidemic curve stored as
 #' `incidence`, using bootstrap. See [incidence::bootstrap] for more information
 #' on the resampling.
 #'
-#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
+#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}, with inputs on
+#'   caveats from Michael Höhle.
 #'
 #' @md
 #'
@@ -15,9 +16,20 @@
 #'   peak times. When there are ties for peak incidence, only the first date is
 #'   reported.
 #'
+#' Note that the bootstrapping approach used for estimating the peak time makes
+#' the following assumptions:
+#'
+#' - the total number of event is known (no uncertainty on total incidence)
+#' - dates with no events (zero incidence) will never be in bootstrapped datasets
+#' - the reporting is assumed to be constant over time, i.e. every case is
+#' equally likely to be reported
+#'
 #' @param x An `incidence` object.
 #'
 #' @param n The number of bootstrap datasets to be generated; defaults to 100.
+#'
+#' @param alpha The type 1 error chosen for the confidence interval; defaults to
+#'   0.05.
 #'
 #' @return A list containing the following items:
 #'

@@ -215,15 +215,15 @@ case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
 <span class='co'>## convert to data.frame</span>
 <span class='fu'>as.data.frame</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt;    dates f m
 #&gt; 1      0 0 1
-#&gt; 2      1 2 1
-#&gt; 3      2 1 0
-#&gt; 4      3 0 1
+#&gt; 2      1 1 2
+#&gt; 3      2 0 1
+#&gt; 4      3 1 0
 #&gt; 5      4 1 2
-#&gt; 6      5 3 1
-#&gt; 7      6 1 0
-#&gt; 8      7 0 1
+#&gt; 6      5 4 0
+#&gt; 7      6 0 1
+#&gt; 8      7 1 0
 #&gt; 9      8 0 0
-#&gt; 10     9 0 1
+#&gt; 10     9 1 0
 #&gt; 11    10 0 0
 #&gt; 12    11 0 0
 #&gt; 13    12 0 0
@@ -240,19 +240,19 @@ case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
 #&gt; 24    23 0 0
 #&gt; 25    24 0 0
 #&gt; 26    25 0 0
-#&gt; 27    26 0 1</div><div class='input'>
+#&gt; 27    26 1 0</div><div class='input'>
 <span class='co'>## same, 'long format'</span>
 <span class='fu'>as.data.frame</span>(<span class='no'>i</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    dates counts groups
 #&gt; 1      0      0      f
-#&gt; 2      1      2      f
-#&gt; 3      2      1      f
-#&gt; 4      3      0      f
+#&gt; 2      1      1      f
+#&gt; 3      2      0      f
+#&gt; 4      3      1      f
 #&gt; 5      4      1      f
-#&gt; 6      5      3      f
-#&gt; 7      6      1      f
-#&gt; 8      7      0      f
+#&gt; 6      5      4      f
+#&gt; 7      6      0      f
+#&gt; 8      7      1      f
 #&gt; 9      8      0      f
-#&gt; 10     9      0      f
+#&gt; 10     9      1      f
 #&gt; 11    10      0      f
 #&gt; 12    11      0      f
 #&gt; 13    12      0      f
@@ -269,17 +269,17 @@ case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
 #&gt; 24    23      0      f
 #&gt; 25    24      0      f
 #&gt; 26    25      0      f
-#&gt; 27    26      0      f
+#&gt; 27    26      1      f
 #&gt; 28     0      1      m
-#&gt; 29     1      1      m
-#&gt; 30     2      0      m
-#&gt; 31     3      1      m
+#&gt; 29     1      2      m
+#&gt; 30     2      1      m
+#&gt; 31     3      0      m
 #&gt; 32     4      2      m
-#&gt; 33     5      1      m
-#&gt; 34     6      0      m
-#&gt; 35     7      1      m
+#&gt; 33     5      0      m
+#&gt; 34     6      1      m
+#&gt; 35     7      0      m
 #&gt; 36     8      0      m
-#&gt; 37     9      1      m
+#&gt; 37     9      0      m
 #&gt; 38    10      0      m
 #&gt; 39    11      0      m
 #&gt; 40    12      0      m
@@ -296,21 +296,21 @@ case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
 #&gt; 51    23      0      m
 #&gt; 52    24      0      m
 #&gt; 53    25      0      m
-#&gt; 54    26      1      m</div><div class='input'>
+#&gt; 54    26      0      m</div><div class='input'>
 
 
 <span class='co'>## conversion from a matrix of counts to an incidence object</span>
 <span class='no'>i</span>$<span class='no'>counts</span></div><div class='output co'>#&gt;       f m
 #&gt;  [1,] 0 1
-#&gt;  [2,] 2 1
-#&gt;  [3,] 1 0
-#&gt;  [4,] 0 1
+#&gt;  [2,] 1 2
+#&gt;  [3,] 0 1
+#&gt;  [4,] 1 0
 #&gt;  [5,] 1 2
-#&gt;  [6,] 3 1
-#&gt;  [7,] 1 0
-#&gt;  [8,] 0 1
+#&gt;  [6,] 4 0
+#&gt;  [7,] 0 1
+#&gt;  [8,] 1 0
 #&gt;  [9,] 0 0
-#&gt; [10,] 0 1
+#&gt; [10,] 1 0
 #&gt; [11,] 0 0
 #&gt; [12,] 0 0
 #&gt; [13,] 0 0
@@ -327,7 +327,7 @@ case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
 #&gt; [24,] 0 0
 #&gt; [25,] 0 0
 #&gt; [26,] 0 0
-#&gt; [27,] 0 1</div><div class='input'><span class='no'>new_i</span> <span class='kw'>&lt;-</span> <span class='fu'>as.incidence</span>(<span class='no'>i</span>$<span class='no'>counts</span>, <span class='no'>i</span>$<span class='no'>dates</span>)
+#&gt; [27,] 1 0</div><div class='input'><span class='no'>new_i</span> <span class='kw'>&lt;-</span> <span class='fu'>as.incidence</span>(<span class='no'>i</span>$<span class='no'>counts</span>, <span class='no'>i</span>$<span class='no'>dates</span>)
 <span class='no'>new_i</span></div><div class='output co'>#&gt; &lt;incidence object&gt;
 #&gt; [17 cases from days 0 to 26]
 #&gt; [2 groups: f, m]
