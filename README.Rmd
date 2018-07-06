@@ -274,10 +274,11 @@ plot(i.7, fit = best.fit$fit)
 
 
 # Contributors (by alphabetic order):
-- [Thibaut Jombart](https://github.com/thibautjombart)
-- [Rich Fitzjohn](https://github.com/richfitz)
-- [Jun Cai](https://github.com/caijun)
 - [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
+- [Jun Cai](https://github.com/caijun)
+- [Rich Fitzjohn](https://github.com/richfitz)
+- [Thibaut Jombart](https://github.com/thibautjombart)
+- [Zhian Kamvar](https://github.com/zkamvar)
 
 See details of contributions on:
 <br>

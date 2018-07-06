@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find the peak date of an incidence curve — find_peak • incidence</title>
+<title>Estimate the peak date of an incidence curve using bootstrap — estimate_peak • incidence</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,11 @@
 
 
 
-<meta property="og:title" content="Find the peak date of an incidence curve — find_peak" />
+<meta property="og:title" content="Estimate the peak date of an incidence curve using bootstrap — estimate_peak" />
 
-<meta property="og:description" content="This function can be used to find the peak of an epidemic curve stored as an
-incidence object." />
+<meta property="og:description" content="This function can be used to estimate the peak of an epidemic curve stored as
+incidence, using bootstrap. See incidence::bootstrap for more information
+on the resampling." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,19 +118,20 @@ incidence object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find the peak date of an incidence curve</h1>
+    <h1>Estimate the peak date of an incidence curve using bootstrap</h1>
     
-    <div class="hidden name"><code>find_peak.Rd</code></div>
+    <div class="hidden name"><code>estimate_peak.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function can be used to find the peak of an epidemic curve stored as an
-<code>incidence</code> object.</p>
+    <p>This function can be used to estimate the peak of an epidemic curve stored as
+<code>incidence</code>, using bootstrap. See <a href='bootstrap.html'>incidence::bootstrap</a> for more information
+on the resampling.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>find_peak</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>estimate_peak</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,15 +140,46 @@ incidence object." />
       <th>x</th>
       <td><p>An <code>incidence</code> object.</p></td>
     </tr>
+    <tr>
+      <th>n</th>
+      <td><p>The number of bootstrap datasets to be generated; defaults to 100.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>The type 1 error chosen for the confidence interval; defaults to
+0.05.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The date of the (first) highest incidence in the data.</p>
+    <p>A list containing the following items:</p><ul>
+<li><p><code>observed</code>: the peak incidence of the original dataset</p></li>
+<li><p><code>estimated</code>: the mean peak time of the bootstrap datasets</p></li>
+<li><p><code>ci</code>: the confidence interval based on bootstrap datasets</p></li>
+<li><p><code>peaks</code>: the peak times of the bootstrap datasets</p></li>
+</ul>
+
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Input dates are resampled with replacement to form bootstrapped
+datasets; the peak is reported for each, resulting in a distribution of
+peak times. When there are ties for peak incidence, only the first date is
+reported.</p>
+<p>Note that the bootstrapping approach used for estimating the peak time makes
+the following assumptions:</p><ul>
+<li><p>the total number of event is known (no uncertainty on total incidence)</p></li>
+<li><p>dates with no events (zero incidence) will never be in bootstrapped datasets</p></li>
+<li><p>the reporting is assumed to be constant over time, i.e. every case is
+equally likely to be reported</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='estimate_peak.html'>incidence::estimate_peak</a> for bootstrap estimates of the peak time</p></div>
+    <div class='dont-index'><p><a href='bootstrap.html'>incidence::bootstrap</a> for the bootstrapping underlying this
+approach and <a href='find_peak.html'>incidence::find_peak</a> to find the peak in a single
+<code>incidence</code> object.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -162,13 +195,20 @@ incidence object." />
   <span class='fu'>plot</span>(<span class='no'>x</span>)
 
   <span class='co'>## find 95% CI for peak time using bootstrap</span>
-  <span class='fu'>find_peak</span>(<span class='no'>i</span>)
-
+  <span class='no'>peak_data</span> <span class='kw'>&lt;-</span> <span class='fu'>estimate_peak</span>(<span class='no'>i</span>)
+  <span class='no'>peak_data</span>
+  <span class='fu'>summary</span>(<span class='no'>peak_data</span>$<span class='no'>peaks</span>)
 
   <span class='co'>## show confidence interval</span>
-  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_abline'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fu'>find_peak</span>(<span class='no'>i</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_abline'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>ci</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-}</div><div class='img'><img src='find_peak-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='co'>## show the distribution of bootstrapped peaks</span>
+  <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>peak</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>peaks</span>)
+  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_density'>geom_density</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>,
+                         <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>peak</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='no'>..scaled..</span>),
+                         <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)
+
+}</div><div class='img'><img src='estimate_peak-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -178,6 +218,8 @@ incidence object." />
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -185,7 +227,8 @@ incidence object." />
 
     <h2>Author</h2>
     
-Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>.
+Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, with inputs on
+caveats from Michael Höhle.
 
   </div>
 </div>
