@@ -5,7 +5,9 @@ incidence 1.4.1 (date tbc)
 
 * new function `bootstrap` to bootstrap epicurves stored as `incidence` objects.
 
-* new function `find_peak` uses bootstrap to estimate the peak time of a
+* new function `find_peak` identifies the peak date of an `incidence` objects.
+
+* new function `estimate_peak` uses bootstrap to estimate the peak time of a
   partially observed outbreak.
   
 
