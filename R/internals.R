@@ -337,3 +337,18 @@ isTRUE <- function(x) {
 sample_ <- function(x, ...) {
   x[sample.int(length(x), ...)]
 }
+
+
+
+## quantiles for Date objects
+
+quantile_Date <- function(x, ...) {
+  if (!inherits(x, "Date")) {
+    stop("'x' is not a 'Date' object")
+  }
+
+  first_date <- min(x, na.rm = TRUE)
+  x_num <- as.numeric(x - min(x))
+  out <- stats::quantile(x_num, ...)
+  first_date + out
+}
