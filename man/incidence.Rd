@@ -113,11 +113,13 @@ if(require(outbreaks)) {
   inc.isoweek
   ## use group information
   sex <- ebola_sim$linelist$gender
-  inc.week.gender <- incidence(onset, interval = 7, groups = sex, iso_week = FALSE)
+  inc.week.gender <- incidence(onset, interval = 7,
+                               groups = sex, iso_week = FALSE)
   inc.week.gender
   head(inc.week.gender$counts)
   plot(inc.week.gender)
-  inc.isoweek.gender <- incidence(onset, interval = 7, groups = sex, iso_week = TRUE)
+  inc.isoweek.gender <- incidence(onset, interval = 7,
+                                  groups = sex, iso_week = TRUE)
   inc.isoweek.gender
 }
 

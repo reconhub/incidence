@@ -202,7 +202,7 @@ valid_interval_character <- function(the_interval) {
 #' @param the_interval an integer or character
 #'
 #' @author Zhian Kamvar
-#' @return
+#'
 #' @noRd
 make_breaks <- function(first_date, last_date, the_interval) {
   the_interval <- valid_interval_character(the_interval)
@@ -325,4 +325,15 @@ isFALSE <- function(x) {
 
 isTRUE <- function(x) {
   is.logical(x) && length(x) == 1L && !is.na(x) && x
+}
+
+
+
+
+
+## A fix for the nonesensical behaviour of `sample` when first argument is of
+## length 1.
+
+sample_ <- function(x, ...) {
+  x[sample.int(length(x), ...)]
 }
