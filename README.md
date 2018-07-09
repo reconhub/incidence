@@ -77,8 +77,10 @@ The main features of the package include:
 - **`bootstrap`**: generates a bootstrapped *incidence* object by re-sampling,
   with replacement, the original dates of events.
 
-- **`find_peak`**: uses bootstrap to estimate the peak time of a partially
-  observed outbreak.
+- **`find_peak`**: locates the peak time of the epicurve.
+
+- **`estimate_peak`**: uses bootstrap to estimate the peak time (and related
+  confidence interval) of a partially observed outbreak.
 
 
 
@@ -377,11 +379,6 @@ Alternatively, these can be piped using:
 
 ```r
 library(magrittr)
-#> 
-#> Attaching package: 'magrittr'
-#> The following objects are masked from 'package:testthat':
-#> 
-#>     equals, is_less_than, not
 plot(i.7[1:20]) %>% add_incidence_fit(early.fit)
 ```
 
