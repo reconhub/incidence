@@ -192,32 +192,18 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## June 2018.
 
   breaks <- pretty(x$dates, n_breaks)
-  if (utils::packageVersion("ggplot2") <= "2.2.1") {
-    if (labels_iso_week && "isoweeks" %in% names(x)) {
-      out_build <- ggplot2::ggplot_build(out)
-      x.major_source <- out_build$layout$panel_ranges[[1]]$x.major_source
-      dates.major_source <- as.Date(x.major_source, origin = "1970-01-01")
-      isoweeks.major_source <- ISOweek::date2ISOweek(dates.major_source)
-      substr(isoweeks.major_source, 10, 10) <- "1"
-      breaks <- ISOweek::ISOweek2date(isoweeks.major_source)
-      labels <- substr(isoweeks.major_source, 1, 8)
-      out <- out + ggplot2::scale_x_date(breaks = breaks, labels = labels)
-    }
+  if (labels_iso_week && "isoweeks" %in% names(x)) {
+    breaks_info <- make_iso_weeks_breaks(x$dates, n_breaks)
+    out <- out + ggplot2::scale_x_date(breaks = breaks_info$breaks,
+                                       labels = breaks_info$labels)
   } else {
-    if (labels_iso_week && "isoweeks" %in% names(x)) {
-      breaks_info <- make_iso_weeks_breaks(x$dates, n_breaks)
-      out <- out + ggplot2::scale_x_date(breaks = breaks_info$breaks,
-                                         labels = breaks_info$labels)
+    if (inherits(x$dates, "Date")) {
+      out <- out + ggplot2::scale_x_date(breaks = breaks)
+    } else if (inherits(x$dates, "POSIXct")) {
+      out <- out + ggplot2::scale_x_datetime(breaks = breaks)
     } else {
-      if (inherits(x$dates, "Date")) {
-        out <- out + ggplot2::scale_x_date(breaks = breaks)
-      } else if (inherits(x$dates, "POSIXct")) {
-        out <- out + ggplot2::scale_x_datetime(breaks = breaks)
-      } else {
-        out <- out + ggplot2::scale_x_continuous(breaks = breaks)
-      }
+      out <- out + ggplot2::scale_x_continuous(breaks = breaks)
     }
   }
-
   out
 }
