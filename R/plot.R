@@ -89,18 +89,28 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   df <- as.data.frame(x, long = TRUE)
   n.groups <- ncol(x$counts)
 
-
   ## Use custom labels for usual time intervals
   if (is.null(ylab)) {
-    if (x$interval == 1) {
-      ylab <- "Daily incidence"
-    } else if (x$interval == 7) {
-      ylab <- "Weekly incidence"
-    } else if (x$interval == 14) {
-      ylab <- "Biweekly incidence"
-    } else {
-      ylab <- sprintf("Incidence by period of %d days",
-                      x$interval)
+    if (is.numeric(x$interval)) {
+      if (x$interval == 1) {
+        ylab <- "Daily incidence"
+      } else if (x$interval == 7) {
+        ylab <- "Weekly incidence"
+      } else if (x$interval == 14) {
+        ylab <- "Biweekly incidence"
+      } else {
+        ylab <- sprintf("Incidence by period of %d days",
+                        x$interval)
+      }
+    } else if (is.character(x$interval)) {
+      x$interval <- gsub("^([a-z]+?)s*$", "\\1", x$interval)
+      ylab <- switch(x$interval,
+                     day     = "Daily incidence",
+                     week    = "Weekly incidence",
+                     month   = "Monthly incidence",
+                     quarter = "Quarterly incidence",
+                     year    = "Yearly incidence"
+                    )
     }
     if (isTRUE(x$cumulative)) {
       ylab <- sub("incidence", "cumulative incidence", ylab)
@@ -114,19 +124,39 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## middle of the bar. This is wrong in our case as the annotation of a time
   ## interval is the lower (left) bound, and should therefore be left-aligned
   ## with the bar. Note that we cannot use position_nudge to create the
-  ## x-offset as we need the 'position' argument for stacking. Best option
-  ## here is add x$interval / 2 to the x-axis.
+  ## x-offset as we need the 'position' argument for stacking. This can be
+  ## addressed by adding interval/2 to the x-axis, but this only works until we
+  ## have an interval such as "month", "quarter", or "year" where the number of
+  ## days for each can vary. To alleviate this, we can create a new column that
+  ## counts the number of days within each interval.
+
+  ## Adding a variable for width in ggplot
+  if (is.numeric(x$interval)) {
+    df$interval.days <- x$interval
+  } else {
+    df$interval.days <- switch(x$interval,
+                               day     = 1L,
+                               week    = 7L,
+                               month   = get_days_in_month(df$dates),
+                               quarter = get_days_in_quarter(df$dates),
+                               year    = get_days_in_year(df$dates)
+                              )
+  }
 
   ## Important note: it seems safest to specify the aes() as part of the geom,
   ## not in ggplot(), as it interacts badly with some other geoms like
   ## geom_ribbon - used e.g. in projections::add_projections().
 
-  x.axis.txt <- paste("dates", x$interval/2, sep = "+")
   out <- ggplot2::ggplot(df) +
-    ggplot2::geom_bar(ggplot2::aes_string(x = x.axis.txt, y = "counts"),
-                      stat = "identity", width = x$interval,
+    ggplot2::geom_bar(ggplot2::aes_string(
+                        x = "dates + (interval.days/2)",
+                        y = "counts"
+                      ),
+                      stat = "identity",
+                      width = df$interval.days,
                       position = stack.txt,
-                      color = border, alpha = alpha) +
+                      color = border,
+                      alpha = alpha) +
     ggplot2::labs(x = xlab, y = ylab)
 
 
@@ -192,18 +222,76 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## June 2018.
 
   breaks <- pretty(x$dates, n_breaks)
+
   if (labels_iso_week && "isoweeks" %in% names(x)) {
     breaks_info <- make_iso_weeks_breaks(x$dates, n_breaks)
     out <- out + ggplot2::scale_x_date(breaks = breaks_info$breaks,
                                        labels = breaks_info$labels)
   } else {
+    if (is.character(x$interval)) {
+      # if the interval is a character, we have to figure out how to split these
+      # manually. Luckily, ggplot2::scale_x_date() can take something like
+      # "3 months" for a date_break argument.
+      ts <- x$timespan/(n_breaks*mean(df$interval.days))
+      if (x$interval == "quarter") {
+        db <- paste(ceiling(ts) * 3, "months")
+      } else {
+        db <- paste(ceiling(ts), x$interval)
+      }
+    } else {
+      db <- ggplot2::waiver()
+    }
     if (inherits(x$dates, "Date")) {
-      out <- out + ggplot2::scale_x_date(breaks = breaks)
+      out <- out + ggplot2::scale_x_date(breaks      = breaks,
+                                         date_breaks = db
+                                        )
     } else if (inherits(x$dates, "POSIXct")) {
-      out <- out + ggplot2::scale_x_datetime(breaks = breaks)
+      out <- out + ggplot2::scale_x_datetime(breaks      = breaks,
+                                             date_breaks = db
+                                            )
     } else {
       out <- out + ggplot2::scale_x_continuous(breaks = breaks)
     }
   }
   out
+}
+
+
+
+get_days_in_month <- function(dates) {
+  dates <- floor_month(dates)
+  res <- vapply(strsplit(format(dates), "-"), add_months, character(1))
+  as.integer(as.Date(res) - dates)
+}
+
+get_days_in_quarter <- function(dates) {
+  dates <- floor_month(dates)
+  res <- vapply(strsplit(format(dates), "-"),
+                FUN = add_months,
+                FUN.VALUE = character(1),
+                months = 3L)
+  as.integer(as.Date(res) - dates)
+}
+
+get_days_in_year <- function(dates) {
+  dates <- floor_month(dates)
+  res <- vapply(strsplit(format(dates), "-"),
+                FUN = add_months,
+                FUN.VALUE = character(1),
+                months = 12L)
+  as.integer(as.Date(res) - dates)
+}
+
+floor_month <- function(x) {
+  x - as.integer(format(x, "%d")) + 1L
+}
+
+add_months <- function(x, months = 1L) {
+  i <- as.integer(x[2]) + months
+  if (i > 12L) {
+    x[1] <- as.character(as.integer(x[1]) + 1L)
+    i    <- i - 12L
+  }
+  x[2] <- sprintf("%02d", i)
+  paste(x, collapse = "-")
 }
