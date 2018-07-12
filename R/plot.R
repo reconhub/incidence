@@ -108,7 +108,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   }
 
   ## Handle stacking
-  stack.txt <- ifelse(stack, "stack", "dodge")
+  stack.txt <- if (stack) "stack" else "dodge"
 
   ## By default, the annotation of bars in geom_bar puts the label in the
   ## middle of the bar. This is wrong in our case as the annotation of a time
