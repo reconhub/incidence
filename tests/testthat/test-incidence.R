@@ -159,7 +159,10 @@ test_that("corner cases", {
                "At least one \\(non-NA\\) date must be provided")
 
   expect_error(incidence(1, "grind"),
-               "The interval must be a number or one of the following")
+               "The interval 'grind' is not valid. Please supply an integer.")
+
+  expect_error(incidence(1, "week"),
+               "The interval 'week' can only be used for Dates")
 
   expect_error(incidence(as.Date(Sys.Date()), iso_week = "TRUE"),
                "The argument `iso_week` must be either `TRUE` or `FALSE`")
