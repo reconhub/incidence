@@ -19,62 +19,58 @@
 #'
 #' @param ... Additional arguments passed to other methods (none are used).
 #'
-#' @return An list with the class \code{incidence}, which contains the
+#' @return An list with the class `incidence`, which contains the
 #' following items:
 #'
-#' \itemize{
 #'
-#' \item dates: The dates marking the left side of the bins used for counting
+#' - dates: The dates marking the left side of the bins used for counting
 #' events. When ISO week-based weekly incidence is computed, the dates are the
 #' first days of corresponding isoweeks.
 #'
-#' \item counts: A matrix of incidence counts, which one column per group (and
+#' - counts: A matrix of incidence counts, which one column per group (and
 #' a single column if no groups were used).
 #'
-#' \item timespan: The length of the period for which incidence is computed, in
+#' - timespan: The length of the period for which incidence is computed, in
 #' days.
 #'
-#' \item interval: The bin size, in number of days; e.g. 7 indicates weekly
+#' - interval: The bin size, in number of days; e.g. 7 indicates weekly
 #' incidence.
 #'
-#' \item n: The total number of cases.
+#' - n: The total number of cases.
 #'
-#' \item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
+#' - isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
 #' ISO week-based weekly incidence is computed.
 #'
-#' }
 #'
-#' @details For details about the \code{incidence class}, see the dedicated
-#' vignette:\cr \code{vignette("incidence_class", package = "incidence")}
+#' @details For details about the `incidence class`, see the dedicated
+#' vignette:\cr `vignette("incidence_class", package = "incidence")`
 #'
 #' @seealso
 #' The main other functions of the package include:
-#' \itemize{
+
 #'
-#'  \item \code{\link{fit}}: Fit log-linear model to computed incidence.
+#'  - [fit()]: Fit log-linear model to computed incidence.
 #'
-#'  \item \code{\link{fit_optim_split}}: Find the optimal peak of the epidemic
+#'  - [fit_optim_split()]: Find the optimal peak of the epidemic
 #' and fits log-linear models on either side of the peak.
 #'
-#'  \item \code{\link[incidence]{subset}}: Handling of \code{incidence}
+#'  - [incidence::subset()]: Handling of `incidence`
 #' objects.
 #'
-#'  \item \code{\link{pool}}: Sum incidence over groups.
+#'  - [pool()]: Sum incidence over groups.
 #'
-#'  \item \code{\link{as.data.frame}}: Convert an \code{incidence} object to a
-#' \code{data.frame}.}
+#'  - [as.data.frame()]: Convert an `incidence` object to a
+#' `data.frame`.
 #'
 #' The following vignettes are also available:
-#' \itemize{
 #'
-#' \item \code{overview}: Provides an overview of the package's features.
+#' - `overview`: Provides an overview of the package's features.
 #'
-#' \item \code{customize_plot}: Provides some tips on finer plot customization.
+#' - `customize_plot`: Provides some tips on finer plot customization.
 #'
-#' \item \code{incidence_class}: Details the content of the \code{incidence}
+#' - `incidence_class`: Details the content of the `incidence`
 #' class.
 #'
-#' }
 #'
 #'
 #'
@@ -140,8 +136,8 @@ incidence <- function(dates, interval = 1L, ...) {
 #' treated as a separate group.
 #'
 #' @param last_date The last date to be included in the produced epicurve. If
-#'   \code{NULL} (default), the last date will be the most recent provided in
-#'   \code{dates}.
+#'   `NULL` (default), the last date will be the most recent provided in
+#'   `dates`.
 #'
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
@@ -188,7 +184,7 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 #' @export
 #' @rdname incidence
 #' @param iso_week A logical value indicating if dates of the weekly incidence
-#'   should be using ISO week. Only applies when \code{interval = 7}. Defaults
+#'   should be using ISO week. Only applies when `interval = 7`. Defaults
 #'   to be TRUE.
 
 incidence.Date <- function(dates, interval = 1L, iso_week = TRUE,

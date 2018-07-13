@@ -22,8 +22,8 @@
 ##' treated as a separate group.
 ##'
 ##' @param last_date The last date to be included in the produced epicurve. If
-##'   \code{NULL} (default), the last date will be the most recent provided in
-##'   \code{dates}.
+##'   `NULL` (default), the last date will be the most recent provided in
+##'   `dates`.
 ##'
 ##' @param ... Additional arguments passed to other methods (none are used).
 ##'

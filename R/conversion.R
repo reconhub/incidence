@@ -1,6 +1,6 @@
 #' Conversion of indence objects
 #'
-#' These functions convert \code{incidence} objects into other classes.
+#' These functions convert `incidence` objects into other classes.
 #'
 #' @rdname conversions
 #'
@@ -10,8 +10,8 @@
 #'
 #' @export
 #'
-#' @param x An \code{incidence} object, or an object to be converted as
-#'   \code{incidence} (see details).
+#' @param x An `incidence` object, or an object to be converted as
+#'   `incidence` (see details).
 #'
 #' @param ... Further arguments passed to other functions (no used).
 #'
@@ -22,15 +22,15 @@
 #' @export
 #'
 #'
-#' @seealso the \code{\link{incidence}} function to generate the 'incidence' objects.
+#' @seealso the [incidence()] function to generate the 'incidence' objects.
 #'
 #'
-#' @details Conversion to \code{incidence} objects should only be done when the
-#'   original dates are not available. In such case, the argument \code{x}
-#'   should be a matrix corresponding to the \code{$counts} element of an
-#'   \code{incidence} object, i.e. giving counts with time intervals in rows and
+#' @details Conversion to `incidence` objects should only be done when the
+#'   original dates are not available. In such case, the argument `x`
+#'   should be a matrix corresponding to the `$counts` element of an
+#'   `incidence` object, i.e. giving counts with time intervals in rows and
 #'   named groups in columns. In the absence of groups, a single unnamed columns
-#'   should be given. \code{data.frame} and vectors will be coerced to a matrix.
+#'   should be given. `data.frame` and vectors will be coerced to a matrix.
 #'
 #'
 #' @examples
@@ -126,7 +126,7 @@ as.incidence <- function(x, ...) {
 #'   trigger an error.
 #'
 #' @param isoweeks A logical indicating whether isoweeks should be used in the
-#'   case of weekly incidence; defaults to \code{TRUE}.
+#'   case of weekly incidence; defaults to `TRUE`.
 #'
 
 as.incidence.matrix <- function(x, dates = NULL, interval = NULL,

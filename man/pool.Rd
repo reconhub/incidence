@@ -11,7 +11,7 @@ pool(x)
 }
 \description{
 This function pools incidence across all groups of an \code{incidence}
-object. The resulting \code{\link{incidence}} object will contains counts
+object. The resulting \code{\link[=incidence]{incidence()}} object will contains counts
 summed over all groups present in the input.
 }
 \examples{
@@ -31,7 +31,7 @@ pool(i[,c(1,3)])$counts
 
 }
 \seealso{
-The \code{\link{incidence}} function to generate the 'incidence'
+The \code{\link[=incidence]{incidence()}} function to generate the 'incidence'
 objects.
 }
 \author{

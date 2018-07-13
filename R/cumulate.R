@@ -1,16 +1,16 @@
 #' Compute cumulative 'incidence'
 #'
-#' \code{cumulate} is an S3 generic to compute cumulative numbers, with methods
+#' `cumulate` is an S3 generic to compute cumulative numbers, with methods
 #' for different types of objects:
 #'
 #' \itemize{
 #'
-#' \item default method is a wrapper for \code{cumsum}
+#' \item default method is a wrapper for `cumsum`
 #'
-#' \item \code{incidence} objects: computes cumulative incidence over time
+#' \item `incidence` objects: computes cumulative incidence over time
 #'
-#' \item \code{projections} objects: same, for \code{projections} objects,
-#' implemented in the similarly named package; see \code{?cumulate.projections}
+#' \item `projections` objects: same, for `projections` objects,
+#' implemented in the similarly named package; see `?cumulate.projections`
 #' for more information, after loading the package
 #'
 #' }
@@ -18,7 +18,7 @@
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 #'
-#' @seealso The \code{\link{incidence}} function to generate the 'incidence'
+#' @seealso The [incidence()] function to generate the 'incidence'
 #' objects.
 #'
 #' @param x An incidence object.

@@ -55,27 +55,19 @@ to be TRUE.}
 \value{
 An list with the class \code{incidence}, which contains the
 following items:
-
 \itemize{
-
 \item dates: The dates marking the left side of the bins used for counting
 events. When ISO week-based weekly incidence is computed, the dates are the
 first days of corresponding isoweeks.
-
 \item counts: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).
-
 \item timespan: The length of the period for which incidence is computed, in
 days.
-
 \item interval: The bin size, in number of days; e.g. 7 indicates weekly
 incidence.
-
 \item n: The total number of cases.
-
 \item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
 ISO week-based weekly incidence is computed.
-
 }
 }
 \description{
@@ -128,30 +120,22 @@ if(require(outbreaks)) {
 \seealso{
 The main other functions of the package include:
 \itemize{
-
- \item \code{\link{fit}}: Fit log-linear model to computed incidence.
-
- \item \code{\link{fit_optim_split}}: Find the optimal peak of the epidemic
+\item \code{\link[=fit]{fit()}}: Fit log-linear model to computed incidence.
+\item \code{\link[=fit_optim_split]{fit_optim_split()}}: Find the optimal peak of the epidemic
 and fits log-linear models on either side of the peak.
-
- \item \code{\link[incidence]{subset}}: Handling of \code{incidence}
+\item \code{\link[incidence:subset]{incidence::subset()}}: Handling of \code{incidence}
 objects.
-
- \item \code{\link{pool}}: Sum incidence over groups.
-
- \item \code{\link{as.data.frame}}: Convert an \code{incidence} object to a
-\code{data.frame}.}
+\item \code{\link[=pool]{pool()}}: Sum incidence over groups.
+\item \code{\link[=as.data.frame]{as.data.frame()}}: Convert an \code{incidence} object to a
+\code{data.frame}.
+}
 
 The following vignettes are also available:
 \itemize{
-
 \item \code{overview}: Provides an overview of the package's features.
-
 \item \code{customize_plot}: Provides some tips on finer plot customization.
-
 \item \code{incidence_class}: Details the content of the \code{incidence}
 class.
-
 }
 }
 \author{
