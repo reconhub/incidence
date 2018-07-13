@@ -8,12 +8,18 @@ test_that("plot for incidence object", {
   dat2 <- as.Date("2016-01-02") + dat
   dat3 <- as.POSIXct(dat2)
   sex <- sample(c("female", "male"), 200, replace = TRUE)
+  dat4 <- c(dat2,
+            sample(dat2, replace = TRUE) + 50,
+            sample(dat2, replace = TRUE) + 100
+           )
 
   i <- incidence(dat)
   i.3 <- incidence(dat, 3L)
   i.14 <- incidence(dat, 14L)
   i.sex <- incidence(dat, 7L, groups = sex)
   i.isoweek <- incidence(dat2, 7L, iso_week = TRUE)
+  i.sexmonth <- incidence(dat4, "month", groups = rep(sex, 3))
+  i.sexquarter <- incidence(dat4, "quarter", groups = rep(sex, 3))
   fit.i <- suppressWarnings(fit(i))
   fit.i.2 <- suppressWarnings(fit(i, split = 30))
   fit.sex <- suppressWarnings(fit(i.sex))
@@ -35,6 +41,8 @@ test_that("plot for incidence object", {
                   color = c(male = "salmon3", female = "gold2"))
   p.isoweek <- plot(i.isoweek)
   p.isoweek.2 <- plot(i.isoweek, labels_iso_week = FALSE)
+  p.month <- plot(i.sexmonth)
+  p.quarter <- plot(i.sexquarter)
 
   vdiffr::expect_doppelganger("incidence fit", p.fit.i)
   vdiffr::expect_doppelganger("incidence plot with two fitting models", p.fit.i.2)
@@ -51,6 +59,9 @@ test_that("plot for incidence object", {
   vdiffr::expect_doppelganger("grouped incidence plot with specified color", p.sex.4)
   vdiffr::expect_doppelganger("incidence plot with isoweek labels", p.isoweek)
   vdiffr::expect_doppelganger("incidence plot without isoweek labels", p.isoweek.2)
+  vdiffr::expect_doppelganger("incidence plot by month", p.month)
+  vdiffr::expect_doppelganger("incidence plot by quarter", p.quarter)
+  # TODO: Test fit with character interval
 
   ## errors
   expect_error(plot(i, fit = "tamere"),
