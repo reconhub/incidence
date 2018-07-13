@@ -11,8 +11,9 @@
 #' class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
 #' floored with a warning.
 #'
-#' @param interval An integer indicating the (fixed) size of the time interval
-#' used for computing the incidence; defaults to 1 day.
+#' @param interval An integer or character indicating the (fixed) size of the time interval
+#' used for computing the incidence; defaults to 1 day. This can also be a text string that corresponds to a valid date
+#' interval: day, week, month, quarter, or year. See Note.
 #'
 #' @param groups An optional factor defining groups of observations for which
 #' incidence should be computed separately.
@@ -23,20 +24,20 @@
 #' following items:
 #'
 #'
-#' - dates: The dates marking the left side of the bins used for counting
+#' - **dates**: The dates marking the left side of the bins used for counting
 #' events. When ISO week-based weekly incidence is computed, the dates are the
 #' first days of corresponding isoweeks.
 #'
-#' - counts: A matrix of incidence counts, which one column per group (and
+#' - **counts**: A matrix of incidence counts, which one column per group (and
 #' a single column if no groups were used).
 #'
-#' - timespan: The length of the period for which incidence is computed, in
+#' - **timespan**: The length of the period for which incidence is computed, in
 #' days.
 #'
-#' - interval: The bin size, in number of days; e.g. 7 indicates weekly
+#' - **interval**: The bin size, in number of days; e.g. 7 indicates weekly
 #' incidence.
 #'
-#' - n: The total number of cases.
+#' - **n**: The total number of cases.
 #'
 #' - isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
 #' ISO week-based weekly incidence is computed.
@@ -45,21 +46,28 @@
 #' @details For details about the `incidence class`, see the dedicated
 #' vignette:\cr `vignette("incidence_class", package = "incidence")`
 #'
+#' @note If `interval` is a valid character (e.g. "week" or "month"), then
+#' the bin wil start at the beginning of the interval. In the case of weeks,
+#' the interval will always start on a Sunday, in the case of months and
+#' quarters, the interval will always start on the first, and in the case of
+#' years, the interval will always start on January first.
+#'
 #' @seealso
 #' The main other functions of the package include:
-
 #'
-#'  - [fit()]: Fit log-linear model to computed incidence.
+#'  - [incidence::plot.incidence()]: Plot epicurves from an incidence object.
 #'
-#'  - [fit_optim_split()]: Find the optimal peak of the epidemic
+#'  - [incidence::fit()]: Fit log-linear model to computed incidence.
+#'
+#'  - [incidence::fit_optim_split()]: Find the optimal peak of the epidemic
 #' and fits log-linear models on either side of the peak.
 #'
 #'  - [incidence::subset()]: Handling of `incidence`
 #' objects.
 #'
-#'  - [pool()]: Sum incidence over groups.
+#'  - [incidence::pool()]: Sum incidence over groups.
 #'
-#'  - [as.data.frame()]: Convert an `incidence` object to a
+#'  - [incidence::as.data.frame.incidence()]: Convert an `incidence` object to a
 #' `data.frame`.
 #'
 #' The following vignettes are also available:

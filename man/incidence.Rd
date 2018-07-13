@@ -31,8 +31,9 @@ incidence(dates, interval = 1L, ...)
 class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
 floored with a warning.}
 
-\item{interval}{An integer indicating the (fixed) size of the time interval
-used for computing the incidence; defaults to 1 day.}
+\item{interval}{An integer or character indicating the (fixed) size of the time interval
+used for computing the incidence; defaults to 1 day. This can also be a text string that corresponds to a valid date
+interval: day, week, month, quarter, or year. See Note.}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
 
@@ -56,16 +57,16 @@ to be TRUE.}
 An list with the class \code{incidence}, which contains the
 following items:
 \itemize{
-\item dates: The dates marking the left side of the bins used for counting
+\item \strong{dates}: The dates marking the left side of the bins used for counting
 events. When ISO week-based weekly incidence is computed, the dates are the
 first days of corresponding isoweeks.
-\item counts: A matrix of incidence counts, which one column per group (and
+\item \strong{counts}: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).
-\item timespan: The length of the period for which incidence is computed, in
+\item \strong{timespan}: The length of the period for which incidence is computed, in
 days.
-\item interval: The bin size, in number of days; e.g. 7 indicates weekly
+\item \strong{interval}: The bin size, in number of days; e.g. 7 indicates weekly
 incidence.
-\item n: The total number of cases.
+\item \strong{n}: The total number of cases.
 \item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
 ISO week-based weekly incidence is computed.
 }
@@ -81,6 +82,13 @@ and 2, the second interval includes 3, 4 and 5 etc.
 \details{
 For details about the \code{incidence class}, see the dedicated
 vignette:\cr \code{vignette("incidence_class", package = "incidence")}
+}
+\note{
+If \code{interval} is a valid character (e.g. "week" or "month"), then
+the bin wil start at the beginning of the interval. In the case of weeks,
+the interval will always start on a Sunday, in the case of months and
+quarters, the interval will always start on the first, and in the case of
+years, the interval will always start on January first.
 }
 \examples{
 ## toy example
@@ -120,13 +128,14 @@ if(require(outbreaks)) {
 \seealso{
 The main other functions of the package include:
 \itemize{
-\item \code{\link[=fit]{fit()}}: Fit log-linear model to computed incidence.
-\item \code{\link[=fit_optim_split]{fit_optim_split()}}: Find the optimal peak of the epidemic
+\item \code{\link[incidence:plot.incidence]{incidence::plot.incidence()}}: Plot epicurves from an incidence object.
+\item \code{\link[incidence:fit]{incidence::fit()}}: Fit log-linear model to computed incidence.
+\item \code{\link[incidence:fit_optim_split]{incidence::fit_optim_split()}}: Find the optimal peak of the epidemic
 and fits log-linear models on either side of the peak.
 \item \code{\link[incidence:subset]{incidence::subset()}}: Handling of \code{incidence}
 objects.
-\item \code{\link[=pool]{pool()}}: Sum incidence over groups.
-\item \code{\link[=as.data.frame]{as.data.frame()}}: Convert an \code{incidence} object to a
+\item \code{\link[incidence:pool]{incidence::pool()}}: Sum incidence over groups.
+\item \code{\link[incidence:as.data.frame.incidence]{incidence::as.data.frame.incidence()}}: Convert an \code{incidence} object to a
 \code{data.frame}.
 }
 
