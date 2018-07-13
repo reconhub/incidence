@@ -174,6 +174,7 @@ check_interval <- function(x){
 #' @author Zhian Kamvar
 #' @return the character string OR a numeric value.
 #' @noRd
+
 valid_interval_character <- function(the_interval) {
   valid_intervals <- c("day", "week", "month", "quarter", "year",
                        "days", "weeks", "months", "quarters", "years")
@@ -188,6 +189,21 @@ valid_interval_character <- function(the_interval) {
     }
   }
   the_interval
+}
+
+valid_interval_integer <- function(interval) {
+  if (is.character(interval)) {
+    res <- try(valid_interval_character(interval), silent = TRUE)
+    if (inherits(res, "try-error")) {
+      msg <- sprintf("The interval '%s' is not valid. Please supply an integer.", interval)
+      stop(msg, call. = FALSE)
+    } else if (is.character(res)) {
+      msg <- sprintf("The interval '%s' can only be used for Dates, not integers or numerics.",
+                     interval)
+      stop(msg, call. = FALSE)
+    }
+  }
+  interval
 }
 
 

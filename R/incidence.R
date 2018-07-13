@@ -147,6 +147,7 @@ incidence <- function(dates, interval = 1L, ...) {
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
                               na_as_group = TRUE,
                               last_date = NULL, ...) {
+  interval <- valid_interval_integer(interval)
   out <- make_incidence(dates = dates,
                         interval = interval,
                         groups = groups,
@@ -173,6 +174,7 @@ incidence.default <- function(dates, interval = 1L, ...) {
 #' @rdname incidence
 
 incidence.numeric <- function(dates, interval = 1L, ...) {
+  interval  <- valid_interval_integer(interval)
   ## make sure input can be used
   out       <- make_incidence(dates, interval, ...)
   out$dates <- as.numeric(out$dates)
