@@ -172,9 +172,9 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
   }
   ## model without split (1 model)
   if (is.null(split)) {
-    df <- as.data.frame(x, long=TRUE)
+    df <- as.data.frame(x, long = TRUE)
     ## exact dates
-    df$dates.x <- as.numeric(df$dates - min(df$dates)) + x$interval/2
+    df$dates.x <- get_dates(x, position = "center", count_days = TRUE)
 
     if (n.groups == 1) {
       lm1 <- stats::lm(log(counts) ~ dates.x, data = df)
@@ -185,11 +185,11 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
   } else {
     x1 <- x[x$dates <= split]
     x2 <- x[x$dates >= split]
-    df1 <- as.data.frame(x1, long=TRUE)
-    df2 <- as.data.frame(x2, long=TRUE)
+    df1 <- as.data.frame(x1, long = TRUE)
+    df2 <- as.data.frame(x2, long = TRUE)
     ## exact dates
-    df1$dates.x <- as.numeric(df1$dates - min(df1$dates)) + x$interval/2
-    df2$dates.x <- as.numeric(df2$dates - min(df2$dates)) + x$interval/2
+    df1$dates.x <- get_dates(x1, position = "center", count_days = TRUE)
+    df2$dates.x <- get_dates(x2, position = "center", count_days = TRUE)
     if (n.groups == 1) {
       lm1 <- stats::lm(log(counts) ~  dates.x, data = df1)
       lm2 <- stats::lm(log(counts) ~  dates.x, data = df2)
