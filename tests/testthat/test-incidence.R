@@ -107,16 +107,39 @@ test_that("construction - Date input", {
   ## note: the choice of dates here makes sure first date is 28 Dec 2015, which
   ## starts an iso week, so that counts will be comparable with/without iso
   dat.dates <- as.Date("2015-12-31") + dat
-  x <- incidence(dat)
-  x.dates <- incidence(dat.dates)
-  x.7 <- incidence(dat.dates, 7L, iso_week = FALSE)
-  x.7.iso <- incidence(dat.dates, "week")
+  x         <- incidence(dat)
+  x.dates   <- incidence(dat.dates)
+  x.7       <- incidence(dat.dates, 7L, iso_week = FALSE)
+  x.7.iso   <- incidence(dat.dates, "week")
+  x.7.week  <- incidence(dat.dates, "week", iso_week = FALSE)
+  ## Here, we can test if starting on a different day gives us expected results
+  x.ds       <- incidence(dat.dates + 1L)
+  x.7.ds     <- incidence(dat.dates + 1L, 7L, iso_week = FALSE)
+  x.w.ds     <- incidence(dat.dates + 1L, "week", iso_week = FALSE)
+  x.7.ds.iso <- incidence(dat.dates + 1L, 7L)
+  x.w.ds.iso <- incidence(dat.dates + 1L, "week")
+  ## Testing monthly input
+  x.mo <- incidence(dat.dates, "month")
+  expect_equal(format(x.mo$dates, "%m"), unique(format(sort(dat.dates), "%m")))
+  expect_equal(format(x.mo$dates, "%d"), rep("01", 5)) # all starts on first
+  expect_equal(x.mo$dates[[1]], as.Date("2015-12-01"))
+  expect_equal(sum(x.mo$counts), 51L)
+  ## Testing quarterly input
+  x.qu <- incidence(dat.dates, "quarter")
+  expect_equal(x.qu$dates, as.Date(c("2015-12-01", "2016-03-01")))
+  expect_equal(sum(x.qu$counts), 51L)
 
   ## compare outputs
   expect_equal(x$counts, x.dates$counts)
   expect_is(x$dates, "integer")
   expect_is(x.dates$dates, "Date")
   expect_equal(x.7$counts, x.7.iso$counts)
+  expect_equal(x.7.iso$dates, x.7.week$dates)
+  # shifting days gives the desired effect
+  expect_equal(x.ds$dates[[1]], x.7.ds$dates[[1]])
+  expect_equal(x.ds$dates[[1]] - 1L, x.7.ds.iso$dates[[1]])
+  expect_identical(x.7.ds.iso$dates, x.w.ds.iso$dates)
+  expect_identical(x.w.ds$dates, x.w.ds.iso$dates)
 
   ## Printing will be different with text-based interval
   expect_output(print(x.7), "\\$interval: 7 days")
