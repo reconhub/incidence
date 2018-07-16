@@ -48,9 +48,9 @@
 #'
 #' @note If `interval` is a valid character (e.g. "week" or "month"), then
 #' the bin wil start at the beginning of the interval. In the case of weeks,
-#' the interval will always start on a Sunday, in the case of months and
-#' quarters, the interval will always start on the first, and in the case of
-#' years, the interval will always start on January first.
+#' the interval will always start on the first day of the ISOweek, in the case
+#' of months and quarters, the interval will always start on the first, and in
+#' the case of years, the interval will always start on January first.
 #'
 #' @seealso
 #' The main other functions of the package include:
