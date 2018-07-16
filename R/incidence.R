@@ -143,19 +143,16 @@ incidence <- function(dates, interval = 1L, ...) {
 #' @param na_as_group A logical value indicating if missing group (NA) should be
 #' treated as a separate group.
 #'
-#' @param last_date The last date to be included in the produced epicurve. If
-#'   `NULL` (default), the last date will be the most recent provided in
-#'   `dates`.
-#'
 
 incidence.integer <- function(dates, interval = 1L, groups = NULL,
-                              na_as_group = TRUE,
+                              na_as_group = TRUE, first_date = NULL,
                               last_date = NULL, ...) {
   interval <- valid_interval_integer(interval)
   out <- make_incidence(dates = dates,
                         interval = interval,
                         groups = groups,
                         na_as_group = na_as_group,
+                        first_date = first_date,
                         last_date = last_date,
                         ...)
   out$dates    <- as.integer(out$dates)
@@ -191,11 +188,17 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 #' @export
 #' @rdname incidence
+#'
 #' @param iso A logical value indicating if dates of the weekly incidence
 #'   should be using ISO week. Only applies when `interval = 7`. Defaults
 #'   to be TRUE.
+#'
+#' @param first_date,last_date optional first/last dates to be used in the
+#'   epicurve. When these are `NULL` (default), the dates from the first/last
+#'   dates are taken from the observations. If these dates are provided, the
+#'   observations will be trimmed to the range of \[first_date, last_date\].
 
-incidence.Date <- function(dates, interval = 1L, iso = TRUE,
+incidence.Date <- function(dates, interval = 1L, iso = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
   ## make sure input can be used
   if (!is.logical(iso)) {
@@ -205,8 +208,13 @@ incidence.Date <- function(dates, interval = 1L, iso = TRUE,
   if (!is.null(last_date) && !inherits(last_date, "Date")) {
     stop("last_date is not a Date object")
   }
+
+  if (!is.null(first_date) && !inherits(first_date, "Date")) {
+    stop("first_date is not a Date object")
+  }
   out <- make_incidence(dates = dates,
                         interval = interval,
+                        first_date = first_date,
                         last_date = last_date,
                         iso = iso,
                         ...)

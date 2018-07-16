@@ -19,8 +19,8 @@ incidence(dates, interval = 1L, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 
-\method{incidence}{Date}(dates, interval = 1L, iso_week = TRUE,
-  last_date = NULL, ...)
+\method{incidence}{Date}(dates, interval = 1L, iso = TRUE,
+  first_date = NULL, last_date = NULL, ...)
 
 \method{incidence}{POSIXt}(dates, interval = 1L, ...)
 
@@ -43,13 +43,14 @@ incidence should be computed separately.}
 \item{na_as_group}{A logical value indicating if missing group (NA) should be
 treated as a separate group.}
 
-\item{last_date}{The last date to be included in the produced epicurve. If
-\code{NULL} (default), the last date will be the most recent provided in
-\code{dates}.}
-
-\item{iso_week}{A logical value indicating if dates of the weekly incidence
+\item{iso}{A logical value indicating if dates of the weekly incidence
 should be using ISO week. Only applies when \code{interval = 7}. Defaults
 to be TRUE.}
+
+\item{first_date, last_date}{optional first/last dates to be used in the
+epicurve. When these are \code{NULL} (default), the dates from the first/last
+dates are taken from the observations. If these dates are provided, the
+observations will be trimmed to [first_date, last_date]}
 
 \item{x}{An 'incidence' object.}
 }
@@ -105,21 +106,21 @@ if(require(outbreaks)) {
   plot(inc)
 
   ## weekly incidence
-  inc.week <- incidence(onset, interval = 7, iso_week = FALSE)
+  inc.week <- incidence(onset, interval = 7, iso = FALSE)
   inc.week
   plot(inc.week)
   plot(inc.week, border = "white") # with visible border
-  inc.isoweek <- incidence(onset, interval = 7, iso_week = TRUE)
+  inc.isoweek <- incidence(onset, interval = 7, iso = TRUE)
   inc.isoweek
   ## use group information
   sex <- ebola_sim$linelist$gender
   inc.week.gender <- incidence(onset, interval = 7,
-                               groups = sex, iso_week = FALSE)
+                               groups = sex, iso = FALSE)
   inc.week.gender
   head(inc.week.gender$counts)
   plot(inc.week.gender)
   inc.isoweek.gender <- incidence(onset, interval = 7,
-                                  groups = sex, iso_week = TRUE)
+                                  groups = sex, iso = TRUE)
   inc.isoweek.gender
 }
 

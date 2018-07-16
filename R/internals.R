@@ -31,7 +31,7 @@
 ##' @return an incidence object
 ##' @noRd
 make_incidence <- function(dates, interval = 1L, groups = NULL,
-                           na_as_group = TRUE,
+                           na_as_group = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
   dots     <- list(...)
 
@@ -41,7 +41,12 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
   groups   <- check_groups(groups, dates, na_as_group)
 
   ## Check the interval and arrange the breaks
-  breaks   <- make_breaks_easier(dates, interval, last_date, dots)
+  first_date <- check_boundaries(dates, first_date, "first")
+  last_date  <- check_boundaries(dates, last_date, "last")
+  breaks     <- make_breaks_easier(dates, interval, first_date, last_date, dots)
+
+  ## Trim the dates
+  dates <- trim_dates(dates, first_date, last_date)
 
   ## compute counts within bins defined by the breaks
   if (!is.null(groups)) {
@@ -64,7 +69,18 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
   out
 }
 
-
+trim_dates <- function(dates, first_date = NULL, last_date = NULL) {
+  res <- dates[dates >= first_date & dates <= last_date]
+  if (length(res) < length(dates)) {
+    warning(sprintf("removed %d observations ouside of [%s, %s].",
+                    length(dates) - length(res),
+                    format(first_date),
+                    format(last_date)
+                    )
+            )
+  }
+  res
+}
 
 ## This function checks that usable dates are provided, and set non-finite
 ## values to NA. It also makes a few trivial conversions on the fly.
@@ -219,6 +235,7 @@ valid_interval_integer <- function(interval) {
 #' @param date an integer, numeric, or Date vector
 #' @param the_interval an integer or character
 #' @param last_date an integer, numeric, or Date
+#' @param first_date an integer, numeric, or Date
 #' @param dots a named list of options
 #'
 #' @author Zhian Kamvar
@@ -229,19 +246,19 @@ valid_interval_integer <- function(interval) {
 #' set.seed(999)
 #' d <- sample(10, replace = TRUE)
 #' make_breaks_easier(d, 2L)
-make_breaks_easier <- function(dates, the_interval, last_date = NULL, dots = 1L) {
-  ## check interval
-  first_date  <- min(dates, na.rm = TRUE)
-  if (is.null(last_date)) {
-    last_date <- max(dates, na.rm = TRUE)
-  }
-  if (is.numeric(last_date)) {
-    last_date <- as.integer(last_date)
-  }
+make_breaks_easier <- function(dates, the_interval, first_date = NULL, last_date = NULL, dots = 1L) {
+  # ## check first_date
+  # first_date <- check_boundaries(dates, first_date)
+  # ## check last_date
+  # last_date  <- check_boundaries(dates, last_date)
+
   if (!is.integer(last_date) && !inherits(last_date, "Date")) {
     stop("last_date not provided as an integer or Date", call. = FALSE)
   }
-  the_interval <- valid_interval_character(the_interval)
+  if (!is.integer(first_date) && !inherits(first_date, "Date")) {
+    stop("first_date not provided as an integer or Date", call. = FALSE)
+  }
+  the_interval  <- valid_interval_character(the_interval)
   date_interval <- is.character(the_interval) && is_date_interval(the_interval)
 
   if ("iso" %in% names(dots) || date_interval) {
@@ -271,6 +288,17 @@ check_week <- function(the_interval) {
   int_week  <- is.integer(the_interval) && the_interval == 7L
   char_week <- is.character(the_interval) && grepl(the_interval, "week")
   num_week || int_week || char_week
+}
+
+check_boundaries <- function(dates, boundary, what = "first") {
+  if (is.null(boundary)) {
+    MINMAX <- if (what == "first") min else max
+    boundary <- MINMAX(dates, na.rm = TRUE)
+  }
+  if (is.numeric(boundary)) {
+    boundary <- as.integer(boundary)
+  }
+  boundary
 }
 
 #' Count dates within bins
