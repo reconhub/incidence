@@ -7,8 +7,8 @@ test_that("as.data.frame works", {
   dat2 <- as.Date("2016-01-02") + dat
   fac <- factor(c(1, 2, 3, 3, 3, 3, 1))
   i <- incidence(dat, groups = fac)
-  i.7 <- incidence(dat2, 7L, iso_weeks = TRUE)
-  i.7.group <- incidence(dat2, 7L, iso_weeks = TRUE, groups = fac)
+  i.7 <- incidence(dat2, 7L, iso = TRUE)
+  i.7.group <- incidence(dat2, 7L, iso = TRUE, groups = fac)
   df  <- as.data.frame(i)
   dfl <- as.data.frame(i, long = TRUE)
   df2 <- as.data.frame(incidence(1:2))

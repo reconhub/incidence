@@ -263,9 +263,9 @@ make_breaks_easier <- function(dates, the_interval, last_date = NULL, dots = 1L)
   the_interval <- valid_interval_character(the_interval)
   date_interval <- is.character(the_interval) && is_date_interval(the_interval)
 
-  if ("iso_week" %in% names(dots) || date_interval) {
+  if ("iso" %in% names(dots) || date_interval) {
     is_a_week <- check_week(the_interval)
-    if (is_a_week && (identical(dots$iso_week, TRUE) || date_interval)) {
+    if (is_a_week && (identical(dots$iso, TRUE) || date_interval)) {
       first_isoweek <- ISOweek::date2ISOweek(first_date)
       substr(first_isoweek, 10, 10) <- "1"
       first_date <- ISOweek::ISOweek2date(first_isoweek)
@@ -338,12 +338,12 @@ check_groups <- function(x, dates, na_as_group){
 ## correspond to the first day of the matching iso week; $labels contains vector
 ## of labels of the corresponding iso weeks.
 
-make_iso_weeks_breaks <- function(dates, n = 5) {
+make_iso_breaks <- function(dates, n = 5) {
   breaks_ini <- pretty(dates, n)
-  iso_weeks <- ISOweek::date2ISOweek(breaks_ini)
-  iso_weeks_day1 <- sub("-[1-7]+$", "-1", iso_weeks)
-  list(breaks = ISOweek::ISOweek2date(iso_weeks_day1),
-       labels = sub("-[1-7]+$", "", iso_weeks)
+  iso <- ISOweek::date2ISOweek(breaks_ini)
+  iso_day1 <- sub("-[1-7]+$", "-1", iso)
+  list(breaks = ISOweek::ISOweek2date(iso_day1),
+       labels = sub("-[1-7]+$", "", iso)
        )
 }
 

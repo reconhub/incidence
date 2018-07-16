@@ -42,7 +42,7 @@
 #' generated automatically according to the time interval used in incidence
 #' computation.
 #'
-#' @param labels_iso_week a logical value indicating whether labels x axis tick
+#' @param labels_iso a logical value indicating whether labels x axis tick
 #' marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 #' incidence; defaults to be TRUE.
 #'
@@ -63,27 +63,27 @@
 #'   inc.week <- incidence(onset, interval = 7)
 #'   inc.week
 #'   plot(inc.week) # default to label x axis tick marks with isoweeks
-#'   plot(inc.week, labels_iso_week = FALSE) # label x axis tick marks with dates
+#'   plot(inc.week, labels_iso = FALSE) # label x axis tick marks with dates
 #'   plot(inc.week, border = "white") # with visible border
 #'
 #'   ## use group information
 #'   sex <- ebola_sim$linelist$gender
 #'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
 #'   plot(inc.week.gender)
-#'   plot(inc.week.gender, labels_iso_week = FALSE)
+#'   plot(inc.week.gender, labels_iso = FALSE)
 #'
 #'   ## adding fit
 #'   fit <- fit_optim_split(inc.week.gender)$fit
 #'   plot(inc.week.gender, fit = fit)
-#'   plot(inc.week.gender, fit = fit, labels_iso_week = FALSE)
+#'   plot(inc.week.gender, fit = fit, labels_iso = FALSE)
 #' }
 #'
 plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            color = "black", border = NA, col_pal = incidence_pal1,
                            alpha = .7, xlab = "", ylab = NULL,
-                           labels_iso_week = !is.null(x$isoweeks),
+                           labels_iso = !is.null(x$isoweeks),
                            n_breaks = 6) {
-  stopifnot(is.logical(labels_iso_week))
+  stopifnot(is.logical(labels_iso))
 
   ## extract data in suitable format for ggplot2
   df <- as.data.frame(x, long = TRUE)
@@ -213,8 +213,8 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
 
   breaks <- pretty(x$dates, n_breaks)
 
-  if (labels_iso_week && "isoweeks" %in% names(x)) {
-    breaks_info <- make_iso_weeks_breaks(x$dates, n_breaks)
+  if (labels_iso && "isoweeks" %in% names(x)) {
+    breaks_info <- make_iso_breaks(x$dates, n_breaks)
     out <- out + ggplot2::scale_x_date(breaks = breaks_info$breaks,
                                        labels = breaks_info$labels)
   } else {

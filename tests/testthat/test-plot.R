@@ -17,7 +17,7 @@ test_that("plot for incidence object", {
   i.3 <- incidence(dat, 3L)
   i.14 <- incidence(dat, 14L)
   i.sex <- incidence(dat, 7L, groups = sex)
-  i.isoweek <- incidence(dat2, 7L, iso_week = TRUE)
+  i.isoweek <- incidence(dat2, 7L, iso = TRUE)
   i.sexmonth <- incidence(dat4, "month", groups = rep(sex, 3))
   i.sexquarter <- incidence(dat4, "quarter", groups = rep(sex, 3))
   fit.i <- suppressWarnings(fit(i))
@@ -40,7 +40,7 @@ test_that("plot for incidence object", {
   p.sex.4 <- plot(i.sex, fit = fit.sex,
                   color = c(male = "salmon3", female = "gold2"))
   p.isoweek <- plot(i.isoweek)
-  p.isoweek.2 <- plot(i.isoweek, labels_iso_week = FALSE)
+  p.isoweek.2 <- plot(i.isoweek, labels_iso = FALSE)
   p.month <- plot(i.sexmonth)
   p.quarter <- plot(i.sexquarter)
 

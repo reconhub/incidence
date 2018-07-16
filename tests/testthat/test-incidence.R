@@ -56,7 +56,7 @@ test_that("construction - ISO week", {
   set.seed(eval(parse(text = as.character(Sys.Date()))))
   dat <- as.integer(sample(-3:100, 50, replace = TRUE))
   dat.dates <- as.Date("2016-09-20") + dat
-  inc.week <- incidence(dat.dates, interval = 7, iso_week = FALSE)
+  inc.week <- incidence(dat.dates, interval = 7, iso = FALSE)
   inc.isoweek <- incidence(dat.dates, interval = 7)
 
   ## classes
@@ -109,13 +109,13 @@ test_that("construction - Date input", {
   dat.dates <- as.Date("2015-12-31") + dat
   x         <- incidence(dat)
   x.dates   <- incidence(dat.dates)
-  x.7       <- incidence(dat.dates, 7L, iso_week = FALSE)
+  x.7       <- incidence(dat.dates, 7L, iso = FALSE)
   x.7.iso   <- incidence(dat.dates, "week")
-  x.7.week  <- incidence(dat.dates, "week", iso_week = FALSE)
+  x.7.week  <- incidence(dat.dates, "week", iso = FALSE)
   ## Here, we can test if starting on a different day gives us expected results
   x.ds       <- incidence(dat.dates + 1L)
-  x.7.ds     <- incidence(dat.dates + 1L, 7L, iso_week = FALSE)
-  x.w.ds     <- incidence(dat.dates + 1L, "week", iso_week = FALSE)
+  x.7.ds     <- incidence(dat.dates + 1L, 7L, iso = FALSE)
+  x.w.ds     <- incidence(dat.dates + 1L, "week", iso = FALSE)
   x.7.ds.iso <- incidence(dat.dates + 1L, 7L)
   x.w.ds.iso <- incidence(dat.dates + 1L, "week")
   ## Testing monthly input
@@ -187,8 +187,8 @@ test_that("corner cases", {
   expect_error(incidence(1, "week"),
                "The interval 'week' can only be used for Dates")
 
-  expect_error(incidence(as.Date(Sys.Date()), iso_week = "TRUE"),
-               "The argument `iso_week` must be either `TRUE` or `FALSE`")
+  expect_error(incidence(as.Date(Sys.Date()), iso = "TRUE"),
+               "The argument `iso` must be either `TRUE` or `FALSE`")
 
   expect_error(incidence(as.Date(Sys.Date()), last_date = "core"),
                "last_date is not a Date object")

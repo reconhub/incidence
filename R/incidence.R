@@ -105,21 +105,21 @@
 #'   plot(inc)
 #'
 #'   ## weekly incidence
-#'   inc.week <- incidence(onset, interval = 7, iso_week = FALSE)
+#'   inc.week <- incidence(onset, interval = 7, iso = FALSE)
 #'   inc.week
 #'   plot(inc.week)
 #'   plot(inc.week, border = "white") # with visible border
-#'   inc.isoweek <- incidence(onset, interval = 7, iso_week = TRUE)
+#'   inc.isoweek <- incidence(onset, interval = 7, iso = TRUE)
 #'   inc.isoweek
 #'   ## use group information
 #'   sex <- ebola_sim$linelist$gender
 #'   inc.week.gender <- incidence(onset, interval = 7,
-#'                                groups = sex, iso_week = FALSE)
+#'                                groups = sex, iso = FALSE)
 #'   inc.week.gender
 #'   head(inc.week.gender$counts)
 #'   plot(inc.week.gender)
 #'   inc.isoweek.gender <- incidence(onset, interval = 7,
-#'                                   groups = sex, iso_week = TRUE)
+#'                                   groups = sex, iso = TRUE)
 #'   inc.isoweek.gender
 #' }
 #'
@@ -191,15 +191,15 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 #' @export
 #' @rdname incidence
-#' @param iso_week A logical value indicating if dates of the weekly incidence
+#' @param iso A logical value indicating if dates of the weekly incidence
 #'   should be using ISO week. Only applies when `interval = 7`. Defaults
 #'   to be TRUE.
 
-incidence.Date <- function(dates, interval = 1L, iso_week = TRUE,
+incidence.Date <- function(dates, interval = 1L, iso = TRUE,
                            last_date = NULL, ...) {
   ## make sure input can be used
-  if (!is.logical(iso_week)) {
-    stop("The argument `iso_week` must be either `TRUE` or `FALSE`.")
+  if (!is.logical(iso)) {
+    stop("The argument `iso` must be either `TRUE` or `FALSE`.")
   }
 
   if (!is.null(last_date) && !inherits(last_date, "Date")) {
@@ -208,9 +208,9 @@ incidence.Date <- function(dates, interval = 1L, iso_week = TRUE,
   out <- make_incidence(dates = dates,
                         interval = interval,
                         last_date = last_date,
-                        iso_week = iso_week,
+                        iso = iso,
                         ...)
-  if (check_week(interval) && iso_week) {
+  if (check_week(interval) && iso) {
     # dates are the first days of corresponding ISOweeks.
     out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
   }
