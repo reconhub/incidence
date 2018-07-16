@@ -210,25 +210,6 @@ valid_interval_integer <- function(interval) {
   interval
 }
 
-
-#' Make breaks with dates
-#'
-#' Because Date objects have a specific `seq` method, it's possible
-#' to make breaks with both integers and date objects. This function
-#' will check to make sure that the interval is valid.
-#'
-#' @param first_date an integer, numeric, or Date
-#' @param last_date an integer, numeric, or Date
-#' @param the_interval an integer or character
-#'
-#' @author Zhian Kamvar
-#'
-#' @noRd
-make_breaks <- function(first_date, last_date, the_interval) {
-  the_interval <- valid_interval_character(the_interval)
-  seq(first_date, last_date, by = the_interval)
-}
-
 #' Make breaks with dates
 #'
 #' Because Date objects have a specific `seq` method, it's possible
