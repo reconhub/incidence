@@ -131,17 +131,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## counts the number of days within each interval.
 
   ## Adding a variable for width in ggplot
-  if (is.numeric(x$interval)) {
-    df$interval.days <- x$interval
-  } else {
-    df$interval.days <- switch(x$interval,
-                               day     = 1L,
-                               week    = 7L,
-                               month   = get_days_in_month(df$dates),
-                               quarter = get_days_in_quarter(df$dates),
-                               year    = get_days_in_year(df$dates)
-                              )
-  }
+  df$interval.days <- get_interval(x, integer = TRUE)
 
   ## Important note: it seems safest to specify the aes() as part of the geom,
   ## not in ggplot(), as it interacts badly with some other geoms like
