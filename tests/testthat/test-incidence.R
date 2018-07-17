@@ -126,7 +126,7 @@ test_that("construction - Date input", {
   expect_equal(sum(x.mo$counts), 51L)
   ## Testing quarterly input
   x.qu <- incidence(dat.dates, "quarter")
-  expect_equal(x.qu$dates, as.Date(c("2015-12-01", "2016-03-01")))
+  expect_equal(x.qu$dates, as.Date(c("2015-10-01", "2016-01-01", "2016-04-01")))
   expect_equal(sum(x.qu$counts), 51L)
 
   ## compare outputs
@@ -139,7 +139,9 @@ test_that("construction - Date input", {
   expect_equal(x.ds$dates[[1]], x.7.ds$dates[[1]])
   expect_equal(x.ds$dates[[1]] - 1L, x.7.ds.iso$dates[[1]])
   expect_identical(x.7.ds.iso$dates, x.w.ds.iso$dates)
-  expect_identical(x.w.ds$dates, x.w.ds.iso$dates)
+  expect_failure({
+    expect_identical(x.w.ds$dates, x.w.ds.iso$dates)
+  })
 
   ## Printing will be different with text-based interval
   expect_output(print(x.7), "\\$interval: 7 days")
