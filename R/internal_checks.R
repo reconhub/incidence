@@ -1,3 +1,8 @@
+
+# Enforcers/Manipulators --------------------------------------------------
+## This section of functions will attempt to manipulate the incoming object
+## to the right format or die doing so.
+
 ## Non-exported function, enforces that 'groups' is either NULL or:
 ## - a factor
 ## - of the same length as 'dates'
@@ -18,13 +23,6 @@ check_groups <- function(x, dates, na_as_group){
       length(x), length(dates)))
   }
   factor(x)
-}
-
-check_week <- function(the_interval) {
-  num_week  <- is.numeric(the_interval) && the_interval == 7
-  int_week  <- is.integer(the_interval) && the_interval == 7L
-  char_week <- is.character(the_interval) && grepl(the_interval, "week")
-  num_week || int_week || char_week
 }
 
 #' A cromulence check for first_date and _last date
@@ -144,6 +142,11 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
 
 }
 
+# Trust but verify --------------------------------------------------------
+## These functions trust that the input is of a given class, but will
+## verify them and throw an error if it is not. No attempt at conversion
+## will be made.
+
 
 #' Validate potential character values for interval
 #'
@@ -170,18 +173,6 @@ valid_interval_character <- function(the_interval) {
   the_interval
 }
 
-#' Return TRUE if the interval is a valid date character
-#'
-#' @param the_interval an interval string
-#'
-#' @return a logical value
-#' @noRd
-#' @keywords internal
-is_date_interval <- function(the_interval) {
-  valid_intervals <- c("day", "week", "month", "quarter", "year",
-                       "days", "weeks", "months", "quarters", "years")
-  the_interval %in% valid_intervals
-}
 
 #' Check to make sure an interval is valid for integer dates
 #'
@@ -207,3 +198,37 @@ valid_interval_integer <- function(interval) {
   }
   interval
 }
+
+
+
+# Returns Logical ---------------------------------------------------------
+## These functions will simply return a logical value if they pass or fail
+## the tests.
+
+#' Return TRUE if the interval is a valid date character
+#'
+#' @param the_interval an interval string
+#'
+#' @return a logical value
+#' @noRd
+#' @keywords internal
+is_date_interval <- function(the_interval) {
+  valid_intervals <- c("day", "week", "month", "quarter", "year",
+                       "days", "weeks", "months", "quarters", "years")
+  the_interval %in% valid_intervals
+}
+
+#' Check for a valid week interval
+#'
+#' @param the_interval character, integer, or numeric
+#'
+#' @return a logical value indicating if any of the tests pass
+#' @noRd
+#' @keywords internal
+check_week <- function(the_interval) {
+  num_week  <- is.numeric(the_interval) && the_interval == 7
+  int_week  <- is.integer(the_interval) && the_interval == 7L
+  char_week <- is.character(the_interval) && grepl(the_interval, "week")
+  num_week || int_week || char_week
+}
+
