@@ -184,14 +184,15 @@ test_that("corner cases", {
   expect_error(incidence(1, "grind"),
                "The interval 'grind' is not valid. Please supply an integer.")
 
+  expect_error(incidence(as.Date(Sys.Date()), last_date = "core"),
+               "last_date could not be converted to Date")
+
   expect_error(incidence(1, "week"),
                "The interval 'week' can only be used for Dates")
 
   expect_error(incidence(as.Date(Sys.Date()), iso = "TRUE"),
                "The argument `iso` must be either `TRUE` or `FALSE`")
 
-  expect_error(incidence(as.Date(Sys.Date()), last_date = "core"),
-               "last_date is not a Date object")
 })
 
 test_that("Expected values, no group", {

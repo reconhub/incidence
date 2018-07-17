@@ -69,161 +69,27 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
   out
 }
 
+#' Trim dates based on the first and last dates
+#'
+#' @param dates a vector of dates or integers
+#' @param first_date a single date or integer
+#' @param last_date a single date or integer
+#'
+#' @return the trimmed dates
+#' @noRd
+#' @keywords internal
 trim_dates <- function(dates, first_date = NULL, last_date = NULL) {
   res <- dates[dates >= first_date & dates <= last_date]
   if (length(res) < length(dates)) {
-    warning(sprintf("removed %d observations ouside of [%s, %s].",
+    warning(sprintf("I removed %d observations ouside of [%s, %s].",
                     length(dates) - length(res),
                     format(first_date),
                     format(last_date)
-                    )
+                    ),
+            call. = FALSE
             )
   }
   res
-}
-
-## This function checks that usable dates are provided, and set non-finite
-## values to NA. It also makes a few trivial conversions on the fly.
-
-check_dates <- function(x, error_on_NA = FALSE, ...) {
-  if (is.null(x)) {
-    stop("dates is NULL", call. = FALSE)
-  }
-
-  if (is.character(x)) {
-    x <- as.Date(x, ...)
-  }
-
-  not_finite <- !is.finite(x)
-  if (sum(not_finite) > 0) {
-       x[not_finite] <- NA
-  }
-
-  if (any(is.na(x)) && error_on_NA) {
-    msg <- "NA detected in the dates"
-    stop(msg, call. = FALSE)
-  }
-
-  if (sum(!is.na(x)) < 1) {
-    stop("At least one (non-NA) date must be provided", call. = FALSE)
-  }
-
-  if (inherits(x, "Date")) {
-    return(x)
-  }
-
-  if (inherits(x, "POSIXt")) {
-    return(x)
-  }
-
-  if (is.integer(x)) {
-    return(x)
-  }
-
-  if (is.numeric(x)) {
-    x_ori <- x
-    x <- as.integer(floor(x))
-    if (!isTRUE(note <- all.equal(x, x_ori))) {
-      msg <- paste0(
-        "Flooring from non-integer date caused approximations:\n",
-        note)
-      warning(msg, call. = FALSE)
-    }
-    return(x)
-  }
-
-
-  formats <- c("Date", "POSIXct", "integer", "numeric", "character")
-  msg <- paste0(
-    "Input could not be converted to date. Accepted formats are:\n",
-    paste(formats, collapse = ", "))
-  stop(msg)
-
-}
-
-
-
-
-
-
-## Non-exported function, enforces that an interval is:
-## - strictly positive
-## - integer (rounded) OR compatibile with date
-## - finite
-## - of length 1
-check_interval <- function(x){
-  if (missing(x) || is.null(x)) {
-    stop("Interval is missing or NULL")
-  }
-  if (length(x) != 1L) {
-    stop(sprintf(
-      "Exactly one value should be provided as interval (%d provided)",
-      length(x)))
-  }
-  if (!is.finite(x)) {
-    if (is.character(x)) {
-      x <- valid_interval_character(x)
-    } else {
-      stop("Interval is not finite")
-    }
-  }
-  if (is.numeric(x)) {
-    x <- as.integer(round(old <- x))
-  }
-  if (x < 1L) {
-    stop(sprintf(
-      "Interval must be at least 1 (input: %.3f; after rounding: %d)",
-      old, x))
-  }
-  x
-}
-
-
-#' Validate potential character values for interval
-#'
-#' Characters are valid for intervals if they are of the
-#' form "day", "week", "month", etc. They can ALSO be
-#' valid if they are characters that convert to numbers.
-#'
-#' @param the_interval a character string of length one
-#'
-#' @author Zhian Kamvar
-#' @return the character string OR a numeric value.
-#' @noRd
-
-valid_interval_character <- function(the_interval) {
-  if (is.character(the_interval)) {
-    if (!is_date_interval(the_interval)) {
-      suppressWarnings({
-        the_interval <- as.numeric(the_interval)
-      })
-      if (is.na(the_interval)) {
-        stop('The interval must be a number or one of the following: "day", "week", "month", "quarter" or "year"', call. = FALSE)
-      }
-    }
-  }
-  the_interval
-}
-
-is_date_interval <- function(the_interval) {
-  valid_intervals <- c("day", "week", "month", "quarter", "year",
-                       "days", "weeks", "months", "quarters", "years")
-  the_interval %in% valid_intervals
-}
-
-valid_interval_integer <- function(interval) {
-  if (is.character(interval)) {
-    res <- try(valid_interval_character(interval), silent = TRUE)
-    if (inherits(res, "try-error")) {
-      msg <- sprintf("The interval '%s' is not valid. Please supply an integer.", interval)
-      stop(msg, call. = FALSE)
-    } else if (is.character(res)) {
-      msg <- sprintf("The interval '%s' can only be used for Dates, not integers or numerics.",
-                     interval)
-      stop(msg, call. = FALSE)
-    }
-  }
-  interval
 }
 
 #' Make breaks with dates
@@ -247,10 +113,6 @@ valid_interval_integer <- function(interval) {
 #' d <- sample(10, replace = TRUE)
 #' make_breaks_easier(d, 2L)
 make_breaks_easier <- function(dates, the_interval, first_date = NULL, last_date = NULL, dots = 1L) {
-  # ## check first_date
-  # first_date <- check_boundaries(dates, first_date)
-  # ## check last_date
-  # last_date  <- check_boundaries(dates, last_date)
 
   if (!is.integer(last_date) && !inherits(last_date, "Date")) {
     stop("last_date not provided as an integer or Date", call. = FALSE)
@@ -283,23 +145,7 @@ make_breaks_easier <- function(dates, the_interval, first_date = NULL, last_date
   seq(first_date, last_date, by = the_interval)
 }
 
-check_week <- function(the_interval) {
-  num_week  <- is.numeric(the_interval) && the_interval == 7
-  int_week  <- is.integer(the_interval) && the_interval == 7L
-  char_week <- is.character(the_interval) && grepl(the_interval, "week")
-  num_week || int_week || char_week
-}
 
-check_boundaries <- function(dates, boundary, what = "first") {
-  if (is.null(boundary)) {
-    MINMAX <- if (what == "first") min else max
-    boundary <- MINMAX(dates, na.rm = TRUE)
-  }
-  if (is.numeric(boundary)) {
-    boundary <- as.integer(boundary)
-  }
-  boundary
-}
 
 #' Count dates within bins
 #'
@@ -314,33 +160,6 @@ count.dates <- function(dates, breaks){
   counts <- table(cut(as.integer(dates), breaks = c(breaks, Inf), right = FALSE))
   as.integer(counts)
 }
-
-
-
-## Non-exported function, enforces that 'groups' is either NULL or:
-## - a factor
-## - of the same length as 'dates'
-##
-## It also treats missing groups (NA) as a separate group is needed.
-
-check_groups <- function(x, dates, na_as_group){
-  if (is.null(x)) {
-    return(NULL)
-  }
-  if (na_as_group) {
-    x <- as.character(x)
-    x[is.na(x)] <- "NA"
-  }
-  if (length(x) != length(dates)) {
-    stop(sprintf(
-      "'x' does not have the same length as dates (%d vs %d)",
-      length(x), length(dates)))
-  }
-  factor(x)
-}
-
-
-
 
 ## This function takes a vector of Date objects, and an ideal number of breaks,
 ## and generates a list with two components: $breaks, and $labels. $breaks
