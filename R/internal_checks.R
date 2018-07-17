@@ -109,6 +109,17 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
     stop("At least one (non-NA) date must be provided", call. = FALSE)
   }
 
+  if (inherits(x, "Date")) {
+    return(x)
+  }
+
+  if (inherits(x, "POSIXt")) {
+    return(x)
+  }
+
+  if (is.integer(x)) {
+    return(x)
+  }
 
   if (is.numeric(x)) {
     x_ori <- x
@@ -122,17 +133,6 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
     return(x)
   }
 
-  if (inherits(x, "Date")) {
-    return(x)
-  }
-
-  if (inherits(x, "POSIXt")) {
-    return(x)
-  }
-
-  if (is.integer(x)) {
-    return(x)
-  }
 
   formats <- c("Date", "POSIXct", "integer", "numeric", "character")
   msg <- paste0(

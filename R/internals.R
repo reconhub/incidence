@@ -114,12 +114,6 @@ trim_dates <- function(dates, first_date = NULL, last_date = NULL) {
 #' make_breaks_easier(d, 2L)
 make_breaks_easier <- function(dates, the_interval, first_date = NULL, last_date = NULL, dots = 1L) {
 
-  if (!is.integer(last_date) && !inherits(last_date, "Date")) {
-    stop("last_date not provided as an integer or Date", call. = FALSE)
-  }
-  if (!is.integer(first_date) && !inherits(first_date, "Date")) {
-    stop("first_date not provided as an integer or Date", call. = FALSE)
-  }
   the_interval  <- valid_interval_character(the_interval)
   date_interval <- is.character(the_interval) && is_date_interval(the_interval)
 
