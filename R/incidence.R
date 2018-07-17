@@ -47,7 +47,7 @@
 #'
 #' - **n**: The total number of cases.
 #'
-#' - isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
+#' - **isoweeks**: ISO 8601 week format yyyy-Www, which is returned only when
 #' ISO week-based weekly incidence is computed.
 #'
 #'
@@ -193,9 +193,10 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 #' @export
 #' @rdname incidence
 #'
-#' @param iso A logical value indicating if dates of the weekly incidence
-#'   should be using ISO week. Only applies when `interval = 7`. Defaults
-#'   to be TRUE.
+#' @param iso (Only applicable to Date objects) When `TRUE` (default) and the
+#'   `interval` one of "week", "month", "quarter", or "year", then this will
+#'   cause the bins for the counts to start at the beginning of the interval
+#'   (See Note). This is overridden by defining a non-NULL `first_date`.
 
 incidence.Date <- function(dates, interval = 1L, iso = TRUE, first_date = NULL,
                            last_date = NULL, ...) {

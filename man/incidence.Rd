@@ -48,9 +48,10 @@ epicurve. When these are \code{NULL} (default), the dates from the first/last
 dates are taken from the observations. If these dates are provided, the
 observations will be trimmed to the range of [first_date, last_date].}
 
-\item{iso}{A logical value indicating if dates of the weekly incidence
-should be using ISO week. Only applies when \code{interval = 7}. Defaults
-to be TRUE.}
+\item{iso}{(Only applicable to Date objects) When \code{TRUE} (default) and the
+\code{interval} one of "week", "month", "quarter", or "year", then this will
+cause the bins for the counts to start at the beginning of the interval
+(See Note). This is overridden by defining a non-NULL \code{first_date}.}
 
 \item{x}{An 'incidence' object.}
 }
@@ -68,7 +69,7 @@ days.
 \item \strong{interval}: The bin size, in number of days; e.g. 7 indicates weekly
 incidence.
 \item \strong{n}: The total number of cases.
-\item isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
+\item \strong{isoweeks}: ISO 8601 week format yyyy-Www, which is returned only when
 ISO week-based weekly incidence is computed.
 }
 }
