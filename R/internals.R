@@ -88,7 +88,7 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
 trim_dates <- function(dates, first_date = NULL, last_date = NULL) {
   res <- dates[dates >= first_date & dates <= last_date]
   if (length(res) < length(dates)) {
-    warning(sprintf("I removed %d observations ouside of [%s, %s].",
+    warning(sprintf("I removed %d observations outside of [%s, %s].",
                     length(dates) - length(res),
                     format(first_date),
                     format(last_date)
