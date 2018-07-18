@@ -21,14 +21,17 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
 
 <meta property="og:title" content="Function reference" />
+
 
 
 <!-- mathjax -->
@@ -116,6 +119,7 @@
     <table class="ref-index">
 
     <colgroup>
+      
       <col class="alias" />
       <col class="title" />
     </colgroup>
@@ -128,67 +132,79 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="bootstrap.html">bootstrap()</a></code> </p>
         </td>
         <td><p>Bootstrap incidence time series</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="conversions.html">as.data.frame(<i>&lt;incidence&gt;</i>)</a></code> <code><a href="conversions.html">as.incidence()</a></code> </p>
         </td>
         <td><p>Conversion of indence objects</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="cumulate.html">cumulate()</a></code> </p>
         </td>
         <td><p>Compute cumulative 'incidence'</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="estimate_peak.html">estimate_peak()</a></code> </p>
         </td>
         <td><p>Estimate the peak date of an incidence curve using bootstrap</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="find_peak.html">find_peak()</a></code> </p>
         </td>
         <td><p>Find the peak date of an incidence curve</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="fit.html">fit()</a></code> <code><a href="fit.html">fit_optim_split()</a></code> <code><a href="fit.html">print(<i>&lt;incidence_fit&gt;</i>)</a></code> <code><a href="fit.html">add_incidence_fit()</a></code> <code><a href="fit.html">plot(<i>&lt;incidence_fit&gt;</i>)</a></code> </p>
         </td>
         <td><p>Fit exponential models to incidence data</p></td>
       </tr><tr>
-        <!--  -->
+        
+        <td>
+          <p><code><a href="get_dates.html">get_dates()</a></code> </p>
+        </td>
+        <td><p>Retrieve dates from an incidence object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_interval.html">get_interval()</a></code> </p>
+        </td>
+        <td><p>Get the interval for an incidence object.</p></td>
+      </tr><tr>
+        
         <td>
           <p><code><a href="incidence.html">incidence()</a></code> <code><a href="incidence.html">print(<i>&lt;incidence&gt;</i>)</a></code> </p>
         </td>
         <td><p>Compute incidence of events from a vector of dates.</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="palettes.html">incidence_pal1()</a></code> <code><a href="palettes.html">incidence_pal1_light()</a></code> <code><a href="palettes.html">incidence_pal1_dark()</a></code> </p>
         </td>
         <td><p>Color palettes used in incidence</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="plot.incidence.html">plot(<i>&lt;incidence&gt;</i>)</a></code> </p>
         </td>
         <td><p>Plot function for incidence objects</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="pool.html">pool()</a></code> </p>
         </td>
         <td><p>Pool 'incidence' across groups</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="subset.html">subset(<i>&lt;incidence&gt;</i>)</a></code> <code><a href="subset.html">`[`(<i>&lt;incidence&gt;</i>)</a></code> </p>
         </td>
@@ -208,7 +224,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Thibaut Jombart, Rich FitzJohn.</p>
+  <p>Developed by Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn.</p>
 </div>
 
 <div class="pkgdown">

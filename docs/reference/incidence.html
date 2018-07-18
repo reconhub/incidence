@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -37,6 +39,7 @@ date, after which they are labelled, and exclude the second. For instance,
 intervals labelled as 0, 3, 6, ... mean that the first bin includes days 0, 1
 and 2, the second interval includes 3, 4 and 5 etc." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -136,22 +139,26 @@ and 2, the second interval includes 3, 4 and 5 etc.</p>
 
     <pre class="usage"><span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for integer</span>
-<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
 <span class='co'># S3 method for default</span>
 <span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
-
 <span class='co'># S3 method for Date</span>
-<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for integer</span>
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for numeric</span>
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for POSIXt</span>
-<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='no'>...</span>)
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
 <span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
@@ -167,12 +174,20 @@ floored with a warning.</p></td>
     </tr>
     <tr>
       <th>interval</th>
-      <td><p>An integer indicating the (fixed) size of the time interval
-used for computing the incidence; defaults to 1 day.</p></td>
+      <td><p>An integer or character indicating the (fixed) size of the time interval
+used for computing the incidence; defaults to 1 day. This can also be a text string that corresponds to a valid date
+interval: day, week, month, quarter, or year. See Note.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed to other methods (none are used).</p></td>
+    </tr>
+    <tr>
+      <th>standard</th>
+      <td><p>(Only applicable to Date objects) When <code>TRUE</code> (default) and the
+<code>interval</code> one of "week", "month", "quarter", or "year", then this will
+cause the bins for the counts to start at the beginning of the interval
+(See Note). This is overridden by defining a non-NULL <code>first_date</code>.</p></td>
     </tr>
     <tr>
       <th>groups</th>
@@ -185,16 +200,11 @@ incidence should be computed separately.</p></td>
 treated as a separate group.</p></td>
     </tr>
     <tr>
-      <th>last_date</th>
-      <td><p>The last date to be included in the produced epicurve. If
-<code>NULL</code> (default), the last date will be the most recent provided in
-<code>dates</code>.</p></td>
-    </tr>
-    <tr>
-      <th>iso_week</th>
-      <td><p>A logical value indicating if dates of the weekly incidence
-should be using ISO week. Only applies when <code>interval = 7</code>. Defaults
-to be TRUE.</p></td>
+      <th>first_date, last_date</th>
+      <td><p>optional first/last dates to be used in the
+epicurve. When these are <code>NULL</code> (default), the dates from the first/last
+dates are taken from the observations. If these dates are provided, the
+observations will be trimmed to the range of [first_date, last_date].</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -205,19 +215,18 @@ to be TRUE.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An list with the class <code>incidence</code>, which contains the
-following items:</p>
-<ul>
-<li><p>dates: The dates marking the left side of the bins used for counting
+following items:</p><ul>
+<li><p><strong>dates</strong>: The dates marking the left side of the bins used for counting
 events. When ISO week-based weekly incidence is computed, the dates are the
 first days of corresponding isoweeks.</p></li>
-<li><p>counts: A matrix of incidence counts, which one column per group (and
+<li><p><strong>counts</strong>: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).</p></li>
-<li><p>timespan: The length of the period for which incidence is computed, in
+<li><p><strong>timespan</strong>: The length of the period for which incidence is computed, in
 days.</p></li>
-<li><p>interval: The bin size, in number of days; e.g. 7 indicates weekly
+<li><p><strong>interval</strong>: The bin size, in number of days; e.g. 7 indicates weekly
 incidence.</p></li>
-<li><p>n: The total number of cases.</p></li>
-<li><p>isoweeks: ISO 8601 week format yyyy-Www, which is returned only when
+<li><p><strong>n</strong>: The total number of cases.</p></li>
+<li><p><strong>isoweeks</strong>: ISO 8601 week format yyyy-Www, which is returned only when
 ISO week-based weekly incidence is computed.</p></li>
 </ul>
 
@@ -227,16 +236,38 @@ ISO week-based weekly incidence is computed.</p></li>
     <p>For details about the <code>incidence class</code>, see the dedicated
 vignette:<br /> <code><a href='../articles/incidence_class.html'>vignette("incidence_class", package = "incidence")</a></code></p>
     
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>If <code>interval</code> is a valid character (e.g. "week" or "month"), then
+the bin will start at the beginning of the interval just before the first
+observation by default. For example, if the first case was recorded on
+Wednesday, 2018-05-09:</p><ul>
+<li><p>"week"    : first day of the ISOweek (i.e. Monday, 2018-05-07)</p></li>
+<li><p>"month"   : first day of the month (i.e. 2018-05-01)</p></li>
+<li><p>"quarter" : first day of the quarter (i.e. 2018-04-01)</p></li>
+<li><p>"year"    : first day of the calendar year (i.e. 2018-01-01)</p></li>
+</ul>
+    <p>These default intervals can be overridden in two ways:</p><ol>
+<li><p>Specify <code>standard = FALSE</code>, which sets the interval to begin at the first
+observed case.</p></li>
+<li><p>Specify a date in the <code>first_date</code> field.</p></li>
+</ol>
+    <p>The intervals for "month", "quarter", and "year" will necessarily vary in the
+number of days they encompass and warnings will be generated when the first
+date falls outside of a calendar date that is easily represented across the
+interval.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>The main other functions of the package include:</p><ul>
-<li><p><code><a href='fit.html'>fit</a></code>: Fit log-linear model to computed incidence.</p></li>
-<li><p><code><a href='fit.html'>fit_optim_split</a></code>: Find the optimal peak of the epidemic
+<li><p><code><a href='plot.incidence.html'>incidence::plot.incidence()</a></code>: Plot epicurves from an incidence object.</p></li>
+<li><p><code><a href='fit.html'>incidence::fit()</a></code>: Fit log-linear model to computed incidence.</p></li>
+<li><p><code><a href='fit.html'>incidence::fit_optim_split()</a></code>: Find the optimal peak of the epidemic
 and fits log-linear models on either side of the peak.</p></li>
-<li><p><code>subset</code>: Handling of <code>incidence</code>
+<li><p><code>incidence::subset()</code>: Handling of <code>incidence</code>
 objects.</p></li>
-<li><p><code><a href='pool.html'>pool</a></code>: Sum incidence over groups.</p></li>
-<li><p><code>as.data.frame</code>: Convert an <code>incidence</code> object to a
+<li><p><code><a href='pool.html'>incidence::pool()</a></code>: Sum incidence over groups.</p></li>
+<li><p><code><a href='conversions.html'>incidence::as.data.frame.incidence()</a></code>: Convert an <code>incidence</code> object to a
 <code>data.frame</code>.</p></li>
 </ul></div>
     <div class='dont-index'><p>The following vignettes are also available:</p><ul>
@@ -278,21 +309,21 @@ class.</p></li>
   <span class='fu'>plot</span>(<span class='no'>inc</span>)
 
   <span class='co'>## weekly incidence</span>
-  <span class='no'>inc.week</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='no'>inc.week</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   <span class='no'>inc.week</span>
   <span class='fu'>plot</span>(<span class='no'>inc.week</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>) <span class='co'># with visible border</span>
-  <span class='no'>inc.isoweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='no'>inc.isoweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
   <span class='no'>inc.isoweek</span>
   <span class='co'>## use group information</span>
   <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
   <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-                               <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+                               <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   <span class='no'>inc.week.gender</span>
   <span class='fu'>head</span>(<span class='no'>inc.week.gender</span>$<span class='no'>counts</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>)
   <span class='no'>inc.isoweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-                                  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>iso_week</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+                                  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
   <span class='no'>inc.isoweek.gender</span>
 }</div><div class='output co'>#&gt; &lt;incidence object&gt;
 #&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -318,6 +349,8 @@ class.</p></li>
 
       <li><a href="#details">Details</a></li>
 
+      <li><a href="#note">Note</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -332,7 +365,7 @@ Thibaut Jombart, Rich Fitzjohn, Zhian Kamvar
 
       <footer>
       <div class="copyright">
-  <p>Developed by Thibaut Jombart, Rich FitzJohn.</p>
+  <p>Developed by Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn.</p>
 </div>
 
 <div class="pkgdown">
