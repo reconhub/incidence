@@ -178,12 +178,18 @@ as.incidence.matrix <- function(x, dates = NULL, interval = NULL,
     fake_groups <- NULL
   }
 
-
-  incidence(fake_dates,
+  if (inherits(fake_dates, c("Date", "POSIXt"))) {
+    incidence(fake_dates,
+              interval = interval,
+              groups = fake_groups,
+              standard = isoweeks,
+              last_date = last_date)
+  } else {
+    incidence(fake_dates,
             interval = interval,
             groups = fake_groups,
-            isoweeks = isoweeks,
             last_date = last_date)
+  }
 }
 
 
