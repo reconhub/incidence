@@ -56,7 +56,7 @@ test_that("construction - ISO week", {
   set.seed(eval(parse(text = as.character(Sys.Date()))))
   dat <- as.integer(sample(-3:100, 50, replace = TRUE))
   dat.dates <- as.Date("2016-09-20") + dat
-  inc.week <- incidence(dat.dates, interval = 7, iso = FALSE)
+  inc.week <- incidence(dat.dates, interval = 7, standard = FALSE)
   inc.isoweek <- incidence(dat.dates, interval = 7)
 
   ## classes
@@ -115,19 +115,19 @@ test_that("construction - Date input", {
   expect_warning(x.d.trim  <- incidence(dat.dates, first_date = "2016-01-01"),
                  "I removed [0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\]."
                 )
-  x.7       <- incidence(dat.dates, 7L, iso = FALSE)
+  x.7       <- incidence(dat.dates, 7L, standard = FALSE)
   x.7.iso   <- incidence(dat.dates, "week")
-  x.7.week  <- incidence(dat.dates, "week", iso = FALSE)
+  x.7.week  <- incidence(dat.dates, "week", standard = FALSE)
 
   ## Here, we can test if starting on a different day gives us expected results
   x.ds       <- incidence(dat.dates + 1L)
-  x.7.ds     <- incidence(dat.dates + 1L, 7L, iso = FALSE)
-  x.w.ds     <- incidence(dat.dates + 1L, "week", iso = FALSE)
+  x.7.ds     <- incidence(dat.dates + 1L, 7L, standard = FALSE)
+  x.w.ds     <- incidence(dat.dates + 1L, "week", standard = FALSE)
   x.7.ds.iso <- incidence(dat.dates + 1L, 7L)
   x.w.ds.iso <- incidence(dat.dates + 1L, "week")
 
   ## Testing monthly input
-  expect_warning(x.mo.no <- incidence(dat.dates - 28, "month", iso = FALSE),
+  expect_warning(x.mo.no <- incidence(dat.dates - 28, "month", standard = FALSE),
                  "The first_date \\(2015-11-30\\) represents a day that does not occur in all months.")
 
   x.mo.iso <- incidence(dat.dates, "month")
@@ -136,21 +136,21 @@ test_that("construction - Date input", {
   expect_equal(x.mo.iso$dates[[1]], as.Date("2015-12-01"))
   expect_equal(sum(x.mo.iso$counts), 51L)
 
-  x.mo <- incidence(dat.dates, "month", iso = FALSE)
+  x.mo <- incidence(dat.dates, "month", standard = FALSE)
   expect_equal(format(x.mo$dates, "%m"), unique(format(sort(dat.dates), "%m"))[-5])
   expect_equal(format(x.mo$dates, "%d"), rep("28", 4)) # all starts on the 28th
   expect_equal(x.mo$dates[[1]], as.Date("2015-12-28"))
   expect_equal(sum(x.mo$counts), 51L)
 
   ## Testing quarterly input
-  expect_warning(x.qu.no <- incidence(dat.dates - 28, "quarter", iso = FALSE),
+  expect_warning(x.qu.no <- incidence(dat.dates - 28, "quarter", standard = FALSE),
                  "The first_date \\(2015-11-30\\) represents a day that does not occur in all months.")
 
   x.qu.iso <- incidence(dat.dates, "quarter")
   expect_equal(x.qu.iso$dates, as.Date(c("2015-10-01", "2016-01-01", "2016-04-01")))
   expect_equal(sum(x.qu.iso$counts), 51L)
 
-  x.qu     <- incidence(dat.dates, "quarter", iso = FALSE)
+  x.qu     <- incidence(dat.dates, "quarter", standard = FALSE)
   expect_equal(x.qu$dates, as.Date(c("2015-12-28", "2016-03-28")))
   expect_equal(sum(x.qu$counts), 51L)
 
@@ -160,7 +160,7 @@ test_that("construction - Date input", {
               sample(dat.dates + 366 + 365, replace = TRUE)
              )
   x.yr.iso <- incidence(dat.yr, "year")
-  x.yr     <- incidence(dat.yr, "year", iso = FALSE)
+  x.yr     <- incidence(dat.yr, "year", standard = FALSE)
   expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = "2016-02-29"),
                  "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
                  )
@@ -232,8 +232,8 @@ test_that("corner cases", {
   expect_error(incidence(1, "week"),
                "The interval 'week' can only be used for Dates")
 
-  expect_error(incidence(as.Date(Sys.Date()), iso = "TRUE"),
-               "The argument `iso` must be either `TRUE` or `FALSE`")
+  expect_error(incidence(as.Date(Sys.Date()), standard = "TRUE"),
+               "The argument `standard` must be either `TRUE` or `FALSE`")
 
 })
 

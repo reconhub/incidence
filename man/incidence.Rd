@@ -19,7 +19,7 @@ incidence(dates, interval = 1L, ...)
 
 \method{incidence}{numeric}(dates, interval = 1L, ...)
 
-\method{incidence}{Date}(dates, interval = 1L, iso = TRUE,
+\method{incidence}{Date}(dates, interval = 1L, standard = TRUE,
   first_date = NULL, last_date = NULL, ...)
 
 \method{incidence}{POSIXt}(dates, interval = 1L, ...)
@@ -48,7 +48,7 @@ epicurve. When these are \code{NULL} (default), the dates from the first/last
 dates are taken from the observations. If these dates are provided, the
 observations will be trimmed to the range of [first_date, last_date].}
 
-\item{iso}{(Only applicable to Date objects) When \code{TRUE} (default) and the
+\item{standard}{(Only applicable to Date objects) When \code{TRUE} (default) and the
 \code{interval} one of "week", "month", "quarter", or "year", then this will
 cause the bins for the counts to start at the beginning of the interval
 (See Note). This is overridden by defining a non-NULL \code{first_date}.}
@@ -87,10 +87,26 @@ vignette:\cr \code{vignette("incidence_class", package = "incidence")}
 }
 \note{
 If \code{interval} is a valid character (e.g. "week" or "month"), then
-the bin wil start at the beginning of the interval. In the case of weeks,
-the interval will always start on the first day of the ISOweek, in the case
-of months and quarters, the interval will always start on the first, and in
-the case of years, the interval will always start on January first.
+the bin will start at the beginning of the interval by default:
+
+| \code{interval} | Default first date            |
+|------------|-------------------------------|
+|  "week"    | first day of ISOweek (Monday) |
+|  "month"   | first day of month            |
+|  "quarter" | first day of quarter          |
+|  "year"    | first day of calendar year    |
+
+These default intervals can be overridden in two ways:
+\enumerate{
+\item Specify \code{standard = FALSE}, which sets the interval to begin at the first
+observed case.
+\item Specify a date in the \code{first_date} field.
+}
+
+The intervals for "month", "quarter", and "year" will necessarily vary in the
+number of days they encompass and warnings will be generated when the first
+date falls outside of a calendar date that is easily represented across the
+interval.
 }
 \examples{
 ## toy example
@@ -107,21 +123,21 @@ if(require(outbreaks)) {
   plot(inc)
 
   ## weekly incidence
-  inc.week <- incidence(onset, interval = 7, iso = FALSE)
+  inc.week <- incidence(onset, interval = 7, standard = FALSE)
   inc.week
   plot(inc.week)
   plot(inc.week, border = "white") # with visible border
-  inc.isoweek <- incidence(onset, interval = 7, iso = TRUE)
+  inc.isoweek <- incidence(onset, interval = 7, standard = TRUE)
   inc.isoweek
   ## use group information
   sex <- ebola_sim$linelist$gender
   inc.week.gender <- incidence(onset, interval = 7,
-                               groups = sex, iso = FALSE)
+                               groups = sex, standard = FALSE)
   inc.week.gender
   head(inc.week.gender$counts)
   plot(inc.week.gender)
   inc.isoweek.gender <- incidence(onset, interval = 7,
-                                  groups = sex, iso = TRUE)
+                                  groups = sex, standard = TRUE)
   inc.isoweek.gender
 }
 

@@ -134,8 +134,8 @@ make_breaks_easier <- function(dates, the_interval, first_date = NULL,
   the_day   <- as.integer(substr(fd, 9, 10))
   the_month <- as.integer(substr(fd, 6, 7))
 
-  if ("iso" %in% names(dots)) {
-    if (isTRUE(dots$iso) && null_first_date) {
+  if ("standard" %in% names(dots)) {
+    if (isTRUE(dots$standard) && null_first_date) {
       is_a_week <- !uneven_interval && check_week(the_interval)
       if (is_a_week) {
         # This returns something like 2018-W29-2, where the last digit indicates
