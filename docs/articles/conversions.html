@@ -8,8 +8,8 @@
 <title>Conversions to and from the incidence class • incidence</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Conversions to and from the incidence class">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Conversions to and from the incidence class">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -84,7 +84,7 @@
       <h1>Conversions to and from the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-07-09</h4>
+            <h4 class="date">2018-07-18</h4>
       
       
       <div class="hidden name"><code>conversions.Rmd</code></div>
@@ -105,9 +105,9 @@
 <p>To export results, we first compute bi-weekly incidence by gender from the simulated Ebola data used in the <a href="http://www.repidemicsconsortium.org/incidence/articles/overview.html">overview vignette</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
 <span class="kw">library</span>(incidence)
-dat &lt;-<span class="st"> </span>ebola_sim$linelist$date_of_onset
-i_14 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">14</span>, <span class="dt">groups =</span> ebola_sim$linelist$gender)
-i_14
+dat &lt;-<span class="st"> </span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>date_of_onset
+i_<span class="dv">14</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">14</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>gender)
+i_<span class="dv">14</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-20]</span>
 <span class="co">#&gt; [2 groups: f, m]</span>
@@ -118,10 +118,10 @@ i_14
 <span class="co">#&gt; $interval: 14 days</span>
 <span class="co">#&gt; $timespan: 379 days</span>
 <span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i_14, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
+<span class="kw">plot</span>(i_<span class="dv">14</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs-conversion/example-1.png" width="672"></p>
 <p>To export the data to a <code>data.frame</code>, one simply needs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(i_14)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(i_<span class="dv">14</span>)
 <span class="co">#&gt;         dates   f   m</span>
 <span class="co">#&gt; 1  2014-04-07   1   1</span>
 <span class="co">#&gt; 2  2014-04-21   8   1</span>
@@ -152,7 +152,7 @@ i_14
 <span class="co">#&gt; 27 2015-04-06  45  42</span>
 <span class="co">#&gt; 28 2015-04-20  28  31</span></code></pre></div>
 <p>The first column contains the dates marking the (inclusive) left side of the time intervals used for computing incidence, and the other columns give counts for the different groups. This function also has an option for exporting data as a ‘long’ format, i.e. with a column for ‘groups’ and a column for counts. This format can be useful especially when working with <em>ggplot2</em>, which expect data in this shape:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(i_14, <span class="dt">long =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(i_<span class="dv">14</span>, <span class="dt">long =</span> <span class="ot">TRUE</span>)
 <span class="kw">head</span>(df)
 <span class="co">#&gt;        dates counts groups</span>
 <span class="co">#&gt; 1 2014-04-07      1      f</span>
@@ -172,11 +172,11 @@ i_14
 
 ## example of custom plot using steps:
 <span class="kw">library</span>(ggplot2)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(df, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> dates, <span class="dt">y =</span> counts)) +<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_step</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">color =</span> groups))</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(df, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> dates, <span class="dt">y =</span> counts)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_step</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">color =</span> groups))</code></pre></div>
 <p><img src="figs-conversion/long-1.png" width="672"></p>
 <p>Finally, note that when ISO weeks are used, these are also reported in the output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i_7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>)
-i_7
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i_<span class="dv">7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>)
+i_<span class="dv">7</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
 <span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
@@ -187,9 +187,9 @@ i_7
 <span class="co">#&gt; $interval: 7 days</span>
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i_7, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
+<span class="kw">plot</span>(i_<span class="dv">7</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs-conversion/iso-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">as.data.frame</span>(i_7))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">as.data.frame</span>(i_<span class="dv">7</span>))
 <span class="co">#&gt;        dates isoweeks counts</span>
 <span class="co">#&gt; 1 2014-04-07 2014-W15      1</span>
 <span class="co">#&gt; 2 2014-04-14 2014-W16      1</span>
@@ -197,7 +197,7 @@ i_7
 <span class="co">#&gt; 4 2014-04-28 2014-W18      4</span>
 <span class="co">#&gt; 5 2014-05-05 2014-W19     12</span>
 <span class="co">#&gt; 6 2014-05-12 2014-W20     18</span>
-<span class="kw">tail</span>(<span class="kw">as.data.frame</span>(i_7))
+<span class="kw">tail</span>(<span class="kw">as.data.frame</span>(i_<span class="dv">7</span>))
 <span class="co">#&gt;         dates isoweeks counts</span>
 <span class="co">#&gt; 51 2015-03-23 2015-W13     51</span>
 <span class="co">#&gt; 52 2015-03-30 2015-W14     54</span>
@@ -212,7 +212,7 @@ i_7
 <a href="#importing-pre-computed-incidence" class="anchor"></a>Importing pre-computed incidence</h1>
 <p>The function <code>as.incidence</code> facilitates the conversion of pre-computed incidences to an <em>incidence</em> object. Typically, the input will be imported into R from a <em>.csv</em> file or other spreadsheet formats.</p>
 <p><code>as.incidence</code> is a generic with methods for several types of objects (see <code><a href="../reference/conversions.html">?as.incidence</a></code>). The main method is <code>matrix</code>, as other types are coerced to <code>matrix</code> first and then passed to <code>as.incidence.matrix</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence:::as.incidence.matrix)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence<span class="op">:::</span>as.incidence.matrix)
 <span class="co">#&gt; function (x, dates = NULL, interval = NULL, isoweeks = TRUE, </span>
 <span class="co">#&gt;     ...) </span>
 <span class="co">#&gt; NULL</span></code></pre></div>
@@ -251,11 +251,11 @@ i
 <span class="kw">plot</span>(i, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
 <p><img src="figs-conversion/unnamed-chunk-4-1.png" width="672"></p>
 <p>Note that in this case, incidences have been treated as per week, and corresponding dates in days have been computed during the conversion (the first day is always ‘1’), so that the first days of weeks 1, 2, 3… are:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i$dates
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i<span class="op">$</span>dates
 <span class="co">#&gt;  [1]  1  8 15 22 29 36 43 50 57 64</span></code></pre></div>
 <p>In practice, it is best to provide the actual dates marking the lower bounds of the time intervals. We can illustrate this by a round trip using the example of the previous section:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## convertion: incidence --&gt; data.frame:
-i_14
+i_<span class="dv">14</span>
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-20]</span>
 <span class="co">#&gt; [2 groups: f, m]</span>
@@ -266,7 +266,7 @@ i_14
 <span class="co">#&gt; $interval: 14 days</span>
 <span class="co">#&gt; $timespan: 379 days</span>
 <span class="co">#&gt; $cumulative: FALSE</span>
-df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(i_14)
+df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(i_<span class="dv">14</span>)
 <span class="kw">head</span>(df)
 <span class="co">#&gt;        dates  f  m</span>
 <span class="co">#&gt; 1 2014-04-07  1  1</span>
@@ -285,7 +285,7 @@ df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(i_14)
 <span class="co">#&gt; 28 2015-04-20 28 31</span>
 
 ## conversion: data.frame --&gt; incidence
-new_i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/conversions.html">as.incidence</a></span>(df[,-<span class="dv">1</span>], df$dates)
+new_i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/conversions.html">as.incidence</a></span>(df[,<span class="op">-</span><span class="dv">1</span>], df<span class="op">$</span>dates)
 new_i
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-20]</span>
@@ -299,7 +299,7 @@ new_i
 <span class="co">#&gt; $cumulative: FALSE</span>
 
 ## check round trip
-<span class="kw">identical</span>(new_i, i_14)
+<span class="kw">identical</span>(new_i, i_<span class="dv">14</span>)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
   </div>
@@ -319,7 +319,7 @@ new_i
 
 
       <footer><div class="copyright">
-  <p>Developed by Thibaut Jombart, Rich FitzJohn.</p>
+  <p>Developed by Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn.</p>
 </div>
 
 <div class="pkgdown">

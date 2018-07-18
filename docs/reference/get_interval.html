@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Color palettes used in incidence — incidence_pal1 • incidence</title>
+<title>Get the interval for an incidence object. — get_interval • incidence</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Color palettes used in incidence — incidence_pal1" />
+<meta property="og:title" content="Get the interval for an incidence object. — get_interval" />
 
-<meta property="og:description" content="These functions are color palettes used in incidence." />
+<meta property="og:description" content="Get the interval for an incidence object." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,53 +116,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Color palettes used in incidence</h1>
+    <h1>Get the interval for an incidence object.</h1>
     
-    <div class="hidden name"><code>palettes.Rd</code></div>
+    <div class="hidden name"><code>get_interval.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These functions are color palettes used in incidence.</p>
+    <p>Get the interval for an incidence object.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>incidence_pal1</span>(<span class='no'>n</span>)
+    <pre class="usage"><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>incidence_pal1_light</span>(<span class='no'>n</span>)
-
-<span class='fu'>incidence_pal1_dark</span>(<span class='no'>n</span>)</pre>
+<span class='co'># S3 method for incidence</span>
+<span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>n</th>
-      <td><p>a number of colors</p></td>
+      <th>x</th>
+      <td><p>an <a href='incidence.html'>incidence</a> object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Unused</p></td>
+    </tr>
+    <tr>
+      <th>integer</th>
+      <td><p>When <code>TRUE</code> (default), the interval will be converted to an
+integer vector if it is stored as a character in the incidence object.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>if <code>integer = TRUE</code>: an integer vector, otherwise: the value stored
+in <code>x$interval</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>plot</span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>incidence_pal1</span>(<span class='fl'>4</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"palette: incidence_pal1"</span>)</div><div class='img'><img src='palettes-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>incidence_pal1</span>(<span class='fl'>100</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span><span class='st'>"palette: incidence_pal1"</span>)</div><div class='img'><img src='palettes-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>incidence_pal1_light</span>(<span class='fl'>100</span>),
-     <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"palette: incidence_pal1_light"</span>)</div><div class='img'><img src='palettes-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>8</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>incidence_pal1_dark</span>(<span class='fl'>100</span>),
-     <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"palette: incidence_pal1_dark"</span>)</div><div class='img'><img src='palettes-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>set.seed</span>(<span class='fl'>999</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='fu'>Sys.Date</span>()) + <span class='fu'>sample</span>(-<span class='fl'>3</span>:<span class='fl'>50</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"month"</span>)
+<span class='fu'>get_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 31 31 30</div><div class='input'><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "month"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
-
-    <h2>Author</h2>
-    
-Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>
 
   </div>
 </div>

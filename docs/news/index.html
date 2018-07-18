@@ -21,14 +21,17 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
 
 <meta property="og:title" content="Changelog" />
+
 
 
 <!-- mathjax -->
@@ -122,9 +125,33 @@
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li><p>new function <code>bootstrap</code> to bootstrap epicurves stored as <code>incidence</code> objects.</p></li>
-<li><p>new function <code>find_peak</code> identifies the peak date of an <code>incidence</code> objects.</p></li>
-<li><p>new function <code>estimate_peak</code> uses bootstrap to estimate the peak time of a partially observed outbreak.</p></li>
+<li><p><code><a href="../reference/incidence.html">incidence()</a></code> will now accept text-based intervals that are valid date intervals: day, week, month, quarter, and year.</p></li>
+<li><p><code><a href="../reference/incidence.html">incidence()</a></code> now verifies that all user-supplied arguments are accurate and spelled correctly.</p></li>
+</ul>
+</div>
+<div id="new-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>NEW FUNCTIONS</h3>
+<ul>
+<li><p><code><a href="../reference/bootstrap.html">bootstrap()</a></code> will bootstrap epicurves stored as <code>incidence</code> objects.</p></li>
+<li><p><code><a href="../reference/find_peak.html">find_peak()</a></code> identifies the peak date of an <code>incidence</code> objects.</p></li>
+<li><p><code><a href="../reference/estimate_peak.html">estimate_peak()</a></code> uses bootstrap to estimate the peak time of a partially observed outbreak.</p></li>
+<li><p><code><a href="../reference/get_interval.html">get_interval()</a></code> will return the numeric interval or several intervals in the case of intervals that can’t be represented in a fixed number of days (e.g. months).</p></li>
+<li><p><code><a href="../reference/get_dates.html">get_dates()</a></code> returns the dates or counts of days on the right, center, or left of the interval.</p></li>
+</ul>
+</div>
+<div id="deprecated" class="section level3">
+<h3 class="hasAnchor">
+<a href="#deprecated" class="anchor"></a>DEPRECATED</h3>
+<ul>
+<li>In the <code><a href="../reference/incidence.html">incidence()</a></code> function, the <code>iso_week</code> parameter is deprecated in favor of <code>standard</code> for a more general way of indicating that the interval should start at the beginning of a valid date timeframe.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>The <code>$timespan</code> item in the incidence object from Dates was not type-stable and would change if subsetted. A re-working of the incidence constructor fixed this issue.</li>
 </ul>
 </div>
 </div>
@@ -132,9 +159,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-3-1-2018-06-11" class="anchor"></a>incidence 1.3.1 (2018-06-11)<small> 2018-06-11 </small>
 </h1>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>tweak of the plotting of <code>incidence</code> object to avoid conflicts with additional geoms such as <code>geom_ribbon</code>, now used in <code><a href="http://www.rdocumentation.org/packages/projections/topics/plot.projections">projections::add_projections</a></code>.</li>
 </ul>
@@ -144,9 +171,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-3-0-2018-06-01" class="anchor"></a>incidence 1.3.0 (2018-06-01)<small> 2018-06-01 </small>
 </h1>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed <a href="https://github.com/reconhub/incidence/issues/34">issue</a> caused by new version of <code>ggplot2</code>
 </li>
@@ -167,9 +194,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-2-1-2017-10-19" class="anchor"></a>incidence 1.2.1 (2017-10-19)<small> 2017-11-12 </small>
 </h1>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed issues in testing incidence plots by employing <em>vdiffr</em> package.</li>
 </ul>
@@ -189,9 +216,9 @@
 <li><p>new tests</p></li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>fixed issues caused by variables which changed names in some datasets of the <em>outbreaks</em> package, used in the documentation</p></li>
 <li><p>disabled by default the isoweeks in <code>incidence</code>; this part of the code will break with changes made in the devel version of <em>ggplot2</em>, which is now required by <em>plotly</em></p></li>
@@ -202,9 +229,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-1-2-2017-03-24" class="anchor"></a>incidence 1.1.2 (2017-03-24)<small> 2017-03-24 </small>
 </h1>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>it is now possible to subset an incidence object based on <code>Date</code> dates using numeric values, which are interpreted as number of intervals since the first date (origin = 1)</p></li>
 <li><p>NAs are no longer removed from the input dates, as it would cause mismatches with grouping factors.</p></li>
@@ -215,9 +242,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-1-1-2017-02-15" class="anchor"></a>incidence 1.1.1 (2017-02-15)<small> 2017-02-15 </small>
 </h1>
-<div id="bug-fixes-5" class="section level3">
+<div id="bug-fixes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>adapting to new names of datasets in <a href="http://repidemicsconsortium.org/outbreaks"><em>outbreaks</em></a>: <code>ebola.sim</code> -&gt; <code>ebola_sim</code> and <code>ebola.sim.clean</code> -&gt; <code>ebola_sim_clean</code>
 </li>
@@ -289,7 +316,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Thibaut Jombart, Rich FitzJohn.</p>
+  <p>Developed by Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn.</p>
 </div>
 
 <div class="pkgdown">

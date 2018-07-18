@@ -8,8 +8,8 @@
 <title>Customize plots of incidence • incidence</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Customize plots of incidence">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Customize plots of incidence">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -84,7 +84,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-07-09</h4>
+            <h4 class="date">2018-07-18</h4>
       
       
       <div class="hidden name"><code>customize_plot.Rmd</code></div>
@@ -104,7 +104,7 @@
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(incidence)
 
-onset &lt;-<span class="st"> </span>ebola_sim_clean$linelist$date_of_onset
+onset &lt;-<span class="st"> </span>ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>date_of_onset
 <span class="kw">class</span>(onset)
 <span class="co">#&gt; [1] "Date"</span>
 <span class="kw">head</span>(onset)
@@ -124,7 +124,7 @@ i
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="co">#&gt; $cumulative: FALSE</span>
 
-i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean$linelist$gender)
+i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>gender)
 i.sex
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -138,7 +138,7 @@ i.sex
 <span class="co">#&gt; $timespan: 386 days</span>
 <span class="co">#&gt; $cumulative: FALSE</span>
 
-i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean$linelist$hospital)
+i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>hospital)
 i.hosp
 <span class="co">#&gt; &lt;incidence object&gt;</span>
 <span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
@@ -168,10 +168,10 @@ i.hosp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp)</code></pre></div>
 <p><img src="figs-custom/default-3.png" width="672"></p>
 <p>However, some of these defaults can be altered through the various arguments of the function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence:::plot.incidence)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence<span class="op">:::</span>plot.incidence)
 <span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span>
 <span class="co">#&gt;     border = NA, col_pal = incidence_pal1, alpha = 0.7, xlab = "", </span>
-<span class="co">#&gt;     ylab = NULL, labels_iso_week = !is.null(x$isoweeks), n_breaks = 6) </span>
+<span class="co">#&gt;     ylab = NULL, labels_iso = !is.null(x$isoweeks), n_breaks = 6) </span>
 <span class="co">#&gt; NULL</span></code></pre></div>
 </div>
 <div id="changing-colors" class="section level2">
@@ -182,15 +182,15 @@ i.hosp
 <a href="#the-default-palette" class="anchor"></a>The default palette</h3>
 <p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>incidence_pal1</code>. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">2</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">4</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
+<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">2</span>))
+<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">4</span>))
+<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
 <p><img src="figs-custom/incidence_pal1-1.png" width="672"></p>
 <p>This pallette also has a light and a dark version:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw">incidence_pal1_dark</span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_dark"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">col =</span> <span class="kw">incidence_pal1_light</span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_light"</span>)</code></pre></div>
+<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1_dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_dark"</span>)
+<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1"</span>)
+<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1_light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_light"</span>)</code></pre></div>
 <p><img src="figs-custom/pal2-1.png" width="672"></p>
 </div>
 <div id="using-different-palettes" class="section level3">
@@ -241,14 +241,14 @@ i.hosp
 <a href="#changing-date-format" class="anchor"></a>Changing date format</h3>
 <p>By default, the dates indicated on the <em>x</em>-axis of an incidence plot may not have the suitable format. The package <em>scales</em> can be used to change the way dates are labelled (see <code>?strptime</code> for possible formats):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
-<span class="kw">plot</span>(i, <span class="dt">labels_iso_week =</span> <span class="ot">FALSE</span>) +
+<span class="kw">plot</span>(i, <span class="dt">labels_iso_week =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">   </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%d %b %Y"</span>))
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
 <span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
 <p><img src="figs-custom/scales1-1.png" width="672"></p>
 <p>And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span>:<span class="dv">50</span>]) +<span class="st">  </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%a %d %B %Y"</span>)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]) <span class="op">+</span><span class="st">  </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%a %d %B %Y"</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
 <span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
@@ -263,13 +263,13 @@ i.hosp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp)</code></pre></div>
 <p><img src="figs-custom/grid1-1.png" width="672"></p>
 <p>Let us look at the data 40 days before and after the 1st of October:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">period &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2014-10-01"</span>) +<span class="st"> </span><span class="kw">c</span>(-<span class="dv">40</span>, <span class="dv">40</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">period &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2014-10-01"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">40</span>, <span class="dv">40</span>)
 i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from =</span> period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])
 detailed.x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%a %d %B %Y"</span>), 
                            <span class="dt">date_breaks =</span> <span class="st">"2 weeks"</span>, 
                            <span class="dt">date_minor_breaks =</span> <span class="st">"week"</span>)
 
-<span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
+<span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span>detailed.x <span class="op">+</span><span class="st"> </span>rotate.big
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
 <span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
 <p><img src="figs-custom/grid2-1.png" width="672"></p>
@@ -279,10 +279,10 @@ detailed.x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rd
 <h2 class="hasAnchor">
 <a href="#changing-the-legend" class="anchor"></a>Changing the legend</h2>
 <p>The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object <code>p</code> and customize the legend:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) +<span class="st"> </span>detailed.x +<span class="st"> </span>rotate.big
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span>detailed.x <span class="op">+</span><span class="st"> </span>rotate.big
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
 <span class="co">#&gt; will replace the existing scale.</span>
-p +<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>), 
+p <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>), 
           <span class="dt">legend.position =</span> <span class="st">"top"</span>, <span class="dt">legend.direction =</span> <span class="st">"horizontal"</span>, 
           <span class="dt">legend.title =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>())</code></pre></div>
 <p><img src="figs-custom/legend1-1.png" width="672"></p>
@@ -316,7 +316,7 @@ p +<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.
 
 
       <footer><div class="copyright">
-  <p>Developed by Thibaut Jombart, Rich FitzJohn.</p>
+  <p>Developed by Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn.</p>
 </div>
 
 <div class="pkgdown">
