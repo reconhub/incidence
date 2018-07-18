@@ -3,15 +3,42 @@ incidence 1.4.1 (date tbc)
 
 ### NEW FEATURES
 
-* new function `bootstrap` to bootstrap epicurves stored as `incidence` objects.
+* `incidence()` will now accept text-based intervals that are valid date
+  intervals: day, week, month, quarter, and year. 
 
-* new function `find_peak` identifies the peak date of an `incidence` objects.
+* `incidence()` now verifies that all user-supplied arguments are accurate
+  and spelled correctly. 
 
-* new function `estimate_peak` uses bootstrap to estimate the peak time of a
+### NEW FUNCTIONS
+
+* `bootstrap()` will bootstrap epicurves stored as `incidence` objects.
+
+* `find_peak()` identifies the peak date of an `incidence` objects.
+
+* `estimate_peak()` uses bootstrap to estimate the peak time of a
   partially observed outbreak.
   
+* `get_interval()` will return the numeric interval or several
+  intervals in the case of intervals that can't be represented in a fixed
+  number of days (e.g. months).
+
+* `get_dates()` returns the dates or counts of days on the right,
+  center, or left of the interval.
+
+### DEPRECATED
+
+* In the `incidence()` function, the `iso_week` parameter is deprecated in
+  favor of `standard` for a more general way of indicating that the
+  interval should start at the beginning of a valid date timeframe.
+
+### BUG FIXES
+
+* The `$timespan` item in the incidence object from Dates was not type-stable
+  and would change if subsetted. A re-working of the incidence constructor
+  fixed this issue. 
 
 
+ 
 
 incidence 1.3.1 (2018-06-11)
 ============================
