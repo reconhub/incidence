@@ -45,7 +45,7 @@ plot(i_cum)
 
 }
 \seealso{
-The \code{\link{incidence}} function to generate the 'incidence'
+The \code{\link[=incidence]{incidence()}} function to generate the 'incidence'
 objects.
 }
 \author{

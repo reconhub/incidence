@@ -46,11 +46,11 @@ These functions convert \code{incidence} objects into other classes.
 }
 \details{
 Conversion to \code{incidence} objects should only be done when the
-  original dates are not available. In such case, the argument \code{x}
-  should be a matrix corresponding to the \code{$counts} element of an
-  \code{incidence} object, i.e. giving counts with time intervals in rows and
-  named groups in columns. In the absence of groups, a single unnamed columns
-  should be given. \code{data.frame} and vectors will be coerced to a matrix.
+original dates are not available. In such case, the argument \code{x}
+should be a matrix corresponding to the \code{$counts} element of an
+\code{incidence} object, i.e. giving counts with time intervals in rows and
+named groups in columns. In the absence of groups, a single unnamed columns
+should be given. \code{data.frame} and vectors will be coerced to a matrix.
 }
 \examples{
 ## create fake data
@@ -78,7 +78,7 @@ all.equal(i, new_i)
 
 }
 \seealso{
-the \code{\link{incidence}} function to generate the 'incidence' objects.
+the \code{\link[=incidence]{incidence()}} function to generate the 'incidence' objects.
 }
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}, Rich Fitzjohn

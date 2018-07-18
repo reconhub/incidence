@@ -61,12 +61,12 @@ test_that("check_groups", {
 
 
 
-test_that("make_iso_weeks_breaks works", {
+test_that("make_iso_breaks works", {
   ## uses references from:
   ## https://en.wikipedia.org/wiki/ISO_week_date
   ref <- as.Date("2018-05-01")
   dates <- ref + (-1:20)
 
-  out <- make_iso_weeks_breaks(dates)
+  out <- make_iso_breaks(dates)
   expect_equal_to_reference(out, file = "rds/ref_date_breaks_iso.rds")
 })

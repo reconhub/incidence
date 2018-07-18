@@ -22,8 +22,8 @@
 ##' treated as a separate group.
 ##'
 ##' @param last_date The last date to be included in the produced epicurve. If
-##'   \code{NULL} (default), the last date will be the most recent provided in
-##'   \code{dates}.
+##'   `NULL` (default), the last date will be the most recent provided in
+##'   `dates`.
 ##'
 ##' @param ... Additional arguments passed to other methods (none are used).
 ##'
@@ -31,7 +31,7 @@
 ##' @return an incidence object
 ##' @noRd
 make_incidence <- function(dates, interval = 1L, groups = NULL,
-                           na_as_group = TRUE,
+                           na_as_group = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
   dots     <- list(...)
 
@@ -41,7 +41,19 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
   groups   <- check_groups(groups, dates, na_as_group)
 
   ## Check the interval and arrange the breaks
-  breaks   <- make_breaks_easier(dates, interval, last_date, dots)
+  null_first_date <- is.null(first_date)
+  first_date      <- check_boundaries(dates, first_date, "first")
+  last_date       <- check_boundaries(dates, last_date, "last")
+  breaks          <- make_breaks_easier(dates,
+                                        the_interval    = interval,
+                                        first_date      = first_date,
+                                        last_date       = last_date,
+                                        dots            = dots,
+                                        null_first_date = null_first_date
+                                        )
+
+  ## Trim the dates
+  dates <- trim_dates(dates, first_date, last_date)
 
   ## compute counts within bins defined by the breaks
   if (!is.null(groups)) {
@@ -64,165 +76,27 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
   out
 }
 
-
-
-## This function checks that usable dates are provided, and set non-finite
-## values to NA. It also makes a few trivial conversions on the fly.
-
-check_dates <- function(x, error_on_NA = FALSE, ...) {
-  if (is.null(x)) {
-    stop("dates is NULL", call. = FALSE)
-  }
-
-  if (is.character(x)) {
-    x <- as.Date(x, ...)
-  }
-
-  not_finite <- !is.finite(x)
-  if (sum(not_finite) > 0) {
-       x[not_finite] <- NA
-  }
-
-  if (any(is.na(x)) && error_on_NA) {
-    msg <- "NA detected in the dates"
-    stop(msg, call. = FALSE)
-  }
-
-  if (sum(!is.na(x)) < 1) {
-    stop("At least one (non-NA) date must be provided", call. = FALSE)
-  }
-
-  if (inherits(x, "Date")) {
-    return(x)
-  }
-
-  if (inherits(x, "POSIXt")) {
-    return(x)
-  }
-
-  if (is.integer(x)) {
-    return(x)
-  }
-
-  if (is.numeric(x)) {
-    x_ori <- x
-    x <- as.integer(floor(x))
-    if (!isTRUE(note <- all.equal(x, x_ori))) {
-      msg <- paste0(
-        "Flooring from non-integer date caused approximations:\n",
-        note)
-      warning(msg, call. = FALSE)
-    }
-    return(x)
-  }
-
-
-  formats <- c("Date", "POSIXct", "integer", "numeric", "character")
-  msg <- paste0(
-    "Input could not be converted to date. Accepted formats are:\n",
-    paste(formats, collapse = ", "))
-  stop(msg)
-
-}
-
-
-
-
-
-
-## Non-exported function, enforces that an interval is:
-## - strictly positive
-## - integer (rounded) OR compatibile with date
-## - finite
-## - of length 1
-check_interval <- function(x){
-  if (missing(x) || is.null(x)) {
-    stop("Interval is missing or NULL")
-  }
-  if (length(x) != 1L) {
-    stop(sprintf(
-      "Exactly one value should be provided as interval (%d provided)",
-      length(x)))
-  }
-  if (!is.finite(x)) {
-    if (is.character(x)) {
-      x <- valid_interval_character(x)
-    } else {
-      stop("Interval is not finite")
-    }
-  }
-  if (is.numeric(x)) {
-    x <- as.integer(round(old <- x))
-  }
-  if (x < 1L) {
-    stop(sprintf(
-      "Interval must be at least 1 (input: %.3f; after rounding: %d)",
-      old, x))
-  }
-  x
-}
-
-
-#' Validate potential character values for interval
+#' Trim dates based on the first and last dates
 #'
-#' Characters are valid for intervals if they are of the
-#' form "day", "week", "month", etc. They can ALSO be
-#' valid if they are characters that convert to numbers.
+#' @param dates a vector of dates or integers
+#' @param first_date a single date or integer
+#' @param last_date a single date or integer
 #'
-#' @param the_interval a character string of length one
-#'
-#' @author Zhian Kamvar
-#' @return the character string OR a numeric value.
+#' @return the trimmed dates
 #' @noRd
-
-valid_interval_character <- function(the_interval) {
-  valid_intervals <- c("day", "week", "month", "quarter", "year",
-                       "days", "weeks", "months", "quarters", "years")
-  if (is.character(the_interval)) {
-    if (!the_interval %in% valid_intervals) {
-      suppressWarnings({
-        the_interval <- as.numeric(the_interval)
-      })
-      if (is.na(the_interval)) {
-        stop('The interval must be a number or one of the following: "day", "week", "month", "quarter" or "year"', call. = FALSE)
-      }
-    }
+#' @keywords internal
+trim_dates <- function(dates, first_date = NULL, last_date = NULL) {
+  res <- dates[dates >= first_date & dates <= last_date]
+  if (length(res) < length(dates)) {
+    warning(sprintf("I removed %d observations outside of [%s, %s].",
+                    length(dates) - length(res),
+                    format(first_date),
+                    format(last_date)
+                    ),
+            call. = FALSE
+            )
   }
-  the_interval
-}
-
-valid_interval_integer <- function(interval) {
-  if (is.character(interval)) {
-    res <- try(valid_interval_character(interval), silent = TRUE)
-    if (inherits(res, "try-error")) {
-      msg <- sprintf("The interval '%s' is not valid. Please supply an integer.", interval)
-      stop(msg, call. = FALSE)
-    } else if (is.character(res)) {
-      msg <- sprintf("The interval '%s' can only be used for Dates, not integers or numerics.",
-                     interval)
-      stop(msg, call. = FALSE)
-    }
-  }
-  interval
-}
-
-
-#' Make breaks with dates
-#'
-#' Because Date objects have a specific `seq` method, it's possible
-#' to make breaks with both integers and date objects. This function
-#' will check to make sure that the interval is valid.
-#'
-#' @param first_date an integer, numeric, or Date
-#' @param last_date an integer, numeric, or Date
-#' @param the_interval an integer or character
-#'
-#' @author Zhian Kamvar
-#'
-#' @noRd
-make_breaks <- function(first_date, last_date, the_interval) {
-  the_interval <- valid_interval_character(the_interval)
-  seq(first_date, last_date, by = the_interval)
+  res
 }
 
 #' Make breaks with dates
@@ -234,7 +108,10 @@ make_breaks <- function(first_date, last_date, the_interval) {
 #' @param date an integer, numeric, or Date vector
 #' @param the_interval an integer or character
 #' @param last_date an integer, numeric, or Date
+#' @param first_date an integer, numeric, or Date
 #' @param dots a named list of options
+#' @param null_first_date a logical specifying whether or not the first_date
+#'   argument was NULL in the original call.
 #'
 #' @author Zhian Kamvar
 #' @return a vector of integers or Dates
@@ -244,36 +121,74 @@ make_breaks <- function(first_date, last_date, the_interval) {
 #' set.seed(999)
 #' d <- sample(10, replace = TRUE)
 #' make_breaks_easier(d, 2L)
-make_breaks_easier <- function(dates, the_interval, last_date = NULL, dots = 1L) {
-  ## check interval
-  first_date  <- min(dates, na.rm = TRUE)
-  if (is.null(last_date)) {
-    last_date <- max(dates, na.rm = TRUE)
-  }
-  if (is.numeric(last_date)) {
-    last_date <- as.integer(last_date)
-  }
-  if (!is.integer(last_date) && !inherits(last_date, "Date")) {
-    stop("last_date not provided as an integer or Date", call. = FALSE)
-  }
-  if ("iso_week" %in% names(dots)) {
-    is_a_week <- check_week(the_interval)
-    if (is_a_week && identical(dots$iso_week, TRUE)) {
-      first_isoweek <- ISOweek::date2ISOweek(first_date)
-      substr(first_isoweek, 10, 10) <- "1"
-      first_date <- ISOweek::ISOweek2date(first_isoweek)
+make_breaks_easier <- function(dates, the_interval, first_date = NULL,
+                               last_date = NULL, dots = 1L,
+                               null_first_date = TRUE) {
+
+  the_interval    <- valid_interval_character(the_interval)
+  date_interval   <- is.character(the_interval) && is_date_interval(the_interval)
+  uneven_interval <- date_interval && the_interval %in% c("month", "quarter", "year")
+
+  # getting information about the date
+  fd        <- as.character(first_date)
+  the_day   <- as.integer(substr(fd, 9, 10))
+  the_month <- as.integer(substr(fd, 6, 7))
+
+  if ("standard" %in% names(dots)) {
+    if (isTRUE(dots$standard) && null_first_date) {
+      is_a_week <- !uneven_interval && check_week(the_interval)
+      if (is_a_week) {
+        # This returns something like 2018-W29-2, where the last digit indicates
+        # the day of the week
+        first_isoweek <- ISOweek::date2ISOweek(first_date)
+        # Here, we force it to be the start of the week
+        substr(first_isoweek, 10, 10) <- "1"
+        # and convert it back
+        first_date <- ISOweek::ISOweek2date(first_isoweek)
+      }
+      if (uneven_interval) {
+        # Replace the day with the first day of the month
+        substr(fd, 9, 10) <- "01"
+        if (the_interval == "quarter") {
+          # Replace the month with the first month of the quarter
+          m <- (as.integer(substr(fd, 6, 7)) - 1L) %/% 3L
+          substr(fd, 6, 7) <- sprintf("%02d", (m * 3) + 1L)
+        }
+        if (the_interval == "year") {
+          # Replace the month with the first month of the year
+          substr(fd, 6, 7) <- "01"
+        }
+        # re-cast the date
+        first_date <- as.Date(fd)
+      }
+    } else {
+      if (uneven_interval && the_interval != "year" && the_day > 28) {
+        # The first date represents a day that doesn't occur in all months
+        msg <- paste("The first_date (%s) represents a day that does not",
+                     "occur in all months. Because of this, bins may not",
+                     "conform to monthly boundaries. To prevent this",
+                     "behavior, plese specify a different first_date that",
+                     "represents a day within [1, 28]."
+                     )
+        msg <- paste(strwrap(msg), collapse = "\n")
+        warning(sprintf(msg, fd), call. = FALSE)
+      }
+      if (the_interval == "year" && the_month == 2 && the_day == 29) {
+        # The first date occurs on a leap day.
+        msg <- paste("The first_date (%s) represents a day that does not",
+                     "occur in all years. Because of this, bins may not",
+                     "fall on the same day. To prevent this behavior, please",
+                     "specify a first_date that represents a different day."
+                     )
+        msg <- paste(strwrap(msg), collapse = "\n")
+        warning(sprintf(msg, fd), call. = FALSE)
+      }
     }
   }
-  the_interval <- valid_interval_character(the_interval)
   seq(first_date, last_date, by = the_interval)
 }
 
-check_week <- function(the_interval) {
-  num_week  <- is.numeric(the_interval) && the_interval == 7
-  int_week  <- is.integer(the_interval) && the_interval == 7L
-  char_week <- is.character(the_interval) && grepl(the_interval, "week")
-  num_week || int_week || char_week
-}
+
 
 #' Count dates within bins
 #'
@@ -289,44 +204,17 @@ count.dates <- function(dates, breaks){
   as.integer(counts)
 }
 
-
-
-## Non-exported function, enforces that 'groups' is either NULL or:
-## - a factor
-## - of the same length as 'dates'
-##
-## It also treats missing groups (NA) as a separate group is needed.
-
-check_groups <- function(x, dates, na_as_group){
-  if (is.null(x)) {
-    return(NULL)
-  }
-  if (na_as_group) {
-    x <- as.character(x)
-    x[is.na(x)] <- "NA"
-  }
-  if (length(x) != length(dates)) {
-    stop(sprintf(
-      "'x' does not have the same length as dates (%d vs %d)",
-      length(x), length(dates)))
-  }
-  factor(x)
-}
-
-
-
-
 ## This function takes a vector of Date objects, and an ideal number of breaks,
 ## and generates a list with two components: $breaks, and $labels. $breaks
 ## correspond to the first day of the matching iso week; $labels contains vector
 ## of labels of the corresponding iso weeks.
 
-make_iso_weeks_breaks <- function(dates, n = 5) {
+make_iso_breaks <- function(dates, n = 5) {
   breaks_ini <- pretty(dates, n)
-  iso_weeks <- ISOweek::date2ISOweek(breaks_ini)
-  iso_weeks_day1 <- sub("-[1-7]+$", "-1", iso_weeks)
-  list(breaks = ISOweek::ISOweek2date(iso_weeks_day1),
-       labels = sub("-[1-7]+$", "", iso_weeks)
+  iso <- ISOweek::date2ISOweek(breaks_ini)
+  iso_day1 <- sub("-[1-7]+$", "-1", iso)
+  list(breaks = ISOweek::ISOweek2date(iso_day1),
+       labels = sub("-[1-7]+$", "", iso)
        )
 }
 

@@ -5,8 +5,6 @@
 \alias{palettes}
 \alias{incidence_pal1_light}
 \alias{incidence_pal1_dark}
-\alias{incidence_pal1_light}
-\alias{incidence_pal1_dark}
 \title{Color palettes used in incidence}
 \usage{
 incidence_pal1(n)
