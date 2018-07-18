@@ -55,14 +55,14 @@
 #' vignette:\cr `vignette("incidence_class", package = "incidence")`
 #'
 #' @note If `interval` is a valid character (e.g. "week" or "month"), then
-#' the bin will start at the beginning of the interval by default:
+#' the bin will start at the beginning of the interval just before the first
+#' observation by default. For example, if the first case was recorded on
+#' Wednesday, 2018-05-09:
 #'
-#' | `interval` | Default first date            |
-#' |------------|-------------------------------|
-#' |  "week"    | first day of ISOweek (Monday) |
-#' |  "month"   | first day of month            |
-#' |  "quarter" | first day of quarter          |
-#' |  "year"    | first day of calendar year    |
+#'  - "week"    : first day of the ISOweek (i.e. Monday, 2018-05-07)
+#'  - "month"   : first day of the month (i.e. 2018-05-01)
+#'  - "quarter" : first day of the quarter (i.e. 2018-04-01)
+#'  - "year"    : first day of the calendar year (i.e. 2018-01-01)
 #'
 #' These default intervals can be overridden in two ways:
 #'
