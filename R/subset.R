@@ -51,12 +51,37 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
   ## [ operator, 'from' and 'to' are assumed to be expressed in the same way as
   ## the x$dates.
 
-  if (is.numeric(from) && inherits(x$dates, "Date")) {
-    from <- min(x$dates) + (from - 1L) * x$interval
+  is_date      <- inherits(x$dates, "Date")
+  numeric_from <- is.numeric(from)
+  numeric_to   <- is.numeric(to)
+
+  if (is_date && (numeric_from || numeric_to)) {
+    the_intervals <- get_interval(x, integer = TRUE)
+    if (length(the_intervals) == 1L) {
+      the_intervals <- rep(the_intervals, length(x$dates))
+    }
+    the_intervals <- cumsum(c(0, the_intervals))
+  }
+  if (is_date && numeric_from) {
+    if (from <= 0) {
+      from <- 0L
+    } else if (from >= length(the_intervals) - 1L) {
+      from <- the_intervals[length(the_intervals) - 1L]
+    } else {
+      from <- the_intervals[from]
+    }
+    from <- min(x$dates) + from
   }
 
-  if (is.numeric(to) && inherits(x$dates, "Date")) {
-    to <- min(x$dates) + (to - 1L) * x$interval
+  if (is_date && numeric_to) {
+    if (to <= 0) {
+      to <- 0L
+    } else if (to >= length(the_intervals) - 1L) {
+      to <- the_intervals[length(the_intervals) - 1L]
+    } else {
+      to <- the_intervals[to]
+    }
+    to <- min(x$dates) + to
   }
 
   to.keep <- x$dates >= from & x$dates <= to
