@@ -24,8 +24,9 @@ incidence(dates, interval = 1L, ...)
 \method{incidence}{numeric}(dates, interval = 1L, groups = NULL,
   na_as_group = TRUE, first_date = NULL, last_date = NULL, ...)
 
-\method{incidence}{POSIXt}(dates, interval = 1L, groups = NULL,
-  na_as_group = TRUE, first_date = NULL, last_date = NULL, ...)
+\method{incidence}{POSIXt}(dates, interval = 1L, standard = TRUE,
+  groups = NULL, na_as_group = TRUE, first_date = NULL,
+  last_date = NULL, ...)
 
 \method{print}{incidence}(x, ...)
 }
