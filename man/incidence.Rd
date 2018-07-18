@@ -2,27 +2,30 @@
 % Please edit documentation in R/incidence.R
 \name{incidence}
 \alias{incidence}
-\alias{incidence.integer}
 \alias{incidence.default}
-\alias{incidence.numeric}
 \alias{incidence.Date}
+\alias{incidence.integer}
+\alias{incidence.numeric}
 \alias{incidence.POSIXt}
 \alias{print.incidence}
 \title{Compute incidence of events from a vector of dates.}
 \usage{
 incidence(dates, interval = 1L, ...)
 
+\method{incidence}{default}(dates, interval = 1L, ...)
+
+\method{incidence}{Date}(dates, interval = 1L, standard = TRUE,
+  groups = NULL, na_as_group = TRUE, first_date = NULL,
+  last_date = NULL, ...)
+
 \method{incidence}{integer}(dates, interval = 1L, groups = NULL,
   na_as_group = TRUE, first_date = NULL, last_date = NULL, ...)
 
-\method{incidence}{default}(dates, interval = 1L, ...)
+\method{incidence}{numeric}(dates, interval = 1L, groups = NULL,
+  na_as_group = TRUE, first_date = NULL, last_date = NULL, ...)
 
-\method{incidence}{numeric}(dates, interval = 1L, ...)
-
-\method{incidence}{Date}(dates, interval = 1L, standard = TRUE,
-  first_date = NULL, last_date = NULL, ...)
-
-\method{incidence}{POSIXt}(dates, interval = 1L, ...)
+\method{incidence}{POSIXt}(dates, interval = 1L, groups = NULL,
+  na_as_group = TRUE, first_date = NULL, last_date = NULL, ...)
 
 \method{print}{incidence}(x, ...)
 }
@@ -37,6 +40,11 @@ interval: day, week, month, quarter, or year. See Note.}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
 
+\item{standard}{(Only applicable to Date objects) When \code{TRUE} (default) and the
+\code{interval} one of "week", "month", "quarter", or "year", then this will
+cause the bins for the counts to start at the beginning of the interval
+(See Note). This is overridden by defining a non-NULL \code{first_date}.}
+
 \item{groups}{An optional factor defining groups of observations for which
 incidence should be computed separately.}
 
@@ -47,11 +55,6 @@ treated as a separate group.}
 epicurve. When these are \code{NULL} (default), the dates from the first/last
 dates are taken from the observations. If these dates are provided, the
 observations will be trimmed to the range of [first_date, last_date].}
-
-\item{standard}{(Only applicable to Date objects) When \code{TRUE} (default) and the
-\code{interval} one of "week", "month", "quarter", or "year", then this will
-cause the bins for the counts to start at the beginning of the interval
-(See Note). This is overridden by defining a non-NULL \code{first_date}.}
 
 \item{x}{An 'incidence' object.}
 }

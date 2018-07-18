@@ -152,7 +152,40 @@ incidence <- function(dates, interval = 1L, ...) {
 }
 
 
+#' @export
+#' @rdname incidence
+incidence.default <- function(dates, interval = 1L, ...) {
+  check_dates(dates)
+}
 
+#' @export
+#' @rdname incidence
+#'
+#' @param standard (Only applicable to Date objects) When `TRUE` (default) and the
+#'   `interval` one of "week", "month", "quarter", or "year", then this will
+#'   cause the bins for the counts to start at the beginning of the interval
+#'   (See Note). This is overridden by defining a non-NULL `first_date`.
+
+incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
+                           na_as_group = TRUE, first_date = NULL,
+                           last_date = NULL, ...) {
+  ## make sure input can be used
+  if (!is.logical(standard)) {
+    stop("The argument `standard` must be either `TRUE` or `FALSE`.")
+  }
+  out <- make_incidence(dates = dates,
+                        interval = interval,
+                        first_date = first_date,
+                        last_date = last_date,
+                        standard = standard,
+                        ...)
+  if (check_week(interval) && standard) {
+    # dates are the first days of corresponding ISOweeks.
+    out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
+  }
+
+  out
+}
 
 
 ## The default incidence is designed for dates provided as integers, and a fixed
@@ -183,17 +216,14 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
 
 
 
-#' @export
-#' @rdname incidence
-incidence.default <- function(dates, interval = 1L, ...) {
-  check_dates(dates)
-}
 
 
 #' @export
 #' @rdname incidence
 
-incidence.numeric <- function(dates, interval = 1L, ...) {
+incidence.numeric <- function(dates, interval = 1L, groups = NULL,
+                              na_as_group = TRUE, first_date = NULL,
+                              last_date = NULL, ...) {
   interval  <- valid_interval_integer(interval)
   ## make sure input can be used
   out       <- make_incidence(dates, interval, ...)
@@ -205,33 +235,6 @@ incidence.numeric <- function(dates, interval = 1L, ...) {
 
 
 
-#' @export
-#' @rdname incidence
-#'
-#' @param standard (Only applicable to Date objects) When `TRUE` (default) and the
-#'   `interval` one of "week", "month", "quarter", or "year", then this will
-#'   cause the bins for the counts to start at the beginning of the interval
-#'   (See Note). This is overridden by defining a non-NULL `first_date`.
-
-incidence.Date <- function(dates, interval = 1L, standard = TRUE, first_date = NULL,
-                           last_date = NULL, ...) {
-  ## make sure input can be used
-  if (!is.logical(standard)) {
-    stop("The argument `standard` must be either `TRUE` or `FALSE`.")
-  }
-  out <- make_incidence(dates = dates,
-                        interval = interval,
-                        first_date = first_date,
-                        last_date = last_date,
-                        standard = standard,
-                        ...)
-  if (check_week(interval) && standard) {
-    # dates are the first days of corresponding ISOweeks.
-    out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
-  }
-
-  out
-}
 
 
 
@@ -241,7 +244,9 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, first_date = N
 #' @export
 #' @rdname incidence
 
-incidence.POSIXt <- function(dates, interval = 1L, ...) {
+incidence.POSIXt <- function(dates, interval = 1L, groups = NULL,
+                             na_as_group = TRUE, first_date = NULL,
+                             last_date = NULL, ...) {
   ## make sure input can be used
   dates <- check_dates(dates)
 
