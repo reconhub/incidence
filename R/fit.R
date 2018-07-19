@@ -19,51 +19,35 @@
 #' single model), or a list containing two `incidence_fit` objects (when
 #' fitting two models). `incidence_fit` objects contain:
 #'
-#' \itemize{
-#'  \item lm: the fitted linear model
-#'
-#'  \item info: a list containing various information extracted from the model
-#' (detailed further)
-#'
-#'  \item origin: the date corresponding to day '0'
-#' }
+#' - `$lm`: the fitted linear model
+#' - `$info`: a list containing various information extracted from the model
+#'   (detailed further)
+#' - `$origin`: the date corresponding to day '0'
 #'
 #' The `$info` item is a list containing:
 #'
-#' \itemize{
-#'  \item r: the growth rate
+#' - `r`: the growth rate
+#' - `r.conf`: the confidence interval of 'r'
+#' - `pred`: a `data.frame` containing predictions of the model,
+#'   including the true dates (`dates`), their numeric version used in the
+#'   model (`dates.x`), the predicted value (`fit`), and the lower
+#'   (`lwr`) and upper (`upr`) bounds of the associated confidence
+#'   interval.
 #'
-#'  \item r.conf: the confidence interval of 'r'
-#'
-#'  \item pred: a `data.frame` containing predictions of the model,
-#' including the true dates (`dates`), their numeric version used in the
-#' model (`dates.x`), the predicted value (`fit`), and the lower
-#' (`lwr`) and upper (`upr`) bounds of the associated confidence
-#' interval.
-#'
-#'  \item doubling: the predicted doubling time in days; exists only if 'r' is
-#' positive
-#'
-#'  \item doubling.conf: the confidence interval of the doubling time
-#'
-#'  \item halving: the predicted halving time in days; exists only if 'r' is
-#' negative
-#'
-#'  \item halving.conf: the confidence interval of the halving time
-#' }
+#' - `doubling`: the predicted doubling time in days; exists only if 'r' is
+#'   positive
+#' - `doubling.conf`: the confidence interval of the doubling time
+#' - `halving`: the predicted halving time in days; exists only if 'r' is
+#'   negative
+#' - `halving.conf`: the confidence interval of the halving time
 #'
 #' For `fit_optim_split`, a list containing:
-#' \itemize{
 #'
-#'  \item df: a `data.frame` of dates that were used in the optimization
-#' procedure, and the corresponding average R2 of the resulting models.
-#'
-#'  \item split: the optimal splitting date
-#'
-#'  \item fit: the resulting `incidence_fit` objects
-#'
-#'  \item plot: a plot showing the content of `df` (ggplot2 object)
-#' }
+#' - `df`: a `data.frame` of dates that were used in the optimization
+#'   procedure, and the corresponding average R2 of the resulting models.
+#' - `split`: the optimal splitting date
+#' - `fit`: the resulting `incidence_fit` objects
+#' - `plot`: a plot showing the content of `df` (ggplot2 object)
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 #'
@@ -203,139 +187,6 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
   }
   out
 }
-
-
-
-
-
-#' @export
-#' @rdname fit
-#'
-#' @param window The size, in days, of the time window either side of the
-#' split.
-#'
-#' @param plot A logical indicating whether a plot should be added to the
-#' output, showing the mean R2 for various splits.
-#'
-
-fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
-                            quiet = TRUE){
-  date.peak <- x$dates[which.max(x$counts[,1])] # !! this assumes a single group
-  try.since <- date.peak - window / 2
-  try.until <- date.peak + window / 2
-  to.keep <- x$dates >= try.since & x$dates <= try.until
-  if (sum(to.keep) < 1) {
-    stop("No date left to try after defining splits to try.")
-  }
-
-  splits.to.try <- x$dates[to.keep]
-
-  f <- function(split) {
-    fits <- fit(x, split=split, quiet = quiet)
-    mean(vapply(fits, function(e) summary(e$lm)$`adj.r.squared`, double(1)))
-  }
-
-  results <- vapply(splits.to.try, f, double(1))
-
-  ## shape output
-  df <- data.frame(dates = splits.to.try, mean.R2 = results)
-  split <- splits.to.try[which.max(results)]
-  fit <- suppressWarnings(fit(x, split = split))
-  out <- list(df = df,
-              split = split,
-              fit = fit)
-
-  if (plot) {
-    out$plot <- ggplot2::ggplot(
-      df, ggplot2::aes_string(x = "dates", y = "mean.R2")) +
-      ggplot2::geom_point() + ggplot2::geom_line() +
-      ggplot2::geom_text(ggplot2::aes_string(label="dates"),
-                         hjust=-.1, angle=35) +
-      ggplot2::ylim(min=min(results)-.1, max=1)
-  }
-
-  out
-}
-
-
-
-
-
-## Non-exported function extracting info and predictions from a lm object
-## - reg is a lm object
-## - x is an incidence object
-## - level is a confidence level, defaulting to .95
-
-extract_info <- function(reg, x, level){
-  if (is.null(reg)) {
-    return(NULL)
-  }
-
-  ## extract growth rates (r)
-  ## here we need to keep all coefficients when there are interactions
-  to.keep <- grep("^dates.x.*$", names(stats::coef(reg)), value=TRUE)
-  r <- stats::coef(reg)[to.keep]
-  use.groups <- length(r) > 1
-  if (use.groups) {
-    names(r) <- reg$xlevels[[1]] # names = levels if groups
-  } else {
-    names(r) <- NULL # no names otherwise
-  }
-  r.conf <- stats::confint(reg, to.keep, level)
-  rownames(r.conf) <- names(r)
-  if (use.groups) {
-    r[-1] <- r[-1] + r[1] # add coefs to intercept
-    r.conf[-1,] <- r.conf[-1,] + r.conf[1,] # add coefs to intercept
-  }
-
-
-  ## need to pass new data spanning all dates and groups here
-  if (use.groups) {
-    new.data <- expand.grid(sort(unique(reg$model$dates.x)),
-                            levels(reg$model$groups))
-    names(new.data) <- c("dates.x", "groups")
-  } else {
-    new.data <- data.frame(dates.x = sort(unique(reg$model$dates.x)))
-  }
-  pred <- exp(stats::predict(reg, newdata = new.data, interval = "confidence",
-                             level = level))
-  ## keep track of dates and groups for plotting
-  pred <- cbind.data.frame(new.data, pred)
-  info <- list(r = r, r.conf = r.conf,
-               pred = pred)
-
-  if (r[1] > 0 ) { # note: choice of doubling vs halving only based on 1st group
-    info$doubling <- log(2) / r
-    info$doubling.conf <- log(2) / r.conf
-    o.names <- colnames(info$doubling.conf)
-    info$doubling.conf <-info$doubling.conf[, rev(seq_along(o.names)),
-                                            drop=FALSE]
-    colnames(info$doubling.conf) <- o.names
-  } else {
-    info$halving <- log(0.5) / r
-    info$halving.conf <- log(0.5) / r.conf
-  }
-
-  ## We need to store the date corresponding to 'day 0', as this will be used
-  ## to create actual dates afterwards (as opposed to mere numbers of days).
-  origin <- min(x$dates)
-
-  ## Dates are reconstructed from info$pred$dates.x and origin).  Note that
-  ## this is approximate, as dates are forced to be integers. A better option
-  ## would be to convert the dates to numbers, but ggplot2 is no longer
-  ## consistent when mixing up Date and decimal numbers (it works only in some
-  ## cases / geom).
-  dates <- origin + pred$dates.x
-  info$pred <- cbind.data.frame(dates, info$pred)
-  out <- list(lm = reg, info = info, origin = origin)
-  class(out) <- "incidence_fit"
-  out
-}
-
-
-
-
-
 
 #' @export
 #' @rdname fit
