@@ -5,10 +5,16 @@
 #' split.
 #'
 #' @param plot A logical indicating whether a plot should be added to the
-#' output, showing the mean R2 for various splits.
+#' output (`TRUE`, default), showing the mean R2 for various splits.
+#'
+#' @param separate_split If groups are present, should separate split dates be
+#' determined for each group? Defaults to `TRUE`, in which separate split dates
+#' and thus, separate models will be constructed for each group. When `FALSE`,
+#' the split date will be determined from the pooled data and modelled with the
+#' groups as main effects and interactions with date.
 #'
 fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
-                            quiet = TRUE){
+                            quiet = TRUE, separate_split = TRUE){
   date.peak <- x$dates[which.max(x$counts[,1])] # !! this assumes a single group
   try.since <- date.peak - window / 2
   try.until <- date.peak + window / 2

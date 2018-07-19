@@ -2,20 +2,21 @@
 #'
 #' The function `fit` fits two exponential models to incidence data, of the
 #' form: \eqn{log(y) = r * t + b} \cr where 'y' is the incidence, 't' is time
-#' (in days), 'r' is the growth rate, and 'b' is the origin. The function
-#' `fit` will fit one model by default, but will fit two models on either
-#' side of a splitting date (typically the peak of the epidemic) if the argument
-#' `split` is provided. The function `fit_optim_split` can be used to
-#' find the optimal 'splitting' date, defined as the one for which the best
-#' average R2 of the two models is obtained. Plotting can be done using
+#' (in days), 'r' is the growth rate, and 'b' is the origin. The function `fit`
+#' will fit one model by default, but will fit two models on either side of a
+#' splitting date (typically the peak of the epidemic) if the argument `split`
+#' is provided. When groups are present, these are included in the model as main
+#' effects and interactions with dates. The function `fit_optim_split()` can be
+#' used to find the optimal 'splitting' date, defined as the one for which the
+#' best average R2 of the two models is obtained. Plotting can be done using
 #' `plot`, or added to an existing incidence plot by the piping-friendly
-#' function `add_incidence_fit`.
+#' function `add_incidence_fit()`.
 #'
 #' @export
 #'
 #' @rdname fit
 #'
-#' @return For `fit`, a list with the class `incidence_fit` (for a
+#' @return For `fit()`, a list with the class `incidence_fit` (for a
 #' single model), or a list containing two `incidence_fit` objects (when
 #' fitting two models). `incidence_fit` objects contain:
 #'
