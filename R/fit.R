@@ -155,17 +155,23 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
   if (x$timespan == 1) {
     stop("Only 1 date with non-zero incidence. Cannot fit model to 1 data point.")
   }
+
+  ## Constructing the model based on number of groups present
+  if (n.groups == 1) {
+    the_model <- "log(counts) ~ dates.x"
+  } else {
+    the_model <- "log(counts) ~ dates.x * groups"
+  }
+  the_model <- stats::formula(the_model)
+
   ## model without split (1 model)
   if (is.null(split)) {
     df <- as.data.frame(x, long = TRUE)
     ## exact dates
     df$dates.x <- get_dates(x, position = "center", count_days = TRUE)
-
-    if (n.groups == 1) {
-      lm1 <- stats::lm(log(counts) ~ dates.x, data = df)
-    } else {
-      lm1 <- stats::lm(log(counts) ~ dates.x * groups, data = df)
-    }
+    lm1 <- stats::lm(the_model, data = df)
+    # updating the call for easier inspection by the user
+    lm1$call[[2]] <- the_model
     out <- extract_info(lm1, x, level)
   } else {
     x1 <- x[x$dates <= split]
@@ -175,13 +181,10 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
     ## exact dates
     df1$dates.x <- get_dates(x1, position = "center", count_days = TRUE)
     df2$dates.x <- get_dates(x2, position = "center", count_days = TRUE)
-    if (n.groups == 1) {
-      lm1 <- stats::lm(log(counts) ~  dates.x, data = df1)
-      lm2 <- stats::lm(log(counts) ~  dates.x, data = df2)
-    } else {
-      lm1 <- stats::lm(log(counts) ~  dates.x * groups, data = df1)
-      lm2 <- stats::lm(log(counts) ~  dates.x * groups, data = df2)
-    }
+    lm1 <- stats::lm(the_model, data = df1)
+    lm2 <- stats::lm(the_model, data = df2)
+    # updating the call for easier inspection by the user
+    lm1$call[[2]] <- the_model -> lm2$call[[2]]
     before <- extract_info(lm1, x1, level)
     after <- extract_info(lm2, x2, level)
     out <- list(before = before, after = after)
