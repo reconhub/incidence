@@ -6,14 +6,15 @@ get_info.incidence_fit <- function(x, what = "r") {
   x$info[[what]]
 }
 
-get_info.incidence_fit_list <- function(x, what = "r") {
+get_info.incidence_fit_list <- function(x, what = "r", group = 1L) {
   locations <- attr(x, "locations")
   n <- length(locations)
   if (what == "pred") {
     fits <- get_fit(x)
     for (i in names(fits)) {
       fits[[i]] <- fits[[i]]$info$pred
-      fits[[i]]$group <- i
+      fits[[i]]$location <- i
+      fits[[i]]$groups <- strsplit(i, "_")[[1]][[group]]
     }
     res <- do.call("rbind", fits)
     return(res)

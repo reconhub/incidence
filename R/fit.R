@@ -284,9 +284,9 @@ print.incidence_fit_list <- function(x, ...) {
 #'
 #' @param col_pal A color palette, defaulting
 add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
-
-  df <- x$info$pred
-
+  if (inherits(x, "incidence_fit_list")) {
+    x <- get_fit(x)
+  }
   ## 'x' could be a list of fit, in which case all fits are added to the plot
   if (is.list(x) && !inherits(x, "incidence_fit")) {
     out <- p
@@ -297,6 +297,7 @@ add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
     }
     return(out)
   }
+  df <- get_info(x, "pred")
 
   out <- suppressMessages(
     p + ggplot2::geom_line(
@@ -333,3 +334,15 @@ plot.incidence_fit <- function(x, ...){
     ggplot2::labs(x = "", y = "Predicted incidence")
   out
 }
+
+#' @export
+#' @rdname fit
+
+plot.incidence_fit_list <- function(x, ...){
+  base <- ggplot2::ggplot()
+  fits <- get_fit(x)
+  out <- add_incidence_fit(base, fits, ...) +
+    ggplot2::labs(x = "", y = "Predicted incidence")
+  out
+}
+

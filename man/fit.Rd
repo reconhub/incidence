@@ -3,8 +3,10 @@
 \name{fit}
 \alias{fit}
 \alias{print.incidence_fit}
+\alias{print.incidence_fit_list}
 \alias{add_incidence_fit}
 \alias{plot.incidence_fit}
+\alias{plot.incidence_fit_list}
 \alias{fit_optim_split}
 \title{Fit exponential models to incidence data}
 \usage{
@@ -12,9 +14,13 @@ fit(x, split = NULL, level = 0.95, quiet = FALSE)
 
 \method{print}{incidence_fit}(x, ...)
 
+\method{print}{incidence_fit_list}(x, ...)
+
 add_incidence_fit(p, x, col_pal = incidence_pal1)
 
 \method{plot}{incidence_fit}(x, ...)
+
+\method{plot}{incidence_fit_list}(x, ...)
 
 fit_optim_split(x, window = x$timespan/4, plot = TRUE, quiet = TRUE,
   separate_split = TRUE)
@@ -52,6 +58,8 @@ determined for each group? Defaults to \code{TRUE}, in which separate split date
 and thus, separate models will be constructed for each group. When \code{FALSE},
 the split date will be determined from the pooled data and modelled with the
 groups as main effects and interactions with date.}
+
+\item{...}{further arguments passed to other methods (not used)}
 }
 \value{
 For \code{fit()}, a list with the class \code{incidence_fit} (for a

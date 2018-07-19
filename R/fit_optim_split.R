@@ -18,8 +18,11 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
   if (ncol(x$counts) > 1 && separate_split) {
     res <- vector(mode = "list", length = ncol(x$counts))
     names(res) <- colnames(x$counts)
-    for (i in seq(ncol(x$counts))) {
+    for (i in names(res)) {
       res[[i]] <- fit_optim_split(x[, i], separate_split = FALSE)
+      # hack for groups... this should be fixed.
+      res[[i]]$fit$before$info$pred$groups <- factor(i, names(res))
+      res[[i]]$fit$after$info$pred$groups  <- factor(i, names(res))
     }
     attr(res, "locations") <- c(
       lapply(names(res), c, c("fit", "before")),
