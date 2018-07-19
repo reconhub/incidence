@@ -14,8 +14,21 @@
 #' groups as main effects and interactions with date.
 #'
 fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
-                            quiet = TRUE, separate_split = TRUE){
-  date.peak <- x$dates[which.max(x$counts[,1])] # !! this assumes a single group
+                            quiet = TRUE, separate_split = TRUE) {
+  if (ncol(x$counts) > 1 && separate_split) {
+    res <- vector(mode = "list", length = ncol(x$counts))
+    names(res) <- colnames(x$counts)
+    for (i in seq(ncol(x$counts))) {
+      res[[i]] <- fit_optim_split(x[, i], separate_split = FALSE)
+    }
+    attr(res, "locations") <- c(
+      lapply(names(res), c, c("fit", "before")),
+      lapply(names(res), c, c("fit", "after"))
+    )
+    class(res) <- "incidence_fit_list"
+    return(res)
+  }
+  date.peak <- x$dates[which.max(pool(x)$counts)]
   try.since <- date.peak - window / 2
   try.until <- date.peak + window / 2
   to.keep <- x$dates >= try.since & x$dates <= try.until

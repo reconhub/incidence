@@ -35,7 +35,7 @@ pool <- function(x){
             "x should be an 'incidence' object (its class is: %s)",
             class(x)))
     }
-
+    if (ncol(x$counts) == 1) return(x)
     x$counts <- matrix(apply(x$counts, 1 , sum), ncol = 1)
     x
 }

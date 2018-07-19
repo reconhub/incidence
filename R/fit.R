@@ -187,7 +187,11 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
     lm1$call[[2]] <- the_model -> lm2$call[[2]]
     before <- extract_info(lm1, x1, level)
     after <- extract_info(lm2, x2, level)
-    out <- list(before = before, after = after)
+    out <- list(before = before,
+                after = after
+                )
+    attr(out, "locations") <- list("before", "after")
+    class(out) <- "incidence_fit_list"
   }
   out
 }
@@ -221,6 +225,46 @@ print.incidence_fit <- function(x, ...) {
   cat(sprintf(
     "\n  $pred: data.frame of incidence predictions (%d rows, %d columns)\n",
     nrow(x$info$pred), ncol(x$info$pred)))
+
+
+  invisible(x)
+}
+
+#' @export
+#' @rdname fit
+#' @param ... further arguments passed to other methods (not used)
+
+print.incidence_fit_list <- function(x, ...) {
+
+  cat("<list of incidence_fit objects>\n\n")
+  cat("attr(x, 'locations'): list of vectors with the locations of each incidence_fit object\n\n")
+  locations <- attr(x, "locations")
+  cat(sprintf("'%s'", vapply(locations, paste, character(1), collapse = "', '")), sep = "\n")
+  cat("\n")
+  cat("$lm: regression of log-incidence over time\n\n")
+
+  cat("$info: list containing the following items:\n")
+  cat("  $r (daily growth rate):\n")
+  print(get_info(x, "r"))
+  cat("\n  $r.conf (confidence interval):\n")
+  print(get_info(x, "r.conf"))
+  # if (x$info$r[1] > 0) {
+  if (any(get_info(x, "r") > 0)) {
+    cat("\n  $doubling (doubling time in days):\n")
+    print(get_info(x, "doubling"))
+    cat("\n  $doubling.conf (confidence interval):\n")
+    print(get_info(x, "doubling.conf"))
+  }
+  if (any(get_info(x, "r") < 0)) {
+    cat("\n  $halving (halving time in days):\n")
+    print(get_info(x, "halving"))
+    cat("\n  $halving.conf (confidence interval):\n")
+    print(get_info(x, "halving.conf"))
+  }
+  preds <- get_info(x, "pred")
+  cat(sprintf(
+    "\n  $pred: data.frame of incidence predictions (%d rows, %d columns)\n",
+    nrow(preds), ncol(preds)))
 
 
   invisible(x)
