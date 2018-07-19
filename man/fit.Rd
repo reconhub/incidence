@@ -58,8 +58,6 @@ determined for each group? Defaults to \code{TRUE}, in which separate split date
 and thus, separate models will be constructed for each group. When \code{FALSE},
 the split date will be determined from the pooled data and modelled with the
 groups as main effects and interactions with date.}
-
-\item{...}{further arguments passed to other methods (not used)}
 }
 \value{
 For \code{fit()}, a list with the class \code{incidence_fit} (for a

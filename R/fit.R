@@ -232,7 +232,6 @@ print.incidence_fit <- function(x, ...) {
 
 #' @export
 #' @rdname fit
-#' @param ... further arguments passed to other methods (not used)
 
 print.incidence_fit_list <- function(x, ...) {
 
