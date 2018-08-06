@@ -160,7 +160,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     } else if (is.list(fit)) {
       for (i in seq_along(fit)) {
         fit.i <- fit[[i]]
-        if (!inherits(fit.i, "incidence_fit")) {
+        if (!inherits(fit.i, c("incidence_fit", "incidence_fit_list"))) {
           stop(sprintf(
             "The %d-th item in 'fit' is not an 'incidence_fit' object, but a %s",
             i, class(fit.i)))
