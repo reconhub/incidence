@@ -1,4 +1,4 @@
-get_info <- function(x, what = "r") {
+get_info <- function(x, what = "r", ...) {
   UseMethod("get_info")
 }
 
@@ -6,7 +6,7 @@ get_info.incidence_fit <- function(x, what = "r") {
   x$info[[what]]
 }
 
-get_info.incidence_fit_list <- function(x, what = "r", group = 1L) {
+get_info.incidence_fit_list <- function(x, what = "r", group = 1L, na.rm = TRUE) {
   locations <- attr(x, "locations")
   n <- length(locations)
   if (what == "pred") {
@@ -44,6 +44,10 @@ get_info.incidence_fit_list <- function(x, what = "r", group = 1L) {
     rownames(res) <- the_names
   } else {
     names(res)    <- the_names
+  }
+  if (na.rm) {
+    nonas <- complete.cases(res)
+    res <- if (is_matrix) res[nonas, , drop = FALSE] else res[nonas]
   }
   res
 }

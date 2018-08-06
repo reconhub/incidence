@@ -247,18 +247,17 @@ print.incidence_fit_list <- function(x, ...) {
   print(get_info(x, "r"))
   cat("\n  $r.conf (confidence interval):\n")
   print(get_info(x, "r.conf"))
-  # if (x$info$r[1] > 0) {
   if (any(get_info(x, "r") > 0)) {
     cat("\n  $doubling (doubling time in days):\n")
-    print(get_info(x, "doubling"))
+    print(get_info(x, "doubling", na.rm = TRUE))
     cat("\n  $doubling.conf (confidence interval):\n")
-    print(get_info(x, "doubling.conf"))
+    print(get_info(x, "doubling.conf", na.rm = TRUE))
   }
   if (any(get_info(x, "r") < 0)) {
     cat("\n  $halving (halving time in days):\n")
-    print(get_info(x, "halving"))
+    print(get_info(x, "halving", na.rm = TRUE))
     cat("\n  $halving.conf (confidence interval):\n")
-    print(get_info(x, "halving.conf"))
+    print(get_info(x, "halving.conf", na.rm = TRUE))
   }
   preds <- get_info(x, "pred")
   cat(sprintf(
@@ -344,4 +343,3 @@ plot.incidence_fit_list <- function(x, ...){
     ggplot2::labs(x = "", y = "Predicted incidence")
   out
 }
-
