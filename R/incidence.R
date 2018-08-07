@@ -170,9 +170,6 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
   dots <- check_dots(list(...), names(formals(incidence.Date)))
-  if ("standard" %in% names(dots)) {
-    standard <- dots$standard
-  }
   ## make sure input can be used
   if (!is.logical(standard)) {
     stop("The argument `standard` must be either `TRUE` or `FALSE`.")
@@ -264,9 +261,6 @@ incidence.POSIXt <- function(dates, interval = 1L, standard = TRUE, groups = NUL
   ## make sure input can be used
 
   dots <- check_dots(list(...), names(formals(incidence.Date)))
-  if ("standard" %in% names(dots)) {
-    standard <- dots$standard
-  }
   dates <- check_dates(dates)
 
   ret <- incidence(as.Date(dates),
