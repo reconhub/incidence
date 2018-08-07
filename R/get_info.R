@@ -46,7 +46,7 @@ get_info.incidence_fit_list <- function(x, what = "r", group = 1L, na.rm = TRUE)
     names(res)    <- the_names
   }
   if (na.rm) {
-    nonas <- complete.cases(res)
+    nonas <- stats::complete.cases(res)
     res <- if (is_matrix) res[nonas, , drop = FALSE] else res[nonas]
   }
   res
