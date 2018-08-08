@@ -247,4 +247,73 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
 }
 
 
+## This function will take an existing 'incidence' plot object ('p') and add lines from an
+## 'incidence_fit' object ('x')
+
+#' @export
+#' @rdname plot.incidence
+#'
+#' @param p An existing incidence plot.
+add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
+  if (inherits(x, "incidence_fit_list")) {
+    x <- get_fit(x)
+  }
+  ## 'x' could be a list of fit, in which case all fits are added to the plot
+  if (is.list(x) && !inherits(x, "incidence_fit")) {
+    out <- p
+    for (e in x) {
+      if (inherits(e, "incidence_fit")) {
+        out <- add_incidence_fit(out, e, col_pal)
+      }
+    }
+    return(out)
+  }
+  df <- get_info(x, "pred")
+
+  out <- suppressMessages(
+    p + ggplot2::geom_line(
+      data = df,
+      ggplot2::aes_string(x = "dates", y = "fit"), linetype = 1) +
+      ggplot2::geom_line(
+        data = df,
+        ggplot2::aes_string(x = "dates", y = "lwr"), linetype = 2) +
+      ggplot2::geom_line(
+        data = df,
+        ggplot2::aes_string(x = "dates", y = "upr"), linetype = 2)
+  )
+
+
+  if ("groups" %in% names(df)) {
+    n.groups <- length(levels(df$groups))
+    out <- out + ggplot2::aes_string(color = "groups") +
+      ggplot2::scale_color_manual(values = col_pal(n.groups))
+  }
+
+  out
+}
+
+
+
+
+
+#' @export
+#' @rdname plot.incidence
+
+plot.incidence_fit <- function(x, ...){
+  base <- ggplot2::ggplot()
+  out <- add_incidence_fit(base, x, ...) +
+    ggplot2::labs(x = "", y = "Predicted incidence")
+  out
+}
+
+#' @export
+#' @rdname plot.incidence
+
+plot.incidence_fit_list <- function(x, ...){
+  base <- ggplot2::ggplot()
+  fits <- get_fit(x)
+  out <- add_incidence_fit(base, fits, ...) +
+    ggplot2::labs(x = "", y = "Predicted incidence")
+  out
+}
 
