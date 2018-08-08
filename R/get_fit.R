@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' 
-#' if qrequire(outbreaks)) {
+#' if (require(outbreaks)) {
 #'  dat <- ebola_sim$linelist$date_of_onset
 #'
 #'  ## EXAMPLE WITH A SINGLE MODEL
