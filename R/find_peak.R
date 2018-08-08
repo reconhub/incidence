@@ -57,6 +57,6 @@ find_peak <- function(x, pool = TRUE) {
 		   FUN    = which.max
 		  )
 
-  out <- setNames(x$dates[the_max], colnames(x$counts))
+  out <- stats::setNames(x$dates[the_max], colnames(x$counts))
   out
 }

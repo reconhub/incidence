@@ -36,6 +36,7 @@ print.incidence <- function(x, ...) {
 
 #' @export
 #' @rdname fit
+#' @param ... currently unused.
 print.incidence_fit <- function(x, ...) {
 
   cat("<incidence_fit object>\n\n")
