@@ -79,7 +79,6 @@ test_that("errors happen", {
 })
 
 
-context("incidence_fit* object accessor tests")
 
 
 # Data for the get_info and get_fit accessors
@@ -87,6 +86,20 @@ set.seed(1)
 dat2 <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
 sex <- sample(c("female", "male"), 200, replace = TRUE)
 i.sex.o <- incidence(c(dat2, abs(dat2 - 45) + 45), 7L, groups = c(sex, rev(sex)))
+
+test_that("get_counts works with and without groups", {
+  expect_is(get_counts(i.sex.o), "matrix")
+  expect_identical(get_counts(i.sex.o), i.sex.o$counts)
+  expect_identical(get_counts(i.sex.o, "female"), get_counts(i.sex.o, 1))
+  expect_message(get_counts(i.sex.o, c("female", "nb")),
+		 "The following groups were not recognised: nb")
+  expect_error(suppressMessages(get_counts(i.sex.o, "what")),
+	       "No groups matched those present in the data: female, male")
+})
+
+context("incidence_fit* object accessor tests")
+
+
 i.fitlist <- fit_optim_split(i.sex.o)
 fits <- get_fit(i.fitlist$fit)
 

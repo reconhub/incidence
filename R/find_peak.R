@@ -3,18 +3,20 @@
 #' This function can be used to find the peak of an epidemic curve stored as an
 #' `incidence` object.
 #'
-#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}.
+#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}, Zhian N. Kamvar 
+#'   \email{zkamvar@@gmail.com}
 #'
 #' @md
 #'
 #' @export
 #'
 #' @param x An `incidence` object.
+#' @param pool If `TRUE` (default), any groups will be pooled before finding
+#'   a peak. If `FALSE`, separate peaks will be found for each group.
 #'
-
 #' @return The date of the (first) highest incidence in the data.
 #'
-#' @seealso [incidence::estimate_peak] for bootstrap estimates of the peak time
+#' @seealso [estimate_peak()] for bootstrap estimates of the peak time
 #'
 #' @examples
 #'
@@ -38,18 +40,23 @@
 #' }
 #'
 
-find_peak <- function(x) {
+find_peak <- function(x, pool = TRUE) {
   if (!inherits(x, "incidence")) {
     stop("x is not an incidence object")
   }
 
-  if (ncol(x$counts) > 1L) {
+  if (ncol(x$counts) > 1L && pool) {
     msg <- paste("'x' is stratified by groups",
                  "pooling groups before finding peaks",
                  sep = "\n")
-    warning(msg)
+    message(msg)
     x <- pool(x)
   }
-  out <- x$dates[which.max(pool(x)$counts)]
+  the_max <- apply(get_counts(x),
+		   MARGIN = 2L,
+		   FUN    = which.max
+		  )
+
+  out <- setNames(x$dates[the_max], colnames(x$counts))
   out
 }

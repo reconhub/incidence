@@ -2,16 +2,12 @@
 % Please edit documentation in R/fit.R, R/fit_optim_split.R, R/print.R
 \name{fit}
 \alias{fit}
+\alias{fit_optim_split}
 \alias{print.incidence_fit}
 \alias{print.incidence_fit_list}
-\alias{fit_optim_split}
 \title{Fit exponential models to incidence data}
 \usage{
 fit(x, split = NULL, level = 0.95, quiet = FALSE)
-
-\method{print}{incidence_fit}(x, ...)
-
-\method{print}{incidence_fit_list}(x, ...)
 
 fit_optim_split(x, window = x$timespan/4, plot = TRUE, quiet = TRUE,
   separate_split = TRUE)
@@ -35,8 +31,6 @@ be fitted on the time periods on either side of the split.}
 \item{quiet}{A logical indicating if warnings from \code{fit} should be
 hidden; FALSE by default. Warnings typically indicate some zero incidence,
 which are removed before performing the log-linear regression.}
-
-\item{...}{further arguments passed to other methods (not used)}
 
 \item{window}{The size, in days, of the time window either side of the
 split.}
