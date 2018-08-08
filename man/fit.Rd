@@ -92,7 +92,10 @@ For \code{fit_optim_split}, a list containing:
 \item \code{df}: a \code{data.frame} of dates that were used in the optimization
 procedure, and the corresponding average R2 of the resulting models.
 \item \code{split}: the optimal splitting date
-\item \code{fit}: the resulting \code{incidence_fit} objects
+\item \code{fit}: an \code{incidence_fit_list} object containing the fit for each split.
+If the \code{separate_split = TRUE}, then the \code{incidence_fit_list} object will
+contain these splits nested within each group. All of the \code{incidence_fit}
+objects can be retrieved with \code{\link[=get_fit]{get_fit()}}.
 \item \code{plot}: a plot showing the content of \code{df} (ggplot2 object)
 }
 }
@@ -155,8 +158,10 @@ if (require(magrittr)) {
 }
 \seealso{
 the \code{\link[=incidence]{incidence()}} function to generate the 'incidence'
-objects.
+objects. The \code{\link[=get_fit]{get_fit()}} function to flatten \code{incidence_fit_list} objects to
+a list of \code{incidence_fit} objects.
 }
 \author{
-Thibaut Jombart \email{thibautjombart@gmail.com}
+Thibaut Jombart \email{thibautjombart@gmail.com}, Zhian N. Kamvar
+\email{zkamvar@gmail.com}.
 }
