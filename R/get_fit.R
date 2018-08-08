@@ -7,6 +7,7 @@
 #' @examples
 #' 
 #' if (require(outbreaks)) {
+#' 
 #'  dat <- ebola_sim$linelist$date_of_onset
 #'
 #'  ## EXAMPLE WITH A SINGLE MODEL
@@ -24,10 +25,25 @@
 #'  ## Grab the list of `incidence_fit` objects
 #'  get_fit(fits$fit)
 #'  
+#'  ## Get the predictions for all groups
+#'  get_info(fits$fit, "pred", groups = 1)
+#'  
+#'  ## Get the predictions, but set `groups` to "before" and "after"
+#'  get_info(fits$fit, "pred", groups = 2)
+#'  
+#'  ## Get the reproduction number
+#'  get_info(fits$fit, "r")
+#'
+#'  ## Get the doubling confidence interval
+#'  get_info(fits$fit, "doubling.conf")
+#'
+#'  ## Get the halving confidence interval
+#'  get_info(fits$fit, "halving.conf")
 #' }
 get_fit <- function(x) {
   UseMethod("get_fit")
 }
+
 #' @rdname get_fit
 #' @export
 get_fit.incidence_fit <- function(x) {

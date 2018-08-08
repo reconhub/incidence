@@ -1,12 +1,27 @@
+#' @rdname get_fit
+#' @param what the name of the item in the "info" element of the `incidence_fit`
+#'   object. 
+#' @param groups if `what = "pred"` and `x` is an `incidence_fit_list` object, 
+#'   then this indicates what part of the nesting hierarchy becomes the column
+#'   named "groups". Defaults to `NULL`, indicating that no groups column will
+#'   be added/modified.
+#' @param na.rm when `TRUE` (default), missing values will be excluded from the 
+#'   results.
+#' @param ... currently unused.
+#' @export
 get_info <- function(x, what = "r", ...) {
   UseMethod("get_info")
 }
 
-get_info.incidence_fit <- function(x, what = "r") {
+#' @rdname get_fit
+#' @export
+get_info.incidence_fit <- function(x, what = "r", ...) {
   x$info[[what]]
 }
 
-get_info.incidence_fit_list <- function(x, what = "r", group = 1L, na.rm = TRUE) {
+#' @rdname get_fit
+#' @export
+get_info.incidence_fit_list <- function(x, what = "r", groups = NULL, na.rm = TRUE, ...) {
   locations <- attr(x, "locations")
   n <- length(locations)
   if (what == "pred") {
@@ -14,7 +29,10 @@ get_info.incidence_fit_list <- function(x, what = "r", group = 1L, na.rm = TRUE)
     for (i in names(fits)) {
       fits[[i]] <- fits[[i]]$info$pred
       fits[[i]]$location <- i
-      fits[[i]]$groups <- strsplit(i, "_")[[1]][[group]]
+      if (!is.null(groups)) {
+      	tmp              <- strsplit(i, "_")[[1]][[groups]]
+        fits[[i]]$groups <- factor(tmp, tmp)
+      }
     }
     res <- do.call("rbind", fits)
     return(res)

@@ -1,4 +1,4 @@
-context("Accessor tests")
+context("incidence object accessor tests")
 
 set.seed(999)
 int   <- sample(-3:50, 100, replace = TRUE)
@@ -79,4 +79,75 @@ test_that("errors happen", {
 })
 
 
+context("incidence_fit* object accessor tests")
 
+
+# Data for the get_info and get_fit accessors
+set.seed(1)
+dat2 <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
+sex <- sample(c("female", "male"), 200, replace = TRUE)
+i.sex.o <- incidence(c(dat2, abs(dat2 - 45) + 45), 7L, groups = c(sex, rev(sex)))
+i.fitlist <- fit_optim_split(i.sex.o)
+fits <- get_fit(i.fitlist$fit)
+
+# Creating an `incidence_fit_list` object with no groups column
+fits_list <- fits
+for (i in names(fits)) {
+  fits_list[[i]]$info$pred$groups <- NULL  
+}
+class(fits_list) <- "incidence_fit_list"
+attr(fits_list, "locations") <- as.list(names(fits))
+
+test_that("fit_optim_split() returns an incidence_fit_list", {
+  expect_is(i.fitlist$fit, "incidence_fit_list")
+})
+
+test_that("get_fit() returns a list of incidence fit objects", {
+  for (i in names(fits)) {
+    expect_is(fits[[i]], "incidence_fit", label = i)
+  }
+  expect_identical(fits[[1]], get_fit(fits[[1]]))
+})
+
+test_that("get_info() will return a vector for r", {
+  rvec <- get_info(i.fitlist$fit, "r")
+  expect_length(rvec, 4) 
+}) 
+
+test_that("get_info() will return a vector for doubling/halving", {
+  dvec    <- get_info(i.fitlist$fit, "doubling")
+  dvec.na <- get_info(i.fitlist$fit, "doubling", na.rm = FALSE)
+  expect_length(dvec, 2)
+  expect_length(dvec.na, 4)
+  expect_identical(dvec, dvec.na[1:2])
+
+  hvec    <- get_info(i.fitlist$fit, "halving")
+  hvec.na <- get_info(i.fitlist$fit, "halving", na.rm = FALSE)
+  expect_length(hvec, 2)
+  expect_length(hvec.na, 4)
+  expect_identical(hvec, hvec.na[3:4])
+})
+
+test_that("get_info() will return a data frame for pred", {
+  # Should have groups be female and male
+  pred.g  <- get_info(i.fitlist$fit, "pred")
+  # Should have no groups
+  pred.ng <- get_info(fits_list, "pred", groups = NULL)
+  # Should have groups be female and male
+  pred.g1 <- get_info(fits_list, "pred", groups = 1)
+  # Should have groups be before and after
+  pred.g2 <- get_info(i.fitlist$fit, "pred", groups = 2)
+  
+  expect_null(pred.ng$groups)
+  expect_identical(pred.g$groups, pred.g1$groups)
+  expect_identical(levels(pred.g2$groups), c("before", "after"))
+})
+
+test_that("get_info() will return matrices for *.conf", {
+  hconf    <- get_info(i.fitlist$fit, "halving.conf")
+  hconf.na <- get_info(i.fitlist$fit, "halving.conf", na.rm = FALSE)
+  expect_is(hconf, "matrix")
+  expect_is(hconf.na, "matrix")
+  expect_length(hconf, 4)
+  expect_identical(hconf, hconf.na[-(1:2), ])
+})
