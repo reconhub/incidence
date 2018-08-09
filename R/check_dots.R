@@ -28,7 +28,7 @@ check_dots <- function(dots, args) {
   }
   if (sum(!recognized) > 0) {
     dre <- paste(dnames[!recognized & dnames != "iso_week"], collapse = ", ")
-    msg <- paste0(msg, "\n\nUnrecognised options:\n\t", dre)
+    msg <- if (dre != "") paste0(msg, "\n\nUnrecognised options:\n\t", dre) else msg
   }
   if ("iso_week" %in% dnames) {
     warning(paste("The parameter `iso_week` has been deprecated as of incidence",
@@ -37,7 +37,9 @@ check_dots <- function(dots, args) {
     )
     names(dots)[dnames == "iso_week"] <- "standard"
   }
-  MSG <- "Misspelled or unrecognized options will be ignored."
-  warning(paste(MSG, msg), call. = FALSE)
+  MSG <- "Misspelled or unrecognized options were found."
+  if (msg != "") {
+    stop(paste(MSG, msg), call. = FALSE)
+  }
   dots
 }

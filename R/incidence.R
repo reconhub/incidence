@@ -174,6 +174,10 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
   if (!is.logical(standard)) {
     stop("The argument `standard` must be either `TRUE` or `FALSE`.")
   }
+  if ("standard" %in% names(dots)) {
+    # the user specified iso_week and was given a warning.
+    standard <- dots$standard
+  }
   out <- make_incidence(dates = dates,
                         interval = interval,
                         groups = groups,
