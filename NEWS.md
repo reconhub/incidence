@@ -9,6 +9,13 @@ incidence 1.4.1 (date tbc)
 * `incidence()` now verifies that all user-supplied arguments are accurate
   and spelled correctly. 
 
+* `fit_optim_split()` now gains a `separate_split` argument that will determine
+  the optimal split separately for groups.
+
+* A new class, `incidence_fit_list`, has been implemented to store and summarise
+  `incidence_fit` objects within a nested list. This is the class returned by
+  in the `$fit` element of `fit_optim_split()`.
+
 ### NEW FUNCTIONS
 
 * `bootstrap()` will bootstrap epicurves stored as `incidence` objects.
@@ -25,6 +32,14 @@ incidence 1.4.1 (date tbc)
 * `get_dates()` returns the dates or counts of days on the right,
   center, or left of the interval.
 
+* `get_counts()` returns the matrix of case counts for each date.
+
+* `get_fit()` returns a list of `incidence_fit` objects from an
+  `incidence_fit_list` object.
+
+* `get_info()` returns information stored in the `$info` element of an 
+  `incidence_fit`/`incidence_fit_list` object. 
+
 ### DEPRECATED
 
 * In the `incidence()` function, the `iso_week` parameter is deprecated in
@@ -37,8 +52,11 @@ incidence 1.4.1 (date tbc)
   and would change if subsetted. A re-working of the incidence constructor
   fixed this issue. 
 
+* Misspelled or unrecgonized parameters passed to `incidence()` will now cause
+  an error instead of being silently ignored.
 
- 
+
+
 
 incidence 1.3.1 (2018-06-11)
 ============================
