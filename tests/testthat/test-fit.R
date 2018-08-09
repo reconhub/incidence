@@ -47,6 +47,9 @@ test_that("fit_optim_split", {
   expect_is(i.fit.sex$df, "data.frame")
   expect_is(i.fit.sex$fit, "incidence_fit_list")
 
+  expect_output(print(i.fit.sex$fit), "<list of incidence_fit objects>")
+  expect_output(print(i.fit.sex$fit), "[^N][^A]")
+  expect_true(any(is.na(get_info(i.fit.sex$fit, "halving", na.rm = FALSE))))
 
   ## errors
   expect_error(fit_optim_split(i, window = -1),

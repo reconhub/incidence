@@ -8,7 +8,8 @@ x.7   <- incidence(int, 7L)
 x.day <- incidence(dat, "day")
 x.wee <- incidence(dat, "week")
 x.mon <- incidence(dat, "month")
-
+x.mon2yr <- incidence(c(as.Date("2017-12-15"), dat), "month")
+x.yer <- incidence(c(dat, dat - 365, dat - 365 * 2), "year")
 
 test_that("get_interval works for integers", {
   expect_equal(get_interval(x.1), 1L)
@@ -63,6 +64,12 @@ test_that("get_dates works for character weeks", {
 test_that("get_interval works for character months", {
   expect_equal(get_interval(x.mon), c(31, 28, 31))
   expect_equal(get_interval(x.mon, integer = FALSE), "month")
+  expect_equal(get_interval(x.mon2yr), c(31, 31, 28, 31))
+})
+
+test_that("get_interval works for character years", {
+  expect_equal(get_interval(x.yer), c(366, 365, 365))
+  expect_equal(get_interval(x.yer, integer = FALSE), "year")
 })
 
 test_that("get_dates works for character months", {
