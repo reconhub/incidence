@@ -51,7 +51,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
   }
 
   new_dates <- do.call(c,
-                       lapply(1:ncol(x$counts),
+                       lapply(seq.int(ncol(x$counts)),
                               function(i) boot_one_group(x$counts[, i])))
   group_sizes <- colSums(x$counts)
   new_groups <- rep(colnames(x$counts), group_sizes)
