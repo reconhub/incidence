@@ -41,7 +41,7 @@
 ##'   plot(inc[1:10])
 ##'   inc[-c(11:15)] # remove weeks 11-15
 ##'   plot(inc[-c(11:15)])
-##' })
+##' })}
 ##'
 
 subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
