@@ -170,12 +170,13 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
   dots <- check_dots(list(...), names(formals(incidence.Date)))
-  if ("standard" %in% names(dots)) {
-    standard <- dots$standard
-  }
   ## make sure input can be used
   if (!is.logical(standard)) {
     stop("The argument `standard` must be either `TRUE` or `FALSE`.")
+  }
+  if ("standard" %in% names(dots)) {
+    # the user specified iso_week and was given a warning.
+    standard <- dots$standard
   }
   out <- make_incidence(dates = dates,
                         interval = interval,
@@ -220,11 +221,6 @@ incidence.integer <- function(dates, interval = 1L, groups = NULL,
   out
 }
 
-
-
-
-
-
 #' @export
 #' @rdname incidence
 
@@ -245,16 +241,6 @@ incidence.numeric <- function(dates, interval = 1L, groups = NULL,
   out
 }
 
-
-
-
-
-
-
-
-
-
-
 #' @export
 #' @rdname incidence
 
@@ -264,9 +250,6 @@ incidence.POSIXt <- function(dates, interval = 1L, standard = TRUE, groups = NUL
   ## make sure input can be used
 
   dots <- check_dots(list(...), names(formals(incidence.Date)))
-  if ("standard" %in% names(dots)) {
-    standard <- dots$standard
-  }
   dates <- check_dates(dates)
 
   ret <- incidence(as.Date(dates),
@@ -282,46 +265,4 @@ incidence.POSIXt <- function(dates, interval = 1L, standard = TRUE, groups = NUL
   ret$dates <- f(ret$dates)
   ret
 }
-
-
-
-
-
-#' @export
-#' @rdname incidence
-#' @param x An 'incidence' object.
-
-print.incidence <- function(x, ...) {
-  cat("<incidence object>\n")
-  cat(sprintf("[%d cases from days %s to %s]\n",
-              sum(x$n), min(x$dates), max(x$dates)))
-  if (x$interval == 7L && "isoweeks" %in% names(x)) {
-    cat(sprintf("[%d cases from ISO weeks %s to %s]\n",
-                sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
-  }
-  if (ncol(x$counts) > 1L) {
-    groups.txt <- paste(colnames(x$counts), collapse = ", ")
-    cat(sprintf("[%d groups: %s]\n", ncol(x$counts), groups.txt))
-  }
-  cat(sprintf("\n$counts: matrix with %d rows and %d columns\n",
-              nrow(x$counts), ncol(x$counts)))
-  cat(sprintf("$n: %d cases in total\n", x$n))
-  cat(sprintf("$dates: %d dates marking the left-side of bins\n",
-              length(x$dates)))
-  if (is.integer(x$interval)) {
-    cat(sprintf("$interval: %d %s\n",
-                x$interval, ifelse(x$interval < 2, "day", "days")))
-  } else {
-    cat(sprintf("$interval: 1 %s\n", x$interval))
-  }
-  cat(sprintf("$timespan: %d days\n", x$timespan))
-  if (!is.null(x$cumulative)) {
-    cat(sprintf("$cumulative: %s\n", x$cumulative))
-  }
-  cat("\n")
-  invisible(x)
-}
-
-
-
 

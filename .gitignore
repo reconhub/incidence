@@ -3,6 +3,7 @@
 .RData
 *.tar.gz
 *~
+*.swp
 inst/doc
 README.htmlincidence.Rcheck
 incidence.Rcheck/

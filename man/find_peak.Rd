@@ -4,10 +4,13 @@
 \alias{find_peak}
 \title{Find the peak date of an incidence curve}
 \usage{
-find_peak(x)
+find_peak(x, pool = TRUE)
 }
 \arguments{
 \item{x}{An \code{incidence} object.}
+
+\item{pool}{If \code{TRUE} (default), any groups will be pooled before finding
+a peak. If \code{FALSE}, separate peaks will be found for each group.}
 }
 \value{
 The date of the (first) highest incidence in the data.
@@ -39,8 +42,9 @@ if (require(outbreaks) && require(ggplot2)) {
 
 }
 \seealso{
-\link[incidence:estimate_peak]{incidence::estimate_peak} for bootstrap estimates of the peak time
+\code{\link[=estimate_peak]{estimate_peak()}} for bootstrap estimates of the peak time
 }
 \author{
-Thibaut Jombart \email{thibautjombart@gmail.com}.
+Thibaut Jombart \email{thibautjombart@gmail.com}, Zhian N. Kamvar
+\email{zkamvar@gmail.com}
 }

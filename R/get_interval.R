@@ -41,3 +41,41 @@ get_interval.incidence <- function(x, integer = TRUE, ...) {
                  paste(class(x$interval), collapse = ", ")))
   }
 }
+
+get_days_in_month <- function(dates) {
+  dates <- floor_month(dates)
+  res <- vapply(strsplit(format(dates), "-"), add_months, character(1))
+  as.integer(as.Date(res) - dates)
+}
+
+get_days_in_quarter <- function(dates) {
+  dates <- floor_month(dates)
+  res <- vapply(strsplit(format(dates), "-"),
+                FUN = add_months,
+                FUN.VALUE = character(1),
+                months = 3L)
+  as.integer(as.Date(res) - dates)
+}
+
+get_days_in_year <- function(dates) {
+  dates <- floor_month(dates)
+  res <- vapply(strsplit(format(dates), "-"),
+                FUN = add_months,
+                FUN.VALUE = character(1),
+                months = 12L)
+  as.integer(as.Date(res) - dates)
+}
+
+floor_month <- function(x) {
+  x - as.integer(format(x, "%d")) + 1L
+}
+
+add_months <- function(x, months = 1L) {
+  i <- as.integer(x[2]) + months
+  if (i > 12L) {
+    x[1] <- as.character(as.integer(x[1]) + 1L)
+    i    <- i - 12L
+  }
+  x[2] <- sprintf("%02d", i)
+  paste(x, collapse = "-")
+}

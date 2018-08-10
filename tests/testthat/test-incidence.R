@@ -118,6 +118,10 @@ test_that("construction - Date input", {
   x.7       <- incidence(dat.dates, 7L, standard = FALSE)
   x.7.iso   <- incidence(dat.dates, "week")
   x.7.week  <- incidence(dat.dates, "week", standard = FALSE)
+  expect_warning(x.7.week2  <- incidence(dat.dates, "week", iso_week = FALSE),
+		 "`iso_week` has been deprecated")
+  # iso_week can reset standard, but is given a warning
+  expect_identical(x.7.week2, x.7.week)
 
   ## Here, we can test if starting on a different day gives us expected results
   x.ds       <- incidence(dat.dates + 1L)
@@ -234,6 +238,11 @@ test_that("corner cases", {
 
   expect_error(incidence(as.Date(Sys.Date()), standard = "TRUE"),
                "The argument `standard` must be either `TRUE` or `FALSE`")
+  
+  expect_error(incidence(sample(10), intrval = 2),
+	       "intrval : interval")
+
+  expect_error(incidence(1, were = "wolf"), "were")
 
 })
 

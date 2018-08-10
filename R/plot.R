@@ -160,7 +160,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     } else if (is.list(fit)) {
       for (i in seq_along(fit)) {
         fit.i <- fit[[i]]
-        if (!inherits(fit.i, "incidence_fit")) {
+        if (!inherits(fit.i, c("incidence_fit", "incidence_fit_list"))) {
           stop(sprintf(
             "The %d-th item in 'fit' is not an 'incidence_fit' object, but a %s",
             i, class(fit.i)))
@@ -247,41 +247,73 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
 }
 
 
+## This function will take an existing 'incidence' plot object ('p') and add lines from an
+## 'incidence_fit' object ('x')
 
-get_days_in_month <- function(dates) {
-  dates <- floor_month(dates)
-  res <- vapply(strsplit(format(dates), "-"), add_months, character(1))
-  as.integer(as.Date(res) - dates)
-}
-
-get_days_in_quarter <- function(dates) {
-  dates <- floor_month(dates)
-  res <- vapply(strsplit(format(dates), "-"),
-                FUN = add_months,
-                FUN.VALUE = character(1),
-                months = 3L)
-  as.integer(as.Date(res) - dates)
-}
-
-get_days_in_year <- function(dates) {
-  dates <- floor_month(dates)
-  res <- vapply(strsplit(format(dates), "-"),
-                FUN = add_months,
-                FUN.VALUE = character(1),
-                months = 12L)
-  as.integer(as.Date(res) - dates)
-}
-
-floor_month <- function(x) {
-  x - as.integer(format(x, "%d")) + 1L
-}
-
-add_months <- function(x, months = 1L) {
-  i <- as.integer(x[2]) + months
-  if (i > 12L) {
-    x[1] <- as.character(as.integer(x[1]) + 1L)
-    i    <- i - 12L
+#' @export
+#' @rdname plot.incidence
+#'
+#' @param p An existing incidence plot.
+add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
+  if (inherits(x, "incidence_fit_list")) {
+    x <- get_fit(x)
   }
-  x[2] <- sprintf("%02d", i)
-  paste(x, collapse = "-")
+  ## 'x' could be a list of fit, in which case all fits are added to the plot
+  if (is.list(x) && !inherits(x, "incidence_fit")) {
+    out <- p
+    for (e in x) {
+      if (inherits(e, "incidence_fit")) {
+        out <- add_incidence_fit(out, e, col_pal)
+      }
+    }
+    return(out)
+  }
+  df <- get_info(x, "pred")
+
+  out <- suppressMessages(
+    p + ggplot2::geom_line(
+      data = df,
+      ggplot2::aes_string(x = "dates", y = "fit"), linetype = 1) +
+      ggplot2::geom_line(
+        data = df,
+        ggplot2::aes_string(x = "dates", y = "lwr"), linetype = 2) +
+      ggplot2::geom_line(
+        data = df,
+        ggplot2::aes_string(x = "dates", y = "upr"), linetype = 2)
+  )
+
+
+  if ("groups" %in% names(df)) {
+    n.groups <- length(levels(df$groups))
+    out <- out + ggplot2::aes_string(color = "groups") +
+      ggplot2::scale_color_manual(values = col_pal(n.groups))
+  }
+
+  out
 }
+
+
+
+
+
+#' @export
+#' @rdname plot.incidence
+
+plot.incidence_fit <- function(x, ...){
+  base <- ggplot2::ggplot()
+  out <- add_incidence_fit(base, x, ...) +
+    ggplot2::labs(x = "", y = "Predicted incidence")
+  out
+}
+
+#' @export
+#' @rdname plot.incidence
+
+plot.incidence_fit_list <- function(x, ...){
+  base <- ggplot2::ggplot()
+  fits <- get_fit(x)
+  out <- add_incidence_fit(base, fits, ...) +
+    ggplot2::labs(x = "", y = "Predicted incidence")
+  out
+}
+

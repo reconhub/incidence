@@ -13,6 +13,7 @@ test_that("plot for incidence object", {
             sample(dat2, replace = TRUE) + 100
            )
 
+  # constructing data
   i <- incidence(dat)
   i.3 <- incidence(dat, 3L)
   i.14 <- incidence(dat, 14L)
@@ -20,13 +21,19 @@ test_that("plot for incidence object", {
   i.isoweek <- incidence(dat2, 7L, standard = TRUE)
   i.sexmonth <- incidence(dat4, "month", groups = rep(sex, 3))
   i.sexquarter <- incidence(dat4, "quarter", groups = rep(sex, 3))
+  # special case for fit_optim_split:
+  i.sex.o <- incidence(c(dat, abs(dat - 45) + 45), 7L, groups = c(sex, rev(sex)))
+
   fit.i <- suppressWarnings(fit(i))
   fit.i.2 <- suppressWarnings(fit(i, split = 30))
   fit.sex <- suppressWarnings(fit(i.sex))
-
+  fit.sex.o <- suppressWarnings(fit_optim_split(i.sex.o))
+  fit.o <- suppressWarnings(fit_optim_split(pool(i.sex.o)))
   p.fit.i <- plot(fit.i)
   p.fit.i.2 <- plot(i, fit = fit.i.2, color = "lightblue")
   p.fit.sex <- plot(fit.sex)
+  p.optim.sex   <- fit.sex.o$plot
+  p.optim   <- fit.o$plot
   p.i <- plot(i)
   p.i.cum <- plot(cumulate(i))
 
@@ -36,6 +43,7 @@ test_that("plot for incidence object", {
   p.sex <- plot(i.sex)
   p.sex.cum <- plot(cumulate(i.sex))
   p.sex.2 <- plot(i.sex, fit = fit.sex)
+  suppressMessages(p.sex.o <- plot(i.sex, fit = fit.sex.o$fit))
   p.sex.3 <- plot(i.sex, fit = fit.sex, col_pal = rainbow)
   p.sex.4 <- plot(i.sex, fit = fit.sex,
                   color = c(male = "salmon3", female = "gold2"))
@@ -61,7 +69,9 @@ test_that("plot for incidence object", {
   vdiffr::expect_doppelganger("incidence plot without isoweek labels", p.isoweek.2)
   vdiffr::expect_doppelganger("incidence plot by month", p.month)
   vdiffr::expect_doppelganger("incidence plot by quarter", p.quarter)
-  # TODO: Test fit with character interval
+  vdiffr::expect_doppelganger("incidence fit plot with split", p.sex.o)
+  vdiffr::expect_doppelganger("split optimum plot", p.optim.sex)
+  vdiffr::expect_doppelganger("split optimum plot pooled", p.optim)
 
   ## errors
   expect_error(plot(i, fit = "tamere"),
