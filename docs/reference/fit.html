@@ -280,7 +280,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
  <span class='fu'>plot</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>25</span>], <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>f</span>)
 
 <span class='co'>## piping versions</span>
-<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>magrittr</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>magrittr</span>)) { <span class='fu'>withAutoprint</span>({
   <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f</span>)
 
 
@@ -294,7 +294,8 @@ a list of <code>incidence_fit</code> objects.</p></div>
   <span class='no'>f3</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_optim_split</span>(<span class='no'>i.7</span>)
   <span class='no'>f3</span>
   <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f3</span>$<span class='no'>fit</span>)
-}
+})}
+
 })}</div><div class='output co'>#&gt; &gt; dat &lt;- ebola_sim$linelist$date_of_onset
 #&gt; &gt; i.7 &lt;- incidence(dat, interval = 7)
 #&gt; &gt; plot(i.7)</div><div class='img'><img src='fit-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7[1:20])</div><div class='img'><img src='fit-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; f &lt;- fit(i.7[1:20])
@@ -330,14 +331,114 @@ a list of <code>incidence_fit</code> objects.</p></div>
 #&gt; 5 2014-05-08    31.5 6.153167 4.453513  8.501484
 #&gt; 6 2014-05-15    38.5 7.685004 5.711842 10.339797
 #&gt; &gt; plot(f)</div><div class='img'><img src='fit-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7, fit = f)</div><div class='img'><img src='fit-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7[1:25], fit = f)</div><div class='output co'>#&gt; &gt; if (require(magrittr)) {
-#&gt; +     plot(i.7) %&gt;% add_incidence_fit(f)
-#&gt; +     f2 &lt;- fit(i.7, split = as.Date("2014-10-15"))
-#&gt; +     f2
-#&gt; +     plot(i.7) %&gt;% add_incidence_fit(f2)
-#&gt; +     f3 &lt;- fit_optim_split(i.7)
-#&gt; +     f3
-#&gt; +     plot(i.7) %&gt;% add_incidence_fit(f3$fit)
-#&gt; + }</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='img'><img src='fit-5.png' alt='' width='700' height='433' /></div><div class='img'><img src='fit-6.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; +     withAutoprint({
+#&gt; +         plot(i.7) %&gt;% add_incidence_fit(f)
+#&gt; +         f2 &lt;- fit(i.7, split = as.Date("2014-10-15"))
+#&gt; +         f2
+#&gt; +         plot(i.7) %&gt;% add_incidence_fit(f2)
+#&gt; +         f3 &lt;- fit_optim_split(i.7)
+#&gt; +         f3
+#&gt; +         plot(i.7) %&gt;% add_incidence_fit(f3$fit)
+#&gt; +     })
+#&gt; + }</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='img'><img src='fit-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7) %&gt;% add_incidence_fit(f)</div><div class='img'><img src='fit-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; f2 &lt;- fit(i.7, split = as.Date("2014-10-15"))
+#&gt; &gt; f2
+#&gt; &lt;list of incidence_fit objects&gt;
+#&gt; 
+#&gt; attr(x, 'locations'): list of vectors with the locations of each incidence_fit object
+#&gt; 
+#&gt; 'before'
+#&gt; 'after'
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt;      before       after 
+#&gt;  0.02741985 -0.01014465 
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;              2.5 %       97.5 %
+#&gt; before  0.02407933  0.030760379
+#&gt; after  -0.01127733 -0.009011981
+#&gt; 
+#&gt;   $doubling (doubling time in days):
+#&gt;   before 
+#&gt; 25.27902 
+#&gt; 
+#&gt;   $doubling.conf (confidence interval):
+#&gt;           2.5 %   97.5 %
+#&gt; before 22.53377 28.78598
+#&gt; 
+#&gt;   $halving (halving time in days):
+#&gt;    after 
+#&gt; 68.32636 
+#&gt; 
+#&gt;   $halving.conf (confidence interval):
+#&gt;          2.5 %   97.5 %
+#&gt; after 61.46379 76.91397
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (56 rows, 6 columns)
+#&gt; &gt; plot(i.7) %&gt;% add_incidence_fit(f2)</div><div class='img'><img src='fit-7.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; f3 &lt;- fit_optim_split(i.7)
+#&gt; &gt; f3
+#&gt; $df
+#&gt;         dates   mean.R2
+#&gt; 1  2014-08-04 0.7650406
+#&gt; 2  2014-08-11 0.8203351
+#&gt; 3  2014-08-18 0.8598316
+#&gt; 4  2014-08-25 0.8882682
+#&gt; 5  2014-09-01 0.9120857
+#&gt; 6  2014-09-08 0.9246023
+#&gt; 7  2014-09-15 0.9338797
+#&gt; 8  2014-09-22 0.9339813
+#&gt; 9  2014-09-29 0.9333246
+#&gt; 10 2014-10-06 0.9291131
+#&gt; 11 2014-10-13 0.9232523
+#&gt; 12 2014-10-20 0.9160439
+#&gt; 13 2014-10-27 0.9071665
+#&gt; 
+#&gt; $split
+#&gt; [1] "2014-09-22"
+#&gt; 
+#&gt; $fit
+#&gt; &lt;list of incidence_fit objects&gt;
+#&gt; 
+#&gt; attr(x, 'locations'): list of vectors with the locations of each incidence_fit object
+#&gt; 
+#&gt; 'before'
+#&gt; 'after'
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt;      before       after 
+#&gt;  0.02982209 -0.01016191 
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;              2.5 %       97.5 %
+#&gt; before  0.02608945  0.033554736
+#&gt; after  -0.01102526 -0.009298561
+#&gt; 
+#&gt;   $doubling (doubling time in days):
+#&gt;   before 
+#&gt; 23.24274 
+#&gt; 
+#&gt;   $doubling.conf (confidence interval):
+#&gt;           2.5 %  97.5 %
+#&gt; before 20.65721 26.5681
+#&gt; 
+#&gt;   $halving (halving time in days):
+#&gt;    after 
+#&gt; 68.21031 
+#&gt; 
+#&gt;   $halving.conf (confidence interval):
+#&gt;          2.5 %   97.5 %
+#&gt; after 62.86899 74.54349
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (57 rows, 6 columns)
+#&gt; 
+#&gt; $plot</div><div class='img'><img src='fit-8.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; &gt; plot(i.7) %&gt;% add_incidence_fit(f3$fit)</div><div class='img'><img src='fit-9.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

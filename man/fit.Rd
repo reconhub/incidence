@@ -125,7 +125,7 @@ if (require(outbreaks)) { withAutoprint({
  plot(i.7[1:25], fit = f)
 
 ## piping versions
-if (require(magrittr)) {
+if (require(magrittr)) { withAutoprint({
   plot(i.7) \%>\% add_incidence_fit(f)
 
 
@@ -139,7 +139,8 @@ if (require(magrittr)) {
   f3 <- fit_optim_split(i.7)
   f3
   plot(i.7) \%>\% add_incidence_fit(f3$fit)
-}
+})}
+
 })}
 
 }
