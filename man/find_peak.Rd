@@ -21,7 +21,7 @@ This function can be used to find the peak of an epidemic curve stored as an
 }
 \examples{
 
-if (require(outbreaks) && require(ggplot2)) {
+if (require(outbreaks) && require(ggplot2)) { withAutoprint({
   i <- incidence(fluH7N9_china_2013$date_of_onset)
   i
   plot(i)
@@ -38,7 +38,7 @@ if (require(outbreaks) && require(ggplot2)) {
   ## show confidence interval
   plot(i) + geom_vline(xintercept = find_peak(i), col = "red", lty = 2)
 
-}
+})}
 
 }
 \seealso{

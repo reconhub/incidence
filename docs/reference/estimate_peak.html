@@ -184,7 +184,7 @@ approach and <a href='find_peak.html'>incidence::find_peak</a> to find the peak 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'>require</span>(<span class='no'>ggplot2</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'>require</span>(<span class='no'>ggplot2</span>)) { <span class='fu'>withAutoprint</span>({
   <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>fluH7N9_china_2013</span>$<span class='no'>date_of_onset</span>)
   <span class='no'>i</span>
   <span class='fu'>plot</span>(<span class='no'>i</span>)
@@ -208,7 +208,70 @@ approach and <a href='find_peak.html'>incidence::find_peak</a> to find the peak 
                          <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>peak</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='no'>..scaled..</span>),
                          <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)
 
-}</div><div class='img'><img src='estimate_peak-1.png' alt='' width='700' height='433' /></div><div class='input'>
+})}</div><div class='output co'>#&gt; &gt; i &lt;- incidence(fluH7N9_china_2013$date_of_onset)
+#&gt; &gt; i
+#&gt; &lt;incidence object&gt;
+#&gt; [126 cases from days 2013-02-19 to 2013-07-27]
+#&gt; 
+#&gt; $counts: matrix with 159 rows and 1 columns
+#&gt; $n: 126 cases in total
+#&gt; $dates: 159 dates marking the left-side of bins
+#&gt; $interval: 1 day
+#&gt; $timespan: 159 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(i)</div><div class='img'><img src='estimate_peak-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; x &lt;- bootstrap(i)
+#&gt; &gt; x
+#&gt; &lt;incidence object&gt;
+#&gt; [126 cases from days 2013-02-19 to 2013-07-27]
+#&gt; 
+#&gt; $counts: matrix with 159 rows and 1 columns
+#&gt; $n: 126 cases in total
+#&gt; $dates: 159 dates marking the left-side of bins
+#&gt; $interval: 1 day
+#&gt; $timespan: 159 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(x)</div><div class='img'><img src='estimate_peak-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; peak_data &lt;- estimate_peak(i)
+#&gt; &gt; peak_data
+#&gt; $observed
+#&gt; [1] "2013-04-03"
+#&gt; 
+#&gt; $estimated
+#&gt; [1] "2013-04-05"
+#&gt; 
+#&gt; $ci
+#&gt;         2.5%        97.5% 
+#&gt; "2013-03-29" "2013-04-13" 
+#&gt; 
+#&gt; $peaks
+#&gt;   [1] "2013-04-03" "2013-04-12" "2013-04-06" "2013-04-11" "2013-04-06"
+#&gt;   [6] "2013-03-29" "2013-04-08" "2013-04-01" "2013-04-03" "2013-04-06"
+#&gt;  [11] "2013-04-10" "2013-04-06" "2013-04-01" "2013-04-10" "2013-04-06"
+#&gt;  [16] "2013-04-03" "2013-04-06" "2013-04-06" "2013-03-29" "2013-04-01"
+#&gt;  [21] "2013-04-12" "2013-04-12" "2013-04-11" "2013-03-29" "2013-04-01"
+#&gt;  [26] "2013-04-06" "2013-04-12" "2013-04-10" "2013-04-12" "2013-03-29"
+#&gt;  [31] "2013-04-12" "2013-04-11" "2013-03-29" "2013-04-11" "2013-04-06"
+#&gt;  [36] "2013-04-06" "2013-04-10" "2013-04-10" "2013-04-06" "2013-04-01"
+#&gt;  [41] "2013-04-13" "2013-04-06" "2013-04-06" "2013-04-06" "2013-04-01"
+#&gt;  [46] "2013-04-08" "2013-03-29" "2013-04-12" "2013-03-29" "2013-04-12"
+#&gt;  [51] "2013-04-11" "2013-04-08" "2013-04-03" "2013-04-01" "2013-04-14"
+#&gt;  [56] "2013-03-29" "2013-04-12" "2013-04-12" "2013-03-28" "2013-04-06"
+#&gt;  [61] "2013-04-13" "2013-04-03" "2013-04-17" "2013-04-12" "2013-03-29"
+#&gt;  [66] "2013-04-08" "2013-04-10" "2013-04-12" "2013-04-10" "2013-04-03"
+#&gt;  [71] "2013-04-01" "2013-04-06" "2013-04-06" "2013-04-06" "2013-04-12"
+#&gt;  [76] "2013-04-13" "2013-04-06" "2013-04-08" "2013-04-01" "2013-04-03"
+#&gt;  [81] "2013-04-17" "2013-04-01" "2013-03-29" "2013-04-10" "2013-04-03"
+#&gt;  [86] "2013-04-06" "2013-04-10" "2013-04-01" "2013-03-29" "2013-04-06"
+#&gt;  [91] "2013-03-31" "2013-04-03" "2013-04-01" "2013-03-29" "2013-04-03"
+#&gt;  [96] "2013-04-12" "2013-04-01" "2013-04-03" "2013-04-10" "2013-04-01"
+#&gt; 
+#&gt; &gt; summary(peak_data$peaks)
+#&gt;         Min.      1st Qu.       Median         Mean      3rd Qu.         Max. 
+#&gt; "2013-03-28" "2013-04-01" "2013-04-06" "2013-04-05" "2013-04-10" "2013-04-17" 
+#&gt; &gt; plot(i) + geom_vline(xintercept = peak_data$ci, col = "red", lty = 2)</div><div class='img'><img src='estimate_peak-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; df &lt;- data.frame(peak = peak_data$peaks)
+#&gt; &gt; plot(i) + geom_density(data = df, aes(x = peak, y = 10 * ..scaled..), 
+#&gt; +     alpha = 0.2, fill = "red", color = "red")</div><div class='img'><img src='estimate_peak-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

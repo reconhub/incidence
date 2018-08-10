@@ -185,7 +185,7 @@ objects.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## example using simulated dataset</span>
-<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) { <span class='fu'>withAutoprint</span>({
   <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
   <span class='co'>## weekly incidence</span>
@@ -195,7 +195,45 @@ objects.</p></div>
   <span class='fu'>plot</span>(<span class='no'>inc</span>[<span class='fl'>1</span>:<span class='fl'>10</span>])
   <span class='no'>inc</span>[-<span class='fu'>c</span>(<span class='fl'>11</span>:<span class='fl'>15</span>)] <span class='co'># remove weeks 11-15</span>
   <span class='fu'>plot</span>(<span class='no'>inc</span>[-<span class='fu'>c</span>(<span class='fl'>11</span>:<span class='fl'>15</span>)])
-}</div><div class='img'><img src='subset-1.png' alt='' width='700' height='433' /></div><div class='input'>
+})}</div><div class='output co'>#&gt; &gt; onset &lt;- ebola_sim$linelist$date_of_onset
+#&gt; &gt; inc &lt;- incidence(onset, interval = 7)
+#&gt; &gt; inc
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
+#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; inc[1:10]
+#&gt; &lt;incidence object&gt;
+#&gt; [121 cases from days 2014-04-07 to 2014-06-09]
+#&gt; [121 cases from ISO weeks 2014-W15 to 2014-W24]
+#&gt; 
+#&gt; $counts: matrix with 10 rows and 1 columns
+#&gt; $n: 121 cases in total
+#&gt; $dates: 10 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 64 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(inc[1:10])</div><div class='img'><img src='subset-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc[-c(11:15)]
+#&gt; &lt;incidence object&gt;
+#&gt; [5701 cases from days 2014-04-07 to 2015-04-27]
+#&gt; [5701 cases from ISO weeks 2014-W15 to 2015-W18]
+#&gt; 
+#&gt; $counts: matrix with 51 rows and 1 columns
+#&gt; $n: 5701 cases in total
+#&gt; $dates: 51 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(inc[-c(11:15)])</div><div class='img'><img src='subset-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

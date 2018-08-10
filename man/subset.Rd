@@ -38,7 +38,7 @@ subset of groups.
 }
 \examples{
 ## example using simulated dataset
-if(require(outbreaks)) {
+if(require(outbreaks)) { withAutoprint({
   onset <- ebola_sim$linelist$date_of_onset
 
   ## weekly incidence
@@ -48,7 +48,7 @@ if(require(outbreaks)) {
   plot(inc[1:10])
   inc[-c(11:15)] # remove weeks 11-15
   plot(inc[-c(11:15)])
-}
+})}
 
 }
 \seealso{

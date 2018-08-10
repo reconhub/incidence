@@ -152,7 +152,7 @@ subset. Defaults to <code>NULL</code> indicating that all groups are returned.</
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) { <span class='fu'>withAutoprint</span>({
   <span class='no'>dat</span>  <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
   <span class='no'>gend</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
   <span class='no'>i</span>    <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>gend</span>)
@@ -170,7 +170,43 @@ subset. Defaults to <code>NULL</code> indicating that all groups are returned.</
 
   <span class='co'>## If you want a vector, you can use drop</span>
   <span class='fu'>drop</span>(<span class='fu'>get_counts</span>(<span class='no'>i</span>, <span class='st'>"f"</span>))
-}</div><div class='output co'>#&gt;  [1]   1   0   4   4   9   8   8   9  13   7  15  12  11  18  35  38  45  45  57
+})}</div><div class='output co'>#&gt; &gt; dat &lt;- ebola_sim$linelist$date_of_onset
+#&gt; &gt; gend &lt;- ebola_sim$linelist$gender
+#&gt; &gt; i &lt;- incidence(dat, interval = "week", groups = gend)
+#&gt; &gt; head(get_counts(i))
+#&gt;      f  m
+#&gt; [1,] 1  0
+#&gt; [2,] 0  1
+#&gt; [3,] 4  1
+#&gt; [4,] 4  0
+#&gt; [5,] 9  3
+#&gt; [6,] 8 10
+#&gt; &gt; head(get_counts(i, 1L))
+#&gt;      f
+#&gt; [1,] 1
+#&gt; [2,] 0
+#&gt; [3,] 4
+#&gt; [4,] 4
+#&gt; [5,] 9
+#&gt; [6,] 8
+#&gt; &gt; head(get_counts(i, "f"))
+#&gt;      f
+#&gt; [1,] 1
+#&gt; [2,] 0
+#&gt; [3,] 4
+#&gt; [4,] 4
+#&gt; [5,] 9
+#&gt; [6,] 8
+#&gt; &gt; head(get_counts(i, c("m", "f")))
+#&gt;       m f
+#&gt; [1,]  0 1
+#&gt; [2,]  1 0
+#&gt; [3,]  1 4
+#&gt; [4,]  0 4
+#&gt; [5,]  3 9
+#&gt; [6,] 10 8
+#&gt; &gt; drop(get_counts(i, "f"))
+#&gt;  [1]   1   0   4   4   9   8   8   9  13   7  15  12  11  18  35  38  45  45  57
 #&gt; [20]  65  74 115 123 167 156 160 135 135 117 129 111  91  75  79  69  67  62  62
 #&gt; [39]  41  47  63  49  42  44  36  40  38  38  28  29  34  29  18  27  18  10</div></pre>
   </div>

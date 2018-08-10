@@ -51,7 +51,7 @@
 #'
 #' @examples
 #'
-#' if(require(outbreaks)) {
+#' if(require(outbreaks)) { withAutoprint({
 #'   onset <- ebola_sim$linelist$date_of_onset
 #'
 #'   ## daily incidence
@@ -76,7 +76,7 @@
 #'   fit <- fit_optim_split(inc.week.gender)$fit
 #'   plot(inc.week.gender, fit = fit)
 #'   plot(inc.week.gender, fit = fit, labels_iso = FALSE)
-#' }
+#' })}
 #'
 plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            color = "black", border = NA, col_pal = incidence_pal1,

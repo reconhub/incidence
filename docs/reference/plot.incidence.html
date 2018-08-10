@@ -220,7 +220,7 @@ objects.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) { <span class='fu'>withAutoprint</span>({
   <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
   <span class='co'>## daily incidence</span>
@@ -245,15 +245,44 @@ objects.</p></div>
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fit.html'>fit_optim_split</a></span>(<span class='no'>inc.week.gender</span>)$<span class='no'>fit</span>
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>fit</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>fit</span>, <span class='kw'>labels_iso</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+})}</div><div class='output co'>#&gt; &gt; onset &lt;- ebola_sim$linelist$date_of_onset
+#&gt; &gt; inc &lt;- incidence(onset)
+#&gt; &gt; inc
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-30]
+#&gt; 
+#&gt; $counts: matrix with 389 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 389 dates marking the left-side of bins
+#&gt; $interval: 1 day
+#&gt; $timespan: 389 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(inc)</div><div class='img'><img src='plot.incidence-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.week &lt;- incidence(onset, interval = 7)
+#&gt; &gt; inc.week
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
+#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(inc.week)</div><div class='img'><img src='plot.incidence-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inc.week, labels_iso = FALSE)</div><div class='img'><img src='plot.incidence-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inc.week, border = "white")</div><div class='img'><img src='plot.incidence-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; sex &lt;- ebola_sim$linelist$gender
+#&gt; &gt; inc.week.gender &lt;- incidence(onset, interval = 7, groups = sex)
+#&gt; &gt; plot(inc.week.gender)</div><div class='img'><img src='plot.incidence-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inc.week.gender, labels_iso = FALSE)</div><div class='output co'>#&gt; &gt; fit &lt;- fit_optim_split(inc.week.gender)$fit
+#&gt; &gt; plot(inc.week.gender, fit = fit)</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot.incidence-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inc.week.gender, fit = fit, labels_iso = FALSE)</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot.incidence-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot.incidence-7.png' alt='' width='700' height='433' /></div><div class='img'><img src='plot.incidence-8.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

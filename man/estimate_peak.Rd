@@ -45,7 +45,7 @@ equally likely to be reported
 }
 \examples{
 
-if (require(outbreaks) && require(ggplot2)) {
+if (require(outbreaks) && require(ggplot2)) { withAutoprint({
   i <- incidence(fluH7N9_china_2013$date_of_onset)
   i
   plot(i)
@@ -69,7 +69,7 @@ if (require(outbreaks) && require(ggplot2)) {
                          aes(x = peak, y = 10 * ..scaled..),
                          alpha = .2, fill = "red", color = "red")
 
-}
+})}
 
 }
 \seealso{

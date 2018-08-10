@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' 
-#' if (require(outbreaks)) {
+#' if (require(outbreaks)) { withAutoprint({
 #' 
 #'  dat <- ebola_sim$linelist$date_of_onset
 #'
@@ -39,7 +39,7 @@
 #'
 #'  ## Get the halving confidence interval
 #'  get_info(fits$fit, "halving.conf")
-#' }
+#' })}
 get_fit <- function(x) {
   UseMethod("get_fit")
 }

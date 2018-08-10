@@ -47,7 +47,7 @@ Accessors for \code{incidence_fit} objects
 }
 \examples{
 
-if (require(outbreaks)) {
+if (require(outbreaks)) { withAutoprint({
 
  dat <- ebola_sim$linelist$date_of_onset
 
@@ -80,5 +80,5 @@ if (require(outbreaks)) {
 
  ## Get the halving confidence interval
  get_info(fits$fit, "halving.conf")
-}
+})}
 }

@@ -22,7 +22,7 @@ a matrix of counts where each row represents a date bin
 Get counts from an incidence object
 }
 \examples{
-if (require(outbreaks)) {
+if (require(outbreaks)) { withAutoprint({
   dat  <- ebola_sim$linelist$date_of_onset
   gend <- ebola_sim$linelist$gender
   i    <- incidence(dat, interval = "week", groups = gend)
@@ -40,5 +40,5 @@ if (require(outbreaks)) {
 
   ## If you want a vector, you can use drop
   drop(get_counts(i, "f"))
-}
+})}
 }

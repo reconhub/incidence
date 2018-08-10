@@ -44,7 +44,7 @@
 #'
 #' @examples
 #'
-#' if (require(outbreaks) && require(ggplot2)) {
+#' if (require(outbreaks) && require(ggplot2)) { withAutoprint({
 #'   i <- incidence(fluH7N9_china_2013$date_of_onset)
 #'   i
 #'   plot(i)
@@ -68,7 +68,7 @@
 #'                          aes(x = peak, y = 10 * ..scaled..),
 #'                          alpha = .2, fill = "red", color = "red")
 #'
-#' }
+#' })}
 #'
 
 estimate_peak <- function(x, n = 100, alpha = 0.05) {

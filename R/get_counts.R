@@ -7,7 +7,7 @@
 #' @return a matrix of counts where each row represents a date bin
 #' @export
 #' @examples
-#' if (require(outbreaks)) {
+#' if (require(outbreaks)) { withAutoprint({
 #'   dat  <- ebola_sim$linelist$date_of_onset
 #'   gend <- ebola_sim$linelist$gender
 #'   i    <- incidence(dat, interval = "week", groups = gend)
@@ -25,7 +25,7 @@
 #'
 #'   ## If you want a vector, you can use drop
 #'   drop(get_counts(i, "f"))
-#' }
+#' })}
 get_counts <- function(x, groups = NULL) {
   UseMethod("get_counts")
 }

@@ -182,7 +182,7 @@ results.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) { <span class='fu'>withAutoprint</span>({
 
  <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
@@ -215,7 +215,377 @@ results.</p></td>
 
  <span class='co'>## Get the halving confidence interval</span>
  <span class='fu'>get_info</span>(<span class='no'>fits</span>$<span class='no'>fit</span>, <span class='st'>"halving.conf"</span>)
-}</div><div class='output co'>#&gt;            2.5 %   97.5 %
+})}</div><div class='output co'>#&gt; &gt; dat &lt;- ebola_sim$linelist$date_of_onset
+#&gt; &gt; sex &lt;- ebola_sim$linelist$gender
+#&gt; &gt; i.sex &lt;- incidence(dat, interval = 7, group = sex)
+#&gt; &gt; fits &lt;- fit_optim_split(i.sex, separate_split = TRUE)
+#&gt; &gt; fits$fit
+#&gt; &lt;list of incidence_fit objects&gt;
+#&gt; 
+#&gt; attr(x, 'locations'): list of vectors with the locations of each incidence_fit object
+#&gt; 
+#&gt; 'f', 'before'
+#&gt; 'm', 'before'
+#&gt; 'f', 'after'
+#&gt; 'm', 'after'
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt;    f_before    m_before     f_after     m_after 
+#&gt;  0.02570604  0.02883607 -0.01002297 -0.01038307 
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;                2.5 %       97.5 %
+#&gt; f_before  0.02289333  0.028518743
+#&gt; m_before  0.02502254  0.032649606
+#&gt; f_after  -0.01102735 -0.009018595
+#&gt; m_after  -0.01138910 -0.009377034
+#&gt; 
+#&gt;   $doubling (doubling time in days):
+#&gt; f_before m_before 
+#&gt; 26.96437 24.03750 
+#&gt; 
+#&gt;   $doubling.conf (confidence interval):
+#&gt;             2.5 %   97.5 %
+#&gt; f_before 24.30497 30.27725
+#&gt; m_before 21.22988 27.70091
+#&gt; 
+#&gt;   $halving (halving time in days):
+#&gt;  f_after  m_after 
+#&gt; 69.15586 66.75746 
+#&gt; 
+#&gt;   $halving.conf (confidence interval):
+#&gt;            2.5 %   97.5 %
+#&gt; f_after 62.85711 76.85756
+#&gt; m_after 60.86059 73.91966
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (111 rows, 7 columns)
+#&gt; &gt; get_fit(fits$fit)
+#&gt; $f_before
+#&gt; &lt;incidence_fit object&gt;
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt; [1] 0.02570604
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;           2.5 %     97.5 %
+#&gt; [1,] 0.02289333 0.02851874
+#&gt; 
+#&gt;   $doubling (doubling time in days):
+#&gt; [1] 26.96437
+#&gt; 
+#&gt;   $doubling.conf (confidence interval):
+#&gt;         2.5 %   97.5 %
+#&gt; [1,] 24.30497 30.27725
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (24 rows, 6 columns)
+#&gt; 
+#&gt; $m_before
+#&gt; &lt;incidence_fit object&gt;
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt; [1] 0.02883607
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;           2.5 %     97.5 %
+#&gt; [1,] 0.02502254 0.03264961
+#&gt; 
+#&gt;   $doubling (doubling time in days):
+#&gt; [1] 24.0375
+#&gt; 
+#&gt;   $doubling.conf (confidence interval):
+#&gt;         2.5 %   97.5 %
+#&gt; [1,] 21.22988 27.70091
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (22 rows, 6 columns)
+#&gt; 
+#&gt; $f_after
+#&gt; &lt;incidence_fit object&gt;
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt; [1] -0.01002297
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;            2.5 %       97.5 %
+#&gt; [1,] -0.01102735 -0.009018595
+#&gt; 
+#&gt;   $halving (halving time in days):
+#&gt; [1] 69.15586
+#&gt; 
+#&gt;   $halving.conf (confidence interval):
+#&gt;         2.5 %   97.5 %
+#&gt; [1,] 62.85711 76.85756
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (32 rows, 6 columns)
+#&gt; 
+#&gt; $m_after
+#&gt; &lt;incidence_fit object&gt;
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt; [1] -0.01038307
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;           2.5 %       97.5 %
+#&gt; [1,] -0.0113891 -0.009377034
+#&gt; 
+#&gt;   $halving (halving time in days):
+#&gt; [1] 66.75746
+#&gt; 
+#&gt;   $halving.conf (confidence interval):
+#&gt;         2.5 %   97.5 %
+#&gt; [1,] 60.86059 73.91966
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (33 rows, 6 columns)
+#&gt; 
+#&gt; &gt; get_info(fits$fit, "pred", groups = 1)
+#&gt;                  dates dates.x        fit        lwr        upr groups location
+#&gt; f_before.1  2014-04-10     3.5   2.259928   1.705798   2.994069      f f_before
+#&gt; f_before.2  2014-04-24    17.5   3.238848   2.528189   4.149268      f f_before
+#&gt; f_before.3  2014-05-01    24.5   3.877381   3.075764   4.887919      f f_before
+#&gt; f_before.4  2014-05-08    31.5   4.641800   3.739715   5.761484      f f_before
+#&gt; f_before.5  2014-05-15    38.5   5.556923   4.543664   6.796143      f f_before
+#&gt; f_before.6  2014-05-22    45.5   6.652460   5.515453   8.023861      f f_before
+#&gt; f_before.7  2014-05-29    52.5   7.963981   6.687588   9.483986      f f_before
+#&gt; f_before.8  2014-06-05    59.5   9.534066   8.097617  11.225329      f f_before
+#&gt; f_before.9  2014-06-12    66.5  11.413690   9.788378  13.308879      f f_before
+#&gt; f_before.10 2014-06-19    73.5  13.663880  11.808199  15.811184      f f_before
+#&gt; f_before.11 2014-06-26    80.5  16.357689  14.211245  18.828329      f f_before
+#&gt; f_before.12 2014-07-03    87.5  19.582579  17.058390  22.480282      f f_before
+#&gt; f_before.13 2014-07-10    94.5  23.443250  20.419032  26.915379      f f_before
+#&gt; f_before.14 2014-07-17   101.5  28.065046  24.373983  32.315063      f f_before
+#&gt; f_before.15 2014-07-24   108.5  33.598021  29.019070  38.899489      f f_before
+#&gt; f_before.16 2014-07-31   115.5  40.221812  34.468895  46.934899      f f_before
+#&gt; f_before.17 2014-08-07   122.5  48.151471  40.860444  56.743490      f f_before
+#&gt; f_before.18 2014-08-14   129.5  57.644449  48.356664  68.716125      f f_before
+#&gt; f_before.19 2014-08-21   136.5  69.008952  57.150391  83.328133      f f_before
+#&gt; f_before.20 2014-08-28   143.5  82.613945  67.468974 101.158556      f f_before
+#&gt; f_before.21 2014-09-04   150.5  98.901140  79.579845 122.913478      f f_before
+#&gt; f_before.22 2014-09-11   157.5 118.399326  93.797212 149.454341      f f_before
+#&gt; f_before.23 2014-09-18   164.5 141.741546 110.490043 181.832365      f f_before
+#&gt; f_before.24 2014-09-25   171.5 169.685643 130.091516 221.330479      f f_before
+#&gt; m_before.1  2014-04-17     3.5   1.916403   1.349897   2.720652      m m_before
+#&gt; m_before.2  2014-04-24    10.5   2.345040   1.690147   3.253688      m m_before
+#&gt; m_before.3  2014-05-08    24.5   3.511374   2.644309   4.662748      m m_before
+#&gt; m_before.4  2014-05-15    31.5   4.296754   3.303180   5.589188      m m_before
+#&gt; m_before.5  2014-05-22    38.5   5.257798   4.121343   6.707630      m m_before
+#&gt; m_before.6  2014-05-29    45.5   6.433797   5.134508   8.061871      m m_before
+#&gt; m_before.7  2014-06-05    52.5   7.872828   6.384783   9.707679      m m_before
+#&gt; m_before.8  2014-06-12    59.5   9.633724   7.921002  11.716780      m m_before
+#&gt; m_before.9  2014-06-19    66.5  11.788475   9.798835  14.182110      m m_before
+#&gt; m_before.10 2014-06-26    73.5  14.425174  12.080927  17.224312      m m_before
+#&gt; m_before.11 2014-07-03    80.5  17.651617  14.837707  20.999174      m m_before
+#&gt; m_before.12 2014-07-10    87.5  21.599711  18.149656  25.705585      m m_before
+#&gt; m_before.13 2014-07-17    94.5  26.430865  22.111393  31.594148      m m_before
+#&gt; m_before.14 2014-07-24   101.5  32.342591  26.837014  38.977629      m m_before
+#&gt; m_before.15 2014-07-31   108.5  39.576578  32.465640  48.245023      m m_before
+#&gt; m_before.16 2014-08-07   115.5  48.428573  39.166638  59.880726      m m_before
+#&gt; m_before.17 2014-08-14   122.5  59.260472  47.144835  74.489678      m m_before
+#&gt; m_before.18 2014-08-21   129.5  72.515116  56.646364  92.829294      m m_before
+#&gt; m_before.19 2014-08-28   136.5  88.734392  67.965742 115.849428      m m_before
+#&gt; m_before.20 2014-09-04   143.5 108.581394  81.454564 144.742276      m m_before
+#&gt; m_before.21 2014-09-11   150.5 132.867525  97.532100 181.004809      m m_before
+#&gt; m_before.22 2014-09-18   157.5 162.585675 116.698090 226.517004      m m_before
+#&gt; f_after.1   2014-09-25     3.5 156.013412 137.427698 177.112656      f  f_after
+#&gt; f_after.2   2014-10-02    10.5 145.442552 128.885417 164.126682      f  f_after
+#&gt; f_after.3   2014-10-09    17.5 135.587932 120.859818 152.110831      f  f_after
+#&gt; f_after.4   2014-10-16    24.5 126.401023 113.318406 140.994028      f  f_after
+#&gt; f_after.5   2014-10-23    31.5 117.836583 106.230558 130.710602      f  f_after
+#&gt; f_after.6   2014-10-30    38.5 109.852436  99.567391 121.199898      f  f_after
+#&gt; f_after.7   2014-11-06    45.5 102.409263  93.301655 112.405908      f  f_after
+#&gt; f_after.8   2014-11-13    52.5  95.470411  87.407633 104.276929      f  f_after
+#&gt; f_after.9   2014-11-20    59.5  89.001709  81.861068  96.765219      f  f_after
+#&gt; f_after.10  2014-11-27    66.5  82.971300  76.639126  89.826660      f  f_after
+#&gt; f_after.11  2014-12-04    73.5  77.349489  71.720390  83.420397      f  f_after
+#&gt; f_after.12  2014-12-11    80.5  72.108589  67.084920  77.508458      f  f_after
+#&gt; f_after.13  2014-12-18    87.5  67.222793  62.714358  72.055332      f  f_after
+#&gt; f_after.14  2014-12-25    94.5  62.668039  58.592083  67.027538      f  f_after
+#&gt; f_after.15  2015-01-01   101.5  58.421897  54.703364  62.393202      f  f_after
+#&gt; f_after.16  2015-01-08   108.5  54.463457  51.035443  58.121729      f  f_after
+#&gt; f_after.17  2015-01-15   115.5  50.773226  47.577481  54.183627      f  f_after
+#&gt; f_after.18  2015-01-22   122.5  47.333030  44.320300  50.550555      f  f_after
+#&gt; f_after.19  2015-01-29   129.5  44.125929  41.255960  47.195547      f  f_after
+#&gt; f_after.20  2015-02-05   136.5  41.136128  38.377249  44.093339      f  f_after
+#&gt; f_after.21  2015-02-12   143.5  38.348905  35.677209  41.220671      f  f_after
+#&gt; f_after.22  2015-02-19   150.5  35.750532  33.148792  38.556475      f  f_after
+#&gt; f_after.23  2015-02-26   157.5  33.328216  30.784685  36.081902      f  f_after
+#&gt; f_after.24  2015-03-05   164.5  31.070026  28.577266  33.780226      f  f_after
+#&gt; f_after.25  2015-03-12   171.5  28.964842  26.518670  31.636658      f  f_after
+#&gt; f_after.26  2015-03-19   178.5  27.002298  24.600890  29.638117      f  f_after
+#&gt; f_after.27  2015-03-26   185.5  25.172727  22.815905  27.773003      f  f_after
+#&gt; f_after.28  2015-04-02   192.5  23.467122  21.155785  26.030979      f  f_after
+#&gt; f_after.29  2015-04-09   199.5  21.877081  19.612784  24.402791      f  f_after
+#&gt; f_after.30  2015-04-16   206.5  20.394775  18.179412  22.880106      f  f_after
+#&gt; f_after.31  2015-04-23   213.5  19.012905  16.848482  21.455379      f  f_after
+#&gt; f_after.32  2015-04-30   220.5  17.724665  15.613144  20.121747      f  f_after
+#&gt; m_after.1   2014-09-18     3.5 171.439964 150.372278 195.459307      m  m_after
+#&gt; m_after.2   2014-09-25    10.5 159.421506 140.672208 180.669779      m  m_after
+#&gt; m_after.3   2014-10-02    17.5 148.245579 131.582849 167.018360      m  m_after
+#&gt; m_after.4   2014-10-09    24.5 137.853117 123.064563 154.418798      m  m_after
+#&gt; m_after.5   2014-10-16    31.5 128.189198 115.080126 142.791559      m  m_after
+#&gt; m_after.6   2014-10-23    38.5 119.202750 107.594566 132.063320      m  m_after
+#&gt; m_after.7   2014-10-30    45.5 110.846278 100.575014 122.166499      m  m_after
+#&gt; m_after.8   2014-11-06    52.5 103.075620  93.990577 113.038815      m  m_after
+#&gt; m_after.9   2014-11-13    59.5  95.849709  87.812230 104.622861      m  m_after
+#&gt; m_after.10  2014-11-20    66.5  89.130356  82.012732  96.865694      m  m_after
+#&gt; m_after.11  2014-11-27    73.5  82.882049  76.566596  89.718421      m  m_after
+#&gt; m_after.12  2014-12-04    80.5  77.071768  71.450080  83.135770      m  m_after
+#&gt; m_after.13  2014-12-11    87.5  71.668805  66.641253  77.075645      m  m_after
+#&gt; m_after.14  2014-12-18    94.5  66.644606  62.120084  71.498672      m  m_after
+#&gt; m_after.15  2014-12-25   101.5  61.972618  57.868551  66.367749      m  m_after
+#&gt; m_after.16  2015-01-01   108.5  57.628151  53.870716  61.647664      m  m_after
+#&gt; m_after.17  2015-01-08   115.5  53.588244  50.112694  57.304841      m  m_after
+#&gt; m_after.18  2015-01-15   122.5  49.831547  46.582461  53.307254      m  m_after
+#&gt; m_after.19  2015-01-22   129.5  46.338206  43.269509  49.624535      m  m_after
+#&gt; m_after.20  2015-01-29   136.5  43.089758  40.164381  46.228204      m  m_after
+#&gt; m_after.21  2015-02-05   143.5  40.069036  37.258201  43.091926      m  m_after
+#&gt; m_after.22  2015-02-12   150.5  37.260076  34.542291  40.191696      m  m_after
+#&gt; m_after.23  2015-02-19   157.5  34.648032  32.007919  37.505911      m  m_after
+#&gt; m_after.24  2015-02-26   164.5  32.219101  29.646202  35.015294      m  m_after
+#&gt; m_after.25  2015-03-05   171.5  29.960445  27.448111  32.702733      m  m_after
+#&gt; m_after.26  2015-03-12   178.5  27.860128  25.404547  30.553062      m  m_after
+#&gt; m_after.27  2015-03-19   185.5  25.907049  23.506444  28.552817      m  m_after
+#&gt; m_after.28  2015-03-26   192.5  24.090887  21.744872  26.690009      m  m_after
+#&gt; m_after.29  2015-04-02   199.5  22.402043  20.111132  24.953917      m  m_after
+#&gt; m_after.30  2015-04-09   206.5  20.831592  18.596829  23.334905      m  m_after
+#&gt; m_after.31  2015-04-16   213.5  19.371235  17.193918  21.824272      m  m_after
+#&gt; m_after.32  2015-04-23   220.5  18.013253  15.894744  20.414124      m  m_after
+#&gt; m_after.33  2015-04-30   227.5  16.750470  14.692060  19.097270      m  m_after
+#&gt; &gt; get_info(fits$fit, "pred", groups = 2)
+#&gt;                  dates dates.x        fit        lwr        upr groups location
+#&gt; f_before.1  2014-04-10     3.5   2.259928   1.705798   2.994069 before f_before
+#&gt; f_before.2  2014-04-24    17.5   3.238848   2.528189   4.149268 before f_before
+#&gt; f_before.3  2014-05-01    24.5   3.877381   3.075764   4.887919 before f_before
+#&gt; f_before.4  2014-05-08    31.5   4.641800   3.739715   5.761484 before f_before
+#&gt; f_before.5  2014-05-15    38.5   5.556923   4.543664   6.796143 before f_before
+#&gt; f_before.6  2014-05-22    45.5   6.652460   5.515453   8.023861 before f_before
+#&gt; f_before.7  2014-05-29    52.5   7.963981   6.687588   9.483986 before f_before
+#&gt; f_before.8  2014-06-05    59.5   9.534066   8.097617  11.225329 before f_before
+#&gt; f_before.9  2014-06-12    66.5  11.413690   9.788378  13.308879 before f_before
+#&gt; f_before.10 2014-06-19    73.5  13.663880  11.808199  15.811184 before f_before
+#&gt; f_before.11 2014-06-26    80.5  16.357689  14.211245  18.828329 before f_before
+#&gt; f_before.12 2014-07-03    87.5  19.582579  17.058390  22.480282 before f_before
+#&gt; f_before.13 2014-07-10    94.5  23.443250  20.419032  26.915379 before f_before
+#&gt; f_before.14 2014-07-17   101.5  28.065046  24.373983  32.315063 before f_before
+#&gt; f_before.15 2014-07-24   108.5  33.598021  29.019070  38.899489 before f_before
+#&gt; f_before.16 2014-07-31   115.5  40.221812  34.468895  46.934899 before f_before
+#&gt; f_before.17 2014-08-07   122.5  48.151471  40.860444  56.743490 before f_before
+#&gt; f_before.18 2014-08-14   129.5  57.644449  48.356664  68.716125 before f_before
+#&gt; f_before.19 2014-08-21   136.5  69.008952  57.150391  83.328133 before f_before
+#&gt; f_before.20 2014-08-28   143.5  82.613945  67.468974 101.158556 before f_before
+#&gt; f_before.21 2014-09-04   150.5  98.901140  79.579845 122.913478 before f_before
+#&gt; f_before.22 2014-09-11   157.5 118.399326  93.797212 149.454341 before f_before
+#&gt; f_before.23 2014-09-18   164.5 141.741546 110.490043 181.832365 before f_before
+#&gt; f_before.24 2014-09-25   171.5 169.685643 130.091516 221.330479 before f_before
+#&gt; m_before.1  2014-04-17     3.5   1.916403   1.349897   2.720652 before m_before
+#&gt; m_before.2  2014-04-24    10.5   2.345040   1.690147   3.253688 before m_before
+#&gt; m_before.3  2014-05-08    24.5   3.511374   2.644309   4.662748 before m_before
+#&gt; m_before.4  2014-05-15    31.5   4.296754   3.303180   5.589188 before m_before
+#&gt; m_before.5  2014-05-22    38.5   5.257798   4.121343   6.707630 before m_before
+#&gt; m_before.6  2014-05-29    45.5   6.433797   5.134508   8.061871 before m_before
+#&gt; m_before.7  2014-06-05    52.5   7.872828   6.384783   9.707679 before m_before
+#&gt; m_before.8  2014-06-12    59.5   9.633724   7.921002  11.716780 before m_before
+#&gt; m_before.9  2014-06-19    66.5  11.788475   9.798835  14.182110 before m_before
+#&gt; m_before.10 2014-06-26    73.5  14.425174  12.080927  17.224312 before m_before
+#&gt; m_before.11 2014-07-03    80.5  17.651617  14.837707  20.999174 before m_before
+#&gt; m_before.12 2014-07-10    87.5  21.599711  18.149656  25.705585 before m_before
+#&gt; m_before.13 2014-07-17    94.5  26.430865  22.111393  31.594148 before m_before
+#&gt; m_before.14 2014-07-24   101.5  32.342591  26.837014  38.977629 before m_before
+#&gt; m_before.15 2014-07-31   108.5  39.576578  32.465640  48.245023 before m_before
+#&gt; m_before.16 2014-08-07   115.5  48.428573  39.166638  59.880726 before m_before
+#&gt; m_before.17 2014-08-14   122.5  59.260472  47.144835  74.489678 before m_before
+#&gt; m_before.18 2014-08-21   129.5  72.515116  56.646364  92.829294 before m_before
+#&gt; m_before.19 2014-08-28   136.5  88.734392  67.965742 115.849428 before m_before
+#&gt; m_before.20 2014-09-04   143.5 108.581394  81.454564 144.742276 before m_before
+#&gt; m_before.21 2014-09-11   150.5 132.867525  97.532100 181.004809 before m_before
+#&gt; m_before.22 2014-09-18   157.5 162.585675 116.698090 226.517004 before m_before
+#&gt; f_after.1   2014-09-25     3.5 156.013412 137.427698 177.112656  after  f_after
+#&gt; f_after.2   2014-10-02    10.5 145.442552 128.885417 164.126682  after  f_after
+#&gt; f_after.3   2014-10-09    17.5 135.587932 120.859818 152.110831  after  f_after
+#&gt; f_after.4   2014-10-16    24.5 126.401023 113.318406 140.994028  after  f_after
+#&gt; f_after.5   2014-10-23    31.5 117.836583 106.230558 130.710602  after  f_after
+#&gt; f_after.6   2014-10-30    38.5 109.852436  99.567391 121.199898  after  f_after
+#&gt; f_after.7   2014-11-06    45.5 102.409263  93.301655 112.405908  after  f_after
+#&gt; f_after.8   2014-11-13    52.5  95.470411  87.407633 104.276929  after  f_after
+#&gt; f_after.9   2014-11-20    59.5  89.001709  81.861068  96.765219  after  f_after
+#&gt; f_after.10  2014-11-27    66.5  82.971300  76.639126  89.826660  after  f_after
+#&gt; f_after.11  2014-12-04    73.5  77.349489  71.720390  83.420397  after  f_after
+#&gt; f_after.12  2014-12-11    80.5  72.108589  67.084920  77.508458  after  f_after
+#&gt; f_after.13  2014-12-18    87.5  67.222793  62.714358  72.055332  after  f_after
+#&gt; f_after.14  2014-12-25    94.5  62.668039  58.592083  67.027538  after  f_after
+#&gt; f_after.15  2015-01-01   101.5  58.421897  54.703364  62.393202  after  f_after
+#&gt; f_after.16  2015-01-08   108.5  54.463457  51.035443  58.121729  after  f_after
+#&gt; f_after.17  2015-01-15   115.5  50.773226  47.577481  54.183627  after  f_after
+#&gt; f_after.18  2015-01-22   122.5  47.333030  44.320300  50.550555  after  f_after
+#&gt; f_after.19  2015-01-29   129.5  44.125929  41.255960  47.195547  after  f_after
+#&gt; f_after.20  2015-02-05   136.5  41.136128  38.377249  44.093339  after  f_after
+#&gt; f_after.21  2015-02-12   143.5  38.348905  35.677209  41.220671  after  f_after
+#&gt; f_after.22  2015-02-19   150.5  35.750532  33.148792  38.556475  after  f_after
+#&gt; f_after.23  2015-02-26   157.5  33.328216  30.784685  36.081902  after  f_after
+#&gt; f_after.24  2015-03-05   164.5  31.070026  28.577266  33.780226  after  f_after
+#&gt; f_after.25  2015-03-12   171.5  28.964842  26.518670  31.636658  after  f_after
+#&gt; f_after.26  2015-03-19   178.5  27.002298  24.600890  29.638117  after  f_after
+#&gt; f_after.27  2015-03-26   185.5  25.172727  22.815905  27.773003  after  f_after
+#&gt; f_after.28  2015-04-02   192.5  23.467122  21.155785  26.030979  after  f_after
+#&gt; f_after.29  2015-04-09   199.5  21.877081  19.612784  24.402791  after  f_after
+#&gt; f_after.30  2015-04-16   206.5  20.394775  18.179412  22.880106  after  f_after
+#&gt; f_after.31  2015-04-23   213.5  19.012905  16.848482  21.455379  after  f_after
+#&gt; f_after.32  2015-04-30   220.5  17.724665  15.613144  20.121747  after  f_after
+#&gt; m_after.1   2014-09-18     3.5 171.439964 150.372278 195.459307  after  m_after
+#&gt; m_after.2   2014-09-25    10.5 159.421506 140.672208 180.669779  after  m_after
+#&gt; m_after.3   2014-10-02    17.5 148.245579 131.582849 167.018360  after  m_after
+#&gt; m_after.4   2014-10-09    24.5 137.853117 123.064563 154.418798  after  m_after
+#&gt; m_after.5   2014-10-16    31.5 128.189198 115.080126 142.791559  after  m_after
+#&gt; m_after.6   2014-10-23    38.5 119.202750 107.594566 132.063320  after  m_after
+#&gt; m_after.7   2014-10-30    45.5 110.846278 100.575014 122.166499  after  m_after
+#&gt; m_after.8   2014-11-06    52.5 103.075620  93.990577 113.038815  after  m_after
+#&gt; m_after.9   2014-11-13    59.5  95.849709  87.812230 104.622861  after  m_after
+#&gt; m_after.10  2014-11-20    66.5  89.130356  82.012732  96.865694  after  m_after
+#&gt; m_after.11  2014-11-27    73.5  82.882049  76.566596  89.718421  after  m_after
+#&gt; m_after.12  2014-12-04    80.5  77.071768  71.450080  83.135770  after  m_after
+#&gt; m_after.13  2014-12-11    87.5  71.668805  66.641253  77.075645  after  m_after
+#&gt; m_after.14  2014-12-18    94.5  66.644606  62.120084  71.498672  after  m_after
+#&gt; m_after.15  2014-12-25   101.5  61.972618  57.868551  66.367749  after  m_after
+#&gt; m_after.16  2015-01-01   108.5  57.628151  53.870716  61.647664  after  m_after
+#&gt; m_after.17  2015-01-08   115.5  53.588244  50.112694  57.304841  after  m_after
+#&gt; m_after.18  2015-01-15   122.5  49.831547  46.582461  53.307254  after  m_after
+#&gt; m_after.19  2015-01-22   129.5  46.338206  43.269509  49.624535  after  m_after
+#&gt; m_after.20  2015-01-29   136.5  43.089758  40.164381  46.228204  after  m_after
+#&gt; m_after.21  2015-02-05   143.5  40.069036  37.258201  43.091926  after  m_after
+#&gt; m_after.22  2015-02-12   150.5  37.260076  34.542291  40.191696  after  m_after
+#&gt; m_after.23  2015-02-19   157.5  34.648032  32.007919  37.505911  after  m_after
+#&gt; m_after.24  2015-02-26   164.5  32.219101  29.646202  35.015294  after  m_after
+#&gt; m_after.25  2015-03-05   171.5  29.960445  27.448111  32.702733  after  m_after
+#&gt; m_after.26  2015-03-12   178.5  27.860128  25.404547  30.553062  after  m_after
+#&gt; m_after.27  2015-03-19   185.5  25.907049  23.506444  28.552817  after  m_after
+#&gt; m_after.28  2015-03-26   192.5  24.090887  21.744872  26.690009  after  m_after
+#&gt; m_after.29  2015-04-02   199.5  22.402043  20.111132  24.953917  after  m_after
+#&gt; m_after.30  2015-04-09   206.5  20.831592  18.596829  23.334905  after  m_after
+#&gt; m_after.31  2015-04-16   213.5  19.371235  17.193918  21.824272  after  m_after
+#&gt; m_after.32  2015-04-23   220.5  18.013253  15.894744  20.414124  after  m_after
+#&gt; m_after.33  2015-04-30   227.5  16.750470  14.692060  19.097270  after  m_after
+#&gt; &gt; get_info(fits$fit, "r")
+#&gt;    f_before    m_before     f_after     m_after 
+#&gt;  0.02570604  0.02883607 -0.01002297 -0.01038307 
+#&gt; &gt; get_info(fits$fit, "doubling.conf")
+#&gt;             2.5 %   97.5 %
+#&gt; f_before 24.30497 30.27725
+#&gt; m_before 21.22988 27.70091
+#&gt; &gt; get_info(fits$fit, "halving.conf")
+#&gt;            2.5 %   97.5 %
 #&gt; f_after 62.85711 76.85756
 #&gt; m_after 60.86059 73.91966</div></pre>
   </div>

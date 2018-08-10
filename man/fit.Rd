@@ -101,7 +101,7 @@ function \code{add_incidence_fit()}.
 }
 \examples{
 
-if (require(outbreaks)) {
+if (require(outbreaks)) { withAutoprint({
  dat <- ebola_sim$linelist$date_of_onset
 
  ## EXAMPLE WITH A SINGLE MODEL
@@ -115,7 +115,7 @@ if (require(outbreaks)) {
  f <- fit(i.7[1:20])
  f
  names(f)
- head(f$pred)
+ head(get_info(f, "pred"))
 
  ## plot model alone (not recommended)
  plot(f)
@@ -140,7 +140,7 @@ if (require(magrittr)) {
   f3
   plot(i.7) \%>\% add_incidence_fit(f3$fit)
 }
-}
+})}
 
 }
 \seealso{

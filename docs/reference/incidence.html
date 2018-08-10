@@ -300,7 +300,7 @@ class.</p></li>
 #&gt; $cumulative: FALSE
 #&gt; </div><div class='input'>
 <span class='co'>## example using simulated dataset</span>
-<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) { <span class='fu'>withAutoprint</span>({
   <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
   <span class='co'>## daily incidence</span>
@@ -325,7 +325,69 @@ class.</p></li>
   <span class='no'>inc.isoweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
                                   <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
   <span class='no'>inc.isoweek.gender</span>
-}</div><div class='output co'>#&gt; &lt;incidence object&gt;
+})}</div><div class='output co'>#&gt; &gt; onset &lt;- ebola_sim$linelist$date_of_onset
+#&gt; &gt; inc &lt;- incidence(onset)
+#&gt; &gt; inc
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-30]
+#&gt; 
+#&gt; $counts: matrix with 389 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 389 dates marking the left-side of bins
+#&gt; $interval: 1 day
+#&gt; $timespan: 389 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(inc)</div><div class='img'><img src='incidence-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.week &lt;- incidence(onset, interval = 7, standard = FALSE)
+#&gt; &gt; inc.week
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(inc.week)</div><div class='img'><img src='incidence-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inc.week, border = "white")</div><div class='img'><img src='incidence-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.isoweek &lt;- incidence(onset, interval = 7, standard = TRUE)
+#&gt; &gt; inc.isoweek
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
+#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; sex &lt;- ebola_sim$linelist$gender
+#&gt; &gt; inc.week.gender &lt;- incidence(onset, interval = 7, groups = sex, standard = FALSE)
+#&gt; &gt; inc.week.gender
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
+#&gt; [2 groups: f, m]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 2 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 7 days
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; head(inc.week.gender$counts)
+#&gt;      f  m
+#&gt; [1,] 1  0
+#&gt; [2,] 0  1
+#&gt; [3,] 4  1
+#&gt; [4,] 4  0
+#&gt; [5,] 9  3
+#&gt; [6,] 8 10
+#&gt; &gt; plot(inc.week.gender)</div><div class='img'><img src='incidence-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.isoweek.gender &lt;- incidence(onset, interval = 7, groups = sex, standard = TRUE)
+#&gt; &gt; inc.isoweek.gender
+#&gt; &lt;incidence object&gt;
 #&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
 #&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]
 #&gt; [2 groups: f, m]

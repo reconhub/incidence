@@ -166,7 +166,7 @@ their relative incidence.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'>require</span>(<span class='no'>ggplot2</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'>require</span>(<span class='no'>ggplot2</span>)) { <span class='fu'>withAutoprint</span>({
   <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>fluH7N9_china_2013</span>$<span class='no'>date_of_onset</span>)
   <span class='no'>i</span>
   <span class='fu'>plot</span>(<span class='no'>i</span>)
@@ -176,7 +176,31 @@ their relative incidence.</p>
   <span class='no'>x</span>
   <span class='fu'>plot</span>(<span class='no'>x</span>)
 
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: outbreaks</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: ggplot2</span></div><div class='img'><img src='bootstrap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+})}</div><div class='output co'>#&gt; <span class='message'>Loading required package: outbreaks</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: ggplot2</span></div><div class='output co'>#&gt; &gt; i &lt;- incidence(fluH7N9_china_2013$date_of_onset)
+#&gt; &gt; i
+#&gt; &lt;incidence object&gt;
+#&gt; [126 cases from days 2013-02-19 to 2013-07-27]
+#&gt; 
+#&gt; $counts: matrix with 159 rows and 1 columns
+#&gt; $n: 126 cases in total
+#&gt; $dates: 159 dates marking the left-side of bins
+#&gt; $interval: 1 day
+#&gt; $timespan: 159 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(i)</div><div class='img'><img src='bootstrap-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; x &lt;- bootstrap(i)
+#&gt; &gt; x
+#&gt; &lt;incidence object&gt;
+#&gt; [126 cases from days 2013-02-19 to 2013-07-27]
+#&gt; 
+#&gt; $counts: matrix with 159 rows and 1 columns
+#&gt; $n: 126 cases in total
+#&gt; $dates: 159 dates marking the left-side of bins
+#&gt; $interval: 1 day
+#&gt; $timespan: 159 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; plot(x)</div><div class='img'><img src='bootstrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -119,7 +119,7 @@ incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2))
 incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
 
 ## example using simulated dataset
-if(require(outbreaks)) {
+if(require(outbreaks)) { withAutoprint({
   onset <- ebola_sim$linelist$date_of_onset
 
   ## daily incidence
@@ -144,7 +144,7 @@ if(require(outbreaks)) {
   inc.isoweek.gender <- incidence(onset, interval = 7,
                                   groups = sex, standard = TRUE)
   inc.isoweek.gender
-}
+})}
 
 
 }

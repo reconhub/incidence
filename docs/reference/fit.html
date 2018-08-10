@@ -256,7 +256,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) { <span class='fu'>withAutoprint</span>({
  <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
  <span class='co'>## EXAMPLE WITH A SINGLE MODEL</span>
@@ -270,7 +270,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
  <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
  <span class='no'>f</span>
  <span class='fu'>names</span>(<span class='no'>f</span>)
- <span class='fu'>head</span>(<span class='no'>f</span>$<span class='no'>pred</span>)
+ <span class='fu'>head</span>(<span class='fu'><a href='get_fit.html'>get_info</a></span>(<span class='no'>f</span>, <span class='st'>"pred"</span>))
 
  <span class='co'>## plot model alone (not recommended)</span>
  <span class='fu'>plot</span>(<span class='no'>f</span>)
@@ -295,7 +295,49 @@ a list of <code>incidence_fit</code> objects.</p></div>
   <span class='no'>f3</span>
   <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f3</span>$<span class='no'>fit</span>)
 }
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='img'><img src='fit-1.png' alt='' width='700' height='433' /></div><div class='input'>
+})}</div><div class='output co'>#&gt; &gt; dat &lt;- ebola_sim$linelist$date_of_onset
+#&gt; &gt; i.7 &lt;- incidence(dat, interval = 7)
+#&gt; &gt; plot(i.7)</div><div class='img'><img src='fit-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7[1:20])</div><div class='img'><img src='fit-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; f &lt;- fit(i.7[1:20])
+#&gt; &gt; f
+#&gt; &lt;incidence_fit object&gt;
+#&gt; 
+#&gt; $lm: regression of log-incidence over time
+#&gt; 
+#&gt; $info: list containing the following items:
+#&gt;   $r (daily growth rate):
+#&gt; [1] 0.03175771
+#&gt; 
+#&gt;   $r.conf (confidence interval):
+#&gt;           2.5 %     97.5 %
+#&gt; [1,] 0.02596229 0.03755314
+#&gt; 
+#&gt;   $doubling (doubling time in days):
+#&gt; [1] 21.8261
+#&gt; 
+#&gt;   $doubling.conf (confidence interval):
+#&gt;         2.5 %   97.5 %
+#&gt; [1,] 18.45777 26.69823
+#&gt; 
+#&gt;   $pred: data.frame of incidence predictions (20 rows, 5 columns)
+#&gt; &gt; names(f)
+#&gt; [1] "lm"     "info"   "origin"
+#&gt; &gt; head(get_info(f, "pred"))
+#&gt;        dates dates.x      fit      lwr       upr
+#&gt; 1 2014-04-10     3.5 2.528815 1.611099  3.969283
+#&gt; 2 2014-04-17    10.5 3.158367 2.082082  4.791013
+#&gt; 3 2014-04-24    17.5 3.944645 2.687383  5.790104
+#&gt; 4 2014-05-01    24.5 4.926668 3.463102  7.008763
+#&gt; 5 2014-05-08    31.5 6.153167 4.453513  8.501484
+#&gt; 6 2014-05-15    38.5 7.685004 5.711842 10.339797
+#&gt; &gt; plot(f)</div><div class='img'><img src='fit-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7, fit = f)</div><div class='img'><img src='fit-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7[1:25], fit = f)</div><div class='output co'>#&gt; &gt; if (require(magrittr)) {
+#&gt; +     plot(i.7) %&gt;% add_incidence_fit(f)
+#&gt; +     f2 &lt;- fit(i.7, split = as.Date("2014-10-15"))
+#&gt; +     f2
+#&gt; +     plot(i.7) %&gt;% add_incidence_fit(f2)
+#&gt; +     f3 &lt;- fit_optim_split(i.7)
+#&gt; +     f3
+#&gt; +     plot(i.7) %&gt;% add_incidence_fit(f3$fit)
+#&gt; + }</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='img'><img src='fit-5.png' alt='' width='700' height='433' /></div><div class='img'><img src='fit-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
