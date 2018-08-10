@@ -129,7 +129,7 @@ incidence object." />
     
     </div>
 
-    <pre class="usage"><span class='fu'>find_peak</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>find_peak</span>(<span class='no'>x</span>, <span class='kw'>pool</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,6 +137,11 @@ incidence object." />
     <tr>
       <th>x</th>
       <td><p>An <code>incidence</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>pool</th>
+      <td><p>If <code>TRUE</code> (default), any groups will be pooled before finding
+a peak. If <code>FALSE</code>, separate peaks will be found for each group.</p></td>
     </tr>
     </table>
     
@@ -146,7 +151,7 @@ incidence object." />
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='estimate_peak.html'>incidence::estimate_peak</a> for bootstrap estimates of the peak time</p></div>
+    <div class='dont-index'><p><code><a href='estimate_peak.html'>estimate_peak()</a></code> for bootstrap estimates of the peak time</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -185,7 +190,8 @@ incidence object." />
 
     <h2>Author</h2>
     
-Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>.
+Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, Zhian N. Kamvar
+<a href='mailto:zkamvar@gmail.com'>zkamvar@gmail.com</a>
 
   </div>
 </div>

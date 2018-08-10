@@ -34,14 +34,15 @@
 
 <meta property="og:description" content="The function fit fits two exponential models to incidence data, of the
 form: \(log(y) = r * t + b\)  where 'y' is the incidence, 't' is time
-(in days), 'r' is the growth rate, and 'b' is the origin. The function
-fit will fit one model by default, but will fit two models on either
-side of a splitting date (typically the peak of the epidemic) if the argument
-split is provided. The function fit_optim_split can be used to
-find the optimal 'splitting' date, defined as the one for which the best
-average R2 of the two models is obtained. Plotting can be done using
+(in days), 'r' is the growth rate, and 'b' is the origin. The function fit
+will fit one model by default, but will fit two models on either side of a
+splitting date (typically the peak of the epidemic) if the argument split
+is provided. When groups are present, these are included in the model as main
+effects and interactions with dates. The function fit_optim_split() can be
+used to find the optimal 'splitting' date, defined as the one for which the
+best average R2 of the two models is obtained. Plotting can be done using
 plot, or added to an existing incidence plot by the piping-friendly
-function add_incidence_fit." />
+function add_incidence_fit()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -134,28 +135,28 @@ function add_incidence_fit." />
     
     <p>The function <code>fit</code> fits two exponential models to incidence data, of the
 form: \(log(y) = r * t + b\) <br /> where 'y' is the incidence, 't' is time
-(in days), 'r' is the growth rate, and 'b' is the origin. The function
-<code>fit</code> will fit one model by default, but will fit two models on either
-side of a splitting date (typically the peak of the epidemic) if the argument
-<code>split</code> is provided. The function <code>fit_optim_split</code> can be used to
-find the optimal 'splitting' date, defined as the one for which the best
-average R2 of the two models is obtained. Plotting can be done using
+(in days), 'r' is the growth rate, and 'b' is the origin. The function <code>fit</code>
+will fit one model by default, but will fit two models on either side of a
+splitting date (typically the peak of the epidemic) if the argument <code>split</code>
+is provided. When groups are present, these are included in the model as main
+effects and interactions with dates. The function <code>fit_optim_split()</code> can be
+used to find the optimal 'splitting' date, defined as the one for which the
+best average R2 of the two models is obtained. Plotting can be done using
 <code>plot</code>, or added to an existing incidence plot by the piping-friendly
-function <code>add_incidence_fit</code>.</p>
+function <code><a href='plot.incidence.html'>add_incidence_fit()</a></code>.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>fit</span>(<span class='no'>x</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>fit_optim_split</span>(<span class='no'>x</span>, <span class='kw'>window</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>timespan</span>/<span class='fl'>4</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>fit_optim_split</span>(<span class='no'>x</span>, <span class='kw'>window</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>timespan</span>/<span class='fl'>4</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>separate_split</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S3 method for incidence_fit</span>
 <span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>add_incidence_fit</span>(<span class='no'>p</span>, <span class='no'>x</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>incidence_pal1</span>)
-
-<span class='co'># S3 method for incidence_fit</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for incidence_fit_list</span>
+<span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,64 +192,66 @@ split.</p></td>
     <tr>
       <th>plot</th>
       <td><p>A logical indicating whether a plot should be added to the
-output, showing the mean R2 for various splits.</p></td>
+output (<code>TRUE</code>, default), showing the mean R2 for various splits.</p></td>
+    </tr>
+    <tr>
+      <th>separate_split</th>
+      <td><p>If groups are present, should separate split dates be
+determined for each group? Defaults to <code>TRUE</code>, in which separate split dates
+and thus, separate models will be constructed for each group. When <code>FALSE</code>,
+the split date will be determined from the pooled data and modelled with the
+groups as main effects and interactions with date.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to other methods (not used)</p></td>
-    </tr>
-    <tr>
-      <th>p</th>
-      <td><p>An existing incidence plot.</p></td>
-    </tr>
-    <tr>
-      <th>col_pal</th>
-      <td><p>A color palette, defaulting</p></td>
+      <td><p>currently unused.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For <code>fit</code>, a list with the class <code>incidence_fit</code> (for a
+    <p>For <code>fit()</code>, a list with the class <code>incidence_fit</code> (for a
 single model), or a list containing two <code>incidence_fit</code> objects (when
-fitting two models). <code>incidence_fit</code> objects contain:</p>
-<ul>
-<li><p>lm: the fitted linear model</p></li>
-<li><p>info: a list containing various information extracted from the model
+fitting two models). <code>incidence_fit</code> objects contain:</p><ul>
+<li><p><code>$lm</code>: the fitted linear model</p></li>
+<li><p><code>$info</code>: a list containing various information extracted from the model
 (detailed further)</p></li>
-<li><p>origin: the date corresponding to day '0'</p></li>
+<li><p><code>$origin</code>: the date corresponding to day '0'</p></li>
 </ul>
 
-<p>The <code>$info</code> item is a list containing:</p>
-<ul>
-<li><p>r: the growth rate</p></li>
-<li><p>r.conf: the confidence interval of 'r'</p></li>
-<li><p>pred: a <code>data.frame</code> containing predictions of the model,
+<p>The <code>$info</code> item is a list containing:</p><ul>
+<li><p><code>r</code>: the growth rate</p></li>
+<li><p><code>r.conf</code>: the confidence interval of 'r'</p></li>
+<li><p><code>pred</code>: a <code>data.frame</code> containing predictions of the model,
 including the true dates (<code>dates</code>), their numeric version used in the
 model (<code>dates.x</code>), the predicted value (<code>fit</code>), and the lower
 (<code>lwr</code>) and upper (<code>upr</code>) bounds of the associated confidence
 interval.</p></li>
-<li><p>doubling: the predicted doubling time in days; exists only if 'r' is
+<li><p><code>doubling</code>: the predicted doubling time in days; exists only if 'r' is
 positive</p></li>
-<li><p>doubling.conf: the confidence interval of the doubling time</p></li>
-<li><p>halving: the predicted halving time in days; exists only if 'r' is
+<li><p><code>doubling.conf</code>: the confidence interval of the doubling time</p></li>
+<li><p><code>halving</code>: the predicted halving time in days; exists only if 'r' is
 negative</p></li>
-<li><p>halving.conf: the confidence interval of the halving time</p></li>
+<li><p><code>halving.conf</code>: the confidence interval of the halving time</p></li>
 </ul>
 
 <p>For <code>fit_optim_split</code>, a list containing:</p><ul>
-<li><p>df: a <code>data.frame</code> of dates that were used in the optimization
+<li><p><code>df</code>: a <code>data.frame</code> of dates that were used in the optimization
 procedure, and the corresponding average R2 of the resulting models.</p></li>
-<li><p>split: the optimal splitting date</p></li>
-<li><p>fit: the resulting <code>incidence_fit</code> objects</p></li>
-<li><p>plot: a plot showing the content of <code>df</code> (ggplot2 object)</p></li>
+<li><p><code>split</code>: the optimal splitting date</p></li>
+<li><p><code>fit</code>: an <code>incidence_fit_list</code> object containing the fit for each split.
+If the <code>separate_split = TRUE</code>, then the <code>incidence_fit_list</code> object will
+contain these splits nested within each group. All of the <code>incidence_fit</code>
+objects can be retrieved with <code><a href='get_fit.html'>get_fit()</a></code>.</p></li>
+<li><p><code>plot</code>: a plot showing the content of <code>df</code> (ggplot2 object)</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>the <code><a href='incidence.html'>incidence()</a></code> function to generate the 'incidence'
-objects.</p></div>
+objects. The <code><a href='get_fit.html'>get_fit()</a></code> function to flatten <code>incidence_fit_list</code> objects to
+a list of <code>incidence_fit</code> objects.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -278,19 +281,19 @@ objects.</p></div>
 
 <span class='co'>## piping versions</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>magrittr</span>)) {
-  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'>add_incidence_fit</span>(<span class='no'>f</span>)
+  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f</span>)
 
 
   <span class='co'>## EXAMPLE WITH 2 PHASES</span>
   <span class='co'>## specifying the peak manually</span>
   <span class='no'>f2</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2014-10-15"</span>))
   <span class='no'>f2</span>
-  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'>add_incidence_fit</span>(<span class='no'>f2</span>)
+  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f2</span>)
 
   <span class='co'>## finding the best 'peak' date</span>
   <span class='no'>f3</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_optim_split</span>(<span class='no'>i.7</span>)
   <span class='no'>f3</span>
-  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'>add_incidence_fit</span>(<span class='no'>f3</span>$<span class='no'>fit</span>)
+  <span class='fu'>plot</span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f3</span>$<span class='no'>fit</span>)
 }
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='img'><img src='fit-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
@@ -309,7 +312,8 @@ objects.</p></div>
 
     <h2>Author</h2>
     
-Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>
+Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, Zhian N. Kamvar
+<a href='mailto:zkamvar@gmail.com'>zkamvar@gmail.com</a>.
 
   </div>
 </div>

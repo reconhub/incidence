@@ -84,7 +84,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-07-18</h4>
+            <h4 class="date">2018-08-10</h4>
       
       
       <div class="hidden name"><code>customize_plot.Rmd</code></div>
@@ -100,57 +100,57 @@
 <a href="#example-data-simulated-ebola-outbreak" class="anchor"></a>Example data: simulated Ebola outbreak</h1>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>: <code>ebola_sim_clean</code>.</p>
 <p>First, we load the data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
-<span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(incidence)
-
-onset &lt;-<span class="st"> </span>ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>date_of_onset
-<span class="kw">class</span>(onset)
-<span class="co">#&gt; [1] "Date"</span>
-<span class="kw">head</span>(onset)
-<span class="co">#&gt; [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26"</span>
-<span class="co">#&gt; [6] "2014-04-25"</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(outbreaks)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(incidence)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">onset &lt;-<span class="st"> </span>ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>date_of_onset</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">class</span>(onset)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; [1] "Date"</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">head</span>(onset)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26"</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; [6] "2014-04-25"</span></a></code></pre></div>
 <p>We compute the weekly incidence:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>)
-i
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
-<span class="co">#&gt; $n: 5829 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-
-i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>gender)
-i.sex
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; [2 groups: f, m]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
-<span class="co">#&gt; $n: 5829 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-
-i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>hospital)
-i.hosp
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span>
-<span class="co">#&gt; $n: 5829 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">i</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; $n: 5829 cases in total</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>gender)</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">i.sex</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; [2 groups: f, m]</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; $n: 5829 cases in total</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">i.hosp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">group =</span>  ebola_sim_clean<span class="op">$</span>linelist<span class="op">$</span>hospital)</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">i.hosp</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span></a>
+<a class="sourceLine" id="cb2-34" data-line-number="34"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-35" data-line-number="35"><span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; $n: 5829 cases in total</span></a>
+<a class="sourceLine" id="cb2-37" data-line-number="37"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb2-38" data-line-number="38"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb2-39" data-line-number="39"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co">#&gt; $cumulative: FALSE</span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="the-plot-incidence-function" class="section level1">
@@ -161,18 +161,18 @@ i.hosp
 <h2 class="hasAnchor">
 <a href="#default-behaviour" class="anchor"></a>Default behaviour</h2>
 <p>By default, the function uses grey for single time series, and colors from the color palette <code>incidence_pal1</code> when incidence is computed by groups:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot</span>(i)</a></code></pre></div>
 <p><img src="figs-custom/default-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">plot</span>(i.sex)</a></code></pre></div>
 <p><img src="figs-custom/default-2.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">plot</span>(i.hosp)</a></code></pre></div>
 <p><img src="figs-custom/default-3.png" width="672"></p>
 <p>However, some of these defaults can be altered through the various arguments of the function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(incidence<span class="op">:::</span>plot.incidence)
-<span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span>
-<span class="co">#&gt;     border = NA, col_pal = incidence_pal1, alpha = 0.7, xlab = "", </span>
-<span class="co">#&gt;     ylab = NULL, labels_iso = !is.null(x$isoweeks), n_breaks = 6) </span>
-<span class="co">#&gt; NULL</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">args</span>(incidence<span class="op">:::</span>plot.incidence)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;     border = NA, col_pal = incidence_pal1, alpha = 0.7, xlab = "", </span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;     ylab = NULL, labels_iso = !is.null(x$isoweeks), n_breaks = 6) </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; NULL</span></a></code></pre></div>
 </div>
 <div id="changing-colors" class="section level2">
 <h2 class="hasAnchor">
@@ -181,25 +181,25 @@ i.hosp
 <h3 class="hasAnchor">
 <a href="#the-default-palette" class="anchor"></a>The default palette</h3>
 <p>A color palette is a function which outputs a specified number of colors. By default, the color used in <em>incidence</em> is called <code>incidence_pal1</code>. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">2</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">4</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>))</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>))</a></code></pre></div>
 <p><img src="figs-custom/incidence_pal1-1.png" width="672"></p>
 <p>This pallette also has a light and a dark version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
-<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1_dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_dark"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1"</span>)
-<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1_light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_light"</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1_dark</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_dark"</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1"</span>)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">col =</span> <span class="kw"><a href="../reference/palettes.html">incidence_pal1_light</a></span>(<span class="dv">20</span>), <span class="dt">main =</span> <span class="st">"palette:  incidence_pal1_light"</span>)</a></code></pre></div>
 <p><img src="figs-custom/pal2-1.png" width="672"></p>
 </div>
 <div id="using-different-palettes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-different-palettes" class="anchor"></a>Using different palettes</h3>
 <p>Other color palettes can be provided via <code>col_pal</code>. Various palettes are part of the base R distribution, and many more are provided in additional packages. We provide a couple of examples:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, <span class="dt">col_pal =</span> rainbow)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">plot</span>(i.hosp, <span class="dt">col_pal =</span> rainbow)</a></code></pre></div>
 <p><img src="figs-custom/palettes-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex, <span class="dt">col_pal =</span> cm.colors)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">plot</span>(i.sex, <span class="dt">col_pal =</span> cm.colors)</a></code></pre></div>
 <p><img src="figs-custom/palettes-2.png" width="672"></p>
 </div>
 <div id="specifying-colors-manually" class="section level3">
@@ -209,20 +209,20 @@ i.hosp
 <div id="example-1-changing-a-single-color" class="section level4">
 <h4 class="hasAnchor">
 <a href="#example-1-changing-a-single-color" class="anchor"></a>Example 1: changing a single color</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i, <span class="dt">color =</span> <span class="st">"darkred"</span>)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">plot</span>(i, <span class="dt">color =</span> <span class="st">"darkred"</span>)</a></code></pre></div>
 <p><img src="figs-custom/colors1-1.png" width="672"></p>
 </div>
 <div id="example-2-changing-several-colors-note-that-naming-colors-is-optional" class="section level4">
 <h4 class="hasAnchor">
 <a href="#example-2-changing-several-colors-note-that-naming-colors-is-optional" class="anchor"></a>Example 2: changing several colors (note that naming colors is optional)</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.sex, <span class="dt">color =</span> <span class="kw">c</span>(<span class="dt">m =</span> <span class="st">"orange2"</span>, <span class="dt">f =</span> <span class="st">"purple3"</span>))</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">plot</span>(i.sex, <span class="dt">color =</span> <span class="kw">c</span>(<span class="dt">m =</span> <span class="st">"orange2"</span>, <span class="dt">f =</span> <span class="st">"purple3"</span>))</a></code></pre></div>
 <p><img src="figs-custom/colors2-1.png" width="672"></p>
 </div>
 <div id="example-3-using-color-to-highlight-specific-groups" class="section level4">
 <h4 class="hasAnchor">
 <a href="#example-3-using-color-to-highlight-specific-groups" class="anchor"></a>Example 3: using color to highlight specific groups</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp, 
-     <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">"#ac3973"</span>, <span class="st">"#6666ff"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>))</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">plot</span>(i.hosp, </a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">     <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">"#ac3973"</span>, <span class="st">"#6666ff"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>, <span class="st">"white"</span>))</a></code></pre></div>
 <p><img src="figs-custom/colors3-1.png" width="672"></p>
 <p><br></p>
 </div>
@@ -240,38 +240,38 @@ i.hosp
 <h3 class="hasAnchor">
 <a href="#changing-date-format" class="anchor"></a>Changing date format</h3>
 <p>By default, the dates indicated on the <em>x</em>-axis of an incidence plot may not have the suitable format. The package <em>scales</em> can be used to change the way dates are labelled (see <code>?strptime</code> for possible formats):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
-<span class="kw">plot</span>(i, <span class="dt">labels_iso_week =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">   </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%d %b %Y"</span>))
-<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
-<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">library</span>(scales)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">plot</span>(i, <span class="dt">labels_iso_week =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">   </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%d %b %Y"</span>))</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; will replace the existing scale.</span></a></code></pre></div>
 <p><img src="figs-custom/scales1-1.png" width="672"></p>
 <p>And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]) <span class="op">+</span><span class="st">  </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%a %d %B %Y"</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))
-<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
-<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">plot</span>(i[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%a %d %B %Y"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; will replace the existing scale.</span></a></code></pre></div>
 <p><img src="figs-custom/scales2-1.png" width="672"></p>
 <p>Note that you can save customisations for later use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rotate.big &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">rotate.big &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>))</a></code></pre></div>
 </div>
 <div id="changing-the-grid" class="section level3">
 <h3 class="hasAnchor">
 <a href="#changing-the-grid" class="anchor"></a>Changing the grid</h3>
 <p>The last example above illustrates that it can be useful to have denser annotations of the <em>x</em>-axis, especially over short time periods. Here, we provide an example where we try to zoom on the peak of the epidemic, using the data by hospital:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.hosp)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">plot</span>(i.hosp)</a></code></pre></div>
 <p><img src="figs-custom/grid1-1.png" width="672"></p>
 <p>Let us look at the data 40 days before and after the 1st of October:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">period &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2014-10-01"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">40</span>, <span class="dv">40</span>)
-i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from =</span> period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])
-detailed.x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%a %d %B %Y"</span>), 
-                           <span class="dt">date_breaks =</span> <span class="st">"2 weeks"</span>, 
-                           <span class="dt">date_minor_breaks =</span> <span class="st">"week"</span>)
-
-<span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span>detailed.x <span class="op">+</span><span class="st"> </span>rotate.big
-<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
-<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">period &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2014-10-01"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">40</span>, <span class="dv">40</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">i.zoom &lt;-<span class="st"> </span><span class="kw">subset</span>(i.hosp, <span class="dt">from =</span> period[<span class="dv">1</span>], <span class="dt">to =</span> period[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">detailed.x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_date">scale_x_date</a></span>(<span class="dt">labels =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/date_format">date_format</a></span>(<span class="st">"%a %d %B %Y"</span>), </a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">                           <span class="dt">date_breaks =</span> <span class="st">"2 weeks"</span>, </a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">                           <span class="dt">date_minor_breaks =</span> <span class="st">"week"</span>)</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span>detailed.x <span class="op">+</span><span class="st"> </span>rotate.big</a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt; will replace the existing scale.</span></a></code></pre></div>
 <p><img src="figs-custom/grid2-1.png" width="672"></p>
 </div>
 </div>
@@ -279,12 +279,12 @@ detailed.x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rd
 <h2 class="hasAnchor">
 <a href="#changing-the-legend" class="anchor"></a>Changing the legend</h2>
 <p>The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object <code>p</code> and customize the legend:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span>detailed.x <span class="op">+</span><span class="st"> </span>rotate.big
-<span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span>
-<span class="co">#&gt; will replace the existing scale.</span>
-p <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>), 
-          <span class="dt">legend.position =</span> <span class="st">"top"</span>, <span class="dt">legend.direction =</span> <span class="st">"horizontal"</span>, 
-          <span class="dt">legend.title =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>())</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">plot</span>(i.zoom, <span class="dt">border =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span>detailed.x <span class="op">+</span><span class="st"> </span>rotate.big</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt; will replace the existing scale.</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">p <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>), </a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">          <span class="dt">legend.position =</span> <span class="st">"top"</span>, <span class="dt">legend.direction =</span> <span class="st">"horizontal"</span>, </a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">          <span class="dt">legend.title =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>())</a></code></pre></div>
 <p><img src="figs-custom/legend1-1.png" width="672"></p>
 </div>
 </div>

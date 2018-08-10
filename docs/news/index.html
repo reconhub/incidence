@@ -127,6 +127,8 @@
 <ul>
 <li><p><code><a href="../reference/incidence.html">incidence()</a></code> will now accept text-based intervals that are valid date intervals: day, week, month, quarter, and year.</p></li>
 <li><p><code><a href="../reference/incidence.html">incidence()</a></code> now verifies that all user-supplied arguments are accurate and spelled correctly.</p></li>
+<li><p><code><a href="../reference/fit.html">fit_optim_split()</a></code> now gains a <code>separate_split</code> argument that will determine the optimal split separately for groups.</p></li>
+<li><p>A new class, <code>incidence_fit_list</code>, has been implemented to store and summarise <code>incidence_fit</code> objects within a nested list. This is the class returned by in the <code>$fit</code> element of <code><a href="../reference/fit.html">fit_optim_split()</a></code>.</p></li>
 </ul>
 </div>
 <div id="new-functions" class="section level3">
@@ -138,6 +140,9 @@
 <li><p><code><a href="../reference/estimate_peak.html">estimate_peak()</a></code> uses bootstrap to estimate the peak time of a partially observed outbreak.</p></li>
 <li><p><code><a href="../reference/get_interval.html">get_interval()</a></code> will return the numeric interval or several intervals in the case of intervals that can’t be represented in a fixed number of days (e.g. months).</p></li>
 <li><p><code><a href="../reference/get_dates.html">get_dates()</a></code> returns the dates or counts of days on the right, center, or left of the interval.</p></li>
+<li><p><code><a href="../reference/get_counts.html">get_counts()</a></code> returns the matrix of case counts for each date.</p></li>
+<li><p><code><a href="../reference/get_fit.html">get_fit()</a></code> returns a list of <code>incidence_fit</code> objects from an <code>incidence_fit_list</code> object.</p></li>
+<li><p><code><a href="../reference/get_fit.html">get_info()</a></code> returns information stored in the <code>$info</code> element of an <code>incidence_fit</code>/<code>incidence_fit_list</code> object.</p></li>
 </ul>
 </div>
 <div id="deprecated" class="section level3">
@@ -151,7 +156,8 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li>The <code>$timespan</code> item in the incidence object from Dates was not type-stable and would change if subsetted. A re-working of the incidence constructor fixed this issue.</li>
+<li><p>The <code>$timespan</code> item in the incidence object from Dates was not type-stable and would change if subsetted. A re-working of the incidence constructor fixed this issue.</p></li>
+<li><p>Misspelled or unrecgonized parameters passed to <code><a href="../reference/incidence.html">incidence()</a></code> will now cause an error instead of being silently ignored.</p></li>
 </ul>
 </div>
 </div>

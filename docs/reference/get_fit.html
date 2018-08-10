@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the interval for an incidence object. — get_interval • incidence</title>
+<title>Accessors for <code>incidence_fit</code> objects — get_fit • incidence</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the interval for an incidence object. — get_interval" />
+<meta property="og:title" content="Accessors for <code>incidence_fit</code> objects — get_fit" />
 
-<meta property="og:description" content="Get the interval for an incidence object." />
+<meta property="og:description" content="Accessors for incidence_fit objects" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,52 +116,108 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the interval for an incidence object.</h1>
+    <h1>Accessors for <code>incidence_fit</code> objects</h1>
     
-    <div class="hidden name"><code>get_interval.Rd</code></div>
+    <div class="hidden name"><code>get_fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get the interval for an incidence object.</p>
+    <p>Accessors for <code>incidence_fit</code> objects</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>get_fit</span>(<span class='no'>x</span>)
 
-<span class='co'># S3 method for incidence</span>
-<span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for incidence_fit</span>
+<span class='fu'>get_fit</span>(<span class='no'>x</span>)
+
+<span class='co'># S3 method for incidence_fit_list</span>
+<span class='fu'>get_fit</span>(<span class='no'>x</span>)
+
+<span class='fu'>get_info</span>(<span class='no'>x</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"r"</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for incidence_fit</span>
+<span class='fu'>get_info</span>(<span class='no'>x</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"r"</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for incidence_fit_list</span>
+<span class='fu'>get_info</span>(<span class='no'>x</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"r"</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an <a href='incidence.html'>incidence</a> object.</p></td>
+      <td><p>an <code>incidence_fit</code> or <code>incidence_fit_list</code>
+object.</p></td>
+    </tr>
+    <tr>
+      <th>what</th>
+      <td><p>the name of the item in the "info" element of the <code>incidence_fit</code>
+object.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Unused</p></td>
+      <td><p>currently unused.</p></td>
     </tr>
     <tr>
-      <th>integer</th>
-      <td><p>When <code>TRUE</code> (default), the interval will be converted to an
-integer vector if it is stored as a character in the incidence object.</p></td>
+      <th>groups</th>
+      <td><p>if <code>what = "pred"</code> and <code>x</code> is an <code>incidence_fit_list</code> object,
+then this indicates what part of the nesting hierarchy becomes the column
+named "groups". Defaults to <code>NULL</code>, indicating that no groups column will
+be added/modified.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>when <code>TRUE</code> (default), missing values will be excluded from the
+results.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>if <code>integer = TRUE</code>: an integer vector, otherwise: the value stored
-in <code>x$interval</code></p>
+    <p>a list of <code>incidence_fit</code> objects.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>set.seed</span>(<span class='fl'>999</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='fu'>Sys.Date</span>()) + <span class='fu'>sample</span>(-<span class='fl'>3</span>:<span class='fl'>50</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"month"</span>)
-<span class='fu'>get_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 31 30</div><div class='input'><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "month"</div></pre>
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+
+ <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
+
+ <span class='co'>## EXAMPLE WITH A SINGLE MODEL</span>
+
+ <span class='co'>## compute weekly incidence</span>
+ <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
+ <span class='no'>i.sex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>sex</span>)
+
+ <span class='co'>## Compute the optimal split for each group separately</span>
+ <span class='no'>fits</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='fit.html'>fit_optim_split</a></span>(<span class='no'>i.sex</span>, <span class='kw'>separate_split</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+ <span class='co'>## `fits` contains an `incidence_fit_list` object</span>
+ <span class='no'>fits</span>$<span class='no'>fit</span>
+
+ <span class='co'>## Grab the list of `incidence_fit` objects</span>
+ <span class='fu'>get_fit</span>(<span class='no'>fits</span>$<span class='no'>fit</span>)
+
+ <span class='co'>## Get the predictions for all groups</span>
+ <span class='fu'>get_info</span>(<span class='no'>fits</span>$<span class='no'>fit</span>, <span class='st'>"pred"</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+
+ <span class='co'>## Get the predictions, but set `groups` to "before" and "after"</span>
+ <span class='fu'>get_info</span>(<span class='no'>fits</span>$<span class='no'>fit</span>, <span class='st'>"pred"</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+
+ <span class='co'>## Get the reproduction number</span>
+ <span class='fu'>get_info</span>(<span class='no'>fits</span>$<span class='no'>fit</span>, <span class='st'>"r"</span>)
+
+ <span class='co'>## Get the doubling confidence interval</span>
+ <span class='fu'>get_info</span>(<span class='no'>fits</span>$<span class='no'>fit</span>, <span class='st'>"doubling.conf"</span>)
+
+ <span class='co'>## Get the halving confidence interval</span>
+ <span class='fu'>get_info</span>(<span class='no'>fits</span>$<span class='no'>fit</span>, <span class='st'>"halving.conf"</span>)
+}</div><div class='output co'>#&gt;            2.5 %   97.5 %
+#&gt; f_after 62.85711 76.85756
+#&gt; m_after 60.86059 73.91966</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

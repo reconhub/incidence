@@ -84,7 +84,7 @@
       <h1>Overview of the incidence package</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-07-18</h4>
+            <h4 class="date">2018-08-10</h4>
       
       
       <div class="hidden name"><code>overview.Rmd</code></div>
@@ -99,9 +99,9 @@
 <h1 class="hasAnchor">
 <a href="#installing-the-package" class="anchor"></a>Installing the package</h1>
 <p>To install the current stable, CRAN version of the package, type:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"incidence"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"incidence"</span>)</a></code></pre></div>
 <p>To benefit from the latest features and bug fixes, install the development, <em>github</em> version of the package using:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"reconhub/incidence"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"reconhub/incidence"</span>)</a></code></pre></div>
 <p>Note that this requires the package <em>devtools</em> installed.</p>
 <p><br></p>
 </div>
@@ -133,190 +133,190 @@
 <a href="#loading-the-data" class="anchor"></a>Loading the data</h2>
 <p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. We will compute incidence for various time steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.</p>
 <p>First, we load the data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(outbreaks)
-<span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(incidence)
-
-dat &lt;-<span class="st"> </span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>date_of_onset
-<span class="kw">class</span>(dat)
-<span class="co">#&gt; [1] "Date"</span>
-<span class="kw">head</span>(dat)
-<span class="co">#&gt; [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26"</span>
-<span class="co">#&gt; [6] "2014-04-25"</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(outbreaks)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">library</span>(incidence)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">dat &lt;-<span class="st"> </span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>date_of_onset</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">class</span>(dat)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; [1] "Date"</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw">head</span>(dat)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26"</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [6] "2014-04-25"</span></a></code></pre></div>
 </div>
 <div id="computing-and-plotting-incidence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#computing-and-plotting-incidence" class="anchor"></a>Computing and plotting incidence</h2>
 <p>We compute the daily incidence:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat)
-i
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-30]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 389 rows and 1 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 389 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 day</span>
-<span class="co">#&gt; $timespan: 389 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">i</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-30]</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; $counts: matrix with 389 rows and 1 columns</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; $n: 5888 cases in total</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; $dates: 389 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; $interval: 1 day</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; $timespan: 389 days</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="kw">plot</span>(i)</a></code></pre></div>
 <p><img src="figs-overview/incid1-1.png" width="672"></p>
 <p>The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## weekly
-i.<span class="dv">7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>)
-<span class="kw">plot</span>(i.<span class="dv">7</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">## weekly</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">plot</span>(i<span class="fl">.7</span>)</a></code></pre></div>
 <p><img src="figs-overview/interv-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-## bi-weekly
-i.<span class="dv">14</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">14</span>)
-<span class="kw">plot</span>(i.<span class="dv">14</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">## bi-weekly</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">i<span class="fl">.14</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">14</span>)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">plot</span>(i<span class="fl">.14</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
 <p><img src="figs-overview/interv-2.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-## period of 30 days
-i.<span class="dv">30</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">30</span>)
-<span class="kw">plot</span>(i.<span class="dv">30</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">## period of 30 days</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">i<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">plot</span>(i<span class="fl">.30</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
 <p><img src="figs-overview/interv-3.png" width="672"></p>
 <p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.<span class="fl">7.</span>sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>gender)
-i.<span class="fl">7.</span>sex
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; [2 groups: f, m]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i.<span class="fl">7.</span>sex, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">i.<span class="fl">7.</span>sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>gender)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">i.<span class="fl">7.</span>sex</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; [2 groups: f, m]</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; $n: 5888 cases in total</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="kw">plot</span>(i.<span class="fl">7.</span>sex, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</a></code></pre></div>
 <p><img src="figs-overview/gender-1.png" width="672"></p>
 <p>We can do the same for hospitals, using the ‘clean’ version of the dataset, with some customization of the legend:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.<span class="fl">7.</span>hosp &lt;-<span class="st"> </span><span class="kw">with</span>(ebola_sim_clean<span class="op">$</span>linelist, 
-     <span class="kw"><a href="../reference/incidence.html">incidence</a></span>(date_of_onset, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> hospital))
-i.<span class="fl">7.</span>hosp
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span>
-<span class="co">#&gt; $n: 5829 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">head</span>(i.<span class="fl">7.</span>hosp<span class="op">$</span>counts)
-<span class="co">#&gt;      Connaught Hospital Military Hospital NA other</span>
-<span class="co">#&gt; [1,]                  0                 1  0     0</span>
-<span class="co">#&gt; [2,]                  1                 0  0     0</span>
-<span class="co">#&gt; [3,]                  0                 0  2     3</span>
-<span class="co">#&gt; [4,]                  1                 0  1     0</span>
-<span class="co">#&gt; [5,]                  3                 5  1     1</span>
-<span class="co">#&gt; [6,]                  2                 4  4     5</span>
-<span class="co">#&gt;      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital</span>
-<span class="co">#&gt; [1,]                                            0               0</span>
-<span class="co">#&gt; [2,]                                            0               0</span>
-<span class="co">#&gt; [3,]                                            0               0</span>
-<span class="co">#&gt; [4,]                                            1               1</span>
-<span class="co">#&gt; [5,]                                            1               1</span>
-<span class="co">#&gt; [6,]                                            1               1</span>
-<span class="kw">plot</span>(i.<span class="fl">7.</span>hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">fill=</span><span class="st">""</span>)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">i.<span class="fl">7.</span>hosp &lt;-<span class="st"> </span><span class="kw">with</span>(ebola_sim_clean<span class="op">$</span>linelist, </a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">     <span class="kw"><a href="../reference/incidence.html">incidence</a></span>(date_of_onset, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> hospital))</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">i.<span class="fl">7.</span>hosp</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; [5829 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; [6 groups: Connaught Hospital, Military Hospital, NA, other, Princess Christian Maternity Hospital (PCMH), Rokupa Hospital]</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; $n: 5829 cases in total</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="kw">head</span>(i.<span class="fl">7.</span>hosp<span class="op">$</span>counts)</a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt;      Connaught Hospital Military Hospital NA other</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; [1,]                  0                 1  0     0</span></a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; [2,]                  1                 0  0     0</span></a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; [3,]                  0                 0  2     3</span></a>
+<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&gt; [4,]                  1                 0  1     0</span></a>
+<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="co">#&gt; [5,]                  3                 5  1     1</span></a>
+<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt; [6,]                  2                 4  4     5</span></a>
+<a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt;      Princess Christian Maternity Hospital (PCMH) Rokupa Hospital</span></a>
+<a class="sourceLine" id="cb9-24" data-line-number="24"><span class="co">#&gt; [1,]                                            0               0</span></a>
+<a class="sourceLine" id="cb9-25" data-line-number="25"><span class="co">#&gt; [2,]                                            0               0</span></a>
+<a class="sourceLine" id="cb9-26" data-line-number="26"><span class="co">#&gt; [3,]                                            0               0</span></a>
+<a class="sourceLine" id="cb9-27" data-line-number="27"><span class="co">#&gt; [4,]                                            1               1</span></a>
+<a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt; [5,]                                            1               1</span></a>
+<a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt; [6,]                                            1               1</span></a>
+<a class="sourceLine" id="cb9-30" data-line-number="30"><span class="kw">plot</span>(i.<span class="fl">7.</span>hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-32" data-line-number="32"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">fill=</span><span class="st">""</span>)</a></code></pre></div>
 <p><img src="figs-overview/hosp-1.png" width="672"></p>
 </div>
 <div id="handling-incidence-objects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#handling-incidence-objects" class="anchor"></a>Handling <code>incidence</code> objects</h2>
 <p><code>incidence</code> objects can be manipulated easily. The <code>[</code> operator implements subetting of dates (first argument) and groups (second argument). For instance, to keep only the peak of the distribution:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i[<span class="dv">100</span><span class="op">:</span><span class="dv">250</span>]
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [4103 cases from days 2014-07-15 to 2014-12-12]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 151 rows and 1 columns</span>
-<span class="co">#&gt; $n: 4103 cases in total</span>
-<span class="co">#&gt; $dates: 151 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 day</span>
-<span class="co">#&gt; $timespan: 151 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i[<span class="dv">100</span><span class="op">:</span><span class="dv">250</span>])</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">i[<span class="dv">100</span><span class="op">:</span><span class="dv">250</span>]</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [4103 cases from days 2014-07-15 to 2014-12-12]</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; $counts: matrix with 151 rows and 1 columns</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; $n: 4103 cases in total</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; $dates: 151 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; $interval: 1 day</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; $timespan: 151 days</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="kw">plot</span>(i[<span class="dv">100</span><span class="op">:</span><span class="dv">250</span>])</a></code></pre></div>
 <p><img src="figs-overview/middle-1.png" width="672"></p>
 <p>Or to keep every other week:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.<span class="dv">7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)]
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [2891 cases from days 2014-04-07 to 2015-04-20]</span>
-<span class="co">#&gt; [2891 cases from ISO weeks 2014-W15 to 2015-W17]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 28 rows and 1 columns</span>
-<span class="co">#&gt; $n: 2891 cases in total</span>
-<span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 379 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i.<span class="dv">7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)])</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)]</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; [2891 cases from days 2014-04-07 to 2015-04-20]</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; [2891 cases from ISO weeks 2014-W15 to 2015-W17]</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; $counts: matrix with 28 rows and 1 columns</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; $n: 2891 cases in total</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; $timespan: 379 days</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)])</a></code></pre></div>
 <p><img src="figs-overview/stripes-1.png" width="672"></p>
 <p>Some temporal subsetting can be even simpler using <code>subset</code>, which permits to retain data within a specified time window:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.tail &lt;-<span class="st"> </span><span class="kw">subset</span>(i, <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">"2015-01-01"</span>))
-i.tail
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [1205 cases from days 2015-01-01 to 2015-04-30]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 120 rows and 1 columns</span>
-<span class="co">#&gt; $n: 1205 cases in total</span>
-<span class="co">#&gt; $dates: 120 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 day</span>
-<span class="co">#&gt; $timespan: 120 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i.tail, <span class="dt">border=</span><span class="st">"white"</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">i.tail &lt;-<span class="st"> </span><span class="kw">subset</span>(i, <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">"2015-01-01"</span>))</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">i.tail</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; [1205 cases from days 2015-01-01 to 2015-04-30]</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; $counts: matrix with 120 rows and 1 columns</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; $n: 1205 cases in total</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; $dates: 120 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; $interval: 1 day</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; $timespan: 120 days</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="kw">plot</span>(i.tail, <span class="dt">border=</span><span class="st">"white"</span>)</a></code></pre></div>
 <p><img src="figs-overview/tail-1.png" width="672"></p>
 <p>Subsetting groups can also matter. For instance, let’s try and visualise the incidence based on onset of symptoms by outcome:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.<span class="fl">7.</span>outcome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups=</span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>outcome)
-i.<span class="fl">7.</span>outcome
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; [3 groups: Death, NA, Recover]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 3 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i.<span class="fl">7.</span>outcome, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">i.<span class="fl">7.</span>outcome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups=</span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>outcome)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">i.<span class="fl">7.</span>outcome</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; [3 groups: Death, NA, Recover]</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; $counts: matrix with 56 rows and 3 columns</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; $n: 5888 cases in total</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="kw">plot</span>(i.<span class="fl">7.</span>outcome, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</a></code></pre></div>
 <p><img src="figs-overview/i7outcome-1.png" width="672"></p>
 <p>By default, <code>incidence</code> treats missing data (NA) as a separate group (see argument <code>na_as_group</code>). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.<span class="fl">7.</span>outcome[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [3905 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [3905 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; [2 groups: Death, NA]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span>
-<span class="co">#&gt; $n: 3905 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">plot</span>(i.<span class="fl">7.</span>outcome[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">i.<span class="fl">7.</span>outcome[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; [3905 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; [3905 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; [2 groups: Death, NA]</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; $n: 3905 cases in total</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="kw">plot</span>(i.<span class="fl">7.</span>outcome[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</a></code></pre></div>
 <p><img src="figs-overview/groupsub-1.png" width="672"></p>
 <p>Groups can also be collapsed into a single time series using <code>pool</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i.pooled &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pool.html">pool</a></span>(i.<span class="fl">7.</span>outcome)
-i.pooled
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="kw">identical</span>(i.<span class="dv">7</span><span class="op">$</span>counts, i.pooled<span class="op">$</span>counts)
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">i.pooled &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pool.html">pool</a></span>(i.<span class="fl">7.</span>outcome)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">i.pooled</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; $n: 5888 cases in total</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="kw">identical</span>(i<span class="fl">.7</span><span class="op">$</span>counts, i.pooled<span class="op">$</span>counts)</a>
+<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 <div id="modelling-incidence" class="section level2">
 <h2 class="hasAnchor">
@@ -324,216 +324,196 @@ i.pooled
 <p>Incidence data, excluding zeros, can be modelled using log-linear regression of the form: log(<em>y</em>) = <em>r</em> x <em>t</em> + <em>b</em></p>
 <p>where <em>y</em> is the incidence, <em>r</em> is the growth rate, <em>t</em> is the number of days since a specific point in time (typically the start of the outbreak), and <em>b</em> is the intercept.</p>
 <p>Such model can be fitted to any incidence object using <code>fit</code>. Of course, a single log-linear model is not sufficient for modelling our epidemic curve, as there is clearly an growing and a decreasing phase. As a start, we can calibrate a model on the first 20 weeks of the epidemic:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.<span class="dv">7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])</a></code></pre></div>
 <p><img src="figs-overview/fit1-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">early.fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit</a></span>(i.<span class="dv">7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])
-early.fit
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt; [1] 0.03175771</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;           2.5 %     97.5 %</span>
-<span class="co">#&gt; [1,] 0.02596229 0.03755314</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling (doubling time in days):</span>
-<span class="co">#&gt; [1] 21.8261</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %   97.5 %</span>
-<span class="co">#&gt; [1,] 18.45777 26.69823</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (20 rows, 5 columns)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">early.fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit</a></span>(i<span class="fl">.7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">early.fit</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; &lt;incidence_fit object&gt;</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt; $info: list containing the following items:</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt;   $r (daily growth rate):</span></a>
+<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt; [1] 0.03175771</span></a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb17-11" data-line-number="11"><span class="co">#&gt;   $r.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co">#&gt;           2.5 %     97.5 %</span></a>
+<a class="sourceLine" id="cb17-13" data-line-number="13"><span class="co">#&gt; [1,] 0.02596229 0.03755314</span></a>
+<a class="sourceLine" id="cb17-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb17-15" data-line-number="15"><span class="co">#&gt;   $doubling (doubling time in days):</span></a>
+<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="co">#&gt; [1] 21.8261</span></a>
+<a class="sourceLine" id="cb17-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb17-18" data-line-number="18"><span class="co">#&gt;   $doubling.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb17-19" data-line-number="19"><span class="co">#&gt;         2.5 %   97.5 %</span></a>
+<a class="sourceLine" id="cb17-20" data-line-number="20"><span class="co">#&gt; [1,] 18.45777 26.69823</span></a>
+<a class="sourceLine" id="cb17-21" data-line-number="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb17-22" data-line-number="22"><span class="co">#&gt;   $pred: data.frame of incidence predictions (20 rows, 5 columns)</span></a></code></pre></div>
 <p>The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(early.fit)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">plot</span>(early.fit)</a></code></pre></div>
 <p><img src="figs-overview/unnamed-chunk-2-1.png" width="672"></p>
 <p>However, a better way to display these predictions is adding them to the incidence plot using the argument <code>fit</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.<span class="dv">7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>], <span class="dt">fit =</span> early.fit)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>], <span class="dt">fit =</span> early.fit)</a></code></pre></div>
 <p><img src="figs-overview/unnamed-chunk-3-1.png" width="672"></p>
 <p>In this case, we would ideally like to fit two models, before and after the peak of the epidemic. This is possible using the following approach, if you know what date to use to split the data in two phases:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.both &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit</a></span>(i.<span class="dv">7</span>, <span class="dt">split=</span><span class="kw">as.Date</span>(<span class="st">"2014-10-15"</span>))
-fit.both
-<span class="co">#&gt; $before</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt; [1] 0.02741985</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;           2.5 %     97.5 %</span>
-<span class="co">#&gt; [1,] 0.02407933 0.03076038</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling (doubling time in days):</span>
-<span class="co">#&gt; [1] 25.27902</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %   97.5 %</span>
-<span class="co">#&gt; [1,] 22.53377 28.78598</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (28 rows, 5 columns)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $after</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt; [1] -0.01014465</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;            2.5 %       97.5 %</span>
-<span class="co">#&gt; [1,] -0.01127733 -0.009011981</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving (halving time in days):</span>
-<span class="co">#&gt; [1] 68.32636</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %   97.5 %</span>
-<span class="co">#&gt; [1,] 61.46379 76.91397</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (28 rows, 5 columns)</span>
-<span class="kw">plot</span>(i.<span class="dv">7</span>, <span class="dt">fit=</span>fit.both)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">fit.both &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit</a></span>(i<span class="fl">.7</span>, <span class="dt">split=</span><span class="kw">as.Date</span>(<span class="st">"2014-10-15"</span>))</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">fit.both</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">#&gt; &lt;list of incidence_fit objects&gt;</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co">#&gt; attr(x, 'locations'): list of vectors with the locations of each incidence_fit object</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt; 'before'</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#&gt; 'after'</span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt; $info: list containing the following items:</span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;   $r (daily growth rate):</span></a>
+<a class="sourceLine" id="cb20-14" data-line-number="14"><span class="co">#&gt;      before       after </span></a>
+<a class="sourceLine" id="cb20-15" data-line-number="15"><span class="co">#&gt;  0.02741985 -0.01014465 </span></a>
+<a class="sourceLine" id="cb20-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-17" data-line-number="17"><span class="co">#&gt;   $r.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb20-18" data-line-number="18"><span class="co">#&gt;              2.5 %       97.5 %</span></a>
+<a class="sourceLine" id="cb20-19" data-line-number="19"><span class="co">#&gt; before  0.02407933  0.030760379</span></a>
+<a class="sourceLine" id="cb20-20" data-line-number="20"><span class="co">#&gt; after  -0.01127733 -0.009011981</span></a>
+<a class="sourceLine" id="cb20-21" data-line-number="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-22" data-line-number="22"><span class="co">#&gt;   $doubling (doubling time in days):</span></a>
+<a class="sourceLine" id="cb20-23" data-line-number="23"><span class="co">#&gt;   before </span></a>
+<a class="sourceLine" id="cb20-24" data-line-number="24"><span class="co">#&gt; 25.27902 </span></a>
+<a class="sourceLine" id="cb20-25" data-line-number="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-26" data-line-number="26"><span class="co">#&gt;   $doubling.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb20-27" data-line-number="27"><span class="co">#&gt;           2.5 %   97.5 %</span></a>
+<a class="sourceLine" id="cb20-28" data-line-number="28"><span class="co">#&gt; before 22.53377 28.78598</span></a>
+<a class="sourceLine" id="cb20-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-30" data-line-number="30"><span class="co">#&gt;   $halving (halving time in days):</span></a>
+<a class="sourceLine" id="cb20-31" data-line-number="31"><span class="co">#&gt;    after </span></a>
+<a class="sourceLine" id="cb20-32" data-line-number="32"><span class="co">#&gt; 68.32636 </span></a>
+<a class="sourceLine" id="cb20-33" data-line-number="33"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-34" data-line-number="34"><span class="co">#&gt;   $halving.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb20-35" data-line-number="35"><span class="co">#&gt;          2.5 %   97.5 %</span></a>
+<a class="sourceLine" id="cb20-36" data-line-number="36"><span class="co">#&gt; after 61.46379 76.91397</span></a>
+<a class="sourceLine" id="cb20-37" data-line-number="37"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-38" data-line-number="38"><span class="co">#&gt;   $pred: data.frame of incidence predictions (56 rows, 6 columns)</span></a>
+<a class="sourceLine" id="cb20-39" data-line-number="39"><span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit=</span>fit.both)</a></code></pre></div>
 <p><img src="figs-overview/fit.both-1.png" width="672"></p>
 <p>This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e. the one maximizing the average fit of both models), we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit_optim_split</a></span>(i.<span class="dv">7</span>)
-best.fit
-<span class="co">#&gt; $df</span>
-<span class="co">#&gt;         dates   mean.R2</span>
-<span class="co">#&gt; 1  2014-08-04 0.7650406</span>
-<span class="co">#&gt; 2  2014-08-11 0.8203351</span>
-<span class="co">#&gt; 3  2014-08-18 0.8598316</span>
-<span class="co">#&gt; 4  2014-08-25 0.8882682</span>
-<span class="co">#&gt; 5  2014-09-01 0.9120857</span>
-<span class="co">#&gt; 6  2014-09-08 0.9246023</span>
-<span class="co">#&gt; 7  2014-09-15 0.9338797</span>
-<span class="co">#&gt; 8  2014-09-22 0.9339813</span>
-<span class="co">#&gt; 9  2014-09-29 0.9333246</span>
-<span class="co">#&gt; 10 2014-10-06 0.9291131</span>
-<span class="co">#&gt; 11 2014-10-13 0.9232523</span>
-<span class="co">#&gt; 12 2014-10-20 0.9160439</span>
-<span class="co">#&gt; 13 2014-10-27 0.9071665</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $split</span>
-<span class="co">#&gt; [1] "2014-09-22"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fit</span>
-<span class="co">#&gt; $fit$before</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt; [1] 0.02982209</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;           2.5 %     97.5 %</span>
-<span class="co">#&gt; [1,] 0.02608945 0.03355474</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling (doubling time in days):</span>
-<span class="co">#&gt; [1] 23.24274</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %  97.5 %</span>
-<span class="co">#&gt; [1,] 20.65721 26.5681</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (25 rows, 5 columns)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fit$after</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt; [1] -0.01016191</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;            2.5 %       97.5 %</span>
-<span class="co">#&gt; [1,] -0.01102526 -0.009298561</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving (halving time in days):</span>
-<span class="co">#&gt; [1] 68.21031</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %   97.5 %</span>
-<span class="co">#&gt; [1,] 62.86899 74.54349</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (32 rows, 5 columns)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $plot</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">best.fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit_optim_split</a></span>(i<span class="fl">.7</span>)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">best.fit</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">#&gt; $df</span></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">#&gt;         dates   mean.R2</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt; 1  2014-08-04 0.7650406</span></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="co">#&gt; 2  2014-08-11 0.8203351</span></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="co">#&gt; 3  2014-08-18 0.8598316</span></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="co">#&gt; 4  2014-08-25 0.8882682</span></a>
+<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="co">#&gt; 5  2014-09-01 0.9120857</span></a>
+<a class="sourceLine" id="cb21-10" data-line-number="10"><span class="co">#&gt; 6  2014-09-08 0.9246023</span></a>
+<a class="sourceLine" id="cb21-11" data-line-number="11"><span class="co">#&gt; 7  2014-09-15 0.9338797</span></a>
+<a class="sourceLine" id="cb21-12" data-line-number="12"><span class="co">#&gt; 8  2014-09-22 0.9339813</span></a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="co">#&gt; 9  2014-09-29 0.9333246</span></a>
+<a class="sourceLine" id="cb21-14" data-line-number="14"><span class="co">#&gt; 10 2014-10-06 0.9291131</span></a>
+<a class="sourceLine" id="cb21-15" data-line-number="15"><span class="co">#&gt; 11 2014-10-13 0.9232523</span></a>
+<a class="sourceLine" id="cb21-16" data-line-number="16"><span class="co">#&gt; 12 2014-10-20 0.9160439</span></a>
+<a class="sourceLine" id="cb21-17" data-line-number="17"><span class="co">#&gt; 13 2014-10-27 0.9071665</span></a>
+<a class="sourceLine" id="cb21-18" data-line-number="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-19" data-line-number="19"><span class="co">#&gt; $split</span></a>
+<a class="sourceLine" id="cb21-20" data-line-number="20"><span class="co">#&gt; [1] "2014-09-22"</span></a>
+<a class="sourceLine" id="cb21-21" data-line-number="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-22" data-line-number="22"><span class="co">#&gt; $fit</span></a>
+<a class="sourceLine" id="cb21-23" data-line-number="23"><span class="co">#&gt; &lt;list of incidence_fit objects&gt;</span></a>
+<a class="sourceLine" id="cb21-24" data-line-number="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-25" data-line-number="25"><span class="co">#&gt; attr(x, 'locations'): list of vectors with the locations of each incidence_fit object</span></a>
+<a class="sourceLine" id="cb21-26" data-line-number="26"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-27" data-line-number="27"><span class="co">#&gt; 'before'</span></a>
+<a class="sourceLine" id="cb21-28" data-line-number="28"><span class="co">#&gt; 'after'</span></a>
+<a class="sourceLine" id="cb21-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-30" data-line-number="30"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb21-31" data-line-number="31"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-32" data-line-number="32"><span class="co">#&gt; $info: list containing the following items:</span></a>
+<a class="sourceLine" id="cb21-33" data-line-number="33"><span class="co">#&gt;   $r (daily growth rate):</span></a>
+<a class="sourceLine" id="cb21-34" data-line-number="34"><span class="co">#&gt;      before       after </span></a>
+<a class="sourceLine" id="cb21-35" data-line-number="35"><span class="co">#&gt;  0.02982209 -0.01016191 </span></a>
+<a class="sourceLine" id="cb21-36" data-line-number="36"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-37" data-line-number="37"><span class="co">#&gt;   $r.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb21-38" data-line-number="38"><span class="co">#&gt;              2.5 %       97.5 %</span></a>
+<a class="sourceLine" id="cb21-39" data-line-number="39"><span class="co">#&gt; before  0.02608945  0.033554736</span></a>
+<a class="sourceLine" id="cb21-40" data-line-number="40"><span class="co">#&gt; after  -0.01102526 -0.009298561</span></a>
+<a class="sourceLine" id="cb21-41" data-line-number="41"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-42" data-line-number="42"><span class="co">#&gt;   $doubling (doubling time in days):</span></a>
+<a class="sourceLine" id="cb21-43" data-line-number="43"><span class="co">#&gt;   before </span></a>
+<a class="sourceLine" id="cb21-44" data-line-number="44"><span class="co">#&gt; 23.24274 </span></a>
+<a class="sourceLine" id="cb21-45" data-line-number="45"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-46" data-line-number="46"><span class="co">#&gt;   $doubling.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb21-47" data-line-number="47"><span class="co">#&gt;           2.5 %  97.5 %</span></a>
+<a class="sourceLine" id="cb21-48" data-line-number="48"><span class="co">#&gt; before 20.65721 26.5681</span></a>
+<a class="sourceLine" id="cb21-49" data-line-number="49"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-50" data-line-number="50"><span class="co">#&gt;   $halving (halving time in days):</span></a>
+<a class="sourceLine" id="cb21-51" data-line-number="51"><span class="co">#&gt;    after </span></a>
+<a class="sourceLine" id="cb21-52" data-line-number="52"><span class="co">#&gt; 68.21031 </span></a>
+<a class="sourceLine" id="cb21-53" data-line-number="53"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-54" data-line-number="54"><span class="co">#&gt;   $halving.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb21-55" data-line-number="55"><span class="co">#&gt;          2.5 %   97.5 %</span></a>
+<a class="sourceLine" id="cb21-56" data-line-number="56"><span class="co">#&gt; after 62.86899 74.54349</span></a>
+<a class="sourceLine" id="cb21-57" data-line-number="57"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-58" data-line-number="58"><span class="co">#&gt;   $pred: data.frame of incidence predictions (57 rows, 6 columns)</span></a>
+<a class="sourceLine" id="cb21-59" data-line-number="59"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb21-60" data-line-number="60"><span class="co">#&gt; $plot</span></a></code></pre></div>
 <p><img src="figs-overview/optim-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(i.<span class="dv">7</span>, <span class="dt">fit=</span>best.fit<span class="op">$</span>fit)</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">plot</span>(i<span class="fl">.7</span>, <span class="dt">fit=</span>best.fit<span class="op">$</span>fit)</a></code></pre></div>
 <p><img src="figs-overview/optim-2.png" width="672"></p>
 <p>These models are very good approximation of these data, showing a doubling time of 23.2 days during the first phase, and a halving time of 68.2 days during the second.</p>
 <p>Note that <code>fit</code> will also take groups into account if incidence has been computed for several groups:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.fit2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit_optim_split</a></span>(i.<span class="fl">7.</span>sex)<span class="op">$</span>fit
-best.fit2
-<span class="co">#&gt; $before</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt;          f          m </span>
-<span class="co">#&gt; 0.02381854 0.02640719 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;        2.5 %     97.5 %</span>
-<span class="co">#&gt; f 0.02097832 0.02665876</span>
-<span class="co">#&gt; m 0.01955031 0.03326408</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling (doubling time in days):</span>
-<span class="co">#&gt;        f        m </span>
-<span class="co">#&gt; 29.10116 26.24842 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $doubling.conf (confidence interval):</span>
-<span class="co">#&gt;      2.5 %   97.5 %</span>
-<span class="co">#&gt; f 26.00073 33.04111</span>
-<span class="co">#&gt; m 20.83771 35.45454</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (46 rows, 6 columns)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $after</span>
-<span class="co">#&gt; &lt;incidence_fit object&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $lm: regression of log-incidence over time</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $info: list containing the following items:</span>
-<span class="co">#&gt;   $r (daily growth rate):</span>
-<span class="co">#&gt;           f           m </span>
-<span class="co">#&gt; -0.01002305 -0.01056026 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $r.conf (confidence interval):</span>
-<span class="co">#&gt;         2.5 %       97.5 %</span>
-<span class="co">#&gt; f -0.01110163 -0.008944473</span>
-<span class="co">#&gt; m -0.01316417 -0.007956340</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving (halving time in days):</span>
-<span class="co">#&gt;        f        m </span>
-<span class="co">#&gt; 69.15531 65.63734 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $halving.conf (confidence interval):</span>
-<span class="co">#&gt;      2.5 %   97.5 %</span>
-<span class="co">#&gt; f 62.43653 77.49447</span>
-<span class="co">#&gt; m 52.65406 87.11885</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   $pred: data.frame of incidence predictions (62 rows, 6 columns)</span>
-<span class="kw">plot</span>(i.<span class="fl">7.</span>sex, <span class="dt">fit=</span>best.fit2)
-<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for</span>
-<span class="co">#&gt; 'colour', which will replace the existing scale.</span>
-<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for</span>
-<span class="co">#&gt; 'colour', which will replace the existing scale.</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">best.fit2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fit.html">fit_optim_split</a></span>(i.<span class="fl">7.</span>sex)<span class="op">$</span>fit</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">best.fit2</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co">#&gt; &lt;list of incidence_fit objects&gt;</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="co">#&gt; attr(x, 'locations'): list of vectors with the locations of each incidence_fit object</span></a>
+<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co">#&gt; 'f', 'before'</span></a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"><span class="co">#&gt; 'm', 'before'</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="co">#&gt; 'f', 'after'</span></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="co">#&gt; 'm', 'after'</span></a>
+<a class="sourceLine" id="cb23-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-12" data-line-number="12"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-14" data-line-number="14"><span class="co">#&gt; $info: list containing the following items:</span></a>
+<a class="sourceLine" id="cb23-15" data-line-number="15"><span class="co">#&gt;   $r (daily growth rate):</span></a>
+<a class="sourceLine" id="cb23-16" data-line-number="16"><span class="co">#&gt;    f_before    m_before     f_after     m_after </span></a>
+<a class="sourceLine" id="cb23-17" data-line-number="17"><span class="co">#&gt;  0.02570604  0.02883607 -0.01002297 -0.01038307 </span></a>
+<a class="sourceLine" id="cb23-18" data-line-number="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-19" data-line-number="19"><span class="co">#&gt;   $r.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb23-20" data-line-number="20"><span class="co">#&gt;                2.5 %       97.5 %</span></a>
+<a class="sourceLine" id="cb23-21" data-line-number="21"><span class="co">#&gt; f_before  0.02289333  0.028518743</span></a>
+<a class="sourceLine" id="cb23-22" data-line-number="22"><span class="co">#&gt; m_before  0.02502254  0.032649606</span></a>
+<a class="sourceLine" id="cb23-23" data-line-number="23"><span class="co">#&gt; f_after  -0.01102735 -0.009018595</span></a>
+<a class="sourceLine" id="cb23-24" data-line-number="24"><span class="co">#&gt; m_after  -0.01138910 -0.009377034</span></a>
+<a class="sourceLine" id="cb23-25" data-line-number="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-26" data-line-number="26"><span class="co">#&gt;   $doubling (doubling time in days):</span></a>
+<a class="sourceLine" id="cb23-27" data-line-number="27"><span class="co">#&gt; f_before m_before </span></a>
+<a class="sourceLine" id="cb23-28" data-line-number="28"><span class="co">#&gt; 26.96437 24.03750 </span></a>
+<a class="sourceLine" id="cb23-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-30" data-line-number="30"><span class="co">#&gt;   $doubling.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb23-31" data-line-number="31"><span class="co">#&gt;             2.5 %   97.5 %</span></a>
+<a class="sourceLine" id="cb23-32" data-line-number="32"><span class="co">#&gt; f_before 24.30497 30.27725</span></a>
+<a class="sourceLine" id="cb23-33" data-line-number="33"><span class="co">#&gt; m_before 21.22988 27.70091</span></a>
+<a class="sourceLine" id="cb23-34" data-line-number="34"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-35" data-line-number="35"><span class="co">#&gt;   $halving (halving time in days):</span></a>
+<a class="sourceLine" id="cb23-36" data-line-number="36"><span class="co">#&gt;  f_after  m_after </span></a>
+<a class="sourceLine" id="cb23-37" data-line-number="37"><span class="co">#&gt; 69.15586 66.75746 </span></a>
+<a class="sourceLine" id="cb23-38" data-line-number="38"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-39" data-line-number="39"><span class="co">#&gt;   $halving.conf (confidence interval):</span></a>
+<a class="sourceLine" id="cb23-40" data-line-number="40"><span class="co">#&gt;            2.5 %   97.5 %</span></a>
+<a class="sourceLine" id="cb23-41" data-line-number="41"><span class="co">#&gt; f_after 62.85711 76.85756</span></a>
+<a class="sourceLine" id="cb23-42" data-line-number="42"><span class="co">#&gt; m_after 60.86059 73.91966</span></a>
+<a class="sourceLine" id="cb23-43" data-line-number="43"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb23-44" data-line-number="44"><span class="co">#&gt;   $pred: data.frame of incidence predictions (111 rows, 7 columns)</span></a>
+<a class="sourceLine" id="cb23-45" data-line-number="45"><span class="kw">plot</span>(i.<span class="fl">7.</span>sex, <span class="dt">fit=</span>best.fit2)</a>
+<a class="sourceLine" id="cb23-46" data-line-number="46"><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for</span></a>
+<a class="sourceLine" id="cb23-47" data-line-number="47"><span class="co">#&gt; 'colour', which will replace the existing scale.</span></a>
+<a class="sourceLine" id="cb23-48" data-line-number="48"><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for</span></a>
+<a class="sourceLine" id="cb23-49" data-line-number="49"><span class="co">#&gt; 'colour', which will replace the existing scale.</span></a>
+<a class="sourceLine" id="cb23-50" data-line-number="50"><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for</span></a>
+<a class="sourceLine" id="cb23-51" data-line-number="51"><span class="co">#&gt; 'colour', which will replace the existing scale.</span></a>
+<a class="sourceLine" id="cb23-52" data-line-number="52"><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for</span></a>
+<a class="sourceLine" id="cb23-53" data-line-number="53"><span class="co">#&gt; 'colour', which will replace the existing scale.</span></a></code></pre></div>
 <p><img src="figs-overview/optim2-1.png" width="672"></p>
 </div>
 </div>

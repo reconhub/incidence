@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the interval for an incidence object. — get_interval • incidence</title>
+<title>Get counts from an incidence object — get_counts • incidence</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the interval for an incidence object. — get_interval" />
+<meta property="og:title" content="Get counts from an incidence object — get_counts" />
 
-<meta property="og:description" content="Get the interval for an incidence object." />
+<meta property="og:description" content="Get counts from an incidence object" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,52 +116,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the interval for an incidence object.</h1>
+    <h1>Get counts from an incidence object</h1>
     
-    <div class="hidden name"><code>get_interval.Rd</code></div>
+    <div class="hidden name"><code>get_counts.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get the interval for an incidence object.</p>
+    <p>Get counts from an incidence object</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>get_counts</span>(<span class='no'>x</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>get_counts</span>(<span class='no'>x</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an <a href='incidence.html'>incidence</a> object.</p></td>
+      <td><p>an <code>incidence</code> object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Unused</p></td>
-    </tr>
-    <tr>
-      <th>integer</th>
-      <td><p>When <code>TRUE</code> (default), the interval will be converted to an
-integer vector if it is stored as a character in the incidence object.</p></td>
+      <th>groups</th>
+      <td><p>if there are groups, use this to specify a group or groups to
+subset. Defaults to <code>NULL</code> indicating that all groups are returned.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>if <code>integer = TRUE</code>: an integer vector, otherwise: the value stored
-in <code>x$interval</code></p>
+    <p>a matrix of counts where each row represents a date bin</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>set.seed</span>(<span class='fl'>999</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='fu'>Sys.Date</span>()) + <span class='fu'>sample</span>(-<span class='fl'>3</span>:<span class='fl'>50</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"month"</span>)
-<span class='fu'>get_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 31 30</div><div class='input'><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "month"</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>outbreaks</span>)) {
+  <span class='no'>dat</span>  <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
+  <span class='no'>gend</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
+  <span class='no'>i</span>    <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>gend</span>)
+
+  <span class='co'>## Use with an object and no arguments gives the counts matrix</span>
+  <span class='fu'>head</span>(<span class='fu'>get_counts</span>(<span class='no'>i</span>))
+
+  <span class='co'>## Specifying a position or group name will return a matrix subset to that</span>
+  <span class='co'>## group</span>
+  <span class='fu'>head</span>(<span class='fu'>get_counts</span>(<span class='no'>i</span>, <span class='fl'>1L</span>))
+  <span class='fu'>head</span>(<span class='fu'>get_counts</span>(<span class='no'>i</span>, <span class='st'>"f"</span>))
+
+  <span class='co'>## Specifying multiple groups allows you to rearrange columns</span>
+  <span class='fu'>head</span>(<span class='fu'>get_counts</span>(<span class='no'>i</span>, <span class='fu'>c</span>(<span class='st'>"m"</span>, <span class='st'>"f"</span>)))
+
+  <span class='co'>## If you want a vector, you can use drop</span>
+  <span class='fu'>drop</span>(<span class='fu'>get_counts</span>(<span class='no'>i</span>, <span class='st'>"f"</span>))
+}</div><div class='output co'>#&gt;  [1]   1   0   4   4   9   8   8   9  13   7  15  12  11  18  35  38  45  45  57
+#&gt; [20]  65  74 115 123 167 156 160 135 135 117 129 111  91  75  79  69  67  62  62
+#&gt; [39]  41  47  63  49  42  44  36  40  38  38  28  29  34  29  18  27  18  10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

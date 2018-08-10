@@ -133,7 +133,15 @@ function, using the package <code>ggplot2</code>.</p>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fu'>is.null</span>(<span class='no'>fit</span>),
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>incidence_pal1</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labels_iso</span> <span class='kw'>=</span> !<span class='fu'>is.null</span>(<span class='no'>x</span>$<span class='no'>isoweeks</span>), <span class='kw'>n_breaks</span> <span class='kw'>=</span> <span class='fl'>6</span>)</pre>
+  <span class='kw'>labels_iso</span> <span class='kw'>=</span> !<span class='fu'>is.null</span>(<span class='no'>x</span>$<span class='no'>isoweeks</span>), <span class='kw'>n_breaks</span> <span class='kw'>=</span> <span class='fl'>6</span>)
+
+<span class='fu'>add_incidence_fit</span>(<span class='no'>p</span>, <span class='no'>x</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>incidence_pal1</span>)
+
+<span class='co'># S3 method for incidence_fit</span>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for incidence_fit_list</span>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,6 +206,10 @@ incidence; defaults to be TRUE.</p></td>
       <td><p>the ideal number of breaks to be used for the x-axis
 labelling</p></td>
     </tr>
+    <tr>
+      <th>p</th>
+      <td><p>An existing incidence plot.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -234,6 +246,10 @@ objects.</p></div>
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>fit</span>)
   <span class='fu'>plot</span>(<span class='no'>inc.week.gender</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>fit</span>, <span class='kw'>labels_iso</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 }</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
