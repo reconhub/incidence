@@ -1,0 +1,31 @@
+---
+title: "Details of the incidence_fit class"
+author: "Zhian N. Kamvar"
+date: "`r Sys.Date()`"
+output:
+   rmarkdown::html_vignette:
+     toc: true
+     toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Incidence fit class}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=7, 
+  fig.height=5, 
+  fig.path="figs-class/"
+)
+```
+
+This vignette details the structure and construction of the `incidence_fit` and 
+`incidence_fit_list` classes, which are produced by the `fit()` and 
+`fit_optim_split()` functions, respectively. By the end of this tutorial, you
+should be able to construct `incidence_fit` and `incidence_fit_list` objects for
+use with your own models.
+
+
