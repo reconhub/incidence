@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
   comment = "#>", 
   fig.width=7, 
   fig.height=5, 
-  fig.path="figs-class/"
+  fig.path="figs-fit/"
 )
 ```
 
@@ -27,5 +27,25 @@ This vignette details the structure and construction of the `incidence_fit` and
 `fit_optim_split()` functions, respectively. By the end of this tutorial, you
 should be able to construct `incidence_fit` and `incidence_fit_list` objects for
 use with your own models.
+
+# Structure of an `incidence_fit` object
+
+An `incidence_fit` object contains three elements:
+
+ - `$lm`: The model fit to an `incidence` object. Currently, this represents a 
+    log-linear model, but it can be any model. 
+ - `$info`: Information derived from the model
+   - `r` The growth rate
+   - `r.conf` the confidence interval of `r`
+   - `pred` a data frame containing the predictions of the model using the true
+      dates (`dates`), their numberic version used in the model (`dates.x`), the
+      predicted value (`fit`), and the lower (`lwr`) and upper (`upr`) bounds of
+      the associated confidence interval.
+   - `doubling` the predicted doubling time in days (only if `r` is positive)
+   - `doubling.conf` the confidence interval of the doubling time
+   - `halving` the predicted halving time in days (only if `r` is negative)
+   - `halving.conf` the confidence interval of the halving time
+ - `$origin`: the date corresponding to day '0'
+
 
 
