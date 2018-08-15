@@ -178,7 +178,7 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
     lm1 <- stats::lm(the_model, data = df)
     # updating the call for easier inspection by the user
     lm1$call[[2]] <- the_model
-    out <- extract_info(lm1, x, level)
+    out <- extract_info(lm1, min(get_dates(x)), level)
   } else {
     x1 <- x[x$dates <= split]
     x2 <- x[x$dates >= split]
@@ -191,8 +191,8 @@ fit <- function(x, split = NULL, level = 0.95, quiet = FALSE){
     lm2 <- stats::lm(the_model, data = df2)
     # updating the call for easier inspection by the user
     lm1$call[[2]] <- the_model -> lm2$call[[2]]
-    before <- extract_info(lm1, x1, level)
-    after <- extract_info(lm2, x2, level)
+    before <- extract_info(lm1, min(get_dates(x1)), level)
+    after <- extract_info(lm2, min(get_dates(x2)), level)
     out <- list(before = before,
                 after = after
                 )
