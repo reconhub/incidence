@@ -76,7 +76,7 @@ The main functions of the package include:
 - **`fit_optim_split`**: finds the optimal date to split the time series in two,
   typically around the peak of the epidemic.
 
-- **`[`**: lower-level subsetan of *incidence* objects, permiting to specify
+- **`[`**: lower-level subsetting of *incidence* objects, permiting to specify
   which dates and groups to retain; uses a syntax similar to matrices,
   i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates,
   and `j` a subset of groups.
@@ -144,9 +144,9 @@ plot(i.7)
 i.14 <- incidence(dat, interval=14)
 plot(i.14, border = "white")
 
-## period of 30 days
-i.30 <- incidence(dat, interval=30)
-plot(i.30, border = "white")
+## monthly
+i.month <- incidence(dat, interval="month")
+plot(i.month, border = "white")
 
 ```
 
@@ -234,7 +234,7 @@ early.fit <- fit(i.7[1:20])
 early.fit
 ```
 
-The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:
+The resulting objects (known as `incidence_fit` objects) can be plotted, in which case the prediction and its confidence interval is displayed:
 
 ```{r}
 plot(early.fit)
@@ -261,12 +261,42 @@ best.fit
 plot(i.7, fit=best.fit$fit)
 ```
 
-These models are very good approximation of these data, showing a doubling time of `r round(best.fit$fit$before$info$doubling,1)` days during the first phase, and a halving time of `r round(best.fit$fit$after$info$halving,1)` days during the second.
+These models are very good approximation of these data, showing a doubling time of `r round(get_info(best.fit$fit, "doubling"), 1)` days during the first phase, and a halving time of `r round(get_info(best.fit$fit, "halving"), 1)` days during the second. 
+To access these parameters, you can use the `get_info()` function.
 
+The possible parameters are:
+
+ - "r", the daily growth rate
+ - "doubling" the rate of doubling in days (if "r" is positive)
+ - "halving" the rate of halving in days (if "r" is negative)
+ - "pred" a data frame of incidence predictions
+ 
+For "r", "doubling", and "halving", you can also add ".conf" to get the
+confidence intervals. Here's how you can get the doubling and halving times of
+the above epi curve:
+
+```{r, get_info}
+get_info(best.fit$fit, "doubling")      # doubling time
+get_info(best.fit$fit, "doubling.conf") # confidence interval
+get_info(best.fit$fit, "halving")       
+get_info(best.fit$fit, "halving.conf")       
+```
 
 Note that `fit` will also take groups into account if incidence has been computed for several groups:
+
 ```{r, optim2}
-best.fit2 <- fit_optim_split(i.7.sex)$fit
+best.fit2 <- fit_optim_split(i.7.sex)
 best.fit2
-plot(i.7.sex, fit=best.fit2)
+plot(i.7.sex, fit=best.fit2$fit)
 ```
+
+Using `get_info()` on this fit object will return all groups together:
+
+```{r, get_info_groups}
+get_info(best.fit2$fit, "doubling")      # doubling time
+get_info(best.fit2$fit, "doubling.conf") # confidence interval
+get_info(best.fit2$fit, "halving")       
+get_info(best.fit2$fit, "halving.conf")       
+```
+
+
