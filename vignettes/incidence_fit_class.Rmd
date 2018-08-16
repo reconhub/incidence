@@ -63,7 +63,25 @@ f
 plot(i, fit = f)
 ```
 
+As you can see, the `incidence_fit` object has a print method and a plot method.
+If you want to access individual elements in the `$info` element, you can use
+the `get_info()` function:
 
+```{r get_info}
+get_info(f, "r")
+get_info(f, "r.conf")
+get_info(f, "doubling.conf")
+```
+
+This will be important later when we combine several `incidence_fit` objects into
+a single `incidence_fit_list`.
+
+# Building an `incidence_fit` object from scratch
+
+The `incidence_fit` object can be constructed from any model from which you can
+derive the daily growth rate, doubling/halving times, predictions, and confidence
+intervals. The following three steps show roughly how it is done from model 
+fitting to construction.
 
 ### Step 1: create the model
 
@@ -74,7 +92,7 @@ and the midpoints of the intervals:
 ```{r create_model}
 # ensure all dates have at least one incidence
 i2 <- i[1:20]
-i2  <- i2[apply(get_counts(i2), 1, min) > 0]
+i2 <- i2[apply(get_counts(i2), 1, min) > 0]
 df <- as.data.frame(i2, long = TRUE)
 df$dates.x <- get_dates(i2, position = "center", count_days = TRUE)
 head(df)
@@ -103,8 +121,8 @@ pred <- cbind.data.frame(new.data, pred)
 info_list <- list(
   r = r,
   r.conf = r.conf,
-  doubling = log(2)/r,
-  doubling.conf = log(2)/r.conf,
+  doubling = log(2) / r,
+  doubling.conf = log(2) / r.conf,
   pred = pred
 )
 info_list
