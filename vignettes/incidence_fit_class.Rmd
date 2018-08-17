@@ -161,6 +161,32 @@ aid in plotting and summarizing the different fits, we've created the
    a vector that defines where an `incidence_fit` object is within the 
    `incidence_fit_list`. 
 
+The reason for this structure is because it is sometimes necessary to nest
+lists of `incidence_fit` objects within lists. When this happens, accessing
+individual elements of the objects cumbersome. To alleviate this, each object
+has a distinct path within the named list in the "locations" attribute that 
+allows one to access the object directly since R allows you to traverse the
+elements of a nested list by subsetting with a vector:
+
+```{r nest}
+l <- list(
+	  a = list(
+		   b = 1,
+		   c = 2
+		  ),
+	  d = list(
+		   e = list(
+			    f = 3,
+			    g = 4
+			   ),
+		   h = 5
+		  )
+	 )
+l[[c("a", "b")]]
+l[[c("d", "e", "f")]]
+
+```
+
 
 
 ## Example
