@@ -144,3 +144,48 @@ class(the_fit) <- "incidence_fit"
 the_fit
 plot(i, fit = the_fit)
 ```
+
+
+# Structure of an `incidence_fit_list` object
+
+There are several reasons for having multiple fits to a single `incidence`
+object. One may want to have a separate fit for different groups represented in
+the object, or one may want to split the fits at the peak of the epidemic. To
+aid in plotting and summarizing the different fits, we've created the 
+`incidence_fit_list` class. This class has two defining features:
+
+ - It consists of a named list containing one or more `incidence_fit` objects or
+   lists containing `incidence_fit` objects.
+ - An attribute called "locations" contains a list whose length is equal to the
+   number of `incidence_fit` objects in the object. Each list element contains
+   a vector that defines where an `incidence_fit` object is within the 
+   `incidence_fit_list`. 
+
+
+
+## Example
+
+The function `fit_optim_split()` produces an `incidence_fit_list` object in the 
+`$fit` element of the returned list:
+
+```{r incidence_fit_list}
+fl <- fit_optim_split(i)
+fl$fit
+plot(i, fit = fl$fit)
+```
+
+Here you can see that the object looks very similar to the `incidence_fit` object,
+but it has extra information. The first thing you may notice is the fact that
+both "doubling" and "halving" are shown. This is because the two fits have 
+different signs for the daily growth rate. The second thing you may notice is
+the fact that there is something called `attr(x, 'locations')`. This attribute
+gives the location of the `incidence_fit` objects within the list. We can
+illustrate how this works if we look at the structure of the object:
+
+```{r incidence_fit_list_str}
+str(fl$fit, max.level = 2)
+```
+
+
+As you can see the `$fit` element has two attributes: `locations` and `class`.
+
