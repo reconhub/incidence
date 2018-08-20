@@ -169,30 +169,17 @@ allows one to access the object directly since R allows you to traverse the
 elements of a nested list by subsetting with a vector:
 
 ```{r nest}
-l <- list(
-	  a = list(
-		   b = 1,
-		   c = 2
-		  ),
-	  d = list(
-		   e = list(
-			    f = 3,
-			    g = 4
-			   ),
-		   h = 5
-		  )
-	 )
+l <- list(a = list(b = 1, c = 2),d = list(e = list(f = 3, g = 4), h = 5))
+str(l)
 l[[c("a", "b")]]
 l[[c("d", "e", "f")]]
-
 ```
 
+## Example: A tale of two fits
 
-
-## Example
-
-The function `fit_optim_split()` produces an `incidence_fit_list` object in the 
-`$fit` element of the returned list:
+The function `fit_optim_split()` attempts to find the optimal split point in an
+epicurve, producing an `incidence_fit_list` object in the `$fit` element of the 
+returned list:
 
 ```{r incidence_fit_list}
 fl <- fit_optim_split(i)
@@ -212,6 +199,106 @@ illustrate how this works if we look at the structure of the object:
 str(fl$fit, max.level = 2)
 ```
 
+Internally, all of the methods for `incidence_fit_list` use the 'locations'
+attribute to navigate:
 
-As you can see the `$fit` element has two attributes: `locations` and `class`.
+```{r incidence_fit_methods}
+methods(class = "incidence_fit_list")
+```
+
+For example, it's often useful to extract the growth rate for all models at
+once. The `get_info()` method allows us to do this easily:
+
+```{r get_info_incidence_fit_list}
+get_info(fl$fit, "r")
+get_info(fl$fit, "r.conf")
+```
+
+Because doubling or halving is determined by whether or not `r` is negative, we
+automatically filter out the results that don't make sense, but you can include
+them with `na.rm = FALSE`:
+
+```{r get_doubling}
+get_info(fl$fit, "doubling.conf")
+get_info(fl$fit, "doubling.conf", na.rm = FALSE)
+```
+
+## Example: Nested incidence_fit
+
+Above, we showed the example of a basic `incidence_fit_list` class with two
+objects representing the fits before and after the peak of an epicurve. However,
+it is often useful evaulate fits for different groups separately. Here, we will
+construct an incidence object, but define groups by gender:
+
+```{r incidence_by_gender}
+gen <- ebola_sim$linelist$gender
+ig <- incidence(dat, interval = "week", group = gen)
+plot(ig, border = "grey98")
+```
+
+Now if we calculate an optimal fit split, we will end up with four different
+fits: two for each defined gender.
+
+```{r fit_gender}
+fg <- fit_optim_split(ig)
+plot(ig, fit = fg$fit, border = "grey98", stack = FALSE)
+```
+
+If we look at the fit object, we can see again that it is an `incidence_fit_list`
+but this time with four fits defined. 
+
+```{r fit_gender_print}
+fg$fit
+str(fg$fit, max.level = 3)
+```
+
+> Notice that the nested lists themselves are of class `incidence_fit_list`.
+
+Now, even though the fits within nested lists, the 'locations' attributes still
+defines where they are within the object so that the `get_info()` function still
+operates normally:
+
+```{r get_info_gender}
+get_info(fg$fit, "r.conf")
+```
+
+If you need to access all the fits easily, a convenience function to flatten the
+list is available in `get_fit()`:
+
+```{r get_fit}
+str(get_fit(fg$fit), max.level = 2)
+```
+
+Because all that defines an `incidence_fit_list` is the class definition and
+the 'locations' attribute that defines the positions of the `incidence_fit`
+objects within the nesting, then it's also possible to define the output of
+`fit_optim_split()` as an `incidence_fit_list` class:
+
+```{r incidence_fit_listify}
+print(locs <- attributes(fg$fit)$locations)
+
+for (i in seq_along(locs)) {
+	locs[[i]] <- c("fit", locs[[i]])
+}
+print(locs)
+fg.ifl <- fg
+attributes(fg.ifl)$locations<- locs
+class(fg.ifl) <- "incidence_fit_list"
+```
+
+Now when we print the object, we can see that it prints only the information
+related to the `incidence_fit_list`:
+
+```{r new_fit_list_print}
+fg.ifl
+```
+
+But, we still retain all of the extra information in the list:
+
+```{r list_stuff}
+str(fg.ifl, max.level = 1)
+fg.ifl$split
+fg.ifl$df
+fg.ifl$plot
+```
 
