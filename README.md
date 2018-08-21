@@ -1,153 +1,143 @@
 
-
-
-
 <img src="https://raw.githubusercontent.com/reconhub/incidence/master/artwork/banner.png">
 
 <br>
 
-[![Travis-CI Build Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
-[![Build status](https://ci.appveyor.com/api/projects/status/7h2mgej230dv5r7w/branch/master?svg=true)](https://ci.appveyor.com/project/thibautjombart/incidence/branch/master)
-[![Coverage Status](https://codecov.io/github/reconhub/incidence/coverage.svg?branch=master)](https://codecov.io/github/reconhub/incidence?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
-[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/incidence)](https://cran.r-project.org/package=incidence)
-[![Downloads from Rstudio mirror](https://cranlogs.r-pkg.org/badges/grand-total/incidence)](http://www.r-pkg.org/pkg/incidence)
-
+[![Travis-CI Build
+Status](https://travis-ci.org/reconhub/incidence.svg?branch=master)](https://travis-ci.org/reconhub/incidence)
+[![Build
+status](https://ci.appveyor.com/api/projects/status/7h2mgej230dv5r7w/branch/master?svg=true)](https://ci.appveyor.com/project/thibautjombart/incidence/branch/master)
+[![Coverage
+Status](https://codecov.io/github/reconhub/incidence/coverage.svg?branch=master)](https://codecov.io/github/reconhub/incidence?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/incidence)](https://cran.r-project.org/package=incidence)
+[![CRAN
+Downloads](https://cranlogs.r-pkg.org/badges/incidence)](https://cran.r-project.org/package=incidence)
+[![Downloads from Rstudio
+mirror](https://cranlogs.r-pkg.org/badges/grand-total/incidence)](http://www.r-pkg.org/pkg/incidence)
 
 # Installing the package
 
 To install the current stable, CRAN version of the package, type:
 
-```r
+``` r
 install.packages("incidence")
 ```
 
-To benefit from the latest features and bug fixes, install the development, *github* version of the package using:
+To benefit from the latest features and bug fixes, install the
+development, *github* version of the package using:
 
-```r
+``` r
 devtools::install_github("reconhub/incidence")
 ```
 
 Note that this requires the package *devtools* installed.
 
-
-
-
 # What does it do?
 
 The main features of the package include:
 
-- **`incidence`**: compute incidence from dates in various formats; any fixed
-  time interval can be used; the returned object is an instance of the (S3)
-  class *incidence*.
+  - **`incidence`**: compute incidence from dates in various formats;
+    any fixed time interval can be used; the returned object is an
+    instance of the (S3) class *incidence*.
 
-- **`plot`**: this method (see `?plot.incidence` for details) plots *incidence*
-  objects, and can also add predictions of the model(s) contained in an
-  *incidence_fit* object (or a list of such objects).
+  - **`plot`**: this method (see `?plot.incidence` for details) plots
+    *incidence* objects, and can also add predictions of the model(s)
+    contained in an *incidence\_fit* object (or a list of such objects).
 
-- **`fit`**: fit one or two exponential models (i.e. linear regression on
-  log-incidence) to an *incidence* object; two models are calibrated only if a
-  date is provided to split the time series in two (argument `split`); this is
-  typically useful to model the two phases of exponential growth, and decrease
-  of an outbreak; each model returned is an instance of the (S3) class
-  *incidence_fit*, each of which contains various useful information
-  (e.g. growth rate *r*, doubling/halving time, predictions and confidence
-  intervals); results can be plotted using `plot`, or added to an existing
-  `uncudence` plot using the piping-friendly function `add_incidence_fit`.
+  - **`fit`**: fit one or two exponential models (i.e. linear regression
+    on log-incidence) to an *incidence* object; two models are
+    calibrated only if a date is provided to split the time series in
+    two (argument `split`); this is typically useful to model the two
+    phases of exponential growth, and decrease of an outbreak; each
+    model returned is an instance of the (S3) class *incidence\_fit*,
+    each of which contains various useful information (e.g. growth rate
+    *r*, doubling/halving time, predictions and confidence intervals);
+    results can be plotted using `plot`, or added to an existing
+    `uncudence` plot using the piping-friendly function
+    `add_incidence_fit`.
 
-- **`fit_optim_split`**: finds the optimal date to split the time series in two,
-  typically around the peak of the epidemic.
+  - **`fit_optim_split`**: finds the optimal date to split the time
+    series in two, typically around the peak of the epidemic.
 
-- **`[`**: lower-level subsetan of *incidence* objects, permiting to specify
-  which dates and groups to retain; uses a syntax similar to matrices,
-  i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates,
-  and `j` a subset of groups.
+  - **`[`**: lower-level subsetan of *incidence* objects, permiting to
+    specify which dates and groups to retain; uses a syntax similar to
+    matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a
+    subset of dates, and `j` a subset of groups.
 
-- **`subset`**: subset an *incidence* object by specifying a time window.
+  - **`subset`**: subset an *incidence* object by specifying a time
+    window.
 
-- **`pool`**: pool incidence from different groups into one global incidence
-  time series.
+  - **`pool`**: pool incidence from different groups into one global
+    incidence time series.
 
-- **`cumulate`**: computes cumulative incidence over time from and `incidence`
-  object.
+  - **`cumulate`**: computes cumulative incidence over time from and
+    `incidence` object.
 
-- **`as.data.frame`**: converts an *incidence* object into a `data.frame`
-  containing dates and incidence values.
+  - **`as.data.frame`**: converts an *incidence* object into a
+    `data.frame` containing dates and incidence values.
 
-- **`bootstrap`**: generates a bootstrapped *incidence* object by re-sampling,
-  with replacement, the original dates of events.
+  - **`bootstrap`**: generates a bootstrapped *incidence* object by
+    re-sampling, with replacement, the original dates of events.
 
-- **`find_peak`**: locates the peak time of the epicurve.
+  - **`find_peak`**: locates the peak time of the epicurve.
 
-- **`estimate_peak`**: uses bootstrap to estimate the peak time (and related
-  confidence interval) of a partially observed outbreak.
-
-
-
-
-
-
-
-
+  - **`estimate_peak`**: uses bootstrap to estimate the peak time (and
+    related confidence interval) of a partially observed outbreak.
 
 # Resources
 
 ## Vignettes
 
-An overview of *incidence* is provided below in the worked example below.
-More detailed tutorials are distributed as vignettes with the package:
+An overview of *incidence* is provided below in the worked example
+below. More detailed tutorials are distributed as vignettes with the
+package:
 
-```r
+``` r
 vignette("overview", package="incidence")
 vignette("customize_plot", package="incidence")
 vignette("incidence_class", package="incidence")
+vignette("incidence_fit_class", package="incidence")
 vignette("conversions", package="incidence")
 ```
-
-
-
 
 ## Websites
 
 The following websites are available:
 
-- The official *incidence* website, providing an overview of the package's functionalities, up-to-date tutorials and documentation: <br>
-[http://www.repidemicsconsortium.org/incidence/](http://www.repidemicsconsortium.org/incidence/)
+  - The official *incidence* website, providing an overview of the
+    package’s functionalities, up-to-date tutorials and documentation:
+    <br> <https://www.repidemicsconsortium.org/incidence>
 
-- The *incidence* project on *github*, useful for developers, contributors, and users wanting to post issues, bug reports and feature requests: <br>
-[http://github.com/reconhub/incidence](http://github.com/reconhub/incidence)
+  - The *incidence* project on *github*, useful for developers,
+    contributors, and users wanting to post issues, bug reports and
+    feature requests: <br> <https://github.com/reconhub/incidence>
 
-- The *incidence* page on CRAN: <br>
-[https://CRAN.R-project.org/package=incidence](https://CRAN.R-project.org/package=incidence)
-
-
-
-
+  - The *incidence* page on CRAN: <br>
+    <https://CRAN.R-project.org/package=incidence>
 
 ## Getting help online
 
-Bug reports and feature requests should be posted on *github* using the [*issue*](http://github.com/reconhub/incidence/issues) system. All other questions should be posted on the **RECON forum**: <br>
-[http://www.repidemicsconsortium.org/forum/](http://www.repidemicsconsortium.org/forum/)
-
-
-
+Bug reports and feature requests should be posted on *github* using the
+[*issue* system](https://github.com/reconhub/incidence/issues). All
+other questions should be posted on the **RECON forum**: <br>
+<https://www.repidemicsconsortium.org/forum/>
 
 # A quick overview
 
-The following worked example provides a brief overview of the package's
-functionalities. See the [*vignettes section*](#vignettes) for more detailed tutorials.
-
+The following worked example provides a brief overview of the package’s
+functionalities. See the [*vignettes section*](#vignettes) for more
+detailed tutorials.
 
 ## Loading the data
 
-This example uses the simulated Ebola Virus Disease (EVD) outbreak from the
-package [*outbreaks*](http://github.com/reconhub/outbreaks). We will compute
-incidence for various time steps, calibrate two exponential models around the
-peak of the epidemic, and analyse the results.
+This example uses the simulated Ebola Virus Disease (EVD) outbreak from
+the package [*outbreaks*](https://github.com/reconhub/outbreaks). We
+will compute incidence for various time steps, calibrate two exponential
+models around the peak of the epidemic, and analyse the results.
 
 First, we load the data:
 
-```r
+``` r
 library(outbreaks)
 library(ggplot2)
 library(incidence)
@@ -160,11 +150,11 @@ head(dat)
 #> [6] "2014-04-25"
 ```
 
-
 ## Computing and plotting incidence
+
 We compute the weekly incidence:
 
-```r
+``` r
 i.7 <- incidence(dat, interval = 7)
 i.7
 #> <incidence object>
@@ -180,12 +170,13 @@ i.7
 plot(i.7)
 ```
 
-![plot of chunk incid1](figs/incid1-1.png)
+![](figs/incid1-1.png)<!-- -->
 
+`incidence` can also compute incidence by specified groups using the
+`groups` argument. For instance, we can compute the weekly incidence by
+gender:
 
-`incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
-
-```r
+``` r
 i.7.sex <- incidence(dat, interval = 7, groups = ebola_sim$linelist$gender)
 i.7.sex
 #> <incidence object>
@@ -202,14 +193,16 @@ i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
-![plot of chunk gender](figs/gender-1.png)
-
+![](figs/gender-1.png)<!-- -->
 
 ## Handling `incidence` objects
-`incidence` objects can be manipulated easily. The `[` operator implements subetting of dates (first argument) and groups (second argument). 
-For instance, to keep only the first 20 weeks of the epidemic:
 
-```r
+`incidence` objects can be manipulated easily. The `[` operator
+implements subetting of dates (first argument) and groups (second
+argument). For instance, to keep only the first 20 weeks of the
+epidemic:
+
+``` r
 i.7[1:20]
 #> <incidence object>
 #> [797 cases from days 2014-04-07 to 2014-08-18]
@@ -224,11 +217,12 @@ i.7[1:20]
 plot(i.7[1:20])
 ```
 
-![plot of chunk start](figs/start-1.png)
+![](figs/start-1.png)<!-- -->
 
-Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
+Some temporal subsetting can be even simpler using `subset`, which
+permits to retain data within a specified time window:
 
-```r
+``` r
 i.tail <- subset(i.7, from = as.Date("2015-01-01"))
 i.tail
 #> <incidence object>
@@ -244,13 +238,12 @@ i.tail
 plot(i.tail, border = "white")
 ```
 
-![plot of chunk tail](figs/tail-1.png)
+![](figs/tail-1.png)<!-- -->
 
-Subsetting groups can also matter. For instance, let's try and visualise the
-incidence based on onset of symptoms by outcome:
+Subsetting groups can also matter. For instance, let’s try and visualise
+the incidence based on onset of symptoms by outcome:
 
-
-```r
+``` r
 i.7.outcome <- incidence(dat, 7, groups = ebola_sim$linelist$outcome)
 i.7.outcome
 #> <incidence object>
@@ -267,11 +260,11 @@ i.7.outcome
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
-![plot of chunk i7outcome](figs/i7outcome-1.png)
+![](figs/i7outcome-1.png)<!-- -->
 
 To visualise the cumulative incidence:
 
-```r
+``` r
 i.7.outcome.cum <- cumulate(i.7.outcome)
 i.7.outcome.cum
 #> <incidence object>
@@ -288,12 +281,11 @@ i.7.outcome.cum
 plot(i.7.outcome.cum)
 ```
 
-![plot of chunk i7outcome_cum](figs/i7outcome_cum-1.png)
-
+![](figs/i7outcome_cum-1.png)<!-- -->
 
 Groups can also be collapsed into a single time series using `pool`:
 
-```r
+``` r
 i.pooled <- pool(i.7.outcome)
 i.pooled
 #> <incidence object>
@@ -310,28 +302,27 @@ identical(i.7$counts, i.pooled$counts)
 #> [1] TRUE
 ```
 
-
-
 ## Modelling incidence
 
-Incidence data, excluding zeros, can be modelled using log-linear regression of the form:
-log(*y*) = *r* x *t* + *b*
+Incidence data, excluding zeros, can be modelled using log-linear
+regression of the form: log(*y*) = *r* x *t* + *b*
 
-where *y* is the incidence, *r* is the growth rate, *t* is the number of days since a specific point in time (typically the start of the outbreak), and *b* is the intercept.
+where *y* is the incidence, *r* is the growth rate, *t* is the number of
+days since a specific point in time (typically the start of the
+outbreak), and *b* is the intercept.
 
-Such model can be fitted to any incidence object using `fit`.
-Of course, a single log-linear model is not sufficient for modelling our time series, as there is clearly an growing and a decreasing phase.
-As a start, we can calibrate a model on the first 20 weeks of the epidemic:
+Such model can be fitted to any incidence object using `fit`. Of course,
+a single log-linear model is not sufficient for modelling our time
+series, as there is clearly an growing and a decreasing phase. As a
+start, we can calibrate a model on the first 20 weeks of the epidemic:
 
-
-
-```r
+``` r
 plot(i.7[1:20])
 ```
 
-![plot of chunk fit1](figs/fit1-1.png)
+![](figs/fit1-1.png)<!-- -->
 
-```r
+``` r
 early.fit <- fit(i.7[1:20])
 early.fit
 #> <incidence_fit object>
@@ -356,41 +347,39 @@ early.fit
 #>   $pred: data.frame of incidence predictions (20 rows, 5 columns)
 ```
 
-The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:
+The resulting objects can be plotted, in which case the prediction and
+its confidence interval is displayed:
 
-
-```r
+``` r
 plot(early.fit)
 ```
 
-![plot of chunk unnamed-chunk-2](figs/unnamed-chunk-2-1.png)
+![](figs/unnamed-chunk-1-1.png)<!-- -->
 
 However, a better way to display these predictions is adding them to the
 incidence plot using the argument `fit`:
 
-
-```r
+``` r
 plot(i.7[1:20], fit = early.fit)
 ```
 
-![plot of chunk unnamed-chunk-3](figs/unnamed-chunk-3-1.png)
+![](figs/unnamed-chunk-2-1.png)<!-- -->
 
 Alternatively, these can be piped using:
 
-```r
+``` r
 library(magrittr)
 plot(i.7[1:20]) %>% add_incidence_fit(early.fit)
 ```
 
-![plot of chunk pipe](figs/pipe-1.png)
+![](figs/pipe-1.png)<!-- -->
 
+In this case, we would ideally like to fit two models, before and after
+the peak of the epidemic. This is possible using the following approach,
+in which the best possible splitting date (i.e. the one maximizing the
+average fit of both models), is determined automatically:
 
-In this case, we would ideally like to fit two models, before and after the peak
-of the epidemic.  This is possible using the following approach, in which the
-best possible splitting date (i.e. the one maximizing the average fit of both
-models), is determined automatically:
-
-```r
+``` r
 best.fit <- fit_optim_split(i.7)
 best.fit
 #> $df
@@ -413,81 +402,69 @@ best.fit
 #> [1] "2014-09-22"
 #> 
 #> $fit
-#> $fit$before
-#> <incidence_fit object>
+#> <list of incidence_fit objects>
+#> 
+#> attr(x, 'locations'): list of vectors with the locations of each incidence_fit object
+#> 
+#> 'before'
+#> 'after'
 #> 
 #> $lm: regression of log-incidence over time
 #> 
 #> $info: list containing the following items:
 #>   $r (daily growth rate):
-#> [1] 0.02982209
+#>      before       after 
+#>  0.02982209 -0.01016191 
 #> 
 #>   $r.conf (confidence interval):
-#>           2.5 %     97.5 %
-#> [1,] 0.02608945 0.03355474
+#>              2.5 %       97.5 %
+#> before  0.02608945  0.033554736
+#> after  -0.01102526 -0.009298561
 #> 
 #>   $doubling (doubling time in days):
-#> [1] 23.24274
+#>   before 
+#> 23.24274 
 #> 
 #>   $doubling.conf (confidence interval):
-#>         2.5 %  97.5 %
-#> [1,] 20.65721 26.5681
-#> 
-#>   $pred: data.frame of incidence predictions (25 rows, 5 columns)
-#> 
-#> $fit$after
-#> <incidence_fit object>
-#> 
-#> $lm: regression of log-incidence over time
-#> 
-#> $info: list containing the following items:
-#>   $r (daily growth rate):
-#> [1] -0.01016191
-#> 
-#>   $r.conf (confidence interval):
-#>            2.5 %       97.5 %
-#> [1,] -0.01102526 -0.009298561
+#>           2.5 %  97.5 %
+#> before 20.65721 26.5681
 #> 
 #>   $halving (halving time in days):
-#> [1] 68.21031
+#>    after 
+#> 68.21031 
 #> 
 #>   $halving.conf (confidence interval):
-#>         2.5 %   97.5 %
-#> [1,] 62.86899 74.54349
+#>          2.5 %   97.5 %
+#> after 62.86899 74.54349
 #> 
-#>   $pred: data.frame of incidence predictions (32 rows, 5 columns)
-#> 
+#>   $pred: data.frame of incidence predictions (57 rows, 6 columns)
 #> 
 #> $plot
 ```
 
-![plot of chunk optim](figs/optim-1.png)
+![](figs/optim-1.png)<!-- -->
 
-```r
+``` r
 plot(i.7, fit = best.fit$fit)
 ```
 
-![plot of chunk optim](figs/optim-2.png)
-
-
-
-
-
+![](figs/optim-2.png)<!-- -->
 
 # Contributors (by alphabetic order):
-- [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
-- [Jun Cai](https://github.com/caijun)
-- [Rich Fitzjohn](https://github.com/richfitz)
-- [Thibaut Jombart](https://github.com/thibautjombart)
-- [Zhian Kamvar](https://github.com/zkamvar)
 
-See details of contributions on:
-<br>
-https://github.com/reconhub/incidence/graphs/contributors
+  - [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
+  - [Jun Cai](https://github.com/caijun)
+  - [Rich Fitzjohn](https://github.com/richfitz)
+  - [Thibaut Jombart](https://github.com/thibautjombart)
+  - [Zhian Kamvar](https://github.com/zkamvar)
 
+See details of contributions on: <br>
+<https://github.com/reconhub/incidence/graphs/contributors>
 
 Contributions are welcome via **pull requests**.
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.
 
-**Maintainer:** Thibaut Jombart (thibautjombart@gmail.com)
+**Maintainer:** Zhian N. Kamvar (<zkamvar@gmail.com>)
