@@ -55,7 +55,7 @@ incidence 1.4.1 (date tbc)
 * Misspelled or unrecgonized parameters passed to `incidence()` will now cause
   an error instead of being silently ignored.
 
-
+* Plotting for POSIXct data has been fixed
 
 
 incidence 1.3.1 (2018-06-11)
