@@ -6,6 +6,14 @@ dates <- as.Date("2016-09-20") + dates
 groups <- sample(c("toto", "tata"), 50, replace = TRUE)
 
 
+test_that("Bootstrap needs an incidence object", {
+  expect_error(bootstrap(dates), "x is not an incidence object")
+})
+
+test_that("estimate_peak needs an incidence object", {
+  expect_error(estimate_peak(dates), "x is not an incidence object")
+})
+
 test_that("Bootstrap incidence with groups", {
   skip_on_cran()
 

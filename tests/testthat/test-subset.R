@@ -67,11 +67,18 @@ test_that("numeric subset works with dates ", {
 test_that("numeric subset works with dates and character strings", {
   x <-  incidence(as.Date("2001-01-01") + 1:100, "month")
 
+  expect_equal(subset(x, from = 1, to = -1)$dates,
+	       x$dates[1])
+
   expect_equal(subset(x, from = 1, to = 2)$dates,
                x$dates[1:2])
 
   expect_equal(subset(x, from = -10, to = 2)$dates,
                x$dates[1:2])
+
+
+  expect_equal(subset(x, from = 5, to = 5)$dates,
+	       x$dates[4])
 
   expect_equal(as.data.frame(subset(x, from = 0, to = 1e3)),
                as.data.frame(x))

@@ -36,12 +36,16 @@ test_that("as.incidence works", {
   i1 <- incidence(dates, interval = 2)
   i2 <- incidence(dates_int)
   i3 <- incidence(dates, interval = 7, groups = groups)
+  i4 <- incidence(dates_int, interval = 7, groups = groups)
 
   expect_equal(as.incidence(i1$counts, i1$dates), i1)
   expect_equal(as.incidence(as.vector(i1$counts), i1$dates), i1)
   expect_equal(as.incidence(i2$counts, i2$dates), i2)
   expect_equal(as.incidence(i3$counts, i3$dates), i3)
   expect_equal(as.incidence(rep(1,10)), incidence(1:10))
+  expect_equal(as.incidence(get_counts(i4), interval = 7L), i4)
+  expect_equal(as.incidence(as.data.frame(get_counts(i4)), interval = 7L), i4)
+
 
   msg <- "Interval needs to be specified if there is only one date."
   expect_error(as.incidence(i3$counts[1,,drop = FALSE], i3$dates[1]),
