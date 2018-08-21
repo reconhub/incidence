@@ -18,6 +18,7 @@ test_that("plot for incidence object", {
   i.3 <- incidence(dat, 3L)
   i.14 <- incidence(dat, 14L)
   i.sex <- incidence(dat, 7L, groups = sex)
+  i.POSIX <- incidence(as.POSIXct(dat2, tz = "GMT"))
   i.isoweek <- incidence(dat2, 7L, standard = TRUE)
   i.sexmonth <- incidence(dat4, "month", groups = rep(sex, 3))
   i.sexquarter <- incidence(dat4, "quarter", groups = rep(sex, 3))
@@ -26,6 +27,7 @@ test_that("plot for incidence object", {
 
   fit.i <- suppressWarnings(fit(i))
   fit.i.2 <- suppressWarnings(fit(i, split = 30))
+  fit.i.3 <- suppressWarnings(fit(i.3[5:13]))
   fit.sex <- suppressWarnings(fit(i.sex))
   fit.sex.o <- suppressWarnings(fit_optim_split(i.sex.o))
   fit.o <- suppressWarnings(fit_optim_split(pool(i.sex.o)))
@@ -33,13 +35,14 @@ test_that("plot for incidence object", {
   p.fit.i.2 <- plot(i, fit = fit.i.2, color = "lightblue")
   p.fit.sex <- plot(fit.sex)
   p.optim.sex   <- fit.sex.o$plot
+  p.optim.sex.fit <- plot(fit.sex.o$fit)
   p.optim   <- fit.o$plot
   p.i <- plot(i)
   p.i.cum <- plot(cumulate(i))
 
   p.i.14 <- plot(i.14)
   p.i.2 <- plot(i, color = "blue", alpha = .2)
-  p.i.3 <- plot(i, fit = fit.i, color = "red")
+  p.i.3 <- plot(i.3, fit = fit.i.3, color = "red")
   p.sex <- plot(i.sex)
   p.sex.cum <- plot(cumulate(i.sex))
   p.sex.2 <- plot(i.sex, fit = fit.sex)
@@ -48,6 +51,7 @@ test_that("plot for incidence object", {
   p.sex.4 <- plot(i.sex, fit = fit.sex,
                   color = c(male = "salmon3", female = "gold2"))
   p.isoweek <- plot(i.isoweek)
+  p.POSIX <- plot(i.POSIX)
   p.isoweek.2 <- plot(i.isoweek, labels_iso = FALSE)
   p.month <- plot(i.sexmonth)
   p.quarter <- plot(i.sexquarter)
@@ -65,11 +69,13 @@ test_that("plot for incidence object", {
   vdiffr::expect_doppelganger("grouped incidence plot with fit", p.sex.2)
   vdiffr::expect_doppelganger("grouped incidence plot with color palette", p.sex.3)
   vdiffr::expect_doppelganger("grouped incidence plot with specified color", p.sex.4)
+  vdiffr::expect_doppelganger("incidence plot from POSIXct data", p.POSIX)
   vdiffr::expect_doppelganger("incidence plot with isoweek labels", p.isoweek)
   vdiffr::expect_doppelganger("incidence plot without isoweek labels", p.isoweek.2)
   vdiffr::expect_doppelganger("incidence plot by month", p.month)
   vdiffr::expect_doppelganger("incidence plot by quarter", p.quarter)
   vdiffr::expect_doppelganger("incidence fit plot with split", p.sex.o)
+  vdiffr::expect_doppelganger("incidence fit list plot with split", p.optim.sex.fit)
   vdiffr::expect_doppelganger("split optimum plot", p.optim.sex)
   vdiffr::expect_doppelganger("split optimum plot pooled", p.optim)
 

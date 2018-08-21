@@ -132,7 +132,11 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
 
   ## Adding a variable for width in ggplot
   df$interval.days <- get_interval(x, integer = TRUE)
-
+  ## if the date type is POSIXct, then the interval is actually interval seconds
+  ## and needs to be converted to days
+  if (inherits(df$dates, "POSIXct")) {
+    df$interval.days <- df$interval.days * 86400 # 24h * 60m * 60s
+  }
   ## Important note: it seems safest to specify the aes() as part of the geom,
   ## not in ggplot(), as it interacts badly with some other geoms like
   ## geom_ribbon - used e.g. in projections::add_projections().
