@@ -61,6 +61,9 @@
       <a href="articles/incidence_class.html">Details of the incidence class</a>
     </li>
     <li>
+      <a href="articles/incidence_fit_class.html">Details of the incidence_fit class</a>
+    </li>
+    <li>
       <a href="articles/overview.html">Overview of the incidence package</a>
     </li>
   </ul>
@@ -125,22 +128,23 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">vignette</span>(<span class="st">"overview"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">vignette</span>(<span class="st">"customize_plot"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">vignette</span>(<span class="st">"incidence_class"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">vignette</span>(<span class="st">"conversions"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">vignette</span>(<span class="st">"incidence_fit_class"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw">vignette</span>(<span class="st">"conversions"</span>, <span class="dt">package=</span><span class="st">"incidence"</span>)</a></code></pre></div>
 </div>
 <div id="websites" class="section level2">
 <h2 class="hasAnchor">
 <a href="#websites" class="anchor"></a>Websites</h2>
 <p>The following websites are available:</p>
 <ul>
-<li><p>The official <em>incidence</em> website, providing an overview of the package’s functionalities, up-to-date tutorials and documentation: <br><a href="http://www.repidemicsconsortium.org/incidence/" class="uri">http://www.repidemicsconsortium.org/incidence/</a></p></li>
-<li><p>The <em>incidence</em> project on <em>github</em>, useful for developers, contributors, and users wanting to post issues, bug reports and feature requests: <br><a href="http://github.com/reconhub/incidence" class="uri">http://github.com/reconhub/incidence</a></p></li>
+<li><p>The official <em>incidence</em> website, providing an overview of the package’s functionalities, up-to-date tutorials and documentation: <br><a href="https://www.repidemicsconsortium.org/incidence" class="uri">https://www.repidemicsconsortium.org/incidence</a></p></li>
+<li><p>The <em>incidence</em> project on <em>github</em>, useful for developers, contributors, and users wanting to post issues, bug reports and feature requests: <br><a href="https://github.com/reconhub/incidence" class="uri">https://github.com/reconhub/incidence</a></p></li>
 <li><p>The <em>incidence</em> page on CRAN: <br><a href="https://CRAN.R-project.org/package=incidence" class="uri">https://CRAN.R-project.org/package=incidence</a></p></li>
 </ul>
 </div>
 <div id="getting-help-online" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-help-online" class="anchor"></a>Getting help online</h2>
-<p>Bug reports and feature requests should be posted on <em>github</em> using the <a href="http://github.com/reconhub/incidence/issues"><em>issue</em></a> system. All other questions should be posted on the <strong>RECON forum</strong>: <br><a href="http://www.repidemicsconsortium.org/forum/" class="uri">http://www.repidemicsconsortium.org/forum/</a></p>
+<p>Bug reports and feature requests should be posted on <em>github</em> using the <a href="https://github.com/reconhub/incidence/issues"><em>issue</em> system</a>. All other questions should be posted on the <strong>RECON forum</strong>: <br><a href="https://www.repidemicsconsortium.org/forum/" class="uri">https://www.repidemicsconsortium.org/forum/</a></p>
 </div>
 </div>
 <div id="a-quick-overview" class="section level1">
@@ -150,7 +154,7 @@
 <div id="loading-the-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#loading-the-data" class="anchor"></a>Loading the data</h2>
-<p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="http://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. We will compute incidence for various time steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.</p>
+<p>This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package <a href="https://github.com/reconhub/outbreaks"><em>outbreaks</em></a>. We will compute incidence for various time steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.</p>
 <p>First, we load the data:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(outbreaks)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
@@ -310,10 +314,10 @@
 <a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt;   $pred: data.frame of incidence predictions (20 rows, 5 columns)</span></a></code></pre></div>
 <p>The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">plot</span>(early.fit)</a></code></pre></div>
-<p><img src="figs/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="figs/unnamed-chunk-1-1.png" width="768"></p>
 <p>However, a better way to display these predictions is adding them to the incidence plot using the argument <code>fit</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>], <span class="dt">fit =</span> early.fit)</a></code></pre></div>
-<p><img src="figs/unnamed-chunk-3-1.png" width="768"></p>
+<p><img src="figs/unnamed-chunk-2-1.png" width="768"></p>
 <p>Alternatively, these can be piped using:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/plot.incidence.html">add_incidence_fit</a></span>(early.fit)</a></code></pre></div>
@@ -397,7 +401,7 @@
 <p>See details of contributions on: <br><a href="https://github.com/reconhub/incidence/graphs/contributors" class="uri">https://github.com/reconhub/incidence/graphs/contributors</a></p>
 <p>Contributions are welcome via <strong>pull requests</strong>.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
-<p><strong>Maintainer:</strong> Thibaut Jombart (<a href="mailto:thibautjombart@gmail.com">thibautjombart@gmail.com</a>)</p>
+<p><strong>Maintainer:</strong> Zhian N. Kamvar (<a href="mailto:zkamvar@gmail.com">zkamvar@gmail.com</a>)</p>
 </div>
   </div>
 

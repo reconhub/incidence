@@ -61,6 +61,9 @@
       <a href="../articles/incidence_class.html">Details of the incidence class</a>
     </li>
     <li>
+      <a href="../articles/incidence_fit_class.html">Details of the incidence_fit class</a>
+    </li>
+    <li>
       <a href="../articles/overview.html">Overview of the incidence package</a>
     </li>
   </ul>
@@ -84,7 +87,7 @@
       <h1>Details of the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-08-10</h4>
+            <h4 class="date">2018-08-21</h4>
       
       
       <div class="hidden name"><code>incidence_class.Rmd</code></div>
@@ -116,7 +119,7 @@
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; $timespan: 45 days</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw">plot</span>(i)</a></code></pre></div>
-<p><img src="figs-class/i-1.png" width="672"></p>
+<p><img src="incidence_class_files/figure-html/i-1.png" width="672"></p>
 <p>We also compute incidence by gender:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">i.sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">2</span>, <span class="dt">group =</span> sex)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">i.sex</a>
@@ -131,7 +134,7 @@
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; $timespan: 45 days</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="kw">plot</span>(i.sex)</a></code></pre></div>
-<p><img src="figs-class/sex-1.png" width="672"></p>
+<p><img src="incidence_class_files/figure-html/sex-1.png" width="672"></p>
 <p>The object <code>i</code> is a <code>list</code> with the class <em>incidence</em>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">class</span>(i)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; [1] "incidence"</span></a>

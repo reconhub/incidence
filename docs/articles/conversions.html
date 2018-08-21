@@ -61,6 +61,9 @@
       <a href="../articles/incidence_class.html">Details of the incidence class</a>
     </li>
     <li>
+      <a href="../articles/incidence_fit_class.html">Details of the incidence_fit class</a>
+    </li>
+    <li>
       <a href="../articles/overview.html">Overview of the incidence package</a>
     </li>
   </ul>
@@ -84,7 +87,7 @@
       <h1>Conversions to and from the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-08-10</h4>
+            <h4 class="date">2018-08-21</h4>
       
       
       <div class="hidden name"><code>conversions.Rmd</code></div>
@@ -119,7 +122,7 @@
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; $timespan: 379 days</span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">plot</span>(i_<span class="dv">14</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
-<p><img src="figs-conversion/example-1.png" width="672"></p>
+<p><img src="conversions_files/figure-html/example-1.png" width="672"></p>
 <p>To export the data to a <code>data.frame</code>, one simply needs:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">as.data.frame</span>(i_<span class="dv">14</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt;         dates   f   m</span></a>
@@ -173,7 +176,7 @@
 <a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">## example of custom plot using steps:</span></a>
 <a class="sourceLine" id="cb3-20" data-line-number="20"><span class="kw">library</span>(ggplot2)</a>
 <a class="sourceLine" id="cb3-21" data-line-number="21"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(df, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> dates, <span class="dt">y =</span> counts)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_step</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">color =</span> groups))</a></code></pre></div>
-<p><img src="figs-conversion/long-1.png" width="672"></p>
+<p><img src="conversions_files/figure-html/long-1.png" width="672"></p>
 <p>Finally, note that when ISO weeks are used, these are also reported in the output:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">i_<span class="dv">7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">i_<span class="dv">7</span></a>
@@ -188,7 +191,7 @@
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="kw">plot</span>(i_<span class="dv">7</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
-<p><img src="figs-conversion/iso-1.png" width="672"></p>
+<p><img src="conversions_files/figure-html/iso-1.png" width="672"></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">as.data.frame</span>(i_<span class="dv">7</span>))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;        dates isoweeks counts</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-07 2014-W15      1</span></a>
@@ -233,9 +236,9 @@
 <a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb7-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb7-15" data-line-number="15"><span class="kw">plot</span>(vec, <span class="dt">type =</span> <span class="st">"s"</span>)</a></code></pre></div>
-<p><img src="figs-conversion/unnamed-chunk-3-1.png" width="672"></p>
+<p><img src="conversions_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">plot</span>(i, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
-<p><img src="figs-conversion/unnamed-chunk-3-2.png" width="672"></p>
+<p><img src="conversions_files/figure-html/unnamed-chunk-3-2.png" width="672"></p>
 <p>Assuming the above incidences are computed weekly, we would then use:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">i &lt;-<span class="st"> </span><span class="kw"><a href="../reference/conversions.html">as.incidence</a></span>(vec, <span class="dt">interval =</span> <span class="dv">7</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">i</a>
@@ -249,7 +252,7 @@
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; $timespan: 64 days</span></a>
 <a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb9-12" data-line-number="12"><span class="kw">plot</span>(i, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
-<p><img src="figs-conversion/unnamed-chunk-4-1.png" width="672"></p>
+<p><img src="conversions_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <p>Note that in this case, incidences have been treated as per week, and corresponding dates in days have been computed during the conversion (the first day is always ‘1’), so that the first days of weeks 1, 2, 3… are:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">i<span class="op">$</span>dates</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt;  [1]  1  8 15 22 29 36 43 50 57 64</span></a></code></pre></div>
