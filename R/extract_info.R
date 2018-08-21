@@ -1,9 +1,9 @@
 ## Non-exported function extracting info and predictions from a lm object
 ## - reg is a lm object
-## - x is an incidence object
+## - origin is the first date of the incidence
 ## - level is a confidence level, defaulting to .95
 
-extract_info <- function(reg, x, level){
+extract_info <- function(reg, origin, level){
   if (is.null(reg)) {
     return(NULL)
   }
@@ -55,7 +55,7 @@ extract_info <- function(reg, x, level){
 
   ## We need to store the date corresponding to 'day 0', as this will be used
   ## to create actual dates afterwards (as opposed to mere numbers of days).
-  origin <- min(x$dates)
+  ## origin <- min(x$dates)
 
   ## Dates are reconstructed from info$pred$dates.x and origin).  Note that
   ## this is approximate, as dates are forced to be integers. A better option
