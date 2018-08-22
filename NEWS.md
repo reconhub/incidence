@@ -1,6 +1,11 @@
 incidence 1.4.1 (date tbc)
 ============================
 
+### BEHAVIORAL CHANGES
+
+* The `$lm` field of the `incidence_fit` class is now named `$model` to clearly
+  indicate that this can contain any model. 
+
 ### NEW FEATURES
 
 * `incidence()` will now accept text-based intervals that are valid date
@@ -40,6 +45,11 @@ incidence 1.4.1 (date tbc)
 * `get_info()` returns information stored in the `$info` element of an 
   `incidence_fit`/`incidence_fit_list` object. 
 
+### DOCUMENTATION
+
+* The new vignette `incidence_fit_class` instructs the user on how 
+ `incidence_fit` and `incidence_fit_list` objects are created and accessed. 
+
 ### DEPRECATED
 
 * In the `incidence()` function, the `iso_week` parameter is deprecated in
@@ -55,7 +65,7 @@ incidence 1.4.1 (date tbc)
 * Misspelled or unrecgonized parameters passed to `incidence()` will now cause
   an error instead of being silently ignored.
 
-* Plotting for POSIXct data has been fixed
+* Plotting for POSIXct data has been fixed.
 
 
 incidence 1.3.1 (2018-06-11)

@@ -51,7 +51,7 @@ For \code{fit()}, a list with the class \code{incidence_fit} (for a
 single model), or a list containing two \code{incidence_fit} objects (when
 fitting two models). \code{incidence_fit} objects contain:
 \itemize{
-\item \code{$lm}: the fitted linear model
+\item \code{$model}: the fitted linear model
 \item \code{$info}: a list containing various information extracted from the model
 (detailed further)
 \item \code{$origin}: the date corresponding to day '0'

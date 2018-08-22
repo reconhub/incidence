@@ -64,7 +64,7 @@ extract_info <- function(reg, origin, level){
   ## cases / geom).
   dates <- origin + pred$dates.x
   info$pred <- cbind.data.frame(dates, info$pred)
-  out <- list(lm = reg, info = info, origin = origin)
+  out <- list(model = reg, info = info, origin = origin)
   class(out) <- "incidence_fit"
   out
 }
