@@ -6,7 +6,7 @@
 \alias{as.incidence.matrix}
 \alias{as.incidence.data.frame}
 \alias{as.incidence.numeric}
-\title{Conversion of indence objects}
+\title{Conversion of incidence objects}
 \usage{
 \method{as.data.frame}{incidence}(x, ..., long = FALSE)
 

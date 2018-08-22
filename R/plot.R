@@ -8,7 +8,8 @@
 #'
 #' @importFrom graphics plot
 #'
-#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
+#' @author Thibaut Jombart \email{thibautjombart@@gmail.com} 
+#'   Zhian N. Kamvar \email{zkamvar@@gmail.com}
 #'
 #' @seealso The [incidence()] function to generate the 'incidence'
 #' objects.
@@ -24,10 +25,10 @@
 #' stacked, or displayed side-by-side.
 #'
 #' @param color The color to be used for the filling of the bars; NA for
-#' invisiable bars; defaults to "black".
+#' invisible bars; defaults to "black".
 #'
 #' @param border The color to be used for the borders of the bars; NA for
-#' invisiable borders; defaults to NA.
+#' invisible borders; defaults to NA.
 #'
 #' @param col_pal The color palette to be used for the groups; defaults to
 #' `incidence_pal1`. See [incidence_pal1()] for other palettes implemented in

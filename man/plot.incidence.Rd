@@ -30,10 +30,10 @@ add_incidence_fit(p, x, col_pal = incidence_pal1)
 stacked, or displayed side-by-side.}
 
 \item{color}{The color to be used for the filling of the bars; NA for
-invisiable bars; defaults to "black".}
+invisible bars; defaults to "black".}
 
 \item{border}{The color to be used for the borders of the bars; NA for
-invisiable borders; defaults to NA.}
+invisible borders; defaults to NA.}
 
 \item{col_pal}{The color palette to be used for the groups; defaults to
 \code{incidence_pal1}. See \code{\link[=incidence_pal1]{incidence_pal1()}} for other palettes implemented in
@@ -97,4 +97,5 @@ objects.
 }
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}
+Zhian N. Kamvar \email{zkamvar@gmail.com}
 }

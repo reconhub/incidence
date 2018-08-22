@@ -1,4 +1,4 @@
-#' Conversion of indence objects
+#' Conversion of incidence objects
 #'
 #' These functions convert `incidence` objects into other classes.
 #'

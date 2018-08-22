@@ -3,8 +3,8 @@
 #' This function computes incidence based on dates of events provided in
 #' various formats. A fixed interval, provided as numbers of days, is used to
 #' define time intervals. Counts within an interval always include the first
-#' date, after which they are labelled, and exclude the second. For instance,
-#' intervals labelled as 0, 3, 6, ... mean that the first bin includes days 0, 1
+#' date, after which they are labeled, and exclude the second. For instance,
+#' intervals labeled as 0, 3, 6, ... mean that the first bin includes days 0, 1
 #' and 2, the second interval includes 3, 4 and 5 etc.
 #'
 #' @param dates A vector of dates, which can be provided as objects of the
