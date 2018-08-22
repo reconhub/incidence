@@ -20,7 +20,7 @@
 #' single model), or a list containing two `incidence_fit` objects (when
 #' fitting two models). `incidence_fit` objects contain:
 #'
-#' - `$lm`: the fitted linear model
+#' - `$model`: the fitted linear model
 #' - `$info`: a list containing various information extracted from the model
 #'   (detailed further)
 #' - `$origin`: the date corresponding to day '0'

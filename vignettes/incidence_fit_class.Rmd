@@ -31,7 +31,7 @@ use with your own models.
 
 An `incidence_fit` object contains three elements:
 
- - `$lm`: The model fit to an `incidence` object. Currently, this represents a 
+ - `$model`: The model fit to an `incidence` object. Currently, this represents a 
     log-linear model, but it can be any model. 
  - `$info`: Information derived from the model
    - `r` The growth rate
@@ -99,11 +99,11 @@ lm1 <- stats::lm(log(counts) ~ dates.x, data = df)
 lm1
 ```
 
-If we compare that to the `$lm` element produced from `fit()`, we can see that
+If we compare that to the `$model` element produced from `fit()`, we can see that
 it is identical:
 
 ```{r fit_model}
-all.equal(f$lm, lm1)
+all.equal(f$model, lm1)
 ```
 
 ### Step 2: creation of the `$info` list:

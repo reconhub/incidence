@@ -40,7 +40,7 @@ print.incidence <- function(x, ...) {
 print.incidence_fit <- function(x, ...) {
 
   cat("<incidence_fit object>\n\n")
-  cat("$lm: regression of log-incidence over time\n\n")
+  cat("$model: regression of log-incidence over time\n\n")
 
   cat("$info: list containing the following items:\n")
   cat("  $r (daily growth rate):\n")
@@ -73,7 +73,7 @@ print.incidence_fit_list <- function(x, ...) {
   locations <- attr(x, "locations")
   cat(sprintf("'%s'", vapply(locations, paste, character(1), collapse = "', '")), sep = "\n")
   cat("\n")
-  cat("$lm: regression of log-incidence over time\n\n")
+  cat("$model: regression of log-incidence over time\n\n")
 
   cat("$info: list containing the following items:\n")
   cat("  $r (daily growth rate):\n")

@@ -97,7 +97,7 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
 
   f <- function(split) {
     fits <- fit(x, split = split, quiet = quiet)
-    mean(vapply(fits, function(e) summary(e$lm)$`adj.r.squared`, double(1)), na.rm = TRUE)
+    mean(vapply(fits, function(e) summary(e$model)$`adj.r.squared`, double(1)), na.rm = TRUE)
   }
 
   results <- vapply(splits.to.try, f, double(1))
