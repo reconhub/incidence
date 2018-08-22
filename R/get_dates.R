@@ -17,6 +17,13 @@ get_dates <- function(x, ...) {
   UseMethod("get_dates")
 }
 
+#' @rdname get_dates
+#' @export
+#' @aliases get_dates.default
+get_dates.default <- function(x, ...) {
+    stop(sprintf("Not implemented for class %s",
+                 paste(class(x), collapse = ", ")))
+}
 
 #' @param position One of "left", "center", "middle", or "right" specifying what
 #'   side of the bin the date should be drawn from.

@@ -1,4 +1,4 @@
-incidence 1.4.1 (date tbc)
+incidence 1.4.1 
 ============================
 
 ### BEHAVIORAL CHANGES

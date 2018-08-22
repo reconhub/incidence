@@ -23,6 +23,10 @@ test_that("get_dates works for integers", {
   expect_equal(get_dates(x.1, "right"),  x.1$dates + 1)
 })
 
+test_that("get_dates borks correctly", {
+  expect_error(get_dates("grind", "Not implemented for class character"))
+})
+
 test_that("get_interval works for integer weeks", {
   expect_equal(get_interval(x.7), 7L)
   expect_equal(get_interval(x.7, integer = FALSE), 7L)

@@ -2,10 +2,13 @@
 % Please edit documentation in R/get_dates.R
 \name{get_dates}
 \alias{get_dates}
+\alias{get_dates.default}
 \alias{get_dates.incidence}
 \title{Retrieve dates from an incidence object}
 \usage{
 get_dates(x, ...)
+
+\method{get_dates}{default}(x, ...)
 
 \method{get_dates}{incidence}(x, position = "left", count_days = FALSE,
   ...)
