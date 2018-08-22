@@ -216,7 +216,7 @@ groups as main effects and interactions with date.</p></td>
     <p>For <code>fit()</code>, a list with the class <code>incidence_fit</code> (for a
 single model), or a list containing two <code>incidence_fit</code> objects (when
 fitting two models). <code>incidence_fit</code> objects contain:</p><ul>
-<li><p><code>$lm</code>: the fitted linear model</p></li>
+<li><p><code>$model</code>: the fitted linear model</p></li>
 <li><p><code>$info</code>: a list containing various information extracted from the model
 (detailed further)</p></li>
 <li><p><code>$origin</code>: the date corresponding to day '0'</p></li>
@@ -305,7 +305,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
 #&gt; &gt; f
 #&gt; &lt;incidence_fit object&gt;
 #&gt; 
-#&gt; $lm: regression of log-incidence over time
+#&gt; $model: regression of log-incidence over time
 #&gt; 
 #&gt; $info: list containing the following items:
 #&gt;   $r (daily growth rate):
@@ -324,7 +324,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
 #&gt; 
 #&gt;   $pred: data.frame of incidence predictions (20 rows, 5 columns)
 #&gt; &gt; names(f)
-#&gt; [1] "lm"     "info"   "origin"
+#&gt; [1] "model"  "info"   "origin"
 #&gt; &gt; head(get_info(f, "pred"))
 #&gt;        dates dates.x      fit      lwr       upr
 #&gt; 1 2014-04-10     3.5 2.528815 1.611099  3.969283
@@ -352,7 +352,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
 #&gt; 'before'
 #&gt; 'after'
 #&gt; 
-#&gt; $lm: regression of log-incidence over time
+#&gt; $model: regression of log-incidence over time
 #&gt; 
 #&gt; $info: list containing the following items:
 #&gt;   $r (daily growth rate):
@@ -410,7 +410,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
 #&gt; 'before'
 #&gt; 'after'
 #&gt; 
-#&gt; $lm: regression of log-incidence over time
+#&gt; $model: regression of log-incidence over time
 #&gt; 
 #&gt; $info: list containing the following items:
 #&gt;   $r (daily growth rate):

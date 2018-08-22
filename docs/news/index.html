@@ -124,6 +124,13 @@
 <h1 class="page-header">
 <a href="#incidence-1-4-1-date-tbc" class="anchor"></a>incidence 1.4.1 (date tbc)<small> Unreleased </small>
 </h1>
+<div id="behavioral-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#behavioral-changes" class="anchor"></a>BEHAVIORAL CHANGES</h3>
+<ul>
+<li>The <code>$lm</code> field of the <code>incidence_fit</code> class is now named <code>$model</code> to clearly indicate that this can contain any model.</li>
+</ul>
+</div>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
@@ -148,6 +155,13 @@
 <li><p><code><a href="../reference/get_fit.html">get_info()</a></code> returns information stored in the <code>$info</code> element of an <code>incidence_fit</code>/<code>incidence_fit_list</code> object.</p></li>
 </ul>
 </div>
+<div id="documentation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#documentation" class="anchor"></a>DOCUMENTATION</h3>
+<ul>
+<li>The new vignette <code>incidence_fit_class</code> instructs the user on how <code>incidence_fit</code> and <code>incidence_fit_list</code> objects are created and accessed.</li>
+</ul>
+</div>
 <div id="deprecated" class="section level3">
 <h3 class="hasAnchor">
 <a href="#deprecated" class="anchor"></a>DEPRECATED</h3>
@@ -161,7 +175,7 @@
 <ul>
 <li><p>The <code>$timespan</code> item in the incidence object from Dates was not type-stable and would change if subsetted. A re-working of the incidence constructor fixed this issue.</p></li>
 <li><p>Misspelled or unrecgonized parameters passed to <code><a href="../reference/incidence.html">incidence()</a></code> will now cause an error instead of being silently ignored.</p></li>
-<li><p>Plotting for POSIXct data has been fixed</p></li>
+<li><p>Plotting for POSIXct data has been fixed.</p></li>
 </ul>
 </div>
 </div>

@@ -87,7 +87,7 @@
       <h1>Details of the incidence_fit class</h1>
                         <h4 class="author">Zhian N. Kamvar</h4>
             
-            <h4 class="date">2018-08-21</h4>
+            <h4 class="date">2018-08-22</h4>
       
       
       <div class="hidden name"><code>incidence_fit_class.Rmd</code></div>
@@ -103,7 +103,7 @@
 <p>An <code>incidence_fit</code> object contains three elements:</p>
 <ul>
 <li>
-<code>$lm</code>: The model fit to an <code>incidence</code> object. Currently, this represents a log-linear model, but it can be any model.</li>
+<code>$model</code>: The model fit to an <code>incidence</code> object. Currently, this represents a log-linear model, but it can be any model.</li>
 <li>
 <code>$info</code>: Information derived from the model
 <ul>
@@ -146,7 +146,7 @@
 <a class="sourceLine" id="cb1-16" data-line-number="16">f</a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; &lt;incidence_fit object&gt;</span></a>
 <a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; $model: regression of log-incidence over time</span></a>
 <a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt; $info: list containing the following items:</span></a>
 <a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt;   $r (daily growth rate):</span></a>
@@ -207,8 +207,8 @@
 <a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; Coefficients:</span></a>
 <a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; (Intercept)      dates.x  </span></a>
 <a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;     0.81660      0.03176</span></a></code></pre></div>
-<p>If we compare that to the <code>$lm</code> element produced from <code><a href="../reference/fit.html">fit()</a></code>, we can see that it is identical:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">all.equal</span>(f<span class="op">$</span>lm, lm1)</a>
+<p>If we compare that to the <code>$model</code> element produced from <code><a href="../reference/fit.html">fit()</a></code>, we can see that it is identical:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">all.equal</span>(f<span class="op">$</span>model, lm1)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 <div id="step-2-creation-of-the-info-list" class="section level3">
@@ -283,7 +283,7 @@
 <a class="sourceLine" id="cb6-9" data-line-number="9">the_fit</a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; &lt;incidence_fit object&gt;</span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; $model: regression of log-incidence over time</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; $info: list containing the following items:</span></a>
 <a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;   $r (daily growth rate):</span></a>
@@ -344,7 +344,7 @@
 <a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 'before'</span></a>
 <a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 'after'</span></a>
 <a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; $model: regression of log-incidence over time</span></a>
 <a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; $info: list containing the following items:</span></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;   $r (daily growth rate):</span></a>
@@ -379,13 +379,13 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">str</span>(fl<span class="op">$</span>fit, <span class="dt">max.level =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; List of 2</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;  $ before:List of 3</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;   ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;   ..$ origin: Date[1:1], format: "2014-04-07"</span></a>
 <a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;   ..- attr(*, "class")= chr "incidence_fit"</span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt;  $ after :List of 3</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt;   ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt;   ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;   ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;   ..$ origin: Date[1:1], format: "2014-09-22"</span></a>
@@ -446,7 +446,7 @@
 <a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; 'f', 'after'</span></a>
 <a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt; 'm', 'after'</span></a>
 <a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt; $model: regression of log-incidence over time</span></a>
 <a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb15-13" data-line-number="13"><span class="co">#&gt; $info: list containing the following items:</span></a>
 <a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt;   $r (daily growth rate):</span></a>
@@ -483,13 +483,13 @@
 <a class="sourceLine" id="cb15-45" data-line-number="45"><span class="co">#&gt; List of 2</span></a>
 <a class="sourceLine" id="cb15-46" data-line-number="46"><span class="co">#&gt;  $ f:List of 2</span></a>
 <a class="sourceLine" id="cb15-47" data-line-number="47"><span class="co">#&gt;   ..$ before:List of 3</span></a>
-<a class="sourceLine" id="cb15-48" data-line-number="48"><span class="co">#&gt;   .. ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb15-48" data-line-number="48"><span class="co">#&gt;   .. ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb15-49" data-line-number="49"><span class="co">#&gt;   .. .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb15-50" data-line-number="50"><span class="co">#&gt;   .. ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb15-51" data-line-number="51"><span class="co">#&gt;   .. ..$ origin: Date[1:1], format: "2014-04-07"</span></a>
 <a class="sourceLine" id="cb15-52" data-line-number="52"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "incidence_fit"</span></a>
 <a class="sourceLine" id="cb15-53" data-line-number="53"><span class="co">#&gt;   ..$ after :List of 3</span></a>
-<a class="sourceLine" id="cb15-54" data-line-number="54"><span class="co">#&gt;   .. ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb15-54" data-line-number="54"><span class="co">#&gt;   .. ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb15-55" data-line-number="55"><span class="co">#&gt;   .. .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb15-56" data-line-number="56"><span class="co">#&gt;   .. ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb15-57" data-line-number="57"><span class="co">#&gt;   .. ..$ origin: Date[1:1], format: "2014-09-22"</span></a>
@@ -500,13 +500,13 @@
 <a class="sourceLine" id="cb15-62" data-line-number="62"><span class="co">#&gt;   ..- attr(*, "class")= chr "incidence_fit_list"</span></a>
 <a class="sourceLine" id="cb15-63" data-line-number="63"><span class="co">#&gt;  $ m:List of 2</span></a>
 <a class="sourceLine" id="cb15-64" data-line-number="64"><span class="co">#&gt;   ..$ before:List of 3</span></a>
-<a class="sourceLine" id="cb15-65" data-line-number="65"><span class="co">#&gt;   .. ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb15-65" data-line-number="65"><span class="co">#&gt;   .. ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb15-66" data-line-number="66"><span class="co">#&gt;   .. .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb15-67" data-line-number="67"><span class="co">#&gt;   .. ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb15-68" data-line-number="68"><span class="co">#&gt;   .. ..$ origin: Date[1:1], format: "2014-04-14"</span></a>
 <a class="sourceLine" id="cb15-69" data-line-number="69"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "incidence_fit"</span></a>
 <a class="sourceLine" id="cb15-70" data-line-number="70"><span class="co">#&gt;   ..$ after :List of 3</span></a>
-<a class="sourceLine" id="cb15-71" data-line-number="71"><span class="co">#&gt;   .. ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb15-71" data-line-number="71"><span class="co">#&gt;   .. ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb15-72" data-line-number="72"><span class="co">#&gt;   .. .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb15-73" data-line-number="73"><span class="co">#&gt;   .. ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb15-74" data-line-number="74"><span class="co">#&gt;   .. ..$ origin: Date[1:1], format: "2014-09-15"</span></a>
@@ -535,25 +535,25 @@
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">str</span>(<span class="kw"><a href="../reference/get_fit.html">get_fit</a></span>(fg<span class="op">$</span>fit), <span class="dt">max.level =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt; List of 4</span></a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt;  $ f_before:List of 3</span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt;   ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt;   ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt;   ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt;   ..$ origin: Date[1:1], format: "2014-04-07"</span></a>
 <a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt;   ..- attr(*, "class")= chr "incidence_fit"</span></a>
 <a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt;  $ m_before:List of 3</span></a>
-<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="co">#&gt;   ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="co">#&gt;   ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb17-11" data-line-number="11"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co">#&gt;   ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb17-13" data-line-number="13"><span class="co">#&gt;   ..$ origin: Date[1:1], format: "2014-04-14"</span></a>
 <a class="sourceLine" id="cb17-14" data-line-number="14"><span class="co">#&gt;   ..- attr(*, "class")= chr "incidence_fit"</span></a>
 <a class="sourceLine" id="cb17-15" data-line-number="15"><span class="co">#&gt;  $ f_after :List of 3</span></a>
-<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="co">#&gt;   ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="co">#&gt;   ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb17-17" data-line-number="17"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb17-18" data-line-number="18"><span class="co">#&gt;   ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb17-19" data-line-number="19"><span class="co">#&gt;   ..$ origin: Date[1:1], format: "2014-09-22"</span></a>
 <a class="sourceLine" id="cb17-20" data-line-number="20"><span class="co">#&gt;   ..- attr(*, "class")= chr "incidence_fit"</span></a>
 <a class="sourceLine" id="cb17-21" data-line-number="21"><span class="co">#&gt;  $ m_after :List of 3</span></a>
-<a class="sourceLine" id="cb17-22" data-line-number="22"><span class="co">#&gt;   ..$ lm    :List of 12</span></a>
+<a class="sourceLine" id="cb17-22" data-line-number="22"><span class="co">#&gt;   ..$ model :List of 12</span></a>
 <a class="sourceLine" id="cb17-23" data-line-number="23"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "lm"</span></a>
 <a class="sourceLine" id="cb17-24" data-line-number="24"><span class="co">#&gt;   ..$ info  :List of 5</span></a>
 <a class="sourceLine" id="cb17-25" data-line-number="25"><span class="co">#&gt;   ..$ origin: Date[1:1], format: "2014-09-15"</span></a>
@@ -601,7 +601,7 @@
 <a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt; 'fit', 'f', 'after'</span></a>
 <a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; 'fit', 'm', 'after'</span></a>
 <a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt; $lm: regression of log-incidence over time</span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt; $model: regression of log-incidence over time</span></a>
 <a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt; $info: list containing the following items:</span></a>
 <a class="sourceLine" id="cb19-14" data-line-number="14"><span class="co">#&gt;   $r (daily growth rate):</span></a>
