@@ -25,6 +25,7 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    scales
+    scales,
+    cowplot
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
