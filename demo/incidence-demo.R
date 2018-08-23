@@ -38,6 +38,13 @@ i.7.group1 <- subset(i.7.group, groups = -3)
 # exclude NA group using [ operator
 i.7.group2 <- i.7.group[, -3]
 
+# check the resulting incidence objects are identical
+identical(i.7.group0$counts, i.7.group1$counts)
+identical(i.7.group1, i.7.group2)
+
+# check groups
+colnames(i.7.group1$counts)
+
 #' Example 2 ------------------------------------------------------------------
 #'
 #' **importing pre-computed daily incidence and fitting log-linear model**
