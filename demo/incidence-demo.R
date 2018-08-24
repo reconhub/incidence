@@ -11,6 +11,7 @@ str(dat1)
 
 #' 2) build an incidence object
 #'
+#+ incidence-curve, fig.width=9, fig.height=5
 library('incidence')
 library('ggplot2')
 
@@ -22,8 +23,9 @@ i.7.group <- incidence(dat1$date_of_onset,
 i.7.group
 
 # plot incidence object
-my_theme <- theme_bw(base_size = 16) + 
-  theme(legend.position = c(.8, .8)) 
+my_theme <- theme_bw(base_size = 12) + 
+  theme(legend.position = c(.8, .7)) +
+  theme(axis.text = element_text(color = "black")) 
 plot(i.7.group, border = "white") + my_theme
 
 #' 3) Manipulate incidence object
@@ -51,6 +53,7 @@ colnames(i.7.group1$counts)
 #'
 #' 1) Import pre-computed daily incidence
 #'
+#+ incidence-curve2, fig.width=9, fig.height=5
 # preview datasets
 head(zika_girardot_2015, 3)
 head(zika_sanandres_2015, 3)
@@ -82,6 +85,7 @@ cowplot::plot_grid(
 
 #' 2) Fit log-linear regression model
 #' 
+#+ incidence-fit, fig.width=9, fig.height=4
 library('magrittr')
 
 fos <- fit_optim_split(i.pooled)
