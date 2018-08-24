@@ -7,7 +7,7 @@
 library('outbreaks')
 
 dat1 <- ebola_sim_clean$linelist
-str(dat1)
+str(dat1, strict.width = "cut", width = 76)
 
 #' 2) build an incidence object
 #'
