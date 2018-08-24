@@ -19,7 +19,7 @@
 #'
 #' @param ... Further arguments passed to other methods (currently not used).
 #'
-#' @param fit An 'incidence_fit' objet as returned by [fit()].
+#' @param fit An 'incidence_fit' object as returned by [fit()].
 #'
 #' @param stack A logical indicating if bars of multiple groups should be
 #' stacked, or displayed side-by-side.
@@ -48,7 +48,7 @@
 #' incidence; defaults to be TRUE.
 #'
 #' @param n_breaks the ideal number of breaks to be used for the x-axis
-#'   labelling
+#'   labeling
 #'
 #' @examples
 #'

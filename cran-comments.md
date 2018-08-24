@@ -1,4 +1,14 @@
+## Notes to CRAN
+
+This submission of incidence will break the current versions of the following packages:
+
+ - epitrix
+ - projections
+
+These packages will be submitted to CRAN pending approval of this submission.
+
 ## Test environments
+
 * ubuntu 16.04, R 3.5.1
 * ubuntu 14.04 (on travis-ci), R 3.5.1
 * win-builder (devel [2018-08-20 r75173] and release)

@@ -24,7 +24,7 @@ add_incidence_fit(p, x, col_pal = incidence_pal1)
 
 \item{...}{Further arguments passed to other methods (currently not used).}
 
-\item{fit}{An 'incidence_fit' objet as returned by \code{\link[=fit]{fit()}}.}
+\item{fit}{An 'incidence_fit' object as returned by \code{\link[=fit]{fit()}}.}
 
 \item{stack}{A logical indicating if bars of multiple groups should be
 stacked, or displayed side-by-side.}
@@ -53,7 +53,7 @@ marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 incidence; defaults to be TRUE.}
 
 \item{n_breaks}{the ideal number of breaks to be used for the x-axis
-labelling}
+labeling}
 
 \item{p}{An existing incidence plot.}
 }
