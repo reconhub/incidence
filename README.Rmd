@@ -94,13 +94,6 @@ The main features of the package include:
   confidence interval) of a partially observed outbreak.
 
 
-
-
-
-
-
-
-
 # Resources
 
 ## Vignettes
@@ -246,19 +239,19 @@ early.fit
 
 The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:
 
-```{r}
+```{r fit-plot-1}
 plot(early.fit)
 ```
 
 However, a better way to display these predictions is adding them to the
 incidence plot using the argument `fit`:
 
-```{r}
+```{r fit-plot-2}
 plot(i.7[1:20], fit = early.fit)
 ```
 
 Alternatively, these can be piped using:
-```{r pipe}
+```{r pipe-fit}
 library(magrittr)
 plot(i.7[1:20]) %>% add_incidence_fit(early.fit)
 ```

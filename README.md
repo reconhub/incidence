@@ -327,7 +327,7 @@ early.fit <- fit(i.7[1:20])
 early.fit
 #> <incidence_fit object>
 #> 
-#> $lm: regression of log-incidence over time
+#> $model: regression of log-incidence over time
 #> 
 #> $info: list containing the following items:
 #>   $r (daily growth rate):
@@ -354,7 +354,7 @@ its confidence interval is displayed:
 plot(early.fit)
 ```
 
-![](figs/unnamed-chunk-1-1.png)<!-- -->
+![](figs/fit-plot-1-1.png)<!-- -->
 
 However, a better way to display these predictions is adding them to the
 incidence plot using the argument `fit`:
@@ -363,7 +363,7 @@ incidence plot using the argument `fit`:
 plot(i.7[1:20], fit = early.fit)
 ```
 
-![](figs/unnamed-chunk-2-1.png)<!-- -->
+![](figs/fit-plot-2-1.png)<!-- -->
 
 Alternatively, these can be piped using:
 
@@ -372,7 +372,7 @@ library(magrittr)
 plot(i.7[1:20]) %>% add_incidence_fit(early.fit)
 ```
 
-![](figs/pipe-1.png)<!-- -->
+![](figs/pipe-fit-1.png)<!-- -->
 
 In this case, we would ideally like to fit two models, before and after
 the peak of the epidemic. This is possible using the following approach,
@@ -409,7 +409,7 @@ best.fit
 #> 'before'
 #> 'after'
 #> 
-#> $lm: regression of log-incidence over time
+#> $model: regression of log-incidence over time
 #> 
 #> $info: list containing the following items:
 #>   $r (daily growth rate):

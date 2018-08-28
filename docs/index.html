@@ -314,14 +314,14 @@
 <a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt;   $pred: data.frame of incidence predictions (20 rows, 5 columns)</span></a></code></pre></div>
 <p>The resulting objects can be plotted, in which case the prediction and its confidence interval is displayed:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">plot</span>(early.fit)</a></code></pre></div>
-<p><img src="figs/unnamed-chunk-1-1.png" width="768"></p>
+<p><img src="figs/fit-plot-1-1.png" width="768"></p>
 <p>However, a better way to display these predictions is adding them to the incidence plot using the argument <code>fit</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>], <span class="dt">fit =</span> early.fit)</a></code></pre></div>
-<p><img src="figs/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="figs/fit-plot-2-1.png" width="768"></p>
 <p>Alternatively, these can be piped using:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">plot</span>(i<span class="fl">.7</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/plot.incidence.html">add_incidence_fit</a></span>(early.fit)</a></code></pre></div>
-<p><img src="figs/pipe-1.png" width="768"></p>
+<p><img src="figs/pipe-fit-1.png" width="768"></p>
 <p>In this case, we would ideally like to fit two models, before and after the peak of the epidemic. This is possible using the following approach, in which the best possible splitting date (i.e. the one maximizing the average fit of both models), is determined automatically:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">best.fit &lt;-<span class="st"> </span><span class="kw"><a href="reference/fit.html">fit_optim_split</a></span>(i<span class="fl">.7</span>)</a>
 <a class="sourceLine" id="cb17-2" data-line-number="2">best.fit</a>
