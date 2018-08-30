@@ -15,6 +15,8 @@ Downloads](https://cranlogs.r-pkg.org/badges/incidence)](https://cran.r-project.
 [![Downloads from Rstudio
 mirror](https://cranlogs.r-pkg.org/badges/grand-total/incidence)](http://www.r-pkg.org/pkg/incidence)
 
+[![DOI](https://zenodo.org/badge/49890366.svg)](https://zenodo.org/badge/latestdoi/49890366)
+
 # Installing the package
 
 To install the current stable, CRAN version of the package, type:
