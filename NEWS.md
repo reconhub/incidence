@@ -1,6 +1,10 @@
 incidence 1.4.1.99
 ============================
 
+### BUG FIX
+
+* `estimate_peak()` no longer failes with integer dates
+
 incidence 1.4.1 (2018-08-24)
 ============================
 
