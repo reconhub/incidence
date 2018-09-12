@@ -3,6 +3,8 @@ context("incidence object accessor tests")
 set.seed(999)
 int   <- sample(-3:50, 100, replace = TRUE)
 dat   <- as.Date("2018-01-31") + int
+grp   <- sample(letters[1:3], length(dat), replace = TRUE)
+xg    <- incidence(dat, groups = grp)
 x.1   <- incidence(int)
 x.7   <- incidence(int, 7L)
 x.day <- incidence(dat, "day")
@@ -14,6 +16,31 @@ x.yer <- incidence(c(dat, dat - 365, dat - 365 * 2), "year")
 test_that("get_interval works for integers", {
   expect_equal(get_interval(x.1), 1L)
   expect_equal(get_interval(x.1, integer = FALSE), 1L)
+})
+
+test_that("group_names works", {
+  expect_identical(group_names(xg), letters[1:3])
+  expect_null(group_names(x.1))
+  group_names(xg) <- c("foo", "bar", "baz")
+  expect_identical(group_names(xg), c("foo", "bar", "baz"))
+  expect_error(group_names(letters))
+  expect_error(group_names(letters) <- 1:10)
+})
+
+test_that("group_names can collapse groups", {
+  xg2 <- group_names(xg, rep("a", 3))
+  xg3 <- group_names(xg, c("a", "b", "b"))
+  expect_equal(n_groups(xg3), 2L)
+  expect_equal(sum(get_counts(xg3)), sum(get_counts(xg)))
+  expect_equal(colSums(get_counts(xg3))[["b"]], sum(colSums(get_counts(xg))[c("b", "c")]))
+  expect_equivalent(xg2, pool(xg))
+})
+
+test_that("n_groups works", {
+  expect_equal(n_groups(xg), 3L)
+  expect_equal(n_groups(x.1), 1L)
+  expect_equal(n_groups(subset(xg, groups = 1:2)), 2L)
+  expect_error(n_groups(letters))
 })
 
 test_that("get_dates works for integers", {
@@ -34,7 +61,7 @@ test_that("get_interval works for integer weeks", {
 
 test_that("get_dates works for integer weeks", {
   expect_equal(get_dates(x.7), x.7$dates)
-  expect_equal(get_dates(x.7, count_days = TRUE), 7*(seq_along(x.7$dates) - 1.0))
+  expect_equal(get_dates(x.7, count_days = TRUE), 7 * (seq_along(x.7$dates) - 1.0))
   expect_equal(get_dates(x.7, "center"), x.7$dates + 3.5)
   expect_equal(get_dates(x.7, "right"),  x.7$dates + 7)
 })
@@ -59,7 +86,7 @@ test_that("get_interval works for character weeks", {
 
 test_that("get_dates works for character weeks", {
   expect_equal(get_dates(x.wee), x.wee$dates)
-  expect_equal(get_dates(x.wee, count_days = TRUE), 7*(seq_along(x.wee$dates) - 1.0))
+  expect_equal(get_dates(x.wee, count_days = TRUE), 7 * (seq_along(x.wee$dates) - 1.0))
   expect_equal(get_dates(x.wee, "center"), x.wee$dates + 3.5)
   expect_equal(get_dates(x.wee, "right"),  x.wee$dates + 7.0)
 })
@@ -79,7 +106,7 @@ test_that("get_interval works for character years", {
 test_that("get_dates works for character months", {
   expect_equal(get_dates(x.mon), x.mon$dates)
   expect_equal(get_dates(x.mon, count_days = TRUE), c(0, 31, 59))
-  expect_equal(get_dates(x.mon, "center"), x.mon$dates + c(31, 28, 31)/2)
+  expect_equal(get_dates(x.mon, "center"), x.mon$dates + c(31, 28, 31) / 2)
   expect_equal(get_dates(x.mon, "right"),  x.mon$dates + c(31, 28, 31))
 })
 
