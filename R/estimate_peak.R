@@ -99,7 +99,7 @@ estimate_peak <- function(x, n = 100, alpha = 0.05) {
 
   ## store relevant stats and sod off
   out$estimated <- mean(peak_boot)
-  QUANTILE <- if(inherits(peak_boot, c("Date", "POSIX"))) quantile_Date else quantile
+  QUANTILE <- if(inherits(peak_boot, c("Date", "POSIX"))) quantile_Date else stats::quantile
   out$ci <- QUANTILE(peak_boot, c(alpha / 2, 1 - alpha / 2))
   out$peaks <- peak_boot
   out

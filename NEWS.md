@@ -1,6 +1,11 @@
 incidence 1.4.1.99
 ============================
 
+### NEW FUNCTIONS
+
+* `group_names()` allows the user to retrieve and set the group names
+* `n_groups()` returns the number of groups.
+
 ### BUG FIX
 
 * `estimate_peak()` no longer failes with integer dates
