@@ -225,6 +225,6 @@ i.small <- incidence(onset[160:180])
 plot(i.small) +
   theme(panel.background = element_rect(fill = "white")) +
   geom_hline(yintercept = seq(max(get_counts(i.small))), color = "white") +
-  geom_vline(xintercept = seq.Date(from = min(i.small$dates), to = max(i.small$dates), by = "day"), color = "white")
+   geom_vline(xintercept = get_dates(i.small), color = "white") 
 
 ```
