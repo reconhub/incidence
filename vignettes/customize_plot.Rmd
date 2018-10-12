@@ -211,3 +211,20 @@ p + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
           legend.title = element_blank())
 ```
 
+
+## Applying the style of European Programme for Intervention Epidemiology Training (EPIET)
+
+### Display individual cases
+
+For small datasets it is convention of EPIET to display individual cases as rectangles. It can be done by doing two things: first setting the background to white and second adding white horizontal and vertical lines to the plot.
+
+```{r}
+
+i.small <- incidence(onset[160:180])
+
+plot(i.small) +
+  theme(panel.background = element_rect(fill = "white")) +
+  geom_hline(yintercept = seq(max(get_counts(i.small))), color = "white") +
+   geom_vline(xintercept = get_dates(i.small), color = "white") 
+
+```
