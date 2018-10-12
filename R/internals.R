@@ -52,8 +52,10 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
                                         null_first_date = null_first_date
                                         )
 
-  ## Trim the dates
-  dates <- trim_dates(dates, first_date, last_date)
+  ## Trim the dates and groups as necessary
+  trimmed <- trim_observations(dates, first_date, last_date)
+  dates   <- dates[trimmed]
+  groups  <- groups[trimmed]
 
   ## compute counts within bins defined by the breaks
   if (!is.null(groups)) {
@@ -76,20 +78,20 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
   out
 }
 
-#' Trim dates based on the first and last dates
+#' Trim observations based on the first and last dates
 #'
-#' @param dates a vector of dates or integers
+#' @param observations a vector of dates or integers
 #' @param first_date a single date or integer
 #' @param last_date a single date or integer
 #'
-#' @return the trimmed dates
+#' @return the trimmed observations as a logical vector
 #' @noRd
 #' @keywords internal
-trim_dates <- function(dates, first_date = NULL, last_date = NULL) {
-  res <- dates[dates >= first_date & dates <= last_date]
-  if (length(res) < length(dates)) {
+trim_observations <- function(dates, first_date = NULL, last_date = NULL) {
+  res <- dates >= first_date & dates <= last_date
+  if (sum(res) < length(dates)) {
     warning(sprintf("I removed %d observations outside of [%s, %s].",
-                    length(dates) - length(res),
+                    length(dates) - sum(res),
                     format(first_date),
                     format(last_date)
                     ),
