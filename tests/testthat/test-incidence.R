@@ -240,6 +240,20 @@ test_that("corner cases", {
 
 })
 
+test_that("incidence constructor can handle missing data", {
+  miss_dat <- dat
+  miss_dat[5] <- NA
+  expect_message(incidence(miss_dat), "1 missing observations were removed.")
+})
+
+test_that("incidence constructor can handle data out of range with groups", {
+  set.seed(the_seed)
+  g <- sample(letters[1:2], length(dat), replace = TRUE)
+  expect_message(incidence(dat, first_date = 0, groups = g), 
+                 "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
+                )
+})
+
 test_that("Expected values, no group", {
   
 
