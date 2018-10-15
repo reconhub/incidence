@@ -6,6 +6,11 @@ incidence 1.4.1.99
 * `group_names()` allows the user to retrieve and set the group names
 * `n_groups()` returns the number of groups.
 
+### DOCUMENTATION UPDATES
+
+* An example of EPIET-style bars for small data sets has been added to the 
+  plot customisation vignette by @jakobschumacher.
+
 ### BUG FIX
 
 * `estimate_peak()` no longer fails with integer dates

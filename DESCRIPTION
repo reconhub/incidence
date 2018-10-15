@@ -6,8 +6,9 @@ Authors@R: c(
   person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com"), 
   person("Zhian N.", "Kamvar", role = c("aut", "cre"), email = "zkamvar@gmail.com"),
   person("Rich", "FitzJohn", role = "aut", email = "rich.fitzjohn@gmail.com"), 
-  person("Jun", "Cai", role = "ctb", email = "cai-j12@mails.tsinghua.edu.cn") , 
-  person("Sangeeta", "Bhatia", role = "ctb", email = "sangeetabhatia03@gmail.com"))
+  person("Jun", "Cai", role = "ctb", email = "cai-j12@mails.tsinghua.edu.cn"), 
+  person("Sangeeta", "Bhatia", role = "ctb", email = "sangeetabhatia03@gmail.com"),
+  person("Jakob", "Schumacher", role = "ctb"))
 Description: Provides functions and classes to compute, handle and visualise incidence from dated events for a defined time interval. Dates can be provided in various standard formats. The class 'incidence' is used to store computed incidence and can be easily manipulated, subsetted, and plotted. In addition, log-linear models can be fitted to 'incidence' objects using 'fit'. This package is part of the RECON (<http://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.
 Encoding: UTF-8
 License: MIT + file LICENSE

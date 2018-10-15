@@ -452,13 +452,13 @@ plot(i.7, fit = best.fit$fit)
 
 ![](figs/optim-2.png)<!-- -->
 
-# Contributors (by alphabetic order):
-
+  - Contributors (by alphabetic order):
   - [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
   - [Jun Cai](https://github.com/caijun)
   - [Rich Fitzjohn](https://github.com/richfitz)
   - [Thibaut Jombart](https://github.com/thibautjombart)
   - [Zhian Kamvar](https://github.com/zkamvar)
+  - [Jakob Schumacher](https://github.com/jakobschumacher)
 
 See details of contributions on: <br>
 <https://github.com/reconhub/incidence/graphs/contributors>
