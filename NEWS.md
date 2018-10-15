@@ -14,6 +14,11 @@ incidence 1.4.1.99
   observed dates. Thanks to @mfaber for reporting this bug. 
   See https://github.com/reconhub/incidence/issues/70 for details.
 
+### MISC
+
+* code has been spread out into a more logical file structure where the 
+  `internal_checks.R` file has been split into the relative components.
+
 incidence 1.4.1 (2018-08-24)
 ============================
 
