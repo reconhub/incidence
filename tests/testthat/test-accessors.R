@@ -18,6 +18,17 @@ test_that("get_interval works for integers", {
   expect_equal(get_interval(x.1, integer = FALSE), 1L)
 })
 
+test_that("get_timespan works", {
+  expect_equal(get_timespan(x.1), x.1$timespan)
+  expect_equal(get_timespan(x.mon), x.mon$timespan)
+})
+
+test_that("get_n works", {
+  expect_equal(get_n(x.1), x.1$n)
+  expect_equal(get_n(x.7), x.7$n)
+  expect_equal(get_n(x.mon), x.mon$n)
+})
+
 test_that("group_names works", {
   expect_identical(group_names(xg), letters[1:3])
   expect_null(group_names(x.1))

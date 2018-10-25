@@ -25,15 +25,15 @@ knitr::opts_chunk$set(
 
 ```
 
-
-
-This vignette details the structure of *incidence* objects, as produced by the `incidence` function.
+This vignette details the structure of *incidence* objects, as produced by the
+`incidence` function.
 
 <br>
 
 # Structure of an *incidence* object.
 
 We generate a toy dataset of dates to examine the content of *incidence* objects.
+
 ```{r, data}
 library(incidence)
 set.seed(1)
@@ -42,6 +42,7 @@ sex <- sample(c("female", "male"), 200, replace = TRUE)
 ```
 
 The incidence by 48h period is computed as:
+
 ```{r, i}
 i <- incidence(dat, interval = 2)
 i
@@ -49,6 +50,7 @@ plot(i)
 ```
 
 We also compute incidence by gender:
+
 ```{r, sex}
 i.sex <- incidence(dat, interval = 2, group = sex)
 i.sex
@@ -84,10 +86,11 @@ have been computed, in the format of the input dataset (e.g. `Date`, `numeric`,
 `integer`).
 
 ```{r, dates1}
-class(get_dates(i))
+dat2 <- get_dates(i)
+class(dat2)
 class(dat)
 
-get_dates(i)
+dat2
 ```
 
 The dates correspond to the lower bounds of the time intervals used as bins for
@@ -105,12 +108,30 @@ columns are named after the groups. We illustrate the difference comparing the
 two objects `i` and `i.sex`:
 
 ```{r, counts1}
-class(get_counts(i))
-storage.mode(get_counts(i))
+counts <- get_counts(i)
+class(counts)
+storage.mode(counts)
 
-get_counts(i)
+counts
 get_counts(i.sex)
 ```
+
+There are also accessors for handling groups:
+
+```{r groups}
+# Number of groups
+n_groups(i.sex)
+n_groups(i)
+
+# Names of groups
+group_names(i.sex)
+group_names(i)
+
+# You can also rename the groups
+group_names(i.sex) <- c("F", "M")
+group_names(i.sex)
+```
+
 
 Note that a `data.frame` containing *dates* and *counts* can be obtained using
 `as.data.frame`:
@@ -134,63 +155,67 @@ The `$timespan` component stores the length of the time period covered by the
 object:
 
 ```{r, timespan}
-i$timespan
-range(i$dates)
-diff(range(i$dates)) + 1
+get_timespan(i)
+print(date_range <- range(get_dates(i)))
+diff(date_range) + 1
 ```
-
-
-
-
-
 
 ## `$interval`
 
 The `$interval` component contains the length of the time interval for the bins:
+
 ```{r, interval}
-i$interval
-diff(i$dates)
+get_interval(i)
+diff(get_dates(i))
 ```
-
-
-
-
 
 ## `$n`
 
 The `$n` component stores the total number of events in the data:
+
 ```{r, n}
-i$n
+get_n(i)
 ```
 
 Note that to obtain the number of cases by groups, one can use:
+
 ```{r, n2}
-apply(i.sex$counts, 2, sum)
+colSums(get_counts(i.sex))
 ```
-
-
-
-
 
 ## `$isoweeks`
 
-The `$isoweeks` component is optional, and used to store iso weeks whenever they have been used. Iso weeks are used by default when weekly incidence is computed from dates (see argument `iso_week` in `?incidence`).
+The `$isoweeks` component is optional, and used to store iso weeks whenever
+they have been used. ISO weeks are used by default when weekly incidence is
+computed from dates (see argument `standard` in `?incidence`).
+
 ```{r, isoweek}
 library(outbreaks)
 dat <- ebola_sim$linelist$date_of_onset
-i.7 <- incidence(dat, 7L)
+i.7 <- incidence(dat, 7L, standard = TRUE)
 i.7
 i.7$isoweeks
 ```
 
-The correspondence between iso weeks and dates can be derived by comparing the respective items:
+Because `$isoweeks` is an optional element, it does not have a dedicated
+accessor. If the element is not present, attempting to access it will result in
+a `NULL`:
+
+```{r isoweek-null}
+i$isoweeks
+```
+
+The correspondence between iso weeks and dates can be derived by comparing the
+respective items:
+
 ```{r, isoweek2}
 head(with(i.7, cbind.data.frame(dates, isoweeks)))
 ```
 
-Both dates and iso weeks are returned when converting an `incidence` object to `data.frame`:
+Both dates and iso weeks are returned when converting an `incidence` object to
+`data.frame`:
+
 ```{r, isoweek3}
 head(as.data.frame(i.7))
 ```
-
 
