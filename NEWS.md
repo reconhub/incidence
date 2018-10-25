@@ -5,6 +5,8 @@ incidence 1.4.1.99
 
 * `group_names()` allows the user to retrieve and set the group names
 * `n_groups()` returns the number of groups.
+* `get_timespan()` returns the `$timespan` element
+* `get_n()` returns the `$n` element  
 
 ### DOCUMENTATION UPDATES
 
