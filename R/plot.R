@@ -47,6 +47,10 @@
 #' marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 #' incidence; defaults to be TRUE.
 #'
+#' @param episquares if `TRUE` (default: `FALSE`), then each observation will be
+#' colored by a border. The border defaults to a black border unless specified 
+#' otherwise. This is normally used outbreaks with a small number of cases.
+#'
 #' @param n_breaks the ideal number of breaks to be used for the x-axis
 #'   labeling
 #'
@@ -83,6 +87,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            color = "black", border = NA, col_pal = incidence_pal1,
                            alpha = .7, xlab = "", ylab = NULL,
                            labels_iso = !is.null(x$isoweeks),
+                           episquares = FALSE,
                            n_breaks = 6) {
   stopifnot(is.logical(labels_iso))
 
@@ -146,7 +151,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     ggplot2::geom_bar(ggplot2::aes_string(
                         x = "dates + (interval.days/2)",
                         y = "counts"
-                      ),
+                        ),
                       stat = "identity",
                       width = df$interval.days,
                       position = stack.txt,
@@ -154,7 +159,27 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                       alpha = alpha) +
     ggplot2::labs(x = xlab, y = ylab)
 
-
+  ## Handle episquares here
+  
+  if (episquares && stack) {
+      squaredf <- df[rep(seq.int(nrow(df)), df$counts), ]
+      squaredf$counts <- 1
+      squares <- ggplot2::geom_bar(ggplot2::aes_string(
+                                     x = "dates + (interval.days/2)",
+                                     y = "counts"
+                                     ),
+                                   color = if (is.na(border)) "white" else border,
+                                   stat = "identity",
+                                   fill  = NA,
+                                   position = "stack",
+                                   data = squaredf,
+                                   width = squaredf$interval.days
+                                   )
+      out <- out + squares
+  }
+  if (episquares && !stack) {
+    message("episquares requires position to be stack")
+  }
   ## Handle fit objects here; 'fit' can be either an 'incidence_fit' object,
   ## or a list of these. In the case of a list, we add geoms one after the
   ## other.

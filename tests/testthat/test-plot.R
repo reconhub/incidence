@@ -39,6 +39,8 @@ test_that("plot for incidence object", {
   p.optim   <- fit.o$plot
   p.i <- plot(i)
   p.i.cum <- plot(cumulate(i))
+  p.i.square <- plot(i, episquares = TRUE)
+  expect_message(plot(i.sex, episquares = TRUE, stack = FALSE))
 
   p.i.14 <- plot(i.14)
   p.i.2 <- plot(i, color = "blue", alpha = .2)
@@ -78,6 +80,7 @@ test_that("plot for incidence object", {
   vdiffr::expect_doppelganger("incidence fit list plot with split", p.optim.sex.fit)
   vdiffr::expect_doppelganger("split optimum plot", p.optim.sex)
   vdiffr::expect_doppelganger("split optimum plot pooled", p.optim)
+  vdiffr::expect_doppelganger("epiquares single plot", p.i.square)
 
   ## errors
   expect_error(plot(i, fit = "tamere"),
