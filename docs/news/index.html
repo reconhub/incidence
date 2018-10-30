@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
       </span>
     </div>
 
@@ -124,6 +124,40 @@
 <h1 class="page-header">
 <a href="#incidence-1-4-1-99" class="anchor"></a>incidence 1.4.1.99<small> Unreleased </small>
 </h1>
+<div id="new-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>NEW FUNCTIONS</h3>
+<ul>
+<li>
+<code><a href="../reference/group_names.html">group_names()</a></code> allows the user to retrieve and set the group names</li>
+<li>
+<code><a href="../reference/n_groups.html">n_groups()</a></code> returns the number of groups.</li>
+</ul>
+</div>
+<div id="documentation-updates" class="section level3">
+<h3 class="hasAnchor">
+<a href="#documentation-updates" class="anchor"></a>DOCUMENTATION UPDATES</h3>
+<ul>
+<li>An example of EPIET-style bars for small data sets has been added to the plot customisation vignette by <a href='http://github.com/jakobschumacher'>@jakobschumacher</a>.</li>
+</ul>
+</div>
+<div id="bug-fix" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fix" class="anchor"></a>BUG FIX</h3>
+<ul>
+<li>
+<code><a href="../reference/estimate_peak.html">estimate_peak()</a></code> no longer fails with integer dates</li>
+<li>
+<code><a href="../reference/incidence.html">incidence()</a></code> no longer fails when providing both group information and a <code>first_date</code> or <code>last_date</code> parameter that is inside the bounds of the observed dates. Thanks to <a href='http://github.com/mfaber'>@mfaber</a> for reporting this bug. See <a href="https://github.com/reconhub/incidence/issues/70" class="uri">https://github.com/reconhub/incidence/issues/70</a> for details.</li>
+</ul>
+</div>
+<div id="misc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#misc" class="anchor"></a>MISC</h3>
+<ul>
+<li>code has been spread out into a more logical file structure where the <code>internal_checks.R</code> file has been split into the relative components.</li>
+</ul>
+</div>
 </div>
     <div id="incidence-1-4-1-2018-08-24" class="section level1">
 <h1 class="page-header">
@@ -146,9 +180,9 @@
 <li><p>A new class, <code>incidence_fit_list</code>, has been implemented to store and summarise <code>incidence_fit</code> objects within a nested list. This is the class returned by in the <code>$fit</code> element of <code><a href="../reference/fit.html">fit_optim_split()</a></code>.</p></li>
 </ul>
 </div>
-<div id="new-functions" class="section level3">
+<div id="new-functions-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-functions" class="anchor"></a>NEW FUNCTIONS</h3>
+<a href="#new-functions-1" class="anchor"></a>NEW FUNCTIONS</h3>
 <ul>
 <li><p><code><a href="../reference/bootstrap.html">bootstrap()</a></code> will bootstrap epicurves stored as <code>incidence</code> objects.</p></li>
 <li><p><code><a href="../reference/find_peak.html">find_peak()</a></code> identifies the peak date of an <code>incidence</code> objects.</p></li>
@@ -303,7 +337,7 @@
 <a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>The README.Rmd / README.md now contains information about various websites for <em>incidence</em> as well as guidelines for posting questions on the RECON forum.</p></li>
-<li><p>incidence now has a dedicated website <a href="http://www.repidemicsconsortium.org/incidence/" class="uri">http://www.repidemicsconsortium.org/incidence/</a> generated with <em>pkgdown</em></p></li>
+<li><p>incidence now has a dedicated website <a href="http://www.repidemicsconsortium.org/incidence/">http://www.repidemicsconsortium.org/incidence/</a> generated with <em>pkgdown</em></p></li>
 </ul>
 </div>
 <div id="minor-improvements" class="section level3">

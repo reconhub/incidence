@@ -62,7 +62,7 @@ incidence object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
       </span>
     </div>
 
@@ -174,10 +174,9 @@ a peak. If <code>FALSE</code>, separate peaks will be found for each group.</p><
 
 
   <span class='co'>## show confidence interval</span>
-  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_abline'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fu'>find_peak</span>(<span class='no'>i</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fu'>find_peak</span>(<span class='no'>i</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-})}</div><div class='output co'>#&gt; &gt; i &lt;- incidence(fluH7N9_china_2013$date_of_onset)
-#&gt; &gt; i
+})}</div><div class='output co'>#&gt; &gt; i &lt;- incidence(fluH7N9_china_2013$date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
 #&gt; &lt;incidence object&gt;
 #&gt; [126 cases from days 2013-02-19 to 2013-07-27]
 #&gt; 

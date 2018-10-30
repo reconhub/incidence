@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
       </span>
     </div>
 
@@ -172,10 +172,10 @@ days from the first date.</p></td>
 <span class='fu'>set.seed</span>(<span class='fl'>999</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='fu'>Sys.Date</span>()) + <span class='fu'>sample</span>(-<span class='fl'>3</span>:<span class='fl'>50</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"month"</span>)
-<span class='fu'>get_dates</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2018-08-01" "2018-09-01" "2018-10-01"</div><div class='input'><span class='fu'>get_dates</span>(<span class='no'>x</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"middle"</span>)</div><div class='output co'>#&gt; [1] "2018-08-16" "2018-09-16" "2018-10-16"</div><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>999</span>)
+<span class='fu'>get_dates</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2018-10-01" "2018-11-01" "2018-12-01"</div><div class='input'><span class='fu'>get_dates</span>(<span class='no'>x</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"middle"</span>)</div><div class='output co'>#&gt; [1] "2018-10-16" "2018-11-16" "2018-12-16"</div><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>999</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='fu'>Sys.Date</span>()) + <span class='fu'>sample</span>(-<span class='fl'>3</span>:<span class='fl'>50</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"month"</span>)
-<span class='fu'>get_dates</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2018-08-01" "2018-09-01" "2018-10-01"</div><div class='input'><span class='fu'>get_dates</span>(<span class='no'>x</span>, <span class='st'>"center"</span>)</div><div class='output co'>#&gt; [1] "2018-08-16" "2018-09-16" "2018-10-16"</div><div class='input'><span class='fu'>get_dates</span>(<span class='no'>x</span>, <span class='st'>"right"</span>)</div><div class='output co'>#&gt; [1] "2018-09-01" "2018-10-01" "2018-11-01"</div><div class='input'>
+<span class='fu'>get_dates</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2018-10-01" "2018-11-01" "2018-12-01"</div><div class='input'><span class='fu'>get_dates</span>(<span class='no'>x</span>, <span class='st'>"center"</span>)</div><div class='output co'>#&gt; [1] "2018-10-16" "2018-11-16" "2018-12-16"</div><div class='input'><span class='fu'>get_dates</span>(<span class='no'>x</span>, <span class='st'>"right"</span>)</div><div class='output co'>#&gt; [1] "2018-11-01" "2018-12-01" "2019-01-01"</div><div class='input'>
 <span class='co'># Return dates by number of days from the first date</span>
 <span class='fu'>get_dates</span>(<span class='no'>x</span>, <span class='kw'>count_days</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1]  0 31 61</div><div class='input'><span class='fu'>get_dates</span>(<span class='fu'><a href='incidence.html'>incidence</a></span>(-<span class='fl'>5</span>:<span class='fl'>5</span>), <span class='kw'>count_days</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1]  0  1  2  3  4  5  6  7  8  9 10</div></pre>
   </div>

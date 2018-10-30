@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1>Overview of the incidence package</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-08-28</h4>
+            <h4 class="date">2018-10-30</h4>
       
       
       <div class="hidden name"><code>overview.Rmd</code></div>
@@ -104,7 +104,7 @@
 <p>To install the current stable, CRAN version of the package, type:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"incidence"</span>)</a></code></pre></div>
 <p>To benefit from the latest features and bug fixes, install the development, <em>github</em> version of the package using:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"reconhub/incidence"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"reconhub/incidence"</span>)</a></code></pre></div>
 <p>Note that this requires the package <em>devtools</em> installed.</p>
 <p><br></p>
 </div>
@@ -226,8 +226,8 @@
 <a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt; [5,]                                            1               1</span></a>
 <a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt; [6,]                                            1               1</span></a>
 <a class="sourceLine" id="cb9-30" data-line-number="30"><span class="kw">plot</span>(i.<span class="fl">7.</span>hosp, <span class="dt">stack=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-32" data-line-number="32"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">fill=</span><span class="st">""</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="st">    </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">legend.position=</span> <span class="st">"top"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-32" data-line-number="32"><span class="st">    </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">fill=</span><span class="st">""</span>)</a></code></pre></div>
 <p><img src="overview_files/figure-html/hosp-1.png" width="672"></p>
 </div>
 <div id="handling-incidence-objects" class="section level2">

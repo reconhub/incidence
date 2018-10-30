@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the interval for an incidence object. — get_interval • incidence</title>
+<title>count number of groups — n_groups • incidence</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the interval for an incidence object. — get_interval" />
+<meta property="og:title" content="count number of groups — n_groups" />
 
-<meta property="og:description" content="Get the interval for an incidence object." />
+<meta property="og:description" content="count number of groups" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,52 +119,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the interval for an incidence object.</h1>
+    <h1>count number of groups</h1>
     
-    <div class="hidden name"><code>get_interval.Rd</code></div>
+    <div class="hidden name"><code>n_groups.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get the interval for an incidence object.</p>
+    <p>count number of groups</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>n_groups</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>n_groups</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence</span>
-<span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>n_groups</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an <a href='incidence.html'>incidence</a> object.</p></td>
+      <td><p>an <code><a href='incidence.html'>incidence()</a></code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Unused</p></td>
-    </tr>
-    <tr>
-      <th>integer</th>
-      <td><p>When <code>TRUE</code> (default), the interval will be converted to an
-integer vector if it is stored as a character in the incidence object.</p></td>
+      <td><p>unused</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>if <code>integer = TRUE</code>: an integer vector, otherwise: the value stored
-in <code>x$interval</code></p>
+    <p>an integer indicating the number of groups present in the incidence
+object.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>set.seed</span>(<span class='fl'>999</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='fu'>Sys.Date</span>()) + <span class='fu'>sample</span>(-<span class='fl'>3</span>:<span class='fl'>50</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"month"</span>)
-<span class='fu'>get_interval</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 31 30 31</div><div class='input'><span class='fu'>get_interval</span>(<span class='no'>x</span>, <span class='kw'>integer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "month"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'>sample</span>(<span class='fl'>10</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+               <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+               <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'>sample</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'>n_groups</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] 2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -63,7 +63,7 @@ on the resampling." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
       </span>
     </div>
 
@@ -203,16 +203,15 @@ approach and <a href='find_peak.html'>incidence::find_peak</a> to find the peak 
   <span class='fu'>summary</span>(<span class='no'>peak_data</span>$<span class='no'>peaks</span>)
 
   <span class='co'>## show confidence interval</span>
-  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_abline'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>ci</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>ci</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
   <span class='co'>## show the distribution of bootstrapped peaks</span>
   <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>peak</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>peaks</span>)
-  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_density'>geom_density</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>,
-                         <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>peak</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='no'>..scaled..</span>),
+  <span class='fu'>plot</span>(<span class='no'>i</span>) + <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>,
+                         <span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>peak</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='no'>..scaled..</span>),
                          <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)
 
-})}</div><div class='output co'>#&gt; &gt; i &lt;- incidence(fluH7N9_china_2013$date_of_onset)
-#&gt; &gt; i
+})}</div><div class='output co'>#&gt; &gt; i &lt;- incidence(fluH7N9_china_2013$date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
 #&gt; &lt;incidence object&gt;
 #&gt; [126 cases from days 2013-02-19 to 2013-07-27]
 #&gt; 
