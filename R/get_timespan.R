@@ -1,25 +1,24 @@
-#' Get timespan for an incidence object
-#'
-#' @inheritParams get_dates
-#' @return an `integer` denoting the timespan represented by the incidence
-#'   object.
+#' @return 
+#'   - `get_timespan()`: an `integer` denoting the timespan represented by the 
+#'   incidence object.
 #' @export
-#' @examples
-#' i <- incidence(sample(-3:50, 100, replace = TRUE))
-#' get_timespan(i)
+#' @rdname accessors
+#' @aliases get_timespan
 get_timespan <- function(x) {
   UseMethod("get_timespan")
 }
 
 #' @export
-#' @rdname get_timespan
+#' @rdname accessors
+#' @aliases get_timespan.default
 get_timespan.default <- function(x) {
     stop(sprintf("Not implemented for class %s",
                  paste(class(x), collapse = ", ")))
 }
 
 #' @export
-#' @rdname get_timespan
+#' @rdname accessors
+#' @aliases get_timespan.incidence
 get_timespan.incidence <- function(x) {
   x$timespan
 }
