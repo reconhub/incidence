@@ -1,25 +1,23 @@
-#' Get n for an incidence object
-#'
-#' @inheritParams get_dates
-#' @return an `integer` denoting the number of samples represented by the 
-#'   incidence object.
+#' @return 
+#'   - `get_n()` The total number of cases stored in the object
 #' @export
-#' @examples
-#' i <- incidence(sample(-3:50, 100, replace = TRUE))
-#' get_n(i)
+#' @rdname accessors
+#' @aliases get_n
 get_n <- function(x) {
   UseMethod("get_n")
 }
 
 #' @export
-#' @rdname get_n
+#' @rdname accessors
+#' @aliases get_n.default
 get_n.default <- function(x) {
     stop(sprintf("Not implemented for class %s",
                  paste(class(x), collapse = ", ")))
 }
 
 #' @export
-#' @rdname get_n
+#' @rdname accessors
+#' @aliases get_n.incidence
 get_n.incidence <- function(x) {
   x$n
 }

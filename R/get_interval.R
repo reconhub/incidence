@@ -1,13 +1,16 @@
-#' Get the interval for an incidence object.
+#' Access various elements of an incidence object
 #'
 #' @param x an [incidence] object.
 #' @param ... Unused
 #'
-#' @return if `integer = TRUE`: an integer vector, otherwise: the value stored
-#'   in `x$interval`
+#' @return 
+#'   - `get_interval()` if `integer = TRUE`: an integer vector, otherwise: the 
+#'     value stored in `x$interval`
 #' @export
 #' @keywords accessors
 #'
+#' @rdname accessors
+#' @aliases get_interval
 #' @examples
 #'
 #' set.seed(999)
@@ -15,14 +18,25 @@
 #' x <- incidence(dat, interval = "month")
 #' get_interval(x)
 #' get_interval(x, integer = FALSE)
+#' 
+#' get_n(x)
 get_interval <- function(x, ...) {
   UseMethod("get_interval")
 }
 
-#' @rdname get_interval
+#' @export
+#' @rdname accessors
+#' @aliases get_interval.default
+get_interval.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
 #' @param integer When `TRUE` (default), the interval will be converted to an
 #'   integer vector if it is stored as a character in the incidence object.
 #' @export
+#' @rdname accessors
+#' @aliases get_interval.incidence
 get_interval.incidence <- function(x, integer = TRUE, ...) {
   if (!integer || is.numeric(x$interval)) {
     return(x$interval)
