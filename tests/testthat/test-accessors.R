@@ -41,17 +41,16 @@ test_that("group_names works", {
 test_that("group_names can collapse groups", {
   xg2 <- group_names(xg, rep("a", 3))
   xg3 <- group_names(xg, c("a", "b", "b"))
-  expect_equal(n_groups(xg3), 2L)
+  expect_equal(ncol(xg3), 2L)
   expect_equal(sum(get_counts(xg3)), sum(get_counts(xg)))
   expect_equal(colSums(get_counts(xg3))[["b"]], sum(colSums(get_counts(xg))[c("b", "c")]))
   expect_equivalent(xg2, pool(xg))
 })
 
-test_that("n_groups works", {
-  expect_equal(n_groups(xg), 3L)
-  expect_equal(n_groups(x.1), 1L)
-  expect_equal(n_groups(subset(xg, groups = 1:2)), 2L)
-  expect_error(n_groups(letters))
+test_that("ncol works", {
+  expect_equal(ncol(xg), 3L)
+  expect_equal(ncol(x.1), 1L)
+  expect_equal(ncol(subset(xg, groups = 1:2)), 2L)
 })
 
 test_that("get_dates works for integers", {

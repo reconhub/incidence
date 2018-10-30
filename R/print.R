@@ -11,7 +11,7 @@ print.incidence <- function(x, ...) {
   }
   if (ncol(x$counts) > 1L) {
     groups.txt <- paste(group_names(x), collapse = ", ")
-    cat(sprintf("[%d groups: %s]\n", n_groups(x), groups.txt))
+    cat(sprintf("[%d groups: %s]\n", ncol(x), groups.txt))
   }
   cat(sprintf("\n$counts: matrix with %d rows and %d columns\n",
               nrow(x$counts), ncol(x$counts)))

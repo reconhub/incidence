@@ -116,12 +116,21 @@ counts
 get_counts(i.sex)
 ```
 
+You can see the dimensions of the incidence object by using `dim()`, `ncol()`,
+and `nrow()`, which returns the dimensions of the counts matrix:
+
+```{r counts1.1}
+dim(get_counts(i.sex))
+dim(i.sex)
+```
+
+
 There are also accessors for handling groups:
 
 ```{r groups}
 # Number of groups
-n_groups(i.sex)
-n_groups(i)
+ncol(i.sex)
+ncol(i)
 
 # Names of groups
 group_names(i.sex)
