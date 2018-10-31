@@ -39,8 +39,8 @@ test_that("plot for incidence object", {
   p.optim   <- fit.o$plot
   p.i <- plot(i)
   p.i.cum <- plot(cumulate(i))
-  p.i.square <- plot(i, episquares = TRUE)
-  expect_message(plot(i.sex, episquares = TRUE, stack = FALSE))
+  p.i.square <- plot(i, show_cases = TRUE)
+  expect_message(plot(i.sex, show_cases = TRUE, stack = FALSE))
 
   p.i.14 <- plot(i.14)
   p.i.2 <- plot(i, color = "blue", alpha = .2)

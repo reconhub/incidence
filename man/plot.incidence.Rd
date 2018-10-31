@@ -10,7 +10,7 @@
 \method{plot}{incidence}(x, ..., fit = NULL, stack = is.null(fit),
   color = "black", border = NA, col_pal = incidence_pal1,
   alpha = 0.7, xlab = "", ylab = NULL,
-  labels_iso = !is.null(x$isoweeks), episquares = FALSE,
+  labels_iso = !is.null(x$isoweeks), show_cases = FALSE,
   n_breaks = 6)
 
 add_incidence_fit(p, x, col_pal = incidence_pal1)
@@ -53,9 +53,10 @@ computation.}
 marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 incidence; defaults to be TRUE.}
 
-\item{episquares}{if \code{TRUE} (default: \code{FALSE}), then each observation will be
-colored by a border. The border defaults to a black border unless specified
-otherwise. This is normally used outbreaks with a small number of cases.}
+\item{show_cases}{if \code{TRUE} (default: \code{FALSE}), then each observation will be
+colored by a border. The border defaults to a white border unless specified
+otherwise. This is normally used outbreaks with a small number of cases.
+Note: this can only be used if \code{stack = TRUE}}
 
 \item{n_breaks}{the ideal number of breaks to be used for the x-axis
 labeling}
@@ -68,7 +69,7 @@ function, using the package \code{ggplot2}.
 }
 \examples{
 
-if(require(outbreaks)) { withAutoprint({
+if(require(outbreaks) && require(ggplot2)) { withAutoprint({
   onset <- ebola_sim$linelist$date_of_onset
 
   ## daily incidence
@@ -88,6 +89,15 @@ if(require(outbreaks)) { withAutoprint({
   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
   plot(inc.week.gender)
   plot(inc.week.gender, labels_iso = FALSE)
+
+  ## show individual cases at the beginning of the epidemic
+  inc.week.8 <- subset(inc.week.gender, to = "2014-06-01")
+  plot(inc.week.8, show_cases = TRUE, border = "black")
+
+  ## customize plot with ggplot2
+  plot(inc.week.8, show_cases = TRUE, border = "black") +
+    theme_classic(base_size = 16) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
   ## adding fit
   fit <- fit_optim_split(inc.week.gender)$fit
