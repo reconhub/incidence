@@ -18,6 +18,17 @@ test_that("get_interval works for integers", {
   expect_equal(get_interval(x.1, integer = FALSE), 1L)
 })
 
+test_that("get_timespan works", {
+  expect_equal(get_timespan(x.1), x.1$timespan)
+  expect_equal(get_timespan(x.mon), x.mon$timespan)
+})
+
+test_that("get_n works", {
+  expect_equal(get_n(x.1), x.1$n)
+  expect_equal(get_n(x.7), x.7$n)
+  expect_equal(get_n(x.mon), x.mon$n)
+})
+
 test_that("group_names works", {
   expect_identical(group_names(xg), letters[1:3])
   expect_null(group_names(x.1))
@@ -30,17 +41,16 @@ test_that("group_names works", {
 test_that("group_names can collapse groups", {
   xg2 <- group_names(xg, rep("a", 3))
   xg3 <- group_names(xg, c("a", "b", "b"))
-  expect_equal(n_groups(xg3), 2L)
+  expect_equal(ncol(xg3), 2L)
   expect_equal(sum(get_counts(xg3)), sum(get_counts(xg)))
   expect_equal(colSums(get_counts(xg3))[["b"]], sum(colSums(get_counts(xg))[c("b", "c")]))
   expect_equivalent(xg2, pool(xg))
 })
 
-test_that("n_groups works", {
-  expect_equal(n_groups(xg), 3L)
-  expect_equal(n_groups(x.1), 1L)
-  expect_equal(n_groups(subset(xg, groups = 1:2)), 2L)
-  expect_error(n_groups(letters))
+test_that("ncol works", {
+  expect_equal(ncol(xg), 3L)
+  expect_equal(ncol(x.1), 1L)
+  expect_equal(ncol(subset(xg, groups = 1:2)), 2L)
 })
 
 test_that("get_dates works for integers", {

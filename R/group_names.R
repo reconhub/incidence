@@ -75,7 +75,7 @@ group_names.incidence <- function(x, value = NULL){
 #' @rdname group_names
 #' @export
 "group_names<-.incidence" <- function(x, value) {
-	if (length(value) != n_groups(x)) {
+	if (length(value) != ncol(x)) {
 		stop("value must be the same length as the number of groups.")
 	}
 	if (anyNA(value <- as.character(value))) {
