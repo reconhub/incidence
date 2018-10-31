@@ -47,12 +47,17 @@
 #' marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 #' incidence; defaults to be TRUE.
 #'
+#' @param show_cases if `TRUE` (default: `FALSE`), then each observation will be
+#' colored by a border. The border defaults to a white border unless specified 
+#' otherwise. This is normally used outbreaks with a small number of cases.
+#' Note: this can only be used if `stack = TRUE`
+#'
 #' @param n_breaks the ideal number of breaks to be used for the x-axis
 #'   labeling
 #'
 #' @examples
 #'
-#' if(require(outbreaks)) { withAutoprint({
+#' if(require(outbreaks) && require(ggplot2)) { withAutoprint({
 #'   onset <- ebola_sim$linelist$date_of_onset
 #'
 #'   ## daily incidence
@@ -73,6 +78,15 @@
 #'   plot(inc.week.gender)
 #'   plot(inc.week.gender, labels_iso = FALSE)
 #'
+#'   ## show individual cases at the beginning of the epidemic
+#'   inc.week.8 <- subset(inc.week.gender, to = "2014-06-01")
+#'   plot(inc.week.8, show_cases = TRUE, border = "black")
+#'
+#'   ## customize plot with ggplot2
+#'   plot(inc.week.8, show_cases = TRUE, border = "black") +
+#'     theme_classic(base_size = 16) +
+#'     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+#'
 #'   ## adding fit
 #'   fit <- fit_optim_split(inc.week.gender)$fit
 #'   plot(inc.week.gender, fit = fit)
@@ -83,6 +97,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            color = "black", border = NA, col_pal = incidence_pal1,
                            alpha = .7, xlab = "", ylab = NULL,
                            labels_iso = !is.null(x$isoweeks),
+                           show_cases = FALSE,
                            n_breaks = 6) {
   stopifnot(is.logical(labels_iso))
 
@@ -146,7 +161,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     ggplot2::geom_bar(ggplot2::aes_string(
                         x = "dates + (interval.days/2)",
                         y = "counts"
-                      ),
+                        ),
                       stat = "identity",
                       width = df$interval.days,
                       position = stack.txt,
@@ -154,7 +169,27 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                       alpha = alpha) +
     ggplot2::labs(x = xlab, y = ylab)
 
-
+  ## Handle show_cases here
+  
+  if (show_cases && stack) {
+      squaredf <- df[rep(seq.int(nrow(df)), df$counts), ]
+      squaredf$counts <- 1
+      squares <- ggplot2::geom_bar(ggplot2::aes_string(
+                                     x = "dates + (interval.days/2)",
+                                     y = "counts"
+                                     ),
+                                   color = if (is.na(border)) "white" else border,
+                                   stat = "identity",
+                                   fill  = NA,
+                                   position = "stack",
+                                   data = squaredf,
+                                   width = squaredf$interval.days
+                                   )
+      out <- out + squares
+  }
+  if (show_cases && !stack) {
+    message("the argument `show_cases` requires the argument `stack = TRUE`")
+  }
   ## Handle fit objects here; 'fit' can be either an 'incidence_fit' object,
   ## or a list of these. In the case of a list, we add geoms one after the
   ## other.
