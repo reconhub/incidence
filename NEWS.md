@@ -9,6 +9,12 @@ incidence 1.4.1.99
 * `dim()`, `nrow()`, and `ncol()` are now available for incidence objects,
   returning the dimensions of the number of bins and the number of groups.
 
+### NEW FEATURES
+
+* A new argument to `plot()` called `show_cases` has been added to draw borders
+  around individual cases for EPIET-style curves.
+  See https://github.com/reconhub/incidence/pull/72 for details.
+
 ### DOCUMENTATION UPDATES
 
 * An example of EPIET-style bars for small data sets has been added to the 
