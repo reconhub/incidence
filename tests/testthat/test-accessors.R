@@ -21,12 +21,14 @@ test_that("get_interval works for integers", {
 test_that("get_timespan works", {
   expect_equal(get_timespan(x.1), x.1$timespan)
   expect_equal(get_timespan(x.mon), x.mon$timespan)
+  expect_error(get_timespan("coffee"), "Not implemented for class character")
 })
 
 test_that("get_n works", {
   expect_equal(get_n(x.1), x.1$n)
   expect_equal(get_n(x.7), x.7$n)
   expect_equal(get_n(x.mon), x.mon$n)
+  expect_error(get_n("coffee"), "Not implemented for class character")
 })
 
 test_that("group_names works", {
@@ -34,13 +36,15 @@ test_that("group_names works", {
   expect_null(group_names(x.1))
   group_names(xg) <- c("foo", "bar", "baz")
   expect_identical(group_names(xg), c("foo", "bar", "baz"))
-  expect_error(group_names(letters))
+  expect_error(group_names(letters), "Not implemented for class character")
   expect_error(group_names(letters) <- 1:10)
 })
 
 test_that("group_names can collapse groups", {
   xg2 <- group_names(xg, rep("a", 3))
   xg3 <- group_names(xg, c("a", "b", "b"))
+  expect_error(group_names(xg, letters[1:4]), "value must be the same length as the number of groups")
+  expect_error(group_names(xg, c(letters[1:2], NA)), "value must be able to be coerced to a character vector")
   expect_equal(ncol(xg3), 2L)
   expect_equal(sum(get_counts(xg3)), sum(get_counts(xg)))
   expect_equal(colSums(get_counts(xg3))[["b"]], sum(colSums(get_counts(xg))[c("b", "c")]))
@@ -67,6 +71,7 @@ test_that("get_dates borks correctly", {
 test_that("get_interval works for integer weeks", {
   expect_equal(get_interval(x.7), 7L)
   expect_equal(get_interval(x.7, integer = FALSE), 7L)
+  expect_error(get_interval("pizza"), "Not implemented for class character")
 })
 
 test_that("get_dates works for integer weeks", {
