@@ -219,13 +219,14 @@ p + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
 For small datasets it is convention of EPIET to display individual cases as
 rectangles. It can be done by doing two things: first, adding using the option
 `show_cases = TRUE` with a white border and second, setting the background to
-white.
+white. We also add `coord_equal()` which forces each case to be a square.
 
 ```{r, EPIET1}
 i.small <- incidence(onset[160:180])
 
 plot(i.small, border = "white", show_cases = TRUE) +
-  theme(panel.background = element_rect(fill = "white"))
+  theme(panel.background = element_rect(fill = "white")) + 
+  coord_equal()
 ```
 
 
