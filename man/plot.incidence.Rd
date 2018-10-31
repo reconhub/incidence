@@ -10,7 +10,8 @@
 \method{plot}{incidence}(x, ..., fit = NULL, stack = is.null(fit),
   color = "black", border = NA, col_pal = incidence_pal1,
   alpha = 0.7, xlab = "", ylab = NULL,
-  labels_iso = !is.null(x$isoweeks), n_breaks = 6)
+  labels_iso = !is.null(x$isoweeks), episquares = FALSE,
+  n_breaks = 6)
 
 add_incidence_fit(p, x, col_pal = incidence_pal1)
 
@@ -51,6 +52,10 @@ computation.}
 \item{labels_iso}{a logical value indicating whether labels x axis tick
 marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 incidence; defaults to be TRUE.}
+
+\item{episquares}{if \code{TRUE} (default: \code{FALSE}), then each observation will be
+colored by a border. The border defaults to a black border unless specified
+otherwise. This is normally used outbreaks with a small number of cases.}
 
 \item{n_breaks}{the ideal number of breaks to be used for the x-axis
 labeling}
