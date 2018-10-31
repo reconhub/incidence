@@ -172,20 +172,20 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## Handle show_cases here
   
   if (show_cases && stack) {
-      squaredf <- df[rep(seq.int(nrow(df)), df$counts), ]
-      squaredf$counts <- 1
-      squares <- ggplot2::geom_bar(ggplot2::aes_string(
-                                     x = "dates + (interval.days/2)",
-                                     y = "counts"
-                                     ),
-                                   color = if (is.na(border)) "white" else border,
-                                   stat = "identity",
-                                   fill  = NA,
-                                   position = "stack",
-                                   data = squaredf,
-                                   width = squaredf$interval.days
-                                   )
-      out <- out + squares
+    squaredf <- df[rep(seq.int(nrow(df)), df$counts), ]
+    squaredf$counts <- 1
+    squares <- ggplot2::geom_bar(ggplot2::aes_string(
+                                   x = "dates + (interval.days/2)",
+                                   y = "counts"
+                                   ),
+                                 color = if (is.na(border)) "white" else border,
+                                 stat = "identity",
+                                 fill  = NA,
+                                 position = "stack",
+                                 data = squaredf,
+                                 width = squaredf$interval.days
+                                 )
+    out <- out + squares
   }
   if (show_cases && !stack) {
     message("the argument `show_cases` requires the argument `stack = TRUE`")
