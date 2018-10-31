@@ -86,17 +86,45 @@ have been computed, in the format of the input dataset (e.g. `Date`, `numeric`,
 `integer`).
 
 ```{r, dates1}
-dat2 <- get_dates(i)
-class(dat2)
+date_bins <- get_dates(i)
+class(date_bins)
 class(dat)
 
-dat2
+date_bins
 ```
 
 The dates correspond to the lower bounds of the time intervals used as bins for
 the incidence. Bins always include the lower bound and exclude the upper bound.
 In the example provided above, this means that the first bin counts events that
 happened at day 5-6, the second bin counts events from 7-8, etc.
+
+Note that if we had actual `Date`-class dates, they would be returned as dates
+
+```{r date-dates1}
+dat_Date <- as.Date("2018-10-31") + dat
+head(dat_Date)
+i.date <- incidence(dat_Date, interval = 2, group = sex)
+i.date
+get_dates(i.date)
+class(get_dates(i.date))
+```
+
+These can be converted to integers, counting the number of days from the first
+date.
+
+```{r get-dates-integer}
+get_dates(i.date, count_days = TRUE)
+get_dates(i, count_days = TRUE)
+```
+
+To facilitate modelling, it's also possible to get the center of the interval by
+using the `position = "center"` argument:
+
+```{r get-dates-center}
+get_dates(i.date, position = "center")
+get_dates(i.date, position = "center", count_days = TRUE)
+```
+
 
 ## `$counts`
 
@@ -122,6 +150,8 @@ and `nrow()`, which returns the dimensions of the counts matrix:
 ```{r counts1.1}
 dim(get_counts(i.sex))
 dim(i.sex)
+nrow(i.sex) # number of date bins
+ncol(i.sex) # number of groups
 ```
 
 
