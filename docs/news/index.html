@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.0</span>
       </span>
     </div>
 
@@ -120,25 +120,37 @@
       
     </div>
 
-    <div id="incidence-1-4-1-99" class="section level1">
+    <div id="incidence-1-5-0-2018-11-01" class="section level1">
 <h1 class="page-header">
-<a href="#incidence-1-4-1-99" class="anchor"></a>incidence 1.4.1.99<small> Unreleased </small>
+<a href="#incidence-1-5-0-2018-11-01" class="anchor"></a>incidence 1.5.0 (2018-11-01)<small> 2018-11-01 </small>
 </h1>
 <div id="new-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-functions" class="anchor"></a>NEW FUNCTIONS</h3>
 <ul>
 <li>
-<code><a href="../reference/group_names.html">group_names()</a></code> allows the user to retrieve and set the group names</li>
+<code><a href="../reference/group_names.html">group_names()</a></code> allows the user to retrieve and set the group names.</li>
 <li>
-<code><a href="../reference/n_groups.html">n_groups()</a></code> returns the number of groups.</li>
+<code><a href="../reference/accessors.html">get_timespan()</a></code> returns the <code>$timespan</code> element.</li>
+<li>
+<code><a href="../reference/accessors.html">get_n()</a></code> returns the <code>$n</code> element.</li>
+<li>
+<code>dim()</code>, <code>nrow()</code>, and <code>ncol()</code> are now available for incidence objects, returning the dimensions of the number of bins and the number of groups.</li>
+</ul>
+</div>
+<div id="new-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
+<ul>
+<li>A new argument to <code>plot()</code> called <code>show_cases</code> has been added to draw borders around individual cases for EPIET-style curves. See <a href="https://github.com/reconhub/incidence/pull/72" class="uri">https://github.com/reconhub/incidence/pull/72</a> for details.</li>
 </ul>
 </div>
 <div id="documentation-updates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#documentation-updates" class="anchor"></a>DOCUMENTATION UPDATES</h3>
 <ul>
-<li>An example of EPIET-style bars for small data sets has been added to the plot customisation vignette by <a href='http://github.com/jakobschumacher'>@jakobschumacher</a>.</li>
+<li>An example of EPIET-style bars for small data sets has been added to the plot customisation vignette by <a href='http://github.com/jakobschumacher'>@jakobschumacher</a>. See <a href="https://github.com/reconhub/incidence/pull/68" class="uri">https://github.com/reconhub/incidence/pull/68</a> for details.</li>
+<li>The incidence class vignette has been updated to use the available accessors.</li>
 </ul>
 </div>
 <div id="bug-fix" class="section level3">
@@ -156,6 +168,7 @@
 <a href="#misc" class="anchor"></a>MISC</h3>
 <ul>
 <li>code has been spread out into a more logical file structure where the <code>internal_checks.R</code> file has been split into the relative components.</li>
+<li>A message is now printed if missing observations are present when creating the incidence object.</li>
 </ul>
 </div>
 </div>
@@ -170,9 +183,9 @@
 <li>The <code>$lm</code> field of the <code>incidence_fit</code> class is now named <code>$model</code> to clearly indicate that this can contain any model.</li>
 </ul>
 </div>
-<div id="new-features" class="section level3">
+<div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p><code><a href="../reference/incidence.html">incidence()</a></code> will now accept text-based intervals that are valid date intervals: day, week, month, quarter, and year.</p></li>
 <li><p><code><a href="../reference/incidence.html">incidence()</a></code> now verifies that all user-supplied arguments are accurate and spelled correctly.</p></li>
@@ -187,7 +200,7 @@
 <li><p><code><a href="../reference/bootstrap.html">bootstrap()</a></code> will bootstrap epicurves stored as <code>incidence</code> objects.</p></li>
 <li><p><code><a href="../reference/find_peak.html">find_peak()</a></code> identifies the peak date of an <code>incidence</code> objects.</p></li>
 <li><p><code><a href="../reference/estimate_peak.html">estimate_peak()</a></code> uses bootstrap to estimate the peak time of a partially observed outbreak.</p></li>
-<li><p><code><a href="../reference/get_interval.html">get_interval()</a></code> will return the numeric interval or several intervals in the case of intervals that can’t be represented in a fixed number of days (e.g. months).</p></li>
+<li><p><code><a href="../reference/accessors.html">get_interval()</a></code> will return the numeric interval or several intervals in the case of intervals that can’t be represented in a fixed number of days (e.g. months).</p></li>
 <li><p><code><a href="../reference/get_dates.html">get_dates()</a></code> returns the dates or counts of days on the right, center, or left of the interval.</p></li>
 <li><p><code><a href="../reference/get_counts.html">get_counts()</a></code> returns the matrix of case counts for each date.</p></li>
 <li><p><code><a href="../reference/get_fit.html">get_fit()</a></code> returns a list of <code>incidence_fit</code> objects from an <code>incidence_fit_list</code> object.</p></li>
@@ -242,9 +255,9 @@
 </li>
 </ul>
 </div>
-<div id="new-features-1" class="section level3">
+<div id="new-features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>the argument <code>n_breaks</code> has been added to <code>plot.incidence</code>, to specify the ideal number of breaks for the date legends; will work with ggplot2 &gt; 2.2.1</p></li>
 <li><p>added the internal function <code>make_iso_weeks_breaks</code> to generate dates and labels for date x-axis legends using ISO weeks</p></li>
@@ -269,9 +282,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-2-0-2017-04-03" class="anchor"></a>incidence 1.2.0 (2017-04-03)<small> 2017-05-15 </small>
 </h1>
-<div id="new-features-2" class="section level3">
+<div id="new-features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>new generic <em>as.incidence</em>, to create incidence objects from already computed incidences. Methods for: matrix, data.frame, numeric vectors</p></li>
 <li><p>better processing of input dates, including: automatic conversion from characters, issuing errors for factors, and silently converting numeric vectors which are essentially integers (issuing a warning otherwise)</p></li>
@@ -318,9 +331,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-1-0-2016-12-13" class="anchor"></a>incidence 1.1.0 (2016-12-13)<small> 2016-12-13 </small>
 </h1>
-<div id="new-features-3" class="section level3">
+<div id="new-features-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>add an argument <code>iso_week</code> to incidence.Date() and incidence.POSIXt() to support ISO week-based incidence when computing weekly incidence.</p></li>
 <li><p>add an argument <code>labels_iso_week</code> to plot.incidence() to label x axis tick marks with ISO weeks when plotting ISO week-based weekly incidence.</p></li>
@@ -332,9 +345,9 @@
 <h1 class="page-header">
 <a href="#incidence-1-0-1-2016-11-23" class="anchor"></a>incidence 1.0.1 (2016-11-23)<small> 2016-11-22 </small>
 </h1>
-<div id="new-features-4" class="section level3">
+<div id="new-features-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>The README.Rmd / README.md now contains information about various websites for <em>incidence</em> as well as guidelines for posting questions on the RECON forum.</p></li>
 <li><p>incidence now has a dedicated website <a href="http://www.repidemicsconsortium.org/incidence/">http://www.repidemicsconsortium.org/incidence/</a> generated with <em>pkgdown</em></p></li>
@@ -361,7 +374,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#incidence-1-4-1-99">1.4.1.99</a></li>
+        <li><a href="#incidence-1-5-0-2018-11-01">1.5.0</a></li>
         <li><a href="#incidence-1-4-1-2018-08-24">1.4.1</a></li>
         <li><a href="#incidence-1-3-1-2018-06-11">1.3.1</a></li>
         <li><a href="#incidence-1-3-0-2018-06-01">1.3.0</a></li>

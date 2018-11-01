@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.0</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1>Details of the incidence class</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-10-30</h4>
+            <h4 class="date">2018-11-01</h4>
       
       
       <div class="hidden name"><code>incidence_class.Rmd</code></div>
@@ -143,197 +143,257 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">names</span>(i)</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; [1] "dates"      "counts"     "timespan"   "interval"   "n"         </span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; [6] "cumulative"</span></a></code></pre></div>
-<p>Items in <code>i</code> can be accessed using the same indexing as any lists:</p>
+<p>Items in <code>i</code> can be accessed using the same indexing as any lists, but it’s safer to use the accessors for each item:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">## use name</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">head</span>(i<span class="op">$</span>dates)</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; [1]  5  7  9 11 13 15</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">## use numeric indexing</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">head</span>(i[[<span class="dv">2</span>]])</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;      [,1]</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; [1,]    3</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; [2,]    0</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; [3,]    1</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; [4,]    0</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; [5,]    1</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; [6,]    0</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">head</span>(<span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i))</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; [1]  5  7  9 11 13 15</span></a></code></pre></div>
 <p>In the following sections, we examine each of the components of the object.</p>
 <div id="dates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dates" class="anchor"></a><code>$dates</code>
 </h2>
-<p>The <code>$dates</code> component contains all the dates for which incidence have been computed, in the format of the input dataset (e.g. <code>Date</code>, <code>numeric</code>, <code>integer</code>).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">class</span>(i<span class="op">$</span>dates)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] "integer"</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">class</span>(dat)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [1] "integer"</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">i<span class="op">$</span>dates</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;  [1]  5  7  9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49</span></a></code></pre></div>
+<p>The <code>$dates</code> component contains a vector for all the dates for which incidence have been computed, in the format of the input dataset (e.g. <code>Date</code>, <code>numeric</code>, <code>integer</code>).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">date_bins &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">class</span>(date_bins)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; [1] "integer"</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">class</span>(dat)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; [1] "integer"</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">date_bins</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;  [1]  5  7  9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49</span></a></code></pre></div>
 <p>The dates correspond to the lower bounds of the time intervals used as bins for the incidence. Bins always include the lower bound and exclude the upper bound. In the example provided above, this means that the first bin counts events that happened at day 5-6, the second bin counts events from 7-8, etc.</p>
+<p>Note that if we had actual <code>Date</code>-class dates, they would be returned as dates</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">dat_Date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2018-10-31"</span>) <span class="op">+</span><span class="st"> </span>dat</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">head</span>(dat_Date)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; [1] "2018-12-17" "2018-12-16" "2018-12-12" "2018-11-26" "2018-12-18"</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [6] "2018-11-27"</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">i.date &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat_Date, <span class="dt">interval =</span> <span class="dv">2</span>, <span class="dt">group =</span> sex)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">i.date</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; [200 cases from days 2018-11-05 to 2018-12-19]</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; [2 groups: female, male]</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; $counts: matrix with 23 rows and 2 columns</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; $n: 200 cases in total</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; $dates: 23 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; $interval: 2 days</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; $timespan: 45 days</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i.date)</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;  [1] "2018-11-05" "2018-11-07" "2018-11-09" "2018-11-11" "2018-11-13"</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt;  [6] "2018-11-15" "2018-11-17" "2018-11-19" "2018-11-21" "2018-11-23"</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; [11] "2018-11-25" "2018-11-27" "2018-11-29" "2018-12-01" "2018-12-03"</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; [16] "2018-12-05" "2018-12-07" "2018-12-09" "2018-12-11" "2018-12-13"</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; [21] "2018-12-15" "2018-12-17" "2018-12-19"</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="kw">class</span>(<span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i.date))</a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; [1] "Date"</span></a></code></pre></div>
+<p>These can be converted to integers, counting the number of days from the first date.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i.date, <span class="dt">count_days =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt;  [1]  0  2  4  6  8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i, <span class="dt">count_days =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;  [1]  0  2  4  6  8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44</span></a></code></pre></div>
+<p>To facilitate modelling, it’s also possible to get the center of the interval by using the <code>position = "center"</code> argument:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i.date, <span class="dt">position =</span> <span class="st">"center"</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt;  [1] "2018-11-06" "2018-11-08" "2018-11-10" "2018-11-12" "2018-11-14"</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;  [6] "2018-11-16" "2018-11-18" "2018-11-20" "2018-11-22" "2018-11-24"</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; [11] "2018-11-26" "2018-11-28" "2018-11-30" "2018-12-02" "2018-12-04"</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; [16] "2018-12-06" "2018-12-08" "2018-12-10" "2018-12-12" "2018-12-14"</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; [21] "2018-12-16" "2018-12-18" "2018-12-20"</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i.date, <span class="dt">position =</span> <span class="st">"center"</span>, <span class="dt">count_days =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;  [1]  1  3  5  7  9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45</span></a></code></pre></div>
 </div>
 <div id="counts" class="section level2">
 <h2 class="hasAnchor">
 <a href="#counts" class="anchor"></a><code>$counts</code>
 </h2>
 <p>The <code>$counts</code> component contains the actual incidence, i.e. counts of events for the defined bins. It is a <code>matrix</code> of <code>integers</code> where rows correspond to time intervals, with one column for each group for which incidence is computed (a single, unamed column if no groups were provided). If groups were provided, columns are named after the groups. We illustrate the difference comparing the two objects <code>i</code> and <code>i.sex</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">class</span>(i<span class="op">$</span>counts)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] "matrix"</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">storage.mode</span>(i<span class="op">$</span>counts)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [1] "integer"</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">i<span class="op">$</span>counts</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;       [,1]</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  [1,]    3</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  [2,]    0</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  [3,]    1</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  [4,]    0</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  [5,]    1</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  [6,]    0</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;  [7,]    1</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;  [8,]    0</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;  [9,]    3</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; [10,]    3</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; [11,]    3</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; [12,]    5</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; [13,]    9</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; [14,]    4</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; [15,]    5</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; [16,]   12</span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; [17,]   13</span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; [18,]   16</span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; [19,]   15</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; [20,]   25</span></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; [21,]   28</span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; [22,]   28</span></a>
-<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt; [23,]   25</span></a>
-<a class="sourceLine" id="cb7-31" data-line-number="31">i.sex<span class="op">$</span>counts</a>
-<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt;       female male</span></a>
-<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt;  [1,]      1    2</span></a>
-<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="co">#&gt;  [2,]      0    0</span></a>
-<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="co">#&gt;  [3,]      0    1</span></a>
-<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="co">#&gt;  [4,]      0    0</span></a>
-<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="co">#&gt;  [5,]      1    0</span></a>
-<a class="sourceLine" id="cb7-38" data-line-number="38"><span class="co">#&gt;  [6,]      0    0</span></a>
-<a class="sourceLine" id="cb7-39" data-line-number="39"><span class="co">#&gt;  [7,]      0    1</span></a>
-<a class="sourceLine" id="cb7-40" data-line-number="40"><span class="co">#&gt;  [8,]      0    0</span></a>
-<a class="sourceLine" id="cb7-41" data-line-number="41"><span class="co">#&gt;  [9,]      2    1</span></a>
-<a class="sourceLine" id="cb7-42" data-line-number="42"><span class="co">#&gt; [10,]      2    1</span></a>
-<a class="sourceLine" id="cb7-43" data-line-number="43"><span class="co">#&gt; [11,]      2    1</span></a>
-<a class="sourceLine" id="cb7-44" data-line-number="44"><span class="co">#&gt; [12,]      3    2</span></a>
-<a class="sourceLine" id="cb7-45" data-line-number="45"><span class="co">#&gt; [13,]      5    4</span></a>
-<a class="sourceLine" id="cb7-46" data-line-number="46"><span class="co">#&gt; [14,]      3    1</span></a>
-<a class="sourceLine" id="cb7-47" data-line-number="47"><span class="co">#&gt; [15,]      3    2</span></a>
-<a class="sourceLine" id="cb7-48" data-line-number="48"><span class="co">#&gt; [16,]      6    6</span></a>
-<a class="sourceLine" id="cb7-49" data-line-number="49"><span class="co">#&gt; [17,]      6    7</span></a>
-<a class="sourceLine" id="cb7-50" data-line-number="50"><span class="co">#&gt; [18,]      7    9</span></a>
-<a class="sourceLine" id="cb7-51" data-line-number="51"><span class="co">#&gt; [19,]     10    5</span></a>
-<a class="sourceLine" id="cb7-52" data-line-number="52"><span class="co">#&gt; [20,]     15   10</span></a>
-<a class="sourceLine" id="cb7-53" data-line-number="53"><span class="co">#&gt; [21,]     16   12</span></a>
-<a class="sourceLine" id="cb7-54" data-line-number="54"><span class="co">#&gt; [22,]     19    9</span></a>
-<a class="sourceLine" id="cb7-55" data-line-number="55"><span class="co">#&gt; [23,]     18    7</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">counts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_counts.html">get_counts</a></span>(i)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">class</span>(counts)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [1] "matrix"</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">storage.mode</span>(counts)</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; [1] "integer"</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">counts</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;       [,1]</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;  [1,]    3</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;  [2,]    0</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;  [3,]    1</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;  [4,]    0</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;  [5,]    1</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt;  [6,]    0</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt;  [7,]    1</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt;  [8,]    0</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt;  [9,]    3</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; [10,]    3</span></a>
+<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt; [11,]    3</span></a>
+<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt; [12,]    5</span></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt; [13,]    9</span></a>
+<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; [14,]    4</span></a>
+<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt; [15,]    5</span></a>
+<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; [16,]   12</span></a>
+<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt; [17,]   13</span></a>
+<a class="sourceLine" id="cb10-26" data-line-number="26"><span class="co">#&gt; [18,]   16</span></a>
+<a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co">#&gt; [19,]   15</span></a>
+<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="co">#&gt; [20,]   25</span></a>
+<a class="sourceLine" id="cb10-29" data-line-number="29"><span class="co">#&gt; [21,]   28</span></a>
+<a class="sourceLine" id="cb10-30" data-line-number="30"><span class="co">#&gt; [22,]   28</span></a>
+<a class="sourceLine" id="cb10-31" data-line-number="31"><span class="co">#&gt; [23,]   25</span></a>
+<a class="sourceLine" id="cb10-32" data-line-number="32"><span class="kw"><a href="../reference/get_counts.html">get_counts</a></span>(i.sex)</a>
+<a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt;       female male</span></a>
+<a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt;  [1,]      1    2</span></a>
+<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt;  [2,]      0    0</span></a>
+<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="co">#&gt;  [3,]      0    1</span></a>
+<a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt;  [4,]      0    0</span></a>
+<a class="sourceLine" id="cb10-38" data-line-number="38"><span class="co">#&gt;  [5,]      1    0</span></a>
+<a class="sourceLine" id="cb10-39" data-line-number="39"><span class="co">#&gt;  [6,]      0    0</span></a>
+<a class="sourceLine" id="cb10-40" data-line-number="40"><span class="co">#&gt;  [7,]      0    1</span></a>
+<a class="sourceLine" id="cb10-41" data-line-number="41"><span class="co">#&gt;  [8,]      0    0</span></a>
+<a class="sourceLine" id="cb10-42" data-line-number="42"><span class="co">#&gt;  [9,]      2    1</span></a>
+<a class="sourceLine" id="cb10-43" data-line-number="43"><span class="co">#&gt; [10,]      2    1</span></a>
+<a class="sourceLine" id="cb10-44" data-line-number="44"><span class="co">#&gt; [11,]      2    1</span></a>
+<a class="sourceLine" id="cb10-45" data-line-number="45"><span class="co">#&gt; [12,]      3    2</span></a>
+<a class="sourceLine" id="cb10-46" data-line-number="46"><span class="co">#&gt; [13,]      5    4</span></a>
+<a class="sourceLine" id="cb10-47" data-line-number="47"><span class="co">#&gt; [14,]      3    1</span></a>
+<a class="sourceLine" id="cb10-48" data-line-number="48"><span class="co">#&gt; [15,]      3    2</span></a>
+<a class="sourceLine" id="cb10-49" data-line-number="49"><span class="co">#&gt; [16,]      6    6</span></a>
+<a class="sourceLine" id="cb10-50" data-line-number="50"><span class="co">#&gt; [17,]      6    7</span></a>
+<a class="sourceLine" id="cb10-51" data-line-number="51"><span class="co">#&gt; [18,]      7    9</span></a>
+<a class="sourceLine" id="cb10-52" data-line-number="52"><span class="co">#&gt; [19,]     10    5</span></a>
+<a class="sourceLine" id="cb10-53" data-line-number="53"><span class="co">#&gt; [20,]     15   10</span></a>
+<a class="sourceLine" id="cb10-54" data-line-number="54"><span class="co">#&gt; [21,]     16   12</span></a>
+<a class="sourceLine" id="cb10-55" data-line-number="55"><span class="co">#&gt; [22,]     19    9</span></a>
+<a class="sourceLine" id="cb10-56" data-line-number="56"><span class="co">#&gt; [23,]     18    7</span></a></code></pre></div>
+<p>You can see the dimensions of the incidence object by using <code>dim()</code>, <code>ncol()</code>, and <code>nrow()</code>, which returns the dimensions of the counts matrix:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">dim</span>(<span class="kw"><a href="../reference/get_counts.html">get_counts</a></span>(i.sex))</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] 23  2</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">dim</span>(i.sex)</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; [1] 23  2</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw">nrow</span>(i.sex) <span class="co"># number of date bins</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; [1] 23</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="kw">ncol</span>(i.sex) <span class="co"># number of groups</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; [1] 2</span></a></code></pre></div>
+<p>There are also accessors for handling groups:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># Number of groups</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">ncol</span>(i.sex)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; [1] 2</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw">ncol</span>(i)</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co"># Names of groups</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="kw"><a href="../reference/group_names.html">group_names</a></span>(i.sex)</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; [1] "female" "male"</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="kw"><a href="../reference/group_names.html">group_names</a></span>(i)</a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; NULL</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co"># You can also rename the groups</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="kw"><a href="../reference/group_names.html">group_names</a></span>(i.sex) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"F"</span>, <span class="st">"M"</span>)</a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="kw"><a href="../reference/group_names.html">group_names</a></span>(i.sex)</a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; [1] "F" "M"</span></a></code></pre></div>
 <p>Note that a <code>data.frame</code> containing <em>dates</em> and <em>counts</em> can be obtained using <code>as.data.frame</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">## basic conversion</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">as.data.frame</span>(i)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;    dates counts</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; 1      5      3</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; 2      7      0</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 3      9      1</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 4     11      0</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 5     13      1</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 6     15      0</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 7     17      1</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; 8     19      0</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; 9     21      3</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; 10    23      3</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; 11    25      3</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 12    27      5</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; 13    29      9</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; 14    31      4</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; 15    33      5</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; 16    35     12</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; 17    37     13</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; 18    39     16</span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; 19    41     15</span></a>
-<a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; 20    43     25</span></a>
-<a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt; 21    45     28</span></a>
-<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">#&gt; 22    47     28</span></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">#&gt; 23    49     25</span></a>
-<a class="sourceLine" id="cb8-27" data-line-number="27"><span class="kw">as.data.frame</span>(i.sex)</a>
-<a class="sourceLine" id="cb8-28" data-line-number="28"><span class="co">#&gt;    dates female male</span></a>
-<a class="sourceLine" id="cb8-29" data-line-number="29"><span class="co">#&gt; 1      5      1    2</span></a>
-<a class="sourceLine" id="cb8-30" data-line-number="30"><span class="co">#&gt; 2      7      0    0</span></a>
-<a class="sourceLine" id="cb8-31" data-line-number="31"><span class="co">#&gt; 3      9      0    1</span></a>
-<a class="sourceLine" id="cb8-32" data-line-number="32"><span class="co">#&gt; 4     11      0    0</span></a>
-<a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">#&gt; 5     13      1    0</span></a>
-<a class="sourceLine" id="cb8-34" data-line-number="34"><span class="co">#&gt; 6     15      0    0</span></a>
-<a class="sourceLine" id="cb8-35" data-line-number="35"><span class="co">#&gt; 7     17      0    1</span></a>
-<a class="sourceLine" id="cb8-36" data-line-number="36"><span class="co">#&gt; 8     19      0    0</span></a>
-<a class="sourceLine" id="cb8-37" data-line-number="37"><span class="co">#&gt; 9     21      2    1</span></a>
-<a class="sourceLine" id="cb8-38" data-line-number="38"><span class="co">#&gt; 10    23      2    1</span></a>
-<a class="sourceLine" id="cb8-39" data-line-number="39"><span class="co">#&gt; 11    25      2    1</span></a>
-<a class="sourceLine" id="cb8-40" data-line-number="40"><span class="co">#&gt; 12    27      3    2</span></a>
-<a class="sourceLine" id="cb8-41" data-line-number="41"><span class="co">#&gt; 13    29      5    4</span></a>
-<a class="sourceLine" id="cb8-42" data-line-number="42"><span class="co">#&gt; 14    31      3    1</span></a>
-<a class="sourceLine" id="cb8-43" data-line-number="43"><span class="co">#&gt; 15    33      3    2</span></a>
-<a class="sourceLine" id="cb8-44" data-line-number="44"><span class="co">#&gt; 16    35      6    6</span></a>
-<a class="sourceLine" id="cb8-45" data-line-number="45"><span class="co">#&gt; 17    37      6    7</span></a>
-<a class="sourceLine" id="cb8-46" data-line-number="46"><span class="co">#&gt; 18    39      7    9</span></a>
-<a class="sourceLine" id="cb8-47" data-line-number="47"><span class="co">#&gt; 19    41     10    5</span></a>
-<a class="sourceLine" id="cb8-48" data-line-number="48"><span class="co">#&gt; 20    43     15   10</span></a>
-<a class="sourceLine" id="cb8-49" data-line-number="49"><span class="co">#&gt; 21    45     16   12</span></a>
-<a class="sourceLine" id="cb8-50" data-line-number="50"><span class="co">#&gt; 22    47     19    9</span></a>
-<a class="sourceLine" id="cb8-51" data-line-number="51"><span class="co">#&gt; 23    49     18    7</span></a>
-<a class="sourceLine" id="cb8-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb8-53" data-line-number="53"><span class="co">## long format for ggplot2</span></a>
-<a class="sourceLine" id="cb8-54" data-line-number="54"><span class="kw">as.data.frame</span>(i.sex, <span class="dt">long =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb8-55" data-line-number="55"><span class="co">#&gt;    dates counts groups</span></a>
-<a class="sourceLine" id="cb8-56" data-line-number="56"><span class="co">#&gt; 1      5      1 female</span></a>
-<a class="sourceLine" id="cb8-57" data-line-number="57"><span class="co">#&gt; 2      7      0 female</span></a>
-<a class="sourceLine" id="cb8-58" data-line-number="58"><span class="co">#&gt; 3      9      0 female</span></a>
-<a class="sourceLine" id="cb8-59" data-line-number="59"><span class="co">#&gt; 4     11      0 female</span></a>
-<a class="sourceLine" id="cb8-60" data-line-number="60"><span class="co">#&gt; 5     13      1 female</span></a>
-<a class="sourceLine" id="cb8-61" data-line-number="61"><span class="co">#&gt; 6     15      0 female</span></a>
-<a class="sourceLine" id="cb8-62" data-line-number="62"><span class="co">#&gt; 7     17      0 female</span></a>
-<a class="sourceLine" id="cb8-63" data-line-number="63"><span class="co">#&gt; 8     19      0 female</span></a>
-<a class="sourceLine" id="cb8-64" data-line-number="64"><span class="co">#&gt; 9     21      2 female</span></a>
-<a class="sourceLine" id="cb8-65" data-line-number="65"><span class="co">#&gt; 10    23      2 female</span></a>
-<a class="sourceLine" id="cb8-66" data-line-number="66"><span class="co">#&gt; 11    25      2 female</span></a>
-<a class="sourceLine" id="cb8-67" data-line-number="67"><span class="co">#&gt; 12    27      3 female</span></a>
-<a class="sourceLine" id="cb8-68" data-line-number="68"><span class="co">#&gt; 13    29      5 female</span></a>
-<a class="sourceLine" id="cb8-69" data-line-number="69"><span class="co">#&gt; 14    31      3 female</span></a>
-<a class="sourceLine" id="cb8-70" data-line-number="70"><span class="co">#&gt; 15    33      3 female</span></a>
-<a class="sourceLine" id="cb8-71" data-line-number="71"><span class="co">#&gt; 16    35      6 female</span></a>
-<a class="sourceLine" id="cb8-72" data-line-number="72"><span class="co">#&gt; 17    37      6 female</span></a>
-<a class="sourceLine" id="cb8-73" data-line-number="73"><span class="co">#&gt; 18    39      7 female</span></a>
-<a class="sourceLine" id="cb8-74" data-line-number="74"><span class="co">#&gt; 19    41     10 female</span></a>
-<a class="sourceLine" id="cb8-75" data-line-number="75"><span class="co">#&gt; 20    43     15 female</span></a>
-<a class="sourceLine" id="cb8-76" data-line-number="76"><span class="co">#&gt; 21    45     16 female</span></a>
-<a class="sourceLine" id="cb8-77" data-line-number="77"><span class="co">#&gt; 22    47     19 female</span></a>
-<a class="sourceLine" id="cb8-78" data-line-number="78"><span class="co">#&gt; 23    49     18 female</span></a>
-<a class="sourceLine" id="cb8-79" data-line-number="79"><span class="co">#&gt; 24     5      2   male</span></a>
-<a class="sourceLine" id="cb8-80" data-line-number="80"><span class="co">#&gt; 25     7      0   male</span></a>
-<a class="sourceLine" id="cb8-81" data-line-number="81"><span class="co">#&gt; 26     9      1   male</span></a>
-<a class="sourceLine" id="cb8-82" data-line-number="82"><span class="co">#&gt; 27    11      0   male</span></a>
-<a class="sourceLine" id="cb8-83" data-line-number="83"><span class="co">#&gt; 28    13      0   male</span></a>
-<a class="sourceLine" id="cb8-84" data-line-number="84"><span class="co">#&gt; 29    15      0   male</span></a>
-<a class="sourceLine" id="cb8-85" data-line-number="85"><span class="co">#&gt; 30    17      1   male</span></a>
-<a class="sourceLine" id="cb8-86" data-line-number="86"><span class="co">#&gt; 31    19      0   male</span></a>
-<a class="sourceLine" id="cb8-87" data-line-number="87"><span class="co">#&gt; 32    21      1   male</span></a>
-<a class="sourceLine" id="cb8-88" data-line-number="88"><span class="co">#&gt; 33    23      1   male</span></a>
-<a class="sourceLine" id="cb8-89" data-line-number="89"><span class="co">#&gt; 34    25      1   male</span></a>
-<a class="sourceLine" id="cb8-90" data-line-number="90"><span class="co">#&gt; 35    27      2   male</span></a>
-<a class="sourceLine" id="cb8-91" data-line-number="91"><span class="co">#&gt; 36    29      4   male</span></a>
-<a class="sourceLine" id="cb8-92" data-line-number="92"><span class="co">#&gt; 37    31      1   male</span></a>
-<a class="sourceLine" id="cb8-93" data-line-number="93"><span class="co">#&gt; 38    33      2   male</span></a>
-<a class="sourceLine" id="cb8-94" data-line-number="94"><span class="co">#&gt; 39    35      6   male</span></a>
-<a class="sourceLine" id="cb8-95" data-line-number="95"><span class="co">#&gt; 40    37      7   male</span></a>
-<a class="sourceLine" id="cb8-96" data-line-number="96"><span class="co">#&gt; 41    39      9   male</span></a>
-<a class="sourceLine" id="cb8-97" data-line-number="97"><span class="co">#&gt; 42    41      5   male</span></a>
-<a class="sourceLine" id="cb8-98" data-line-number="98"><span class="co">#&gt; 43    43     10   male</span></a>
-<a class="sourceLine" id="cb8-99" data-line-number="99"><span class="co">#&gt; 44    45     12   male</span></a>
-<a class="sourceLine" id="cb8-100" data-line-number="100"><span class="co">#&gt; 45    47      9   male</span></a>
-<a class="sourceLine" id="cb8-101" data-line-number="101"><span class="co">#&gt; 46    49      7   male</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## basic conversion</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">as.data.frame</span>(i)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt;    dates counts</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; 1      5      3</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; 2      7      0</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; 3      9      1</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; 4     11      0</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; 5     13      1</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; 6     15      0</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; 7     17      1</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; 8     19      0</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; 9     21      3</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; 10    23      3</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt; 11    25      3</span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">#&gt; 12    27      5</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; 13    29      9</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; 14    31      4</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; 15    33      5</span></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt; 16    35     12</span></a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; 17    37     13</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; 18    39     16</span></a>
+<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt; 19    41     15</span></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt; 20    43     25</span></a>
+<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="co">#&gt; 21    45     28</span></a>
+<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="co">#&gt; 22    47     28</span></a>
+<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="co">#&gt; 23    49     25</span></a>
+<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="kw">as.data.frame</span>(i.sex)</a>
+<a class="sourceLine" id="cb13-28" data-line-number="28"><span class="co">#&gt;    dates  F  M</span></a>
+<a class="sourceLine" id="cb13-29" data-line-number="29"><span class="co">#&gt; 1      5  1  2</span></a>
+<a class="sourceLine" id="cb13-30" data-line-number="30"><span class="co">#&gt; 2      7  0  0</span></a>
+<a class="sourceLine" id="cb13-31" data-line-number="31"><span class="co">#&gt; 3      9  0  1</span></a>
+<a class="sourceLine" id="cb13-32" data-line-number="32"><span class="co">#&gt; 4     11  0  0</span></a>
+<a class="sourceLine" id="cb13-33" data-line-number="33"><span class="co">#&gt; 5     13  1  0</span></a>
+<a class="sourceLine" id="cb13-34" data-line-number="34"><span class="co">#&gt; 6     15  0  0</span></a>
+<a class="sourceLine" id="cb13-35" data-line-number="35"><span class="co">#&gt; 7     17  0  1</span></a>
+<a class="sourceLine" id="cb13-36" data-line-number="36"><span class="co">#&gt; 8     19  0  0</span></a>
+<a class="sourceLine" id="cb13-37" data-line-number="37"><span class="co">#&gt; 9     21  2  1</span></a>
+<a class="sourceLine" id="cb13-38" data-line-number="38"><span class="co">#&gt; 10    23  2  1</span></a>
+<a class="sourceLine" id="cb13-39" data-line-number="39"><span class="co">#&gt; 11    25  2  1</span></a>
+<a class="sourceLine" id="cb13-40" data-line-number="40"><span class="co">#&gt; 12    27  3  2</span></a>
+<a class="sourceLine" id="cb13-41" data-line-number="41"><span class="co">#&gt; 13    29  5  4</span></a>
+<a class="sourceLine" id="cb13-42" data-line-number="42"><span class="co">#&gt; 14    31  3  1</span></a>
+<a class="sourceLine" id="cb13-43" data-line-number="43"><span class="co">#&gt; 15    33  3  2</span></a>
+<a class="sourceLine" id="cb13-44" data-line-number="44"><span class="co">#&gt; 16    35  6  6</span></a>
+<a class="sourceLine" id="cb13-45" data-line-number="45"><span class="co">#&gt; 17    37  6  7</span></a>
+<a class="sourceLine" id="cb13-46" data-line-number="46"><span class="co">#&gt; 18    39  7  9</span></a>
+<a class="sourceLine" id="cb13-47" data-line-number="47"><span class="co">#&gt; 19    41 10  5</span></a>
+<a class="sourceLine" id="cb13-48" data-line-number="48"><span class="co">#&gt; 20    43 15 10</span></a>
+<a class="sourceLine" id="cb13-49" data-line-number="49"><span class="co">#&gt; 21    45 16 12</span></a>
+<a class="sourceLine" id="cb13-50" data-line-number="50"><span class="co">#&gt; 22    47 19  9</span></a>
+<a class="sourceLine" id="cb13-51" data-line-number="51"><span class="co">#&gt; 23    49 18  7</span></a>
+<a class="sourceLine" id="cb13-52" data-line-number="52"></a>
+<a class="sourceLine" id="cb13-53" data-line-number="53"><span class="co">## long format for ggplot2</span></a>
+<a class="sourceLine" id="cb13-54" data-line-number="54"><span class="kw">as.data.frame</span>(i.sex, <span class="dt">long =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb13-55" data-line-number="55"><span class="co">#&gt;    dates counts groups</span></a>
+<a class="sourceLine" id="cb13-56" data-line-number="56"><span class="co">#&gt; 1      5      1      F</span></a>
+<a class="sourceLine" id="cb13-57" data-line-number="57"><span class="co">#&gt; 2      7      0      F</span></a>
+<a class="sourceLine" id="cb13-58" data-line-number="58"><span class="co">#&gt; 3      9      0      F</span></a>
+<a class="sourceLine" id="cb13-59" data-line-number="59"><span class="co">#&gt; 4     11      0      F</span></a>
+<a class="sourceLine" id="cb13-60" data-line-number="60"><span class="co">#&gt; 5     13      1      F</span></a>
+<a class="sourceLine" id="cb13-61" data-line-number="61"><span class="co">#&gt; 6     15      0      F</span></a>
+<a class="sourceLine" id="cb13-62" data-line-number="62"><span class="co">#&gt; 7     17      0      F</span></a>
+<a class="sourceLine" id="cb13-63" data-line-number="63"><span class="co">#&gt; 8     19      0      F</span></a>
+<a class="sourceLine" id="cb13-64" data-line-number="64"><span class="co">#&gt; 9     21      2      F</span></a>
+<a class="sourceLine" id="cb13-65" data-line-number="65"><span class="co">#&gt; 10    23      2      F</span></a>
+<a class="sourceLine" id="cb13-66" data-line-number="66"><span class="co">#&gt; 11    25      2      F</span></a>
+<a class="sourceLine" id="cb13-67" data-line-number="67"><span class="co">#&gt; 12    27      3      F</span></a>
+<a class="sourceLine" id="cb13-68" data-line-number="68"><span class="co">#&gt; 13    29      5      F</span></a>
+<a class="sourceLine" id="cb13-69" data-line-number="69"><span class="co">#&gt; 14    31      3      F</span></a>
+<a class="sourceLine" id="cb13-70" data-line-number="70"><span class="co">#&gt; 15    33      3      F</span></a>
+<a class="sourceLine" id="cb13-71" data-line-number="71"><span class="co">#&gt; 16    35      6      F</span></a>
+<a class="sourceLine" id="cb13-72" data-line-number="72"><span class="co">#&gt; 17    37      6      F</span></a>
+<a class="sourceLine" id="cb13-73" data-line-number="73"><span class="co">#&gt; 18    39      7      F</span></a>
+<a class="sourceLine" id="cb13-74" data-line-number="74"><span class="co">#&gt; 19    41     10      F</span></a>
+<a class="sourceLine" id="cb13-75" data-line-number="75"><span class="co">#&gt; 20    43     15      F</span></a>
+<a class="sourceLine" id="cb13-76" data-line-number="76"><span class="co">#&gt; 21    45     16      F</span></a>
+<a class="sourceLine" id="cb13-77" data-line-number="77"><span class="co">#&gt; 22    47     19      F</span></a>
+<a class="sourceLine" id="cb13-78" data-line-number="78"><span class="co">#&gt; 23    49     18      F</span></a>
+<a class="sourceLine" id="cb13-79" data-line-number="79"><span class="co">#&gt; 24     5      2      M</span></a>
+<a class="sourceLine" id="cb13-80" data-line-number="80"><span class="co">#&gt; 25     7      0      M</span></a>
+<a class="sourceLine" id="cb13-81" data-line-number="81"><span class="co">#&gt; 26     9      1      M</span></a>
+<a class="sourceLine" id="cb13-82" data-line-number="82"><span class="co">#&gt; 27    11      0      M</span></a>
+<a class="sourceLine" id="cb13-83" data-line-number="83"><span class="co">#&gt; 28    13      0      M</span></a>
+<a class="sourceLine" id="cb13-84" data-line-number="84"><span class="co">#&gt; 29    15      0      M</span></a>
+<a class="sourceLine" id="cb13-85" data-line-number="85"><span class="co">#&gt; 30    17      1      M</span></a>
+<a class="sourceLine" id="cb13-86" data-line-number="86"><span class="co">#&gt; 31    19      0      M</span></a>
+<a class="sourceLine" id="cb13-87" data-line-number="87"><span class="co">#&gt; 32    21      1      M</span></a>
+<a class="sourceLine" id="cb13-88" data-line-number="88"><span class="co">#&gt; 33    23      1      M</span></a>
+<a class="sourceLine" id="cb13-89" data-line-number="89"><span class="co">#&gt; 34    25      1      M</span></a>
+<a class="sourceLine" id="cb13-90" data-line-number="90"><span class="co">#&gt; 35    27      2      M</span></a>
+<a class="sourceLine" id="cb13-91" data-line-number="91"><span class="co">#&gt; 36    29      4      M</span></a>
+<a class="sourceLine" id="cb13-92" data-line-number="92"><span class="co">#&gt; 37    31      1      M</span></a>
+<a class="sourceLine" id="cb13-93" data-line-number="93"><span class="co">#&gt; 38    33      2      M</span></a>
+<a class="sourceLine" id="cb13-94" data-line-number="94"><span class="co">#&gt; 39    35      6      M</span></a>
+<a class="sourceLine" id="cb13-95" data-line-number="95"><span class="co">#&gt; 40    37      7      M</span></a>
+<a class="sourceLine" id="cb13-96" data-line-number="96"><span class="co">#&gt; 41    39      9      M</span></a>
+<a class="sourceLine" id="cb13-97" data-line-number="97"><span class="co">#&gt; 42    41      5      M</span></a>
+<a class="sourceLine" id="cb13-98" data-line-number="98"><span class="co">#&gt; 43    43     10      M</span></a>
+<a class="sourceLine" id="cb13-99" data-line-number="99"><span class="co">#&gt; 44    45     12      M</span></a>
+<a class="sourceLine" id="cb13-100" data-line-number="100"><span class="co">#&gt; 45    47      9      M</span></a>
+<a class="sourceLine" id="cb13-101" data-line-number="101"><span class="co">#&gt; 46    49      7      M</span></a></code></pre></div>
 <p>Note that <code>incidence</code> has an argument called <code>na_as_group</code> which is <code>TRUE</code> by default, which will pool all missing groups into a separate group, in which case it will be a separate column in <code>$counts</code>.</p>
 </div>
 <div id="timespan" class="section level2">
@@ -341,83 +401,86 @@
 <a href="#timespan" class="anchor"></a><code>$timespan</code>
 </h2>
 <p>The <code>$timespan</code> component stores the length of the time period covered by the object:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">i<span class="op">$</span>timespan</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; [1] 45</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">range</span>(i<span class="op">$</span>dates)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; [1]  5 49</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">diff</span>(<span class="kw">range</span>(i<span class="op">$</span>dates)) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; [1] 45</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/accessors.html">get_timespan</a></span>(i)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; [1] 45</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">print</span>(date_range &lt;-<span class="st"> </span><span class="kw">range</span>(<span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i)))</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; [1]  5 49</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw">diff</span>(date_range) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; [1] 45</span></a></code></pre></div>
 </div>
 <div id="interval" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interval" class="anchor"></a><code>$interval</code>
 </h2>
 <p>The <code>$interval</code> component contains the length of the time interval for the bins:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">i<span class="op">$</span>interval</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; [1] 2</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">diff</span>(i<span class="op">$</span>dates)</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/accessors.html">get_interval</a></span>(i)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; [1] 2</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">diff</span>(<span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i))</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt;  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</span></a></code></pre></div>
 </div>
 <div id="n" class="section level2">
 <h2 class="hasAnchor">
 <a href="#n" class="anchor"></a><code>$n</code>
 </h2>
 <p>The <code>$n</code> component stores the total number of events in the data:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">i<span class="op">$</span>n</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] 200</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/accessors.html">get_n</a></span>(i)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">#&gt; [1] 200</span></a></code></pre></div>
 <p>Note that to obtain the number of cases by groups, one can use:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">apply</span>(i.sex<span class="op">$</span>counts, <span class="dv">2</span>, sum)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; female   male </span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;    119     81</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">colSums</span>(<span class="kw"><a href="../reference/get_counts.html">get_counts</a></span>(i.sex))</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt;   F   M </span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; 119  81</span></a></code></pre></div>
 </div>
 <div id="isoweeks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#isoweeks" class="anchor"></a><code>$isoweeks</code>
 </h2>
-<p>The <code>$isoweeks</code> component is optional, and used to store iso weeks whenever they have been used. Iso weeks are used by default when weekly incidence is computed from dates (see argument <code>iso_week</code> in <code><a href="../reference/incidence.html">?incidence</a></code>).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">library</span>(outbreaks)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">dat &lt;-<span class="st"> </span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>date_of_onset</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, 7L)</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">i<span class="fl">.7</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span></a>
-<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; $n: 5888 cases in total</span></a>
-<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; $interval: 7 days</span></a>
-<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; $timespan: 386 days</span></a>
-<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt; $cumulative: FALSE</span></a>
-<a class="sourceLine" id="cb13-15" data-line-number="15">i<span class="fl">.7</span><span class="op">$</span>isoweeks</a>
-<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt;  [1] "2014-W15" "2014-W16" "2014-W17" "2014-W18" "2014-W19" "2014-W20"</span></a>
-<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt;  [7] "2014-W21" "2014-W22" "2014-W23" "2014-W24" "2014-W25" "2014-W26"</span></a>
-<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; [13] "2014-W27" "2014-W28" "2014-W29" "2014-W30" "2014-W31" "2014-W32"</span></a>
-<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt; [19] "2014-W33" "2014-W34" "2014-W35" "2014-W36" "2014-W37" "2014-W38"</span></a>
-<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; [25] "2014-W39" "2014-W40" "2014-W41" "2014-W42" "2014-W43" "2014-W44"</span></a>
-<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; [31] "2014-W45" "2014-W46" "2014-W47" "2014-W48" "2014-W49" "2014-W50"</span></a>
-<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt; [37] "2014-W51" "2014-W52" "2015-W01" "2015-W02" "2015-W03" "2015-W04"</span></a>
-<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt; [43] "2015-W05" "2015-W06" "2015-W07" "2015-W08" "2015-W09" "2015-W10"</span></a>
-<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="co">#&gt; [49] "2015-W11" "2015-W12" "2015-W13" "2015-W14" "2015-W15" "2015-W16"</span></a>
-<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="co">#&gt; [55] "2015-W17" "2015-W18"</span></a></code></pre></div>
+<p>The <code>$isoweeks</code> component is optional, and used to store iso weeks whenever they have been used. ISO weeks are used by default when weekly incidence is computed from dates (see argument <code>standard</code> in <code><a href="../reference/incidence.html">?incidence</a></code>).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">library</span>(outbreaks)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">dat &lt;-<span class="st"> </span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>date_of_onset</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, 7L, <span class="dt">standard =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">i<span class="fl">.7</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt; $n: 5888 cases in total</span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt; $timespan: 386 days</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt; $cumulative: FALSE</span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15">i<span class="fl">.7</span><span class="op">$</span>isoweeks</a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;  [1] "2014-W15" "2014-W16" "2014-W17" "2014-W18" "2014-W19" "2014-W20"</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;  [7] "2014-W21" "2014-W22" "2014-W23" "2014-W24" "2014-W25" "2014-W26"</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; [13] "2014-W27" "2014-W28" "2014-W29" "2014-W30" "2014-W31" "2014-W32"</span></a>
+<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt; [19] "2014-W33" "2014-W34" "2014-W35" "2014-W36" "2014-W37" "2014-W38"</span></a>
+<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="co">#&gt; [25] "2014-W39" "2014-W40" "2014-W41" "2014-W42" "2014-W43" "2014-W44"</span></a>
+<a class="sourceLine" id="cb18-21" data-line-number="21"><span class="co">#&gt; [31] "2014-W45" "2014-W46" "2014-W47" "2014-W48" "2014-W49" "2014-W50"</span></a>
+<a class="sourceLine" id="cb18-22" data-line-number="22"><span class="co">#&gt; [37] "2014-W51" "2014-W52" "2015-W01" "2015-W02" "2015-W03" "2015-W04"</span></a>
+<a class="sourceLine" id="cb18-23" data-line-number="23"><span class="co">#&gt; [43] "2015-W05" "2015-W06" "2015-W07" "2015-W08" "2015-W09" "2015-W10"</span></a>
+<a class="sourceLine" id="cb18-24" data-line-number="24"><span class="co">#&gt; [49] "2015-W11" "2015-W12" "2015-W13" "2015-W14" "2015-W15" "2015-W16"</span></a>
+<a class="sourceLine" id="cb18-25" data-line-number="25"><span class="co">#&gt; [55] "2015-W17" "2015-W18"</span></a></code></pre></div>
+<p>Because <code>$isoweeks</code> is an optional element, it does not have a dedicated accessor. If the element is not present, attempting to access it will result in a <code>NULL</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">i<span class="op">$</span>isoweeks</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p>The correspondence between iso weeks and dates can be derived by comparing the respective items:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">with</span>(i<span class="fl">.7</span>, <span class="kw">cbind.data.frame</span>(dates, isoweeks)))</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt;        dates isoweeks</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-07 2014-W15</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2 2014-04-14 2014-W16</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 3 2014-04-21 2014-W17</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 4 2014-04-28 2014-W18</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 5 2014-05-05 2014-W19</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 6 2014-05-12 2014-W20</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">with</span>(i<span class="fl">.7</span>, <span class="kw">cbind.data.frame</span>(dates, isoweeks)))</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">#&gt;        dates isoweeks</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-07 2014-W15</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">#&gt; 2 2014-04-14 2014-W16</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co">#&gt; 3 2014-04-21 2014-W17</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#&gt; 4 2014-04-28 2014-W18</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt; 5 2014-05-05 2014-W19</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#&gt; 6 2014-05-12 2014-W20</span></a></code></pre></div>
 <p>Both dates and iso weeks are returned when converting an <code>incidence</code> object to <code>data.frame</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">as.data.frame</span>(i<span class="fl">.7</span>))</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt;        dates isoweeks counts</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-07 2014-W15      1</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; 2 2014-04-14 2014-W16      1</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; 3 2014-04-21 2014-W17      5</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; 4 2014-04-28 2014-W18      4</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; 5 2014-05-05 2014-W19     12</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; 6 2014-05-12 2014-W20     18</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">as.data.frame</span>(i<span class="fl">.7</span>))</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="co">#&gt;        dates isoweeks counts</span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-07 2014-W15      1</span></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">#&gt; 2 2014-04-14 2014-W16      1</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt; 3 2014-04-21 2014-W17      5</span></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="co">#&gt; 4 2014-04-28 2014-W18      4</span></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="co">#&gt; 5 2014-05-05 2014-W19     12</span></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="co">#&gt; 6 2014-05-12 2014-W20     18</span></a></code></pre></div>
 </div>
 </div>
   </div>

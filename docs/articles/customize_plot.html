@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.4.1.99</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.0</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1>Customize plots of incidence</h1>
                         <h4 class="author">Thibaut Jombart</h4>
             
-            <h4 class="date">2018-10-30</h4>
+            <h4 class="date">2018-11-01</h4>
       
       
       <div class="hidden name"><code>customize_plot.Rmd</code></div>
@@ -174,8 +174,9 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">args</span>(incidence<span class="op">:::</span>plot.incidence)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; function (x, ..., fit = NULL, stack = is.null(fit), color = "black", </span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;     border = NA, col_pal = incidence_pal1, alpha = 0.7, xlab = "", </span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;     ylab = NULL, labels_iso = !is.null(x$isoweeks), n_breaks = 6) </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; NULL</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;     ylab = NULL, labels_iso = !is.null(x$isoweeks), show_cases = FALSE, </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;     n_breaks = 6) </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; NULL</span></a></code></pre></div>
 </div>
 <div id="changing-colors" class="section level2">
 <h2 class="hasAnchor">
@@ -296,15 +297,13 @@
 <div id="display-individual-cases" class="section level3">
 <h3 class="hasAnchor">
 <a href="#display-individual-cases" class="anchor"></a>Display individual cases</h3>
-<p>For small datasets it is convention of EPIET to display individual cases as rectangles. It can be done by doing two things: first setting the background to white and second adding white horizontal and vertical lines to the plot.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">i.small &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset[<span class="dv">160</span><span class="op">:</span><span class="dv">180</span>])</a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="kw">plot</span>(i.small) <span class="op">+</span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">panel.background =</span> <span class="kw"><a href="ggplot2.tidyverse.org/reference/element.html">element_rect</a></span>(<span class="dt">fill =</span> <span class="st">"white"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept =</span> <span class="kw">seq</span>(<span class="kw">max</span>(<span class="kw"><a href="../reference/get_counts.html">get_counts</a></span>(i.small))), <span class="dt">color =</span> <span class="st">"white"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="st">   </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span>(<span class="dt">xintercept =</span> <span class="kw"><a href="../reference/get_dates.html">get_dates</a></span>(i.small), <span class="dt">color =</span> <span class="st">"white"</span>) </a></code></pre></div>
-<p><img src="customize_plot_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+<p>For small datasets it is convention of EPIET to display individual cases as rectangles. It can be done by doing two things: first, adding using the option <code>show_cases = TRUE</code> with a white border and second, setting the background to white. We also add <code><a href="ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal()</a></code> which forces each case to be a square.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">i.small &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(onset[<span class="dv">160</span><span class="op">:</span><span class="dv">180</span>])</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="kw">plot</span>(i.small, <span class="dt">border =</span> <span class="st">"white"</span>, <span class="dt">show_cases =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">panel.background =</span> <span class="kw"><a href="ggplot2.tidyverse.org/reference/element.html">element_rect</a></span>(<span class="dt">fill =</span> <span class="st">"white"</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal</a></span>()</a></code></pre></div>
+<p><img src="customize_plot_files/figure-html/EPIET1-1.png" width="672"></p>
 </div>
 </div>
 </div>

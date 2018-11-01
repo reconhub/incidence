@@ -1,4 +1,4 @@
-incidence 1.4.1.99
+incidence 1.5.0 (2018-11-01)
 ============================
 
 ### NEW FUNCTIONS
@@ -34,6 +34,8 @@ incidence 1.4.1.99
 
 * code has been spread out into a more logical file structure where the 
   `internal_checks.R` file has been split into the relative components.
+* A message is now printed if missing observations are present when
+  creating the incidence object.
 
 incidence 1.4.1 (2018-08-24)
 ============================
