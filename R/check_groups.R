@@ -15,9 +15,12 @@ check_groups <- function(x, dates, na_as_group){
   if (is.null(x)) {
     return(NULL)
   }
-  if (na_as_group) {
+  x   <- factor(x)
+  lev <- levels(x)
+  if (na_as_group && any(is.na(x))) {
     x <- as.character(x)
     x[is.na(x)] <- "NA"
+    lev <- c(lev, "NA")
   }
   if (length(x) != length(dates)) {
     stop(sprintf(
@@ -27,5 +30,5 @@ check_groups <- function(x, dates, na_as_group){
                  )
         )
   }
-  factor(x)
+  factor(x, levels = lev)
 }
