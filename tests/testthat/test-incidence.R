@@ -304,7 +304,7 @@ test_that("Expected values, with groups", {
   expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
 })
 
-test_that("user-defined group levels are preserved" {
+test_that("user-defined group levels are preserved", {
   g <- sample(LETTERS[1:5], 100, replace = TRUE)
   g <- factor(g, levels = LETTERS[5:1])
   i <- incidence(rpois(100, 10), groups = g)
