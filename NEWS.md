@@ -1,6 +1,12 @@
 incidence 1.5.0.99
 ===========================
 
+### BUG FIX
+
+* Two bugs regarding the ordering of groups when the user specifies a factor/
+  column order have been fixed. This affects `plot.incidence()`, `incidence()`,
+  and `as.data.frame.incidence()` For details, see
+  https://github.com/reconhub/incidence/issues/79
 
 incidence 1.5.0 (2018-11-01)
 ============================

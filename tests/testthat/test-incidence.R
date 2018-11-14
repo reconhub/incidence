@@ -304,6 +304,15 @@ test_that("Expected values, with groups", {
   expect_equal_to_reference(res.g.3, file = "rds/res.g.3.rds")
 })
 
+test_that("user-defined group levels are preserved" {
+  g <- sample(LETTERS[1:5], 100, replace = TRUE)
+  g <- factor(g, levels = LETTERS[5:1])
+  i <- incidence(rpois(100, 10), groups = g)
+  expect_identical(group_names(i), levels(g))
+  i.df <- as.data.frame(i, long = TRUE) 
+  expect_identical(levels(i.df$groups), levels(g))
+})
+
 test_that("Printing returns the object", {
   
 
