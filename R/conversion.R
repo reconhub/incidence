@@ -74,7 +74,8 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
 
     ## handle the long format here
     if (long && ncol(x$counts) > 1) {
-        groups <- factor(rep(colnames(x$counts), each = nrow(out)))
+        gnames <- colnames(x$counts)
+        groups <- factor(rep(gnames, each = nrow(out)), levels = gnames)
         counts <- as.vector(x$counts)
         if ("isoweeks" %in% names(x)) {
           out <- data.frame(dates = out$dates,
