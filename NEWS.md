@@ -1,3 +1,11 @@
+incidence 1.5.1.9000 
+============================
+
+### MISC
+
+* `subset.incidence()` will now give a more informative error message when the
+  user specifies a group that does not exist. 
+
 incidence 1.5.1 (2018-11-14)
 ============================
 

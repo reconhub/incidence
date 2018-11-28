@@ -85,3 +85,8 @@ test_that("numeric subset works with dates and character strings", {
   expect_identical(x, x[])
 })
 
+test_that("an erroneous group will give a sensible error", {
+  i <- incidence(sample(1:10, 100, replace = TRUE), groups = rep(c("a", "b"), length.out = 100))
+  expect_error(i[, "c"], "The following group does not exist: 'c'")
+  expect_error(i[, c("grind", "core")], "The following groups do not exist: 'grind', 'core'")
+})

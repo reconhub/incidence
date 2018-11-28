@@ -110,6 +110,13 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
     }
 
     out <- x
+    if (is.character(j) && !all(j %in% group_names(x))) {
+      odd_names <- j[!j %in% group_names(x)]
+      groups    <- if (length(odd_names) > 1) "groups do" else "group does"
+      odd_names <- paste(j[!j %in% group_names(x)], collapse = "', '")
+      msg       <- sprintf("The following %s not exist: '%s'", groups, odd_names)
+      stop(msg)
+    }
     out$counts <- out$counts[i, j, drop = FALSE]
     out$dates <- out$dates[i]
     if ("isoweeks" %in% names(x)) {
