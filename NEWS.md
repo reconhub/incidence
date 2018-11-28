@@ -1,6 +1,11 @@
 incidence 1.5.1.9000 
 ============================
 
+### BUG FIX
+
+* `print.incidence()` will now print isoweeks even if the `$interval` element is
+  "week".
+
 ### MISC
 
 * `subset.incidence()` will now give a more informative error message when the
