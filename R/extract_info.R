@@ -10,7 +10,7 @@ extract_info <- function(reg, origin, level){
 
   ## extract growth rates (r)
   ## here we need to keep all coefficients when there are interactions
-  to.keep <- grep("^dates.x.*$", names(stats::coef(reg)), value=TRUE)
+  to.keep <- grep("^dates.x.*$", names(stats::coef(reg)), value = TRUE)
   r <- stats::coef(reg)[to.keep]
   use.groups <- length(r) > 1
   if (use.groups) {
@@ -45,8 +45,8 @@ extract_info <- function(reg, origin, level){
     info$doubling <- log(2) / r
     info$doubling.conf <- log(2) / r.conf
     o.names <- colnames(info$doubling.conf)
-    info$doubling.conf <-info$doubling.conf[, rev(seq_along(o.names)),
-                                            drop=FALSE]
+    info$doubling.conf <- info$doubling.conf[, rev(seq_along(o.names)),
+                                             drop = FALSE]
     colnames(info$doubling.conf) <- o.names
   } else {
     info$halving <- log(0.5) / r

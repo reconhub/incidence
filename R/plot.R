@@ -8,7 +8,7 @@
 #'
 #' @importFrom graphics plot
 #'
-#' @author Thibaut Jombart \email{thibautjombart@@gmail.com} 
+#' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 #'   Zhian N. Kamvar \email{zkamvar@@gmail.com}
 #'
 #' @seealso The [incidence()] function to generate the 'incidence'
@@ -48,7 +48,7 @@
 #' incidence; defaults to be TRUE.
 #'
 #' @param show_cases if `TRUE` (default: `FALSE`), then each observation will be
-#' colored by a border. The border defaults to a white border unless specified 
+#' colored by a border. The border defaults to a white border unless specified
 #' otherwise. This is normally used outbreaks with a small number of cases.
 #' Note: this can only be used if `stack = TRUE`
 #'
@@ -156,11 +156,12 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## Important note: it seems safest to specify the aes() as part of the geom,
   ## not in ggplot(), as it interacts badly with some other geoms like
   ## geom_ribbon - used e.g. in projections::add_projections().
-
+  x_axis <- "dates + (interval.days/2)"
+  y_axis <- "counts"
   out <- ggplot2::ggplot(df) +
     ggplot2::geom_bar(ggplot2::aes_string(
-                        x = "dates + (interval.days/2)",
-                        y = "counts"
+                        x = x_axis,
+                        y = y_axis
                         ),
                       stat = "identity",
                       width = df$interval.days,
@@ -170,13 +171,13 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     ggplot2::labs(x = xlab, y = ylab)
 
   ## Handle show_cases here
-  
+
   if (show_cases && stack) {
     squaredf <- df[rep(seq.int(nrow(df)), df$counts), ]
     squaredf$counts <- 1
     squares <- ggplot2::geom_bar(ggplot2::aes_string(
-                                   x = "dates + (interval.days/2)",
-                                   y = "counts"
+                                   x = x_axis,
+                                   y = y_axis
                                    ),
                                  color = if (is.na(border)) "white" else border,
                                  stat = "identity",
