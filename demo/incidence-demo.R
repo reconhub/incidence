@@ -31,7 +31,7 @@ plot(i.7.group, border = "white") + my_theme
 
 #' 3) Manipulate incidence object
 #'
-#+ incidence-early-curve, fig.width=9, fig.height=5
+#+ incidence-early-curve, fig.width=6, fig.height=7
 # plot the first 8 weeks
 plot(i.7.group[1:8, ], show_cases = TRUE) +
   theme_bw(base_size = 12) +
