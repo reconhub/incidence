@@ -1,4 +1,4 @@
-incidence 1.5.1.9000 
+incidence 1.5.2
 ============================
 
 ### BUG FIX
@@ -10,6 +10,8 @@ incidence 1.5.1.9000
 
 * `subset.incidence()` will now give a more informative error message when the
   user specifies a group that does not exist. 
+* `demo('incidence-demo', package = 'incidence')` now shows plotting with 
+  `show_cases = TRUE`.
 
 incidence 1.5.1 (2018-11-14)
 ============================
