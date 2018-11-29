@@ -49,7 +49,7 @@ get_info.incidence_fit_list <- function(x, what = "r", groups = NULL, na.rm = TR
     tmp <- x[[locations[[i]]]]$info[[what]]
     tmp <- if (is.null(tmp)) NA_real_ else tmp
     if (is_matrix) {
-      if (need_col_names && !is.na(tmp)) {
+      if (need_col_names && all(!is.na(tmp))) {
         colnames(res) <- colnames(tmp)
         need_col_names <- FALSE
       }
