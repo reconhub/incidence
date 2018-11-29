@@ -238,6 +238,10 @@ test_that("corner cases", {
 
   expect_error(incidence(1, were = "wolf"), "were")
 
+
+  expect_warning(incidence(c(dat_dates, as.Date("1900-01-01"))),
+                 "greater than 18262 days \\[1900-01-01 to"
+                )
 })
 
 test_that("incidence constructor can handle missing data", {

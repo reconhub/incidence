@@ -33,10 +33,12 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
   }
 
   if (inherits(x, "Date")) {
+    check_timespan(x)
     return(x)
   }
 
   if (inherits(x, "POSIXt")) {
+    check_timespan(x)
     return(x)
   }
 

@@ -12,6 +12,10 @@ incidence 1.5.2
   user specifies a group that does not exist. 
 * `demo('incidence-demo', package = 'incidence')` now shows plotting with 
   `show_cases = TRUE`.
+* In the the case where a date is accidentally mis-typed leading to a gross
+  mis-calculation of the date range (i.e. 2018 is mis-typed as 3018), a warning
+  will be issued. The default threshold is set at 18262 days (50 years), but the
+  user can define their own threshold by setting the `incidence.max.days` option
 
 incidence 1.5.1 (2018-11-14)
 ============================
