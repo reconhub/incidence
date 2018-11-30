@@ -131,7 +131,7 @@ get_dates(i.date, position = "center", count_days = TRUE)
 The `$counts` component contains the actual incidence, i.e. counts of events
 for the defined bins. It is a `matrix` of `integers` where rows correspond to
 time intervals, with one column for each group for which incidence is computed
-(a single, unamed column if no groups were provided). If groups were provided,
+(a single, unnamed column if no groups were provided). If groups were provided,
 columns are named after the groups. We illustrate the difference comparing the
 two objects `i` and `i.sex`:
 

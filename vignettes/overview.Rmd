@@ -75,7 +75,7 @@ The main functions of the package include:
 - **`fit_optim_split`**: finds the optimal date to split the time series in two,
   typically around the peak of the epidemic.
 
-- **`[`**: lower-level subsetting of *incidence* objects, permiting to specify
+- **`[`**: lower-level subsetting of *incidence* objects, permitting to specify
   which dates and groups to retain; uses a syntax similar to matrices,
   i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a subset of dates,
   and `j` a subset of groups.
@@ -173,7 +173,7 @@ plot(i.7.hosp, stack=TRUE) +
 
 
 ## Handling `incidence` objects
-`incidence` objects can be manipulated easily. The `[` operator implements subetting of dates (first argument) and groups (second argument). 
+`incidence` objects can be manipulated easily. The `[` operator implements subsetting of dates (first argument) and groups (second argument). 
 For instance, to keep only the peak of the distribution:
 ```{r, middle}
 i[100:250]

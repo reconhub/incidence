@@ -68,7 +68,7 @@ i.hosp
 
 # The `plot.incidence` function
 
-When calling `plot` on an *incidence* object, the function `plot.incidence` is implicitely used. To access its documentation, use `?plot.incidence`. In this section, we illustrate existing customizations.
+When calling `plot` on an *incidence* object, the function `plot.incidence` is implicitly used. To access its documentation, use `?plot.incidence`. In this section, we illustrate existing customisations.
 
 
 ## Default behaviour
@@ -92,15 +92,20 @@ args(incidence:::plot.incidence)
 
 ### The default palette
 
-A color palette is a function which outputs a specified number of colors. By default, the color used in *incidence* is called `incidence_pal1`. Its behaviour is different from usual palettes, in the sense that the first 4 colours are not interpolated:
+A color palette is a function which outputs a specified number of colors. By
+default, the color used in *incidence* is called `incidence_pal1`. Its
+behaviour is different from usual palettes, in the sense that the first 4
+colours are not interpolated:
+
 ```{r, incidence_pal1,   fig.height = 8}
-par(mfrow = c(3,1), mar = c(4,2,1,1))
+par(mfrow = c(3, 1), mar = c(4,2,1,1))
 barplot(1:2, col = incidence_pal1(2))
 barplot(1:4, col = incidence_pal1(4))
 barplot(1:20, col = incidence_pal1(20))
 ```
 
-This pallette also has a light and a dark version:
+This palette also has a light and a dark version:
+
 ```{r, pal2, fig.height = 8}
 par(mfrow = c(3,1))
 barplot(1:20, col = incidence_pal1_dark(20), main = "palette:  incidence_pal1_dark")
@@ -158,7 +163,7 @@ Numerous tweaks for *ggplot2* are documented online. In the following, we merely
 ### Changing date format
 
 By default, the dates indicated on the *x*-axis of an incidence plot may not have the suitable format.
-The package *scales* can be used to change the way dates are labelled (see `?strptime` for possible formats):
+The package *scales* can be used to change the way dates are labeled (see `?strptime` for possible formats):
 
 ```{r, scales1}
 library(scales)

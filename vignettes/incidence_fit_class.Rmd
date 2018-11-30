@@ -37,7 +37,7 @@ An `incidence_fit` object contains three elements:
    - `r` The growth rate
    - `r.conf` the confidence interval of `r`
    - `pred` a data frame containing the predictions of the model using the true
-      dates (`dates`), their numberic version used in the model (`dates.x`), the
+      dates (`dates`), their numeric version used in the model (`dates.x`), the
       predicted value (`fit`), and the lower (`lwr`) and upper (`upr`) bounds of
       the associated confidence interval.
    - `doubling` the predicted doubling time in days (only if `r` is positive)
@@ -48,7 +48,7 @@ An `incidence_fit` object contains three elements:
 
 Internally, when `fit()` is run, these elements are constructed by
 function `incidence:::extract_info()`. First we need to setup data. We will use 
-simulated ebola outbreak data from the *outbreaks* package over weekly intervals
+simulated Ebola outbreak data from the *outbreaks* package over weekly intervals
 and calculate the fit for the first 20 weeks:
 
 ```{r fit_dates}
@@ -226,7 +226,7 @@ get_info(fl$fit, "doubling.conf", na.rm = FALSE)
 
 Above, we showed the example of a basic `incidence_fit_list` class with two
 objects representing the fits before and after the peak of an epicurve. However,
-it is often useful evaulate fits for different groups separately. Here, we will
+it is often useful evaluate fits for different groups separately. Here, we will
 construct an incidence object, but define groups by gender:
 
 ```{r incidence_by_gender}
