@@ -1,0 +1,65 @@
+navbar:
+  left:
+  - icon: fa-home fa-lg
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+      - text: "Using the incidence package"
+      - text: "Overview"
+        href: articles/overview.html
+      - text: "Customising Epicurves (visualisation)"
+        href: articles/customize_plot.html
+      - text: "Exporting Incidence Data"
+        href: articles/conversions.html
+      - text: "------------------"
+      - text: "Understanding the incidence package"
+      - text: "The incidence class (data)"
+        href: articles/incidence_class.html
+      - text: "The incidence_fit class (models)"
+        href: articles/incidence_fit_class.html
+  - text: Changelog
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/reconhub/incidence
+
+reference:
+- title: Data Conversion
+  desc: > 
+    Functions for computing and converting incidence objects
+  contents:
+  - '`incidence`'
+  - '`as.data.frame.incidence`'
+- title: Incidence Curve Visualisation
+  desc: >
+    Functions for plotting incidence curves and models
+  contents:
+  - '`plot.incidence`'
+  - '`incidence_pal1`'
+- title: Accessors
+  desc: Accessor functions for the incidence object
+  contents:
+  - '`get_counts`'
+  - '`get_dates`'
+  - '`get_fit`'
+  - '`group_names`'
+  - '`dim.incidence`'
+- title: Data Manipulation
+  desc: >
+    Functions for manipulating incidence objects by date or group
+  contents:
+  - '`subset.incidence`'
+  - '`pool`'
+  - '`cumulate`'
+- title: Parameter Estimation
+  desc: > 
+    Functions for estimating parameters such as peak and doubling time
+  contents:
+  - '`bootstrap`'
+  - '`estimate_peak`'
+  - '`find_peak`'
+  - '`fit`'
+
+
