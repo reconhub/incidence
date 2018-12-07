@@ -234,8 +234,11 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
       tmp     <- color[gnames] 
       matched <- names(color) %in% names(tmp)
       if (!all(matched)) {
-        removed <- paste(names(color)[!matched], collapse = ", ")
-        message(sprintf("%d colors were not used: %s", length(removed), removed))
+        removed <- paste(names(color)[!matched], 
+                         color[!matched],
+                         sep = '" = "',
+                         collapse = '", "')
+        message(sprintf("%d colors were not used: \"%s\"", sum(!matched), removed))
       }
       color <- tmp
     }
