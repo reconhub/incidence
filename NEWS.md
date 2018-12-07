@@ -1,6 +1,17 @@
-incidence 1.5.2.9000
-===========================
+incidence 1.5.3 (2018-12-07)
+============================
 
+### BUG FIX
+
+* `plot.incidence()` will now respect single groups.
+  (See https://github.com/reconhub/incidence/issues/84)
+* `as.data.frame.incidence()` will now respect single groups.
+  (See https://github.com/reconhub/incidence/issues/84)
+
+### MISC
+
+* `demo("incidence-demo" package = "incidenc")` has been updated to show use of
+  custom colors.
 
 incidence 1.5.2 (2018-11-30)
 ============================

@@ -59,8 +59,10 @@
 #'
 
 as.data.frame.incidence <- function(x, ..., long = FALSE){
-    counts <- x$counts
-    if (ncol(counts) == 1L) {
+    counts  <- x$counts
+    gnames  <- group_names(x)
+    unnamed <- is.null(gnames) && ncol(counts) == 1L
+    if (unnamed) {
         colnames(counts) <- "counts"
     }
 
@@ -73,8 +75,7 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
     }
 
     ## handle the long format here
-    if (long && ncol(x$counts) > 1) {
-        gnames <- colnames(x$counts)
+    if (long && !unnamed) {
         groups <- factor(rep(gnames, each = nrow(out)), levels = gnames)
         counts <- as.vector(x$counts)
         if ("isoweeks" %in% names(x)) {

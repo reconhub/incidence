@@ -16,31 +16,31 @@ library('incidence')
 library('ggplot2')
 
 # compute weekly stratified incidence
-i.7.group <- incidence(dat1$date_of_onset,
-                       interval = 7L,
-                       groups   = dat1$hospital)
+i.7.group <- incidence(dat1$date_of_onset, interval = 7, groups = dat1$hospital)
 # print incidence object
 i.7.group
 
 # plot incidence object
 my_theme <- theme_bw(base_size = 12) +
-  theme(legend.position = c(.8, .7)) +
   theme(panel.grid.minor = element_blank()) +
-  theme(axis.text = element_text(color = "black"))
-plot(i.7.group, border = "white") + my_theme
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, color = "black"))
+
+plot(i.7.group, border = "white") + 
+  my_theme + 
+  theme(legend.position = c(0.8, 0.75))
 
 #' 3) Manipulate incidence object
 #'
-#+ incidence-early-curve, fig.width=6, fig.height=7
-# plot the first 8 weeks
-plot(i.7.group[1:8, ], show_cases = TRUE) +
-  theme_bw(base_size = 12) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1, color = "black")) +
-  theme(panel.grid.minor = element_blank())
-
+#+ incidence-early-curve, fig.width=6, fig.height=6
+# plot the first 18 weeks, defined hospitals, and use different colors
+i.7.sub <- i.7.group[1:18, c(1:2, 4:5)]
+hosp_colors <- c("#899DA4", "#C93312", "#FAEFD1", "#DC863B")
+plot(i.7.sub, show_cases = TRUE, border = "black", color = hosp_colors) + 
+  my_theme +
+  theme(legend.position = c(0.35, 0.8)) 
 # exclude NA group by disabling treating NA as a separate group
 i.7.group0 <- incidence(dat1$date_of_onset,
-                        interval    = 7L,
+                        interval    = 7,
                         groups      = dat1$hospital,
                         na_as_group = FALSE)
 
@@ -63,7 +63,7 @@ colnames(i.7.group1$counts)
 #'
 #' 1) Import pre-computed daily incidence
 #'
-#+ incidence-curve2, fig.width=9, fig.height=5
+#+ incidence-curve2, fig.width=9, fig.height=6
 # preview datasets
 head(zika_girardot_2015, 3)
 head(zika_sanandres_2015, 3)
@@ -84,7 +84,7 @@ i.group <- as.incidence(x = dat2[, 2:3], dates = dat2$date)
 # pool incidence across two locations
 i.pooled <- pool(i.group)
 cowplot::plot_grid(
-	plot(i.group, border = "white")  + my_theme,
+	plot(i.group, border = "white")  + my_theme + theme(legend.position = c(0.9, 0.7)),
 	plot(i.pooled, border = "white") + my_theme,
 	ncol       = 1,
 	labels     = c("(A)", "(B)"),
