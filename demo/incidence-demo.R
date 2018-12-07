@@ -32,8 +32,8 @@ plot(i.7.group, border = "white") +
 #' 3) Manipulate incidence object
 #'
 #+ incidence-early-curve, fig.width=6, fig.height=6
-# plot the first 15 weeks, defined hospitals, and use different colors
-i.7.sub <- i.7.group[1:15, c(1:2, 4:5)]
+# plot the first 18 weeks, defined hospitals, and use different colors
+i.7.sub <- i.7.group[1:18, c(1:2, 4:5)]
 hosp_colors <- c("#899DA4", "#C93312", "#FAEFD1", "#DC863B")
 plot(i.7.sub, show_cases = TRUE, border = "black", color = hosp_colors) + 
   my_theme +
