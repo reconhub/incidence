@@ -6,7 +6,9 @@ test_that("as.data.frame works", {
   dat <- as.integer(c(0,1,2,2,3,5,7))
   dat2 <- as.Date("2016-01-02") + dat
   fac <- factor(c(1, 2, 3, 3, 3, 3, 1))
+  one_group <- rep("a", 7)
   i <- incidence(dat, groups = fac)
+  iog <- incidence(dat, groups = one_group)
   i.7 <- incidence(dat2, 7L, standard = TRUE)
   i.7.group <- incidence(dat2, 7L, standard = TRUE, groups = fac)
   df  <- as.data.frame(i)
@@ -16,6 +18,8 @@ test_that("as.data.frame works", {
   df4 <- as.data.frame(i.7, long = TRUE)
   df5 <- as.data.frame(i.7.group)
   df6 <- as.data.frame(i.7.group, long = TRUE)
+  df7 <- as.data.frame(iog)
+  df8 <- as.data.frame(iog, long = TRUE)
 
   expect_equal_to_reference(df, file = "rds/df.rds")
   expect_equal_to_reference(dfl, file = "rds/dfl.rds")
@@ -24,6 +28,8 @@ test_that("as.data.frame works", {
   expect_equal(df3, df4)
   expect_equal_to_reference(df5, file = "rds/df5.rds")
   expect_equal_to_reference(df6, file = "rds/df6.rds")
+  expect_named(df7, c("dates", "a"))
+  expect_named(df8, c("dates", "counts", "groups"))
 })
 
 test_that("as.incidence works", {

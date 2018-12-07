@@ -15,6 +15,7 @@ test_that("plot for incidence object", {
 
   # constructing data
   i <- incidence(dat)
+  iog <- incidence(dat, groups = rep("this group", 200))
   i.3 <- incidence(dat, 3L)
   i.14 <- incidence(dat, 14L)
   i.sex <- incidence(dat, 7L, groups = sex)
@@ -44,6 +45,7 @@ test_that("plot for incidence object", {
 
   p.i.14 <- plot(i.14)
   p.i.2 <- plot(i, color = "blue", alpha = .2)
+  expect_message(p.iog <- plot(iog, color = c("this group" = "blue", "that group" = "red")), "1 colors were not used: \"that group\" = \"red\"")
   p.i.3 <- plot(i.3, fit = fit.i.3, color = "red")
   p.sex <- plot(i.sex)
   p.sex.cum <- plot(cumulate(i.sex))
@@ -67,6 +69,7 @@ test_that("plot for incidence object", {
   vdiffr::expect_doppelganger("incidence plot with specified color and alpha", p.i.2)
   vdiffr::expect_doppelganger("incidence plot with interval of 3 days, fit and specified color", p.i.3)
   vdiffr::expect_doppelganger("grouped incidence plot", p.sex)
+  vdiffr::expect_doppelganger("grouped incidence plot with one group", p.iog)
   vdiffr::expect_doppelganger("grouped incidence plot, cumulative", p.sex.cum)
   vdiffr::expect_doppelganger("grouped incidence plot with fit", p.sex.2)
   vdiffr::expect_doppelganger("grouped incidence plot with color palette", p.sex.3)
