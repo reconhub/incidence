@@ -21,3 +21,4 @@ README.html
 ^appveyor\.yml$
 bug_reports/*
 ^revdep/
+*_pkgdown.yml
