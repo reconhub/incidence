@@ -9,7 +9,7 @@ print.incidence <- function(x, ...) {
     cat(sprintf("[%d cases from ISO weeks %s to %s]\n",
                 sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
   }
-  if (ncol(x$counts) > 1L) {
+  if (!is.null(group_names(x))) {
     groups.txt <- paste(group_names(x), collapse = ", ")
     cat(sprintf("[%d groups: %s]\n", ncol(x), groups.txt))
   }
