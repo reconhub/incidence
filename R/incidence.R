@@ -155,7 +155,12 @@ incidence <- function(dates, interval = 1L, ...) {
 #' @export
 #' @rdname incidence
 incidence.default <- function(dates, interval = 1L, ...) {
-  check_dates(dates)
+  tmp <- check_dates(dates)
+  if (inherits(tmp, 'Date')) {
+    incidence.Date(tmp)
+  } else {
+    stop('incidence() does not accept a character object as input; convert to Date.')
+  }
 }
 
 #' @export
