@@ -109,7 +109,7 @@ test_that("construction - Date input", {
   expect_message(x.i.trim  <- incidence(dat, first_date = 0),
                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
   )
-  expect_error(x.d.trim  <- incidence(dat_dates, first_date = as.Date("2016-01-01")),
+  expect_message(x.d.trim  <- incidence(dat_dates, first_date = as.Date("2016-01-01")),
                  "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed."
   )
   x.7       <- incidence(dat_dates, 7L, standard = FALSE)

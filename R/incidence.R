@@ -156,10 +156,9 @@ incidence <- function(dates, interval = 1L, ...) {
 #' @rdname incidence
 incidence.default <- function(dates, interval = 1L, ...) {
   if (is.character(dates)) {
-    stop('Input is a charater. Did you forget to convert to Date?')
+    stop('Input is a character. Did you forget to convert to Date?')
   }
   check_dates(dates)
-  stop('Input must be Date, POSIXct, integer, or numeric.')
 }
 
 #' @export
