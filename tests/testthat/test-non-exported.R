@@ -9,7 +9,7 @@ test_that("check_dates works", {
   expect_warning(check_dates(1.1), msg)
 
   msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
-                "Date, POSIXct, integer, numeric, character")
+                "Date, POSIXct, integer, numeric")
   expect_error(check_dates(factor("2001-01-01")), msg)
 
   x <- list(1L,
@@ -20,8 +20,6 @@ test_that("check_dates works", {
   for (e in x) {
     expect_equal(e, check_dates(e))
   }
-
-  expect_equal(check_dates("2001-01-01"), as.Date("2001-01-01"))
 })
 
 test_that("check_interval", {

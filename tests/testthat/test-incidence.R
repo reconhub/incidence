@@ -109,7 +109,7 @@ test_that("construction - Date input", {
   expect_message(x.i.trim  <- incidence(dat, first_date = 0),
                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
                 )
-  expect_message(x.d.trim  <- incidence(dat_dates, first_date = "2016-01-01"),
+  expect_message(x.d.trim  <- incidence(dat_dates, first_date = as.Date("2016-01-01")),
                  "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed."
                 )
   x.7       <- incidence(dat_dates, 7L, standard = FALSE)
@@ -162,7 +162,7 @@ test_that("construction - Date input", {
              )
   x.yr.iso <- incidence(dat.yr, "year")
   x.yr     <- incidence(dat.yr, "year", standard = FALSE)
-  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = "2016-02-29"),
+  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29")),
                  "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
                  )
   expect_equal(get_dates(x.yr.iso), as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01")))
@@ -331,10 +331,13 @@ test_that("Printing returns the object", {
                             file = "rds/print3.rds")
 })
 
-test_that("conversion of character to Date is working", {
-  x <- incidence(as.Date("2001-01-01"))
-  y <- incidence("2001-01-01")
-  expect_identical(x, y)
-  msg <- 'character string is not in a standard unambiguous format'
+test_that("incidence returns error if not in accepted format", {
+
+  msg <- 'Input is a charater. Did you forget to convert to Date?'
   expect_error(incidence('daldkadl'), msg)
+  expect_error(incidence('2001-01-01'), msg)
+
+  msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
+                "Date, POSIXct, integer, numeric")
+  expect_error(incidence(factor("2001-01-01")), msg)
 })
