@@ -157,9 +157,9 @@ incidence <- function(dates, interval = 1L, ...) {
 incidence.default <- function(dates, interval = 1L, ...) {
   tmp <- check_dates(dates)
   if (inherits(tmp, 'Date')) {
-    incidence.Date(tmp)
+    incidence(tmp)
   } else {
-    stop('incidence() does not accept a character object as input; convert to Date.')
+    stop('Input to incidence() cannot be converted to Date.')
   }
 }
 

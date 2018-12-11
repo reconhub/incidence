@@ -1,13 +1,13 @@
 context("Incidence main function")
 
-# setting up the data -------------------------------------------------- 
+# setting up the data --------------------------------------------------
 the_seed <- eval(parse(text = as.character(Sys.Date())))
 
-# Integer incidence   -------------------------------------------------- 
+# Integer incidence   --------------------------------------------------
 set.seed(the_seed)
 dat <- as.integer(sample(-3:10, 50, replace = TRUE))
 
-# Date incidence      -------------------------------------------------- 
+# Date incidence      --------------------------------------------------
 # note: the choice of dates here makes sure first date is 28 Dec 2015, which
 # starts an iso week, so that counts will be comparable with/without iso
 set.seed(the_seed)
@@ -15,7 +15,7 @@ dat <- as.integer(c(-3, sample(-3:100, 50, replace = TRUE)))
 dat_dates <- as.Date("2015-12-31") + dat
 
 test_that("construction - default, integer input", {
-  
+
 
   ## USING DAILY INCIDENCE
   x <- incidence(dat)
@@ -57,7 +57,7 @@ test_that("construction - default, integer input", {
 })
 
 test_that("construction - ISO week", {
-  
+
 
   ## USING WEEKLY INCIDENCE
   inc.week    <- incidence(dat_dates, interval = 7, standard = FALSE)
@@ -80,7 +80,7 @@ test_that("construction - ISO week", {
 })
 
 test_that("construction - numeric input", {
-  
+
 
   ## USING DAILY INCIDENCE
   set.seed(1)
@@ -102,7 +102,7 @@ test_that("construction - numeric input", {
 })
 
 test_that("construction - Date input", {
-  
+
 
   x         <- incidence(dat)
   x.dates   <- incidence(dat_dates)
@@ -190,7 +190,7 @@ test_that("construction - Date input", {
 })
 
 test_that("construction - POSIXct input", {
-  
+
 
   ## USING DAILY INCIDENCE
   dat.pos <- as.POSIXct(dat_dates)
@@ -204,7 +204,7 @@ test_that("construction - POSIXct input", {
 })
 
 test_that("corner cases", {
-  
+
 
   expect_error(incidence(integer(0)),
                "At least one \\(non-NA\\) date must be provided")
@@ -232,7 +232,7 @@ test_that("corner cases", {
 
   expect_error(incidence(as.Date(Sys.Date()), standard = "TRUE"),
                "The argument `standard` must be either `TRUE` or `FALSE`")
-  
+
   expect_error(incidence(sample(10), intrval = 2),
 	       "intrval : interval")
 
@@ -253,13 +253,13 @@ test_that("incidence constructor can handle missing data", {
 test_that("incidence constructor can handle data out of range with groups", {
   set.seed(the_seed)
   g <- sample(letters[1:2], length(dat), replace = TRUE)
-  expect_message(incidence(dat, first_date = 0, groups = g), 
+  expect_message(incidence(dat, first_date = 0, groups = g),
                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
                 )
 })
 
 test_that("Expected values, no group", {
-  
+
 
   expect_true(all(incidence(1:10)$counts == 1L))
   expect_true(all(incidence(sample(1:10))$counts == 1L))
@@ -285,7 +285,7 @@ test_that("Expected values, no group", {
 })
 
 test_that("Expected values, with groups", {
-  
+
 
   dat <- list(
     as.integer(c(3,2,-1,1,1)),
@@ -313,12 +313,12 @@ test_that("user-defined group levels are preserved", {
   g <- factor(g, levels = LETTERS[5:1])
   i <- incidence(rpois(100, 10), groups = g)
   expect_identical(group_names(i), levels(g))
-  i.df <- as.data.frame(i, long = TRUE) 
+  i.df <- as.data.frame(i, long = TRUE)
   expect_identical(levels(i.df$groups), levels(g))
 })
 
 test_that("Printing returns the object", {
-  
+
 
   x <- incidence(as.Date("2001-01-01"))
   y <- incidence(1:2, groups = factor(1:2))
@@ -329,4 +329,12 @@ test_that("Printing returns the object", {
                             file = "rds/print2.rds")
   expect_equal_to_reference(capture.output(print(z)),
                             file = "rds/print3.rds")
+})
+
+test_that("conversion of character to Date is working", {
+  x <- incidence(as.Date("2001-01-01"))
+  y <- incidence("2001-01-01")
+  expect_identical(x, y)
+  msg <- 'character string is not in a standard unambiguous format'
+  expect_error(incidence('daldkadl'), msg)
 })
