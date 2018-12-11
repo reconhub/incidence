@@ -108,15 +108,15 @@ test_that("construction - Date input", {
   x.dates   <- incidence(dat_dates)
   expect_message(x.i.trim  <- incidence(dat, first_date = 0),
                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
-                )
-  expect_message(x.d.trim  <- incidence(dat_dates, first_date = as.Date("2016-01-01")),
+  )
+  expect_error(x.d.trim  <- incidence(dat_dates, first_date = as.Date("2016-01-01")),
                  "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed."
-                )
+  )
   x.7       <- incidence(dat_dates, 7L, standard = FALSE)
   x.7.iso   <- incidence(dat_dates, "week")
   x.7.week  <- incidence(dat_dates, "week", standard = FALSE)
   expect_warning(x.7.week2  <- incidence(dat_dates, "week", iso_week = FALSE),
-		 "`iso_week` has been deprecated")
+                 "`iso_week` has been deprecated")
   # iso_week can reset standard, but is given a warning
   expect_identical(x.7.week2, x.7.week)
 
@@ -159,12 +159,12 @@ test_that("construction - Date input", {
   dat.yr <- c(dat_dates,
               sample(dat_dates + 366, replace = TRUE),
               sample(dat_dates + 366 + 365, replace = TRUE)
-             )
+  )
   x.yr.iso <- incidence(dat.yr, "year")
   x.yr     <- incidence(dat.yr, "year", standard = FALSE)
   expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29")),
                  "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
-                 )
+  )
   expect_equal(get_dates(x.yr.iso), as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01")))
   expect_equal(get_dates(x.yr), as.Date(c("2015-12-28", "2016-12-28", "2017-12-28")))
   expect_equal(sum(x.yr$counts), sum(x.yr.iso$counts))
@@ -225,7 +225,7 @@ test_that("corner cases", {
                "The interval 'grind' is not valid. Please supply an integer.")
 
   expect_error(incidence(as.Date(Sys.Date()), last_date = "core"),
-               "last_date could not be converted to Date")
+               "last_date is a character. Did you forget to convert to Date?")
 
   expect_error(incidence(1, "week"),
                "The interval 'week' can only be used for Dates")
@@ -234,14 +234,14 @@ test_that("corner cases", {
                "The argument `standard` must be either `TRUE` or `FALSE`")
 
   expect_error(incidence(sample(10), intrval = 2),
-	       "intrval : interval")
+               "intrval : interval")
 
   expect_error(incidence(1, were = "wolf"), "were")
 
 
   expect_warning(incidence(c(dat_dates, as.Date("1900-01-01"))),
                  "greater than 18262 days \\[1900-01-01 to"
-                )
+  )
 })
 
 test_that("incidence constructor can handle missing data", {
@@ -255,7 +255,7 @@ test_that("incidence constructor can handle data out of range with groups", {
   g <- sample(letters[1:2], length(dat), replace = TRUE)
   expect_message(incidence(dat, first_date = 0, groups = g),
                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
-                )
+  )
 })
 
 test_that("Expected values, no group", {
@@ -331,13 +331,20 @@ test_that("Printing returns the object", {
                             file = "rds/print3.rds")
 })
 
-test_that("incidence returns error if not in accepted format", {
+test_that("incidence returns error if input not in accepted format", {
 
-  msg <- 'Input is a charater. Did you forget to convert to Date?'
+  msg <- 'Input is a character. Did you forget to convert to Date?'
   expect_error(incidence('daldkadl'), msg)
   expect_error(incidence('2001-01-01'), msg)
 
   msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
                 "Date, POSIXct, integer, numeric")
   expect_error(incidence(factor("2001-01-01")), msg)
+
+  msg <- 'first_date is a character. Did you forget to convert to Date?'
+  expect_error(incidence(as.Date('2016-02-29'), "year", first_date = '2016-02-29'), msg)
+
+  msg <- 'last_date is a character. Did you forget to convert to Date?'
+  expect_error(incidence(as.Date('2016-02-29'), "year", last_date = '2016-02-29'), msg)
+
 })
