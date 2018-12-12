@@ -14,10 +14,14 @@ check_boundaries <- function(dates, boundary = NULL, what = "first") {
     MINMAX <- if (what == "first") min else max
     boundary <- MINMAX(dates, na.rm = TRUE)
   }
+  if (is.character(boundary)) {
+    msg <- '%s_date is a character. Did you forget to convert to Date?'
+    stop(sprintf(msg, what), call. = FALSE)
+  }
   res <- try(check_dates(boundary), silent = TRUE)
   if (inherits(res, "try-error")) {
     msg <- paste("%s_date could not be converted to Date. Accepted formats are:",
-                 "\n  Date, POSIXct, integer, numeric, character.")
+                 "\n  Date, POSIXct, integer, numeric.")
     stop(sprintf(msg, what), call. = FALSE)
   }
   res

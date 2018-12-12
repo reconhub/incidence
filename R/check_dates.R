@@ -2,7 +2,7 @@
 #'
 #' This function checks that usable dates are provided, and set non-finite
 #' values to NA. It also makes a few trivial conversions on the fly.
-#' 
+#'
 #' @param x a vector that represents dates. Can be in almost any format
 #' @param error_on_NA a logical specifing whether or not an error should be
 #'   thrown if NAs are present in the dates. Defaults to FALSE.
@@ -12,10 +12,6 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
 
   if (is.null(x)) {
     stop("dates is NULL", call. = FALSE)
-  }
-
-  if (is.character(x)) {
-    x <- as.Date(x, ...)
   }
 
   not_finite <- !is.finite(x)
@@ -59,7 +55,7 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
   }
 
 
-  formats <- c("Date", "POSIXct", "integer", "numeric", "character")
+  formats <- c("Date", "POSIXct", "integer", "numeric")
   msg <- paste0(
     "Input could not be converted to date. Accepted formats are:\n",
     paste(formats, collapse = ", "))
