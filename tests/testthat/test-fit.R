@@ -61,3 +61,15 @@ test_that("internals for fitting", {
 
   expect_null(extract_info(NULL))
 })
+
+test_that("fitting results are the same for incidence fits on Dates and POSIXct", {
+  days <- 1:14
+  dat_cases <- round(exp(.2*(days)))
+  dat_dates_Date <- rep(as.Date(Sys.Date()+days), days)
+  dat_dates_POSIXct <- as.POSIXct(dat_dates_Date)
+
+  iD <- incidence(dat_dates_Date)
+  iP <- incidence(dat_dates_POSIXct)
+
+  expect_equal(fit(iP),fit(iD))
+})
