@@ -9,6 +9,8 @@ incidence 1.5.3 (2018-12-07)
   (See https://github.com/reconhub/incidence/issues/84)
 * `incidence()` now returns an error when dates argument is character object.
   (See https://github.com/reconhub/incidence/issues/88)
+* `fit()` now returns correct coefficients when dates is POSIXt by converting to Date.
+  (See https://github.com/reconhub/incidence/issues/91)
 
 ### MISC
 
