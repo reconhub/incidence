@@ -65,11 +65,31 @@ test_that("internals for fitting", {
 test_that("fitting results are the same for incidence fits on Dates and POSIXct", {
   days <- 1:14
   dat_cases <- round(exp(.2*(days)))
-  dat_dates_Date <- rep(as.Date(Sys.Date()+days), days)
+  dat_dates_Date <- rep(as.Date(Sys.Date()+days), dat_cases)
   dat_dates_POSIXct <- as.POSIXct(dat_dates_Date)
 
   iD <- incidence(dat_dates_Date)
   iP <- incidence(dat_dates_POSIXct)
 
   expect_equal(fit(iP),fit(iD))
+})
+
+test_that("doubling / halving time makes sense when CI of r crosses 0", {
+  # estimate of r is negative
+  days <- 1:14
+  dat_cases <- round(20*exp(-.2*(days)))
+  dat_dates <- rep(as.Date(Sys.Date()+days), dat_cases)
+
+  i <- incidence(dat_dates)
+  f <- fit(i)
+
+  # estimate of r is positive
+  days <- 1:14
+  dat_cases <- round(exp(.2*(days)))
+  dat_dates <- rep(as.Date(Sys.Date()+days), dat_cases)
+
+  i <- incidence(dat_dates)
+  f <- fit(i)
+
+  # add test
 })
