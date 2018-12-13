@@ -78,8 +78,8 @@ test_that("doubling / halving time makes sense when CI of r crosses 0", {
 
   set.seed(20181213)
   days <- 1:14
-  # estimate of r is negative
-  dat_cases_1 <- rnbinom(14,.5,.1)
+  # estimate of r is positive
+  dat_cases_1 <- rnbinom(14, .5, .1)
   dat_dates_1 <- rep(as.Date(Sys.Date() + days), dat_cases_1)
 
   i1 <- incidence(dat_dates_1)
@@ -88,7 +88,7 @@ test_that("doubling / halving time makes sense when CI of r crosses 0", {
   expect_true(any(is.infinite(f1$info$doubling.conf)))
 
   # estimate of r is negative
-  dat_cases_2 <- rnbinom(14,.5,.1)
+  dat_cases_2 <- rnbinom(14, .5, .1)
   dat_dates_2 <- rep(as.Date(Sys.Date() + days), dat_cases_2)
 
   i2 <- incidence(dat_dates_2)
