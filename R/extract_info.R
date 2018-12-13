@@ -14,6 +14,11 @@ extract_info <- function(reg, origin, level){
   r <- stats::coef(reg)[to.keep]
   use.groups <- length(r) > 1
   if (use.groups) {
+    if (all(r >= 0) | all(r <= 0)) {
+      # continue
+    } else {
+      stop("Growth rates of groups have different signs; fit groups separately.")
+    }
     names(r) <- reg$xlevels[[1]] # names = levels if groups
   } else {
     names(r) <- NULL # no names otherwise

@@ -79,26 +79,27 @@ test_that("doubling / halving time makes sense when CI of r crosses 0", {
   set.seed(20181213)
   days <- 1:14
   # estimate of r is negative
-  dat_cases_1 <- round(20*rexp(-.3*(days)))
-  dat_dates_1 <- rep(as.Date(Sys.Date()+days), dat_cases_1)
+  dat_cases_1 <- rnbinom(14,.5,.1)
+  dat_dates_1 <- rep(as.Date(Sys.Date() + days), dat_cases_1)
 
   i1 <- incidence(dat_dates_1)
-  f <- fit(i1)
+  f1 <- suppressWarnings(fit(i1))
 
-  expect_true(any(is.infinite(f$info$halving.conf)))
+  expect_true(any(is.infinite(f1$info$doubling.conf)))
 
-  # estimate of r is positive
-  dat_cases_2 <- round(rexp(.3*(days)))
-  dat_dates_2 <- rep(as.Date(Sys.Date()+days), dat_cases_2)
+  # estimate of r is negative
+  dat_cases_2 <- rnbinom(14,.5,.1)
+  dat_dates_2 <- rep(as.Date(Sys.Date() + days), dat_cases_2)
 
   i2 <- incidence(dat_dates_2)
-  f <- suppressWarnings(fit(i2))
+  f2 <- suppressWarnings(fit(i2))
 
-  expect_true(any(is.infinite(f$info$halving.conf)))
+  expect_true(any(is.infinite(f2$info$halving.conf)))
 
   # groups have different signs for r
-  grp <- rep(c("grp1","grp2"),c(length(dat_dates_1),length(dat_dates_2)))
-  i.grp <- incidence(c(dat_dates_1,dat_dates_2), 5L, groups = grp)
-  fit(i.grp)
-  # what should be expected behavior?
+  grp <- rep(c("grp1", "grp2"), c(length(dat_dates_1), length(dat_dates_2)))
+  i.grp <- incidence(c(dat_dates_1, dat_dates_2), groups = grp)
+
+  msg <- "Growth rates of groups have different signs; fit groups separately."
+  expect_error(suppressWarnings(fit(i.grp)), msg)
 })
