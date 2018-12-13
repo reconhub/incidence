@@ -77,25 +77,28 @@ test_that("fitting results are the same for incidence fits on Dates and POSIXct"
 test_that("doubling / halving time makes sense when CI of r crosses 0", {
 
   set.seed(20181213)
+  days <- 1:14
   # estimate of r is negative
-  days <- 1:10
-  dat_cases <- round(20*rexp(-.2*(days)))
-  dat_dates <- rep(as.Date(Sys.Date()+days), dat_cases)
+  dat_cases_1 <- round(20*rexp(-.3*(days)))
+  dat_dates_1 <- rep(as.Date(Sys.Date()+days), dat_cases_1)
 
-  i <- incidence(dat_dates)
-  f <- fit(i)
+  i1 <- incidence(dat_dates_1)
+  f <- fit(i1)
 
-  expect_true(all(f$info$halving.conf>0))
+  expect_true(any(is.infinite(f$info$halving.conf)))
 
   # estimate of r is positive
-  days <- 1:14
-  dat_cases <- round(rexp(.3*(days)))
-  dat_dates <- rep(as.Date(Sys.Date()+days), dat_cases)
+  dat_cases_2 <- round(rexp(.3*(days)))
+  dat_dates_2 <- rep(as.Date(Sys.Date()+days), dat_cases_2)
 
-  i <- incidence(dat_dates)
-  f <- suppressWarnings(fit(i))
+  i2 <- incidence(dat_dates_2)
+  f <- suppressWarnings(fit(i2))
 
-  expect_true(all(f$info$doubling.conf>0))
+  expect_true(any(is.infinite(f$info$halving.conf)))
 
-  # add test for when groups have different signs for r
+  # groups have different signs for r
+  grp <- rep(c("grp1","grp2"),c(length(dat_dates_1),length(dat_dates_2)))
+  i.grp <- incidence(c(dat_dates_1,dat_dates_2), 5L, groups = grp)
+  fit(i.grp)
+  # what should be expected behavior?
 })
