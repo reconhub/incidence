@@ -11,12 +11,17 @@ incidence 1.5.3 (2018-12-07)
   (See https://github.com/reconhub/incidence/issues/88)
 * `fit()` now returns correct coefficients when dates is POSIXt by converting to Date.
   (See https://github.com/reconhub/incidence/issues/91)
+* `fit()` now returns Inf for the upper bound of the doubling / halving time if the     
+  confidence interval on the growth rate spans 0.
+  (See https://github.com/reconhub/incidence/issues/28)
 
 ### MISC
 
 * `demo("incidence-demo" package = "incidence")` has been updated to show use of
   custom colors.
 * `incidence()` no longer accepts characters as input for dates, first_date, or last_date   arguments
+* `fit()` now returns an error if growth rate estimates for groups have different signs.
+  (See https://github.com/reconhub/incidence/issues/28)
 
 incidence 1.5.2 (2018-11-30)
 ============================
