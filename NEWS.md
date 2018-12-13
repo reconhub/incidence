@@ -16,7 +16,7 @@ incidence 1.5.3 (2018-12-07)
 
 * `demo("incidence-demo" package = "incidence")` has been updated to show use of
   custom colors.
-* `incidence()` no longer accepts characters as input for dates, first_date, or last_date   argeuments
+* `incidence()` no longer accepts characters as input for dates, first_date, or last_date   arguments
 
 incidence 1.5.2 (2018-11-30)
 ============================
