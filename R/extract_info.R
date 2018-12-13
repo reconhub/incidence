@@ -14,6 +14,11 @@ extract_info <- function(reg, origin, level){
   r <- stats::coef(reg)[to.keep]
   use.groups <- length(r) > 1
   if (use.groups) {
+    if (all(r >= 0) | all(r <= 0)) {
+      # continue
+    } else {
+      stop("Growth rates of groups have different signs; fit groups separately.")
+    }
     names(r) <- reg$xlevels[[1]] # names = levels if groups
   } else {
     names(r) <- NULL # no names otherwise
@@ -47,10 +52,12 @@ extract_info <- function(reg, origin, level){
     o.names <- colnames(info$doubling.conf)
     info$doubling.conf <- info$doubling.conf[, rev(seq_along(o.names)),
                                              drop = FALSE]
+    info$doubling.conf[info$doubling.conf < 0] <- Inf
     colnames(info$doubling.conf) <- o.names
   } else {
     info$halving <- log(0.5) / r
     info$halving.conf <- log(0.5) / r.conf
+    info$halving.conf[info$halving.conf < 0] <- Inf
   }
 
   ## We need to store the date corresponding to 'day 0', as this will be used
