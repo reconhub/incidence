@@ -3,7 +3,7 @@ context("Test plotting")
 test_that("plot for incidence object", {
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(12)
   dat <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
   dat2 <- as.Date("2016-01-02") + dat
   dat3 <- as.POSIXct(dat2)

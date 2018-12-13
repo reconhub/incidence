@@ -5,7 +5,7 @@ test_that("fit", {
 
   set.seed(1)
   dat <- c(sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1)),
-           sample(51:100, 200, replace = TRUE, prob = rev(1 + exp(1:50 * 0.1))))
+           sample(51:100, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.11)))
   sex <- sample(c("female", "male"), 400, replace = TRUE)
 
   i <- incidence(dat, 5L)
