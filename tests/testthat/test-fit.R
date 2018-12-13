@@ -75,21 +75,26 @@ test_that("fitting results are the same for incidence fits on Dates and POSIXct"
 })
 
 test_that("doubling / halving time makes sense when CI of r crosses 0", {
+
+  set.seed(20181213)
   # estimate of r is negative
-  days <- 1:14
-  dat_cases <- round(20*exp(-.2*(days)))
+  days <- 1:10
+  dat_cases <- round(20*rexp(-.2*(days)))
   dat_dates <- rep(as.Date(Sys.Date()+days), dat_cases)
 
   i <- incidence(dat_dates)
   f <- fit(i)
+
+  expect_true(all(f$info$halving.conf>0))
 
   # estimate of r is positive
   days <- 1:14
-  dat_cases <- round(exp(.2*(days)))
+  dat_cases <- round(rexp(.3*(days)))
   dat_dates <- rep(as.Date(Sys.Date()+days), dat_cases)
 
   i <- incidence(dat_dates)
-  f <- fit(i)
+  f <- suppressWarnings(fit(i))
 
-  # add test
+  expect_true(all(f$info$doubling.conf>0))
+
 })
