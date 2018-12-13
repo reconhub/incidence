@@ -14,10 +14,10 @@ test_that("fit", {
   expect_warning(fit.i.sex <- fit(i.sex),
                  "3 dates with incidence of 0 ignored for fitting")
 
-  expect_equal_to_reference(fit.i, file = "rds/fit.i.rds")
-  expect_equal_to_reference(fit.i.sex, file = "rds/fit.i.sex.rds")
-  expect_equal_to_reference(capture.output(fit.i), file = "rds/print.fit.i.rds")
-  expect_equal_to_reference(capture.output(fit.i.sex), file = "rds/print.fit.sex.rds")
+  expect_known_value(fit.i, file = "rds/fit.i.rds", update = FALSE)
+  expect_known_value(fit.i.sex, file = "rds/fit.i.sex.rds", update = FALSE)
+  expect_known_value(capture.output(fit.i), file = "rds/print.fit.i.rds", update = FALSE)
+  expect_known_value(capture.output(fit.i.sex), file = "rds/print.fit.sex.rds", update = FALSE)
 
   ## errors
   x <- incidence(c(1, 0, 0, 0), interval = 7)
@@ -36,10 +36,10 @@ test_that("fit_optim_split", {
   i.sex <- incidence(dat, 5L, groups = sex)
   i.fit     <- fit_optim_split(i, plot = FALSE)
   i.fit.sex <- fit_optim_split(i.sex, plot = FALSE)
-  expect_equal_to_reference(i.fit,
-                            file = "rds/o.fit.i.rds")
-  expect_equal_to_reference(i.fit.sex,
-                            file = "rds/o.fit.i.sex.rds")
+  expect_known_value(i.fit,
+                            file = "rds/o.fit.i.rds", update = FALSE)
+  expect_known_value(i.fit.sex,
+                            file = "rds/o.fit.i.sex.rds", update = FALSE)
 
   expect_is(i.fit$df, "data.frame")
   expect_is(i.fit$fit, "incidence_fit_list")
@@ -97,4 +97,5 @@ test_that("doubling / halving time makes sense when CI of r crosses 0", {
 
   expect_true(all(f$info$doubling.conf>0))
 
+  # add test for when groups have different signs for r
 })
