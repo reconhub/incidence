@@ -8,10 +8,15 @@ incidence 1.5.4 unreleased
 * `fit()` now returns correct coefficients when dates is POSIXt by converting to
   Date. (See https://github.com/reconhub/incidence/issues/91)
 
-### MISC
+### NOTABLE CHANGES 
 
 * `incidence()` no longer accepts characters as input for dates, first_date, or
   last_date arguments
+
+### MISC
+
+* A test that randomly failed on CRAN has been fixed.
+  (See https://github.com/reconhub/incidence/issues/95)
 
 incidence 1.5.3 (2018-12-07)
 ============================
