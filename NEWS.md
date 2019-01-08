@@ -17,6 +17,8 @@ incidence 1.5.4 unreleased
 
 * A test that randomly failed on CRAN has been fixed.
   (See https://github.com/reconhub/incidence/issues/95)
+* Plotting tests have been updated for new version of vdiffr
+  (See https://github.com/reconhub/incidence/issues/96)
 
 incidence 1.5.3 (2018-12-07)
 ============================
