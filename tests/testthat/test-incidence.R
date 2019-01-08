@@ -3,15 +3,13 @@ context("Incidence main function")
 # setting up the data --------------------------------------------------
 the_seed <- eval(parse(text = as.character(Sys.Date())))
 
-# Integer incidence   --------------------------------------------------
-set.seed(the_seed)
-dat <- as.integer(sample(-3:10, 50, replace = TRUE))
-
 # Date incidence      --------------------------------------------------
 # note: the choice of dates here makes sure first date is 28 Dec 2015, which
-# starts an iso week, so that counts will be comparable with/without iso
+# starts an iso week, so that counts will be comparable with/without iso.
+# This also ensures that the last date is 2016-04-04 so that there are 15 weeks
+# represented here. 
 set.seed(the_seed)
-dat <- as.integer(c(-3, sample(-3:100, 50, replace = TRUE)))
+dat       <- as.integer(c(-3, sample(-3:100, 49, replace = TRUE), 100))
 dat_dates <- as.Date("2015-12-31") + dat
 
 test_that("construction - default, integer input", {
