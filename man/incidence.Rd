@@ -4,6 +4,7 @@
 \alias{incidence}
 \alias{incidence.default}
 \alias{incidence.Date}
+\alias{incidence.character}
 \alias{incidence.integer}
 \alias{incidence.numeric}
 \alias{incidence.POSIXt}
@@ -15,6 +16,10 @@ incidence(dates, interval = 1L, ...)
 \method{incidence}{default}(dates, interval = 1L, ...)
 
 \method{incidence}{Date}(dates, interval = 1L, standard = TRUE,
+  groups = NULL, na_as_group = TRUE, first_date = NULL,
+  last_date = NULL, ...)
+
+\method{incidence}{character}(dates, interval = 1L, standard = TRUE,
   groups = NULL, na_as_group = TRUE, first_date = NULL,
   last_date = NULL, ...)
 

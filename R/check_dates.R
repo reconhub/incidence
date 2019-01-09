@@ -14,6 +14,10 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
     stop("dates is NULL", call. = FALSE)
   }
 
+  if (is.character(x)) {
+    x <- as.Date(x, ...)
+  }
+
   not_finite <- !is.finite(x)
   if (sum(not_finite) > 0) {
     x[not_finite] <- NA
@@ -55,7 +59,7 @@ check_dates <- function(x, error_on_NA = FALSE, ...) {
   }
 
 
-  formats <- c("Date", "POSIXct", "integer", "numeric")
+  formats <- c("Date", "POSIXct", "integer", "numeric", "character")
   msg <- paste0(
     "Input could not be converted to date. Accepted formats are:\n",
     paste(formats, collapse = ", "))
