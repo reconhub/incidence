@@ -296,9 +296,10 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
       out <- out + ggplot2::scale_x_date(breaks      = breaks,
                                          date_breaks = db
                                         )
-    } else if (inherits(x$dates, "POSIXct")) {
+    } else if (inherits(x$dates, "POSIXt")) {
       out <- out + ggplot2::scale_x_datetime(breaks      = breaks,
-                                             date_breaks = db
+                                             date_breaks = db,
+                                             timezone    = "UTC"
                                             )
     } else {
       out <- out + ggplot2::scale_x_continuous(breaks = breaks)
@@ -330,6 +331,18 @@ add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
     return(out)
   }
   df <- get_info(x, "pred")
+
+  # In the case that the incidence object is of the type POSIXt, the data from
+  # the fit object must be presented as POSIXt or ggplot2 will throw a fit.
+
+  if (inherits(p$data$dates, "POSIXt")) {
+    # I add half a day here because any fractional days (0.5) will be thrown out
+    # on conversion and I'm not quite sure why that is
+    df$dates <- as.POSIXlt(df$dates) + 43200 # adding half a day
+    if (inherits(p$data$dates, "POSIXct")) {
+      df$dates <- as.POSIXct(df$dates)
+    } 
+  }
 
   out <- suppressMessages(
     p + ggplot2::geom_line(
