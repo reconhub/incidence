@@ -7,18 +7,22 @@ incidence 1.5.4 unreleased
   (See https://github.com/reconhub/incidence/issues/88)
 * `fit()` now returns correct coefficients when dates is POSIXt by converting to
   Date. (See https://github.com/reconhub/incidence/issues/91)
+* `plot.incidence()` now plots in UTC by default for POSIXt incidence objects.
+  this prevents a bug where different time zones would cause a shift in the bars
+  (See https://github.com/reconhub/incidence/issues/99).
 
 ### NOTABLE CHANGES 
 
 * `incidence()` no longer accepts characters as input for dates, first_date, or
-  last_date arguments
+  last_date arguments.
 
 ### MISC
 
 * A test that randomly failed on CRAN has been fixed.
-  (See https://github.com/reconhub/incidence/issues/95)
+  (See https://github.com/reconhub/incidence/issues/95).
 * Plotting tests have been updated for new version of vdiffr
-  (See https://github.com/reconhub/incidence/issues/96)
+  (See https://github.com/reconhub/incidence/issues/96).
+* POSIXct incidence are first passed through POSIXlt when initialized.
 
 incidence 1.5.3 (2018-12-07)
 ============================
