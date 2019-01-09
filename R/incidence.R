@@ -254,7 +254,7 @@ incidence.POSIXt <- function(dates, interval = 1L, standard = TRUE, groups = NUL
                              last_date = NULL, ...) {
   ## make sure input can be used
 
-  dots <- check_dots(list(...), names(formals(incidence.Date)))
+  dots  <- check_dots(list(...), names(formals(incidence.Date)))
   dates <- check_dates(dates)
 
   ret <- incidence(as.Date(dates),
@@ -266,8 +266,10 @@ incidence.POSIXt <- function(dates, interval = 1L, standard = TRUE, groups = NUL
                    last_date = last_date,
                    ...)
 
-  f <- if (inherits(dates, "POSIXct")) as.POSIXct else as.POSIXlt
-  ret$dates <- f(ret$dates)
+  ret$dates <- as.POSIXlt(ret$dates)
+  if (inherits(dates, "POSIXct")) {
+    ret$dates <- as.POSIXct(ret$dates)
+  }
   ret
 }
 
