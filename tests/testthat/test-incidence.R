@@ -107,7 +107,7 @@ test_that("construction - Date input", {
   expect_message(x.i.trim  <- incidence(dat, first_date = 0),
                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
   )
-  expect_message(x.d.trim  <- incidence(dat_dates, first_date = as.Date("2016-01-01")),
+  expect_message(x.d.trim  <- incidence(dat_dates, first_date = "2016-01-01"),
                  "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed."
   )
   x.7       <- incidence(dat_dates, 7L, standard = FALSE)
@@ -201,6 +201,21 @@ test_that("construction - POSIXct input", {
   expect_is(x.pos$dates, "POSIXct")
 })
 
+test_that("construction - character input", {
+  dats <- Sys.Date() + sample(-100:100, 5)
+  datc <- as.character(dats)
+
+  i.date <- incidence(dats)
+  i.char <- incidence(datc)
+  i.chaw <- incidence(paste(datc, "   "))
+  expect_message(i.cham <- incidence(c(datc, NA, NA)), "2 missing observations were removed.")
+  expect_is(i.date, "incidence")
+  expect_identical(i.date, i.char)  
+  expect_identical(i.date, i.chaw)  
+  expect_identical(i.date, i.cham)  
+})
+
+
 test_that("corner cases", {
 
 
@@ -223,7 +238,7 @@ test_that("corner cases", {
                "The interval 'grind' is not valid. Please supply an integer.")
 
   expect_error(incidence(as.Date(Sys.Date()), last_date = "core"),
-               "last_date is a character. Did you forget to convert to Date?")
+               "last_date \\(core\\) could not be converted to Date. Dates must be in ISO 8601 standard format \\(yyyy-mm-dd\\)")
 
   expect_error(incidence(1, "week"),
                "The interval 'week' can only be used for Dates")
@@ -318,7 +333,7 @@ test_that("user-defined group levels are preserved", {
 test_that("Printing returns the object", {
 
 
-  x <- incidence(as.Date("2001-01-01"))
+  x <- incidence("2001-01-01")
   y <- incidence(1:2, groups = factor(1:2))
   z <- incidence(dat_dates, interval = 7)
   expect_equal_to_reference(capture.output(print(x)),
@@ -331,18 +346,15 @@ test_that("Printing returns the object", {
 
 test_that("incidence returns error if input not in accepted format", {
 
-  msg <- 'Input is a character. Did you forget to convert to Date?'
-  expect_error(incidence('daldkadl'), msg)
-  expect_error(incidence('2001-01-01'), msg)
+  msg <- 'Not all dates are in ISO 8601 standard format \\(yyyy-mm-dd\\). The first incorrect date is'
+  expect_error(incidence('daldkadl'), paste(msg, "daldkadl"))
+  dats <- as.character(Sys.Date() + sample(-10:10, 5))
+  wat  <- "1Q84-04-15"
+  dats[sample(5)] <- wat
+  expect_error(incidence(dats), paste(msg, wat))
 
   msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
-                "Date, POSIXct, integer, numeric")
+                "Date, POSIXct, integer, numeric, character")
   expect_error(incidence(factor("2001-01-01")), msg)
-
-  msg <- 'first_date is a character. Did you forget to convert to Date?'
-  expect_error(incidence(as.Date('2016-02-29'), "year", first_date = '2016-02-29'), msg)
-
-  msg <- 'last_date is a character. Did you forget to convert to Date?'
-  expect_error(incidence(as.Date('2016-02-29'), "year", last_date = '2016-02-29'), msg)
 
 })

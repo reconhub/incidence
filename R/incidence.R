@@ -155,12 +155,7 @@ incidence <- function(dates, interval = 1L, ...) {
 #' @export
 #' @rdname incidence
 incidence.default <- function(dates, interval = 1L, ...) {
-  if (is.character(dates)) {
-    stop('Input is a character. Did you forget to convert to Date?')
-  }
-  check_dates(dates)
-  msg <- "Unknown date input; accepted formats are Date, POSIXct, integer, numeric."
-  stop(msg)
+  incidence(check_dates(dates), interval = interval, ...)
 }
 
 #' @export
@@ -200,6 +195,31 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
 }
 
 
+#' @export
+#' @rdname incidence
+incidence.character <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
+                           na_as_group = TRUE, first_date = NULL,
+                           last_date = NULL, ...) {
+  iso_std <- grepl("^[0-9]{4}-[01][0-9]-[0-3][0-9]$", trimws(dates))
+  if (!all(iso_std && !is.na(dates))) {
+    msg <- paste("Not all dates are in ISO 8601 standard format (yyyy-mm-dd).",
+                 "The first incorrect date is %s"
+    )
+    stop(sprintf(msg, dates[!iso_std && !is.na(dates)][1]))
+  }
+  dots  <- check_dots(list(...), names(formals(incidence.Date)))
+  dates <- check_dates(dates)
+
+  ret <- incidence(as.Date(trimws(dates)),
+                   interval = interval,
+                   standard = standard,
+                   groups = groups,
+                   na_as_group = na_as_group,
+                   first_date = first_date,
+                   last_date = last_date,
+                   ...)
+  ret
+}
 ## The default incidence is designed for dates provided as integers, and a fixed
 ## time interval defaulting to 1. 'bins' are time intervals, identified by the
 ## left date, left-inclusive and right-exclusive, i.e. the time interval defined
