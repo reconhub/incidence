@@ -201,11 +201,12 @@ incidence.character <- function(dates, interval = 1L, standard = TRUE, groups = 
                            na_as_group = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
   iso_std <- grepl("^[0-9]{4}-[01][0-9]-[0-3][0-9]$", trimws(dates))
-  if (!all(iso_std && !is.na(dates))) {
+  iso_std[is.na(dates)] <- TRUE # prevent false alarms
+  if (!all(iso_std)) {
     msg <- paste("Not all dates are in ISO 8601 standard format (yyyy-mm-dd).",
                  "The first incorrect date is %s"
     )
-    stop(sprintf(msg, dates[!iso_std && !is.na(dates)][1]))
+    stop(sprintf(msg, dates[!iso_std][1]))
   }
   dots  <- check_dots(list(...), names(formals(incidence.Date)))
   dates <- check_dates(dates)
