@@ -350,8 +350,10 @@ test_that("incidence returns error if input not in accepted format", {
   expect_error(incidence('daldkadl'), paste(msg, "daldkadl"))
   dats <- as.character(Sys.Date() + sample(-10:10, 5))
   wat  <- "1Q84-04-15"
-  dats[sample(5)] <- wat
+  dats[3] <- wat
   expect_error(incidence(dats), paste(msg, wat))
+  dats[3] <- "2018-69-11"
+  expect_error(incidence(dats), paste(msg, "2018-69-11"))
 
   msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
                 "Date, POSIXct, integer, numeric, character")
