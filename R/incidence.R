@@ -8,12 +8,13 @@
 #' and 2, the second interval includes 3, 4 and 5 etc.
 #'
 #' @param dates A vector of dates, which can be provided as objects of the
-#' class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
-#' floored with a warning.
+#' class: integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note 
+#' about `numeric` and `character` formats) 
 #'
-#' @param interval An integer or character indicating the (fixed) size of the time interval
-#' used for computing the incidence; defaults to 1 day. This can also be a text string that corresponds to a valid date
-#' interval: day, week, month, quarter, or year. See Note.
+#' @param interval An integer or character indicating the (fixed) size of the
+#' time interval used for computing the incidence; defaults to 1 day. This can
+#' also be a text string that corresponds to a valid date interval: day, week,
+#' month, quarter, or year. (See Note)
 #'
 #' @param groups An optional factor defining groups of observations for which
 #' incidence should be computed separately.
@@ -54,7 +55,14 @@
 #' @details For details about the `incidence class`, see the dedicated
 #' vignette:\cr `vignette("incidence_class", package = "incidence")`
 #'
-#' @note If `interval` is a valid character (e.g. "week" or "month"), then
+#' @note \subsection{Input data (`dates`)}{
+#'  - **Decimal (numeric) dates**: will be truncated with a warning
+#'  - **Character dates** should be in the unambiguous `yyyy-mm-dd` (ISO 8601)
+#'   format. Any other format will trigger an error.
+#' }
+#' 
+#' \subsection{Interval specification (`interval`)}{
+#' If `interval` is a valid character (e.g. "week" or "month"), then
 #' the bin will start at the beginning of the interval just before the first
 #' observation by default. For example, if the first case was recorded on
 #' Wednesday, 2018-05-09:
@@ -74,6 +82,7 @@
 #' number of days they encompass and warnings will be generated when the first
 #' date falls outside of a calendar date that is easily represented across the
 #' interval.
+#' }
 #'
 #' @seealso
 #' The main other functions of the package include:
