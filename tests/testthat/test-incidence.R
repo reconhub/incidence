@@ -267,7 +267,7 @@ test_that("corner cases", {
   expect_error(incidence(dats), paste(msg, "2018-69-11"))
 
   dats[3] <- "01-01-11"
-  expect_error(incidence(dats), paste(msg, "10-01-11"))
+  expect_error(incidence(dats), paste(msg, "01-01-11"))
 
   dats[3] <- "01-Apr-11"
   expect_error(incidence(dats), paste(msg, "01-Apr-11"))
