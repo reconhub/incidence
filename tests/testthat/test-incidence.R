@@ -255,6 +255,26 @@ test_that("corner cases", {
   expect_warning(incidence(c(dat_dates, as.Date("1900-01-01"))),
                  "greater than 18262 days \\[1900-01-01 to"
   )
+  
+  msg <- 'Not all dates are in ISO 8601 standard format \\(yyyy-mm-dd\\). The first incorrect date is'
+  expect_error(incidence('daldkadl'), paste(msg, "daldkadl"))
+  
+  dats <- as.character(Sys.Date() + sample(-10:10, 5))
+  dats[3] <- "1Q84-04-15" 
+  expect_error(incidence(dats), paste(msg, "1Q84-04-15"))
+
+  dats[3] <- "2018-69-11"
+  expect_error(incidence(dats), paste(msg, "2018-69-11"))
+
+  dats[3] <- "01-01-11"
+  expect_error(incidence(dats), paste(msg, "10-01-11"))
+
+  dats[3] <- "01-Apr-11"
+  expect_error(incidence(dats), paste(msg, "01-Apr-11"))
+
+  msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
+                "Date, POSIXct, integer, numeric, character")
+  expect_error(incidence(factor("2001-01-01")), msg)
 })
 
 test_that("incidence constructor can handle missing data", {
@@ -344,19 +364,3 @@ test_that("Printing returns the object", {
                             file = "rds/print3.rds")
 })
 
-test_that("incidence returns error if input not in accepted format", {
-
-  msg <- 'Not all dates are in ISO 8601 standard format \\(yyyy-mm-dd\\). The first incorrect date is'
-  expect_error(incidence('daldkadl'), paste(msg, "daldkadl"))
-  dats <- as.character(Sys.Date() + sample(-10:10, 5))
-  wat  <- "1Q84-04-15"
-  dats[3] <- wat
-  expect_error(incidence(dats), paste(msg, wat))
-  dats[3] <- "2018-69-11"
-  expect_error(incidence(dats), paste(msg, "2018-69-11"))
-
-  msg <- paste0("Input could not be converted to date. Accepted formats are:\n",
-                "Date, POSIXct, integer, numeric, character")
-  expect_error(incidence(factor("2001-01-01")), msg)
-
-})
