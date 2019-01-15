@@ -1,15 +1,18 @@
 Package: incidence
 Type: Package
 Title: Compute, Handle, Plot and Model Incidence of Dated Events
-Version: 1.5.3.99
+Version: 1.5.4
 Authors@R: c(
   person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com"), 
-  person("Zhian N.", "Kamvar", role = c("aut", "cre"), email = "zkamvar@gmail.com"),
+  person("Zhian N.", "Kamvar", role = c("aut", "cre"), email = "zkamvar@gmail.com",
+         comment = c(ORCID = "0000-0003-1458-7108")),
   person("Rich", "FitzJohn", role = "aut", email = "rich.fitzjohn@gmail.com"), 
   person("Jun", "Cai", role = "ctb", email = "cai-j12@mails.tsinghua.edu.cn"), 
   person("Sangeeta", "Bhatia", role = "ctb", email = "sangeetabhatia03@gmail.com"),
   person("Jakob", "Schumacher", role = "ctb"),
-  person("Juliet R.C.", "Pulliam", role = "ctb", email = "pulliam@sun.ac.za"))
+  person("Juliet R.C.", "Pulliam", role = "ctb", email = "pulliam@sun.ac.za",
+         comment = c(ORCID = "0000-0003-3314-8223"))
+  )
 Description: Provides functions and classes to compute, handle and visualise incidence from dated events for a defined time interval. Dates can be provided in various standard formats. The class 'incidence' is used to store computed incidence and can be easily manipulated, subsetted, and plotted. In addition, log-linear models can be fitted to 'incidence' objects using 'fit'. This package is part of the RECON (<http://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.
 Encoding: UTF-8
 License: MIT + file LICENSE

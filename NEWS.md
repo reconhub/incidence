@@ -1,4 +1,4 @@
-incidence 1.5.4 unreleased
+incidence 1.5.4 (2019-01-15)
 ============================
 
 ### BUG FIX
