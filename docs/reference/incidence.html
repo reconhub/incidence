@@ -68,7 +68,7 @@ and 2, the second interval includes 3, 4 and 5 etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.4</span>
       </span>
     </div>
 
@@ -160,6 +160,11 @@ and 2, the second interval includes 3, 4 and 5 etc.</p>
   <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for character</span>
+<span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for integer</span>
 <span class='fu'>incidence</span>(<span class='no'>dates</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>na_as_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>last_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
@@ -182,14 +187,15 @@ and 2, the second interval includes 3, 4 and 5 etc.</p>
     <tr>
       <th>dates</th>
       <td><p>A vector of dates, which can be provided as objects of the
-class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
-floored with a warning.</p></td>
+class: integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note
+about <code>numeric</code> and <code>character</code> formats)</p></td>
     </tr>
     <tr>
       <th>interval</th>
-      <td><p>An integer or character indicating the (fixed) size of the time interval
-used for computing the incidence; defaults to 1 day. This can also be a text string that corresponds to a valid date
-interval: day, week, month, quarter, or year. See Note.</p></td>
+      <td><p>An integer or character indicating the (fixed) size of the
+time interval used for computing the incidence; defaults to 1 day. This can
+also be a text string that corresponds to a valid date interval: day, week,
+month, quarter, or year. (See Note)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -251,24 +257,33 @@ vignette:<br /> <code><a href='../articles/incidence_class.html'>vignette("incid
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>If <code>interval</code> is a valid character (e.g. "week" or "month"), then
+    <h3>Input data (<code>dates</code>)</h3>
+    <ul>
+<li><p><strong>Decimal (numeric) dates</strong>: will be truncated with a warning</p></li>
+<li><p><strong>Character dates</strong> should be in the unambiguous <code>yyyy-mm-dd</code> (ISO 8601)
+format. Any other format will trigger an error.</p></li>
+</ul>
+    <h3>Interval specification (<code>interval</code>)</h3>
+    If <code>interval</code> is a valid character (e.g. "week" or "month"), then
 the bin will start at the beginning of the interval just before the first
 observation by default. For example, if the first case was recorded on
-Wednesday, 2018-05-09:</p><ul>
+Wednesday, 2018-05-09:
+<ul>
 <li><p>"week"    : first day of the ISOweek (i.e. Monday, 2018-05-07)</p></li>
 <li><p>"month"   : first day of the month (i.e. 2018-05-01)</p></li>
 <li><p>"quarter" : first day of the quarter (i.e. 2018-04-01)</p></li>
 <li><p>"year"    : first day of the calendar year (i.e. 2018-01-01)</p></li>
 </ul>
-    <p>These default intervals can be overridden in two ways:</p><ol>
+    These default intervals can be overridden in two ways:
+<ol>
 <li><p>Specify <code>standard = FALSE</code>, which sets the interval to begin at the first
 observed case.</p></li>
 <li><p>Specify a date in the <code>first_date</code> field.</p></li>
 </ol>
-    <p>The intervals for "month", "quarter", and "year" will necessarily vary in the
+    The intervals for "month", "quarter", and "year" will necessarily vary in the
 number of days they encompass and warnings will be generated when the first
 date falls outside of a calendar date that is easily represented across the
-interval.</p>
+interval.
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -442,7 +457,7 @@ class.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
