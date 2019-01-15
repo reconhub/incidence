@@ -4,6 +4,7 @@
 \alias{incidence}
 \alias{incidence.default}
 \alias{incidence.Date}
+\alias{incidence.character}
 \alias{incidence.integer}
 \alias{incidence.numeric}
 \alias{incidence.POSIXt}
@@ -15,6 +16,10 @@ incidence(dates, interval = 1L, ...)
 \method{incidence}{default}(dates, interval = 1L, ...)
 
 \method{incidence}{Date}(dates, interval = 1L, standard = TRUE,
+  groups = NULL, na_as_group = TRUE, first_date = NULL,
+  last_date = NULL, ...)
+
+\method{incidence}{character}(dates, interval = 1L, standard = TRUE,
   groups = NULL, na_as_group = TRUE, first_date = NULL,
   last_date = NULL, ...)
 
@@ -32,12 +37,13 @@ incidence(dates, interval = 1L, ...)
 }
 \arguments{
 \item{dates}{A vector of dates, which can be provided as objects of the
-class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
-floored with a warning.}
+class: integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note
+about \code{numeric} and \code{character} formats)}
 
-\item{interval}{An integer or character indicating the (fixed) size of the time interval
-used for computing the incidence; defaults to 1 day. This can also be a text string that corresponds to a valid date
-interval: day, week, month, quarter, or year. See Note.}
+\item{interval}{An integer or character indicating the (fixed) size of the
+time interval used for computing the incidence; defaults to 1 day. This can
+also be a text string that corresponds to a valid date interval: day, week,
+month, quarter, or year. (See Note)}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
 
@@ -90,6 +96,15 @@ For details about the \code{incidence class}, see the dedicated
 vignette:\cr \code{vignette("incidence_class", package = "incidence")}
 }
 \note{
+\subsection{Input data (\code{dates})}{
+\itemize{
+\item \strong{Decimal (numeric) dates}: will be truncated with a warning
+\item \strong{Character dates} should be in the unambiguous \code{yyyy-mm-dd} (ISO 8601)
+format. Any other format will trigger an error.
+}
+}
+
+\subsection{Interval specification (\code{interval})}{
 If \code{interval} is a valid character (e.g. "week" or "month"), then
 the bin will start at the beginning of the interval just before the first
 observation by default. For example, if the first case was recorded on
@@ -112,6 +127,7 @@ The intervals for "month", "quarter", and "year" will necessarily vary in the
 number of days they encompass and warnings will be generated when the first
 date falls outside of a calendar date that is easily represented across the
 interval.
+}
 }
 \examples{
 ## toy example

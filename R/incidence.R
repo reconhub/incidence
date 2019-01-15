@@ -8,12 +8,13 @@
 #' and 2, the second interval includes 3, 4 and 5 etc.
 #'
 #' @param dates A vector of dates, which can be provided as objects of the
-#' class: integer, numeric, Date, POSIXct. Note that decimal numbers will be
-#' floored with a warning.
+#' class: integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note 
+#' about `numeric` and `character` formats) 
 #'
-#' @param interval An integer or character indicating the (fixed) size of the time interval
-#' used for computing the incidence; defaults to 1 day. This can also be a text string that corresponds to a valid date
-#' interval: day, week, month, quarter, or year. See Note.
+#' @param interval An integer or character indicating the (fixed) size of the
+#' time interval used for computing the incidence; defaults to 1 day. This can
+#' also be a text string that corresponds to a valid date interval: day, week,
+#' month, quarter, or year. (See Note)
 #'
 #' @param groups An optional factor defining groups of observations for which
 #' incidence should be computed separately.
@@ -54,7 +55,14 @@
 #' @details For details about the `incidence class`, see the dedicated
 #' vignette:\cr `vignette("incidence_class", package = "incidence")`
 #'
-#' @note If `interval` is a valid character (e.g. "week" or "month"), then
+#' @note \subsection{Input data (`dates`)}{
+#'  - **Decimal (numeric) dates**: will be truncated with a warning
+#'  - **Character dates** should be in the unambiguous `yyyy-mm-dd` (ISO 8601)
+#'   format. Any other format will trigger an error.
+#' }
+#' 
+#' \subsection{Interval specification (`interval`)}{
+#' If `interval` is a valid character (e.g. "week" or "month"), then
 #' the bin will start at the beginning of the interval just before the first
 #' observation by default. For example, if the first case was recorded on
 #' Wednesday, 2018-05-09:
@@ -74,6 +82,7 @@
 #' number of days they encompass and warnings will be generated when the first
 #' date falls outside of a calendar date that is easily represented across the
 #' interval.
+#' }
 #'
 #' @seealso
 #' The main other functions of the package include:
@@ -155,12 +164,7 @@ incidence <- function(dates, interval = 1L, ...) {
 #' @export
 #' @rdname incidence
 incidence.default <- function(dates, interval = 1L, ...) {
-  if (is.character(dates)) {
-    stop('Input is a character. Did you forget to convert to Date?')
-  }
-  check_dates(dates)
-  msg <- "Unknown date input; accepted formats are Date, POSIXct, integer, numeric."
-  stop(msg)
+  incidence(check_dates(dates), interval = interval, ...)
 }
 
 #' @export
@@ -200,6 +204,32 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
 }
 
 
+#' @export
+#' @rdname incidence
+incidence.character <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
+                           na_as_group = TRUE, first_date = NULL,
+                           last_date = NULL, ...) {
+  iso_std <- grepl("^[0-9]{4}-[01][0-9]-[0-3][0-9]$", trimws(dates))
+  iso_std[is.na(dates)] <- TRUE # prevent false alarms
+  if (!all(iso_std)) {
+    msg <- paste("Not all dates are in ISO 8601 standard format (yyyy-mm-dd).",
+                 "The first incorrect date is %s"
+    )
+    stop(sprintf(msg, dates[!iso_std][1]))
+  }
+  dots  <- check_dots(list(...), names(formals(incidence.Date)))
+  dates <- check_dates(dates)
+
+  ret <- incidence(as.Date(trimws(dates)),
+                   interval = interval,
+                   standard = standard,
+                   groups = groups,
+                   na_as_group = na_as_group,
+                   first_date = first_date,
+                   last_date = last_date,
+                   ...)
+  ret
+}
 ## The default incidence is designed for dates provided as integers, and a fixed
 ## time interval defaulting to 1. 'bins' are time intervals, identified by the
 ## left date, left-inclusive and right-exclusive, i.e. the time interval defined
