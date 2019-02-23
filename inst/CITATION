@@ -1,0 +1,44 @@
+citHeader("To cite the incidence package in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Epidemic curves made easy using the R package incidence [version 1; referees: awaiting peer review]",
+  author       = personList(as.person("Zhian N. Kamvar"),
+                   as.person("Jun Cai"),
+                   as.person("Juliet R.C. Pulliam"),
+                   as.person("Jakob Schumacher"),
+                   as.person("Thibaut Jombart")),
+  journal      = "F1000Research",
+  year         = "2019",
+  volume       = "8",
+  number       = "139",
+  url          = "https://doi.org/10.12688/f1000research.18002.1)",
+
+  textVersion  =
+  paste("Kamvar ZN, Cai J, Pulliam JRC, Schumacher J, Jombart T.",
+        "Epidemic curves made easy using the R package incidence [version 1; referees: awaiting peer review].",
+        "F1000Research 2019, 8:139.",
+        "URL https://doi.org/10.12688/f1000research.18002.1.")
+)
+
+
+year = sub('.*(2[[:digit:]]{3})-.*', '\\1', meta$Date, perl = TRUE)
+vers = paste('R package version', meta$Version)
+
+citEntry(
+  entry = 'manual',
+  title = paste('incidence:', meta$Title),
+  author = personList(as.person("Thibaut Jombart"),
+                             as.person("Zhian N. Kamvar"),
+                             as.person("Rich FitzJohn"),
+                             as.person("Jun Cai"),
+                             as.person("Sangeeta Bhatia"),
+                             as.person("Jakob Schumacher"),
+                             as.person("Juliet R.C. Pulliam")),
+  year = year,
+  note = vers,
+  url = meta$URL,
+  textVersion = paste('Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn, Jun Cai, ',
+  'Sangeeta Bhatia, Jakob Schumacher and Juliet R.C. Pulliam (',
+  year, '). incidence: ', meta$Title, '. ', vers, '.', sep = ''),
+  header = "To cite the specific version of incidence package in publications use:"
+)
