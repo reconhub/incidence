@@ -24,11 +24,9 @@ count.dates <- function(dates, breaks){
 
 make_iso_breaks <- function(dates, n = 5) {
   breaks_ini <- pretty(dates, n)
-  iso <- ISOweek::date2ISOweek(breaks_ini)
-  iso_day1 <- sub("-[1-7]+$", "-1", iso)
-  list(breaks = ISOweek::ISOweek2date(iso_day1),
-       labels = sub("-[1-7]+$", "", iso)
-       )
+  iso        <- aweek::date2week(breaks_ini, 1L, floor_day = TRUE)
+  list(breaks = aweek::week2date(iso), 
+       labels = as.character(iso)) 
 }
 
 ## Implement isTRUE and isFALSE to avoid dep on R 3.5.0

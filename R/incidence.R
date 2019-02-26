@@ -197,7 +197,7 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
                         ...)
   if (check_week(interval) && standard) {
     # dates are the first days of corresponding ISOweeks.
-    out$isoweeks <- substr(ISOweek::date2ISOweek(out$dates), 1, 8)
+    out$isoweeks <- as.character(aweek::date2week(out$dates, 1L, floor_day = TRUE))
   }
 
   out

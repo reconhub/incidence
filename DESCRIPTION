@@ -21,7 +21,7 @@ BugReports: http://github.com/reconhub/incidence/issues
 RoxygenNote: 6.1.1
 Imports:
     ggplot2, 
-    ISOweek
+    aweek
 Suggests:
     magrittr,
     outbreaks,
@@ -32,5 +32,7 @@ Suggests:
     rmarkdown,
     scales,
     cowplot
+Remotes:
+  zkamvar/aweek
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

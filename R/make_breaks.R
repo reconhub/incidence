@@ -37,13 +37,10 @@ make_breaks_easier <- function(dates, the_interval, first_date = NULL,
     if (isTRUE(dots$standard) && null_first_date) {
       is_a_week <- !uneven_interval && check_week(the_interval)
       if (is_a_week) {
-        # This returns something like 2018-W29-2, where the last digit indicates
-        # the day of the week
-        first_isoweek <- ISOweek::date2ISOweek(first_date)
-        # Here, we force it to be the start of the week
-        substr(first_isoweek, 10, 10) <- "1"
-        # and convert it back
-        first_date <- ISOweek::ISOweek2date(first_isoweek)
+        # This returns something like 2018-W29
+        first_isoweek <- aweek::date2week(first_date, 1L, floor_day = TRUE)
+        # here we convert it back to a date
+        first_date    <- aweek::week2date(first_isoweek)
       }
       if (uneven_interval) {
         # Replace the day with the first day of the month
