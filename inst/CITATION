@@ -36,9 +36,9 @@ citEntry(
                              as.person("Juliet R.C. Pulliam")),
   year = year,
   note = vers,
-  url = meta$URL,
+  url = "https://doi.org/10.5281/zenodo.2540217", 
   textVersion = paste('Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn, Jun Cai, ',
   'Sangeeta Bhatia, Jakob Schumacher and Juliet R.C. Pulliam (',
-  year, '). incidence: ', meta$Title, '. ', vers, '.', sep = ''),
+  year, '). incidence: ', meta$Title, '. ', vers, '. URL https://doi.org/10.5281/zenodo.2540217', sep = ''),
   header = "To cite the specific version of incidence package in publications use:"
 )
