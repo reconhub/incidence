@@ -68,7 +68,7 @@ and 2, the second interval includes 3, 4 and 5 etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -206,7 +206,7 @@ month, quarter, or year. (See Note)</p></td>
       <td><p>(Only applicable to Date objects) When <code>TRUE</code> (default) and the
 <code>interval</code> one of "week", "month", "quarter", or "year", then this will
 cause the bins for the counts to start at the beginning of the interval
-(See Note). This is overridden by defining a non-NULL <code>first_date</code>.</p></td>
+(See Note).</p></td>
     </tr>
     <tr>
       <th>groups</th>
@@ -274,12 +274,15 @@ Wednesday, 2018-05-09:
 <li><p>"quarter" : first day of the quarter (i.e. 2018-04-01)</p></li>
 <li><p>"year"    : first day of the calendar year (i.e. 2018-01-01)</p></li>
 </ul>
-    These default intervals can be overridden in two ways:
-<ol>
-<li><p>Specify <code>standard = FALSE</code>, which sets the interval to begin at the first
-observed case.</p></li>
-<li><p>Specify a date in the <code>first_date</code> field.</p></li>
-</ol>
+    These default intervals can be overridden with <code>standard = FALSE</code>, which
+sets the interval to begin at the first observed case.
+    <h3>The <code>first_date</code> argument</h3>
+    Previous versions of <em>incidence</em> had the <code>first_date</code> argument override
+<code>standard = TRUE</code>. It has been changed as of <em>incidence</em> version 1.6.0 to
+be more consistent with the behavior when <code>first_date = NULL</code>. This, however
+may be a change in behaviour, so a warning is now issued once and only once
+if <code>first_date</code> is specified, but <code>standard</code> is not. To never see this
+warning, use <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options(incidence.warn.first_date = FALSE)</a></code>.
     The intervals for "month", "quarter", and "year" will necessarily vary in the
 number of days they encompass and warnings will be generated when the first
 date falls outside of a calendar date that is easily represented across the
@@ -329,7 +332,7 @@ class.</p></li>
 #&gt; </div><div class='input'>
 <span class='co'>## example using simulated dataset</span>
 <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>outbreaks</span>)) { <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/source'>withAutoprint</a></span>({
-  <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
+  <span class='no'>onset</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>outbreaks</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/outbreaks/topics/ebola_sim'>ebola_sim</a></span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
   <span class='co'>## daily incidence</span>
   <span class='no'>inc</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>)
@@ -353,7 +356,7 @@ class.</p></li>
   <span class='no'>inc.isoweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
                                   <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
   <span class='no'>inc.isoweek.gender</span>
-})}</div><div class='output co'>#&gt; &gt; onset &lt;- ebola_sim$linelist$date_of_onset
+})}</div><div class='output co'>#&gt; &gt; onset &lt;- outbreaks::ebola_sim$linelist$date_of_onset
 #&gt; &gt; inc &lt;- incidence(onset)
 #&gt; &gt; inc
 #&gt; &lt;incidence object&gt;
@@ -427,8 +430,20 @@ class.</p></li>
 #&gt; $timespan: 386 days
 #&gt; $cumulative: FALSE
 #&gt; </div><div class='input'>
+<span class='co'># Use of first_date</span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>() + <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(-<span class='fl'>3</span>:<span class='fl'>10</span>, <span class='fl'>10</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-</div></pre>
+<span class='co'># `standard` specified, no warning</span>
+<span class='no'>di</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>d</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>() - <span class='fl'>10</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'># warning issued if `standard` not specified</span>
+<span class='no'>di</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>d</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>() - <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>As of incidence version 1.6.0, the default behavior has been modified so that `first_date` no longer overrides `standard`. If you want to use Sys.Date() - 10 as the precise `first_date`, set `standard = FALSE`.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>To remove this warning in the future,  explicitly set the `standard` argument OR use `options(incidence.warn.first_date = FALSE)`</span></div><div class='input'>
+<span class='co'># second instance: no warning issued</span>
+<span class='no'>di</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>d</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>() - <span class='fl'>10</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

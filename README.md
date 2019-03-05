@@ -251,7 +251,7 @@ i.7.outcome
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
 #> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
-#> [3 groups: Death, NA, Recover]
+#> [3 groups: Death, Recover, NA]
 #> 
 #> $counts: matrix with 56 rows and 3 columns
 #> $n: 5888 cases in total
@@ -272,7 +272,7 @@ i.7.outcome.cum
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
 #> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
-#> [3 groups: Death, NA, Recover]
+#> [3 groups: Death, Recover, NA]
 #> 
 #> $counts: matrix with 56 rows and 3 columns
 #> $n: 5888 cases in total
