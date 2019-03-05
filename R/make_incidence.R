@@ -35,16 +35,14 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
   groups   <- check_groups(groups, dates, na_as_group)
 
   ## Check the interval and arrange the breaks
-  null_first_date <- is.null(first_date)
-  first_date      <- check_boundaries(dates, first_date, "first")
-  last_date       <- check_boundaries(dates, last_date, "last")
-  breaks          <- make_breaks_easier(dates,
-                                        the_interval    = interval,
-                                        first_date      = first_date,
-                                        last_date       = last_date,
-                                        dots            = dots,
-                                        null_first_date = null_first_date
-                                        )
+  first_date <- check_boundaries(dates, first_date, "first")
+  last_date  <- check_boundaries(dates, last_date, "last")
+  breaks     <- make_breaks_easier(dates,
+                                   the_interval    = interval,
+                                   first_date      = first_date,
+                                   last_date       = last_date,
+                                   dots            = dots
+                                   )
 
   ## Trim the dates and groups as necessary
   trimmed <- trim_observations(dates, first_date, last_date)

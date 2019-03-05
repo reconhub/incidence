@@ -160,7 +160,7 @@ test_that("construction - Date input", {
   )
   x.yr.iso <- incidence(dat.yr, "year")
   x.yr     <- incidence(dat.yr, "year", standard = FALSE)
-  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29")),
+  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29"), standard = FALSE),
                  "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
   )
   expect_equal(get_dates(x.yr.iso), as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01")))
