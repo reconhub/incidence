@@ -171,13 +171,13 @@ if(require(outbreaks)) { withAutoprint({
 d <- Sys.Date() + sample(-3:10, 10, replace = TRUE)
 
 # `standard` specified, no warning
-di <- incidence(d, first_date = Sys.Date() - 10, standard = TRUE)
+di <- incidence(d, interval = "week", first_date = Sys.Date() - 10, standard = TRUE)
 
 # warning issued if `standard` not specified
-di <- incidence(d, first_date = Sys.Date() - 10)
+di <- incidence(d, interval = "week", first_date = Sys.Date() - 10)
 
-# secon instance: no warning issued
-di <- incidence(d, first_date = Sys.Date() - 10)
+# second instance: no warning issued
+di <- incidence(d, interval = "week", first_date = Sys.Date() - 10)
 
 
 }
