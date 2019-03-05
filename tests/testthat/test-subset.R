@@ -3,8 +3,12 @@ context("Subset of incidence objects")
 test_that("[ operator for incidence objects", {
   skip_on_cran()
 
-  set.seed(123)
-  dat <- as.integer(sample(-3:10, 50, replace = TRUE))
+  dat <- c(1L, 8L, 2L, 9L, 10L, -3L, 4L, 9L, 4L, 3L, 10L, 3L, 6L, 5L, -2L, 9L,
+           0L, -3L, 1L, 10L, 9L, 6L, 5L, 10L, 6L, 6L, 4L, 5L, 1L, -1L, 10L, 9L,
+           6L, 8L, -3L, 3L, 7L, 0L, 1L, 0L, -2L, 2L, 2L, 2L, -1L, -2L, 0L, 3L,
+           0L, 9L)
+  # set.seed(123)
+  # dat <- as.integer(sample(-3:10, 50, replace = TRUE))
   x <- incidence(dat)
   y <- incidence(dat + as.Date("2016-01-12"), 7L)
 
@@ -25,8 +29,12 @@ test_that("[ operator for incidence objects", {
 test_that("subset for incidence objects", {
   skip_on_cran()
 
-  set.seed(123)
-  dat <- as.integer(sample(-3:10, 50, replace = TRUE))
+  dat <- c(1L, 8L, 2L, 9L, 10L, -3L, 4L, 9L, 4L, 3L, 10L, 3L, 6L, 5L, -2L, 9L,
+           0L, -3L, 1L, 10L, 9L, 6L, 5L, 10L, 6L, 6L, 4L, 5L, 1L, -1L, 10L, 9L,
+           6L, 8L, -3L, 3L, 7L, 0L, 1L, 0L, -2L, 2L, 2L, 2L, -1L, -2L, 0L, 3L,
+           0L, 9L)
+  # set.seed(123)
+  # dat <- as.integer(sample(-3:10, 50, replace = TRUE))
   x <- incidence(dat)
 
   x.sub3 <- subset(x, from = 0)
