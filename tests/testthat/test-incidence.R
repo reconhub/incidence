@@ -113,9 +113,16 @@ test_that("construction - Date input", {
   expect_message(x.i.trim  <- incidence(dat, first_date = 0),
                  "[0-9]+ observations outside of \\[0, [0-9]+\\] were removed."
   )
-  expect_message(x.d.trim  <- incidence(dat_dates, first_date = "2016-01-01"),
-                 "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed."
-  )
+  expect_warning({
+  expect_message({
+    x.d.trim  <- incidence(dat_dates, first_date = "2016-01-01")
+  }, "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed.")
+  }, "options\\(incidence.warn.first_date = FALSE\\)")
+  expect_message({
+  expect_failure(expect_warning({
+    x.d.trim  <- incidence(dat_dates, first_date = "2016-01-01")
+  }, "options\\(incidence.warn.first_date = FALSE\\)"))
+  }, "[0-9]+ observations outside of \\[2016-01-01, [-0-9]{10}\\] were removed.")
   x.7       <- incidence(dat_dates, 7L, standard = FALSE)
   x.7.iso   <- incidence(dat_dates, "week")
   x.7.week  <- incidence(dat_dates, "week", standard = FALSE)
@@ -166,7 +173,7 @@ test_that("construction - Date input", {
   )
   x.yr.iso <- incidence(dat.yr, "year")
   x.yr     <- incidence(dat.yr, "year", standard = FALSE)
-  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29")),
+  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29"), standard = FALSE),
                  "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
   )
   expect_equal(get_dates(x.yr.iso), as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01")))

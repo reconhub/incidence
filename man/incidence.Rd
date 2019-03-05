@@ -50,7 +50,7 @@ month, quarter, or year. (See Note)}
 \item{standard}{(Only applicable to Date objects) When \code{TRUE} (default) and the
 \code{interval} one of "week", "month", "quarter", or "year", then this will
 cause the bins for the counts to start at the beginning of the interval
-(See Note). This is overridden by defining a non-NULL \code{first_date}.}
+(See Note).}
 
 \item{groups}{An optional factor defining groups of observations for which
 incidence should be computed separately.}
@@ -116,11 +116,16 @@ Wednesday, 2018-05-09:
 \item "year"    : first day of the calendar year (i.e. 2018-01-01)
 }
 
-These default intervals can be overridden in two ways:
-\enumerate{
-\item Specify \code{standard = FALSE}, which sets the interval to begin at the first
-observed case.
-\item Specify a date in the \code{first_date} field.
+These default intervals can be overridden with \code{standard = FALSE}, which
+sets the interval to begin at the first observed case.
+
+\subsection{The \code{first_date} argument}{
+Previous versions of \emph{incidence} had the \code{first_date} argument override
+\code{standard = TRUE}. It has been changed as of \emph{incidence} version 1.6.0 to
+be more consistent with the behavior when \code{first_date = NULL}. This, however
+may be a change in behaviour, so a warning is now issued once and only once
+if \code{first_date} is specified, but \code{standard} is not. To never see this
+warning, use \code{options(incidence.warn.first_date = FALSE)}.
 }
 
 The intervals for "month", "quarter", and "year" will necessarily vary in the
@@ -136,7 +141,7 @@ incidence(c(1, 5, 8, 3, 7, 2, 4, 6, 9, 2), 2)
 
 ## example using simulated dataset
 if(require(outbreaks)) { withAutoprint({
-  onset <- ebola_sim$linelist$date_of_onset
+  onset <- outbreaks::ebola_sim$linelist$date_of_onset
 
   ## daily incidence
   inc <- incidence(onset)
@@ -161,6 +166,18 @@ if(require(outbreaks)) { withAutoprint({
                                   groups = sex, standard = TRUE)
   inc.isoweek.gender
 })}
+
+# Use of first_date
+d <- Sys.Date() + sample(-3:10, 10, replace = TRUE)
+
+# `standard` specified, no warning
+di <- incidence(d, interval = "week", first_date = Sys.Date() - 10, standard = TRUE)
+
+# warning issued if `standard` not specified
+di <- incidence(d, interval = "week", first_date = Sys.Date() - 10)
+
+# second instance: no warning issued
+di <- incidence(d, interval = "week", first_date = Sys.Date() - 10)
 
 
 }

@@ -1,8 +1,8 @@
 Package: incidence
 Type: Package
 Title: Compute, Handle, Plot and Model Incidence of Dated Events
-Version: 1.5.4.99
-Date: 2019-02-23
+Version: 1.6.0
+Date: 2019-03-05
 Authors@R: c(
   person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com"), 
   person("Zhian N.", "Kamvar", role = c("aut", "cre"), email = "zkamvar@gmail.com",
