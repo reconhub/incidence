@@ -72,11 +72,17 @@
 #'  - "quarter" : first day of the quarter (i.e. 2018-04-01)
 #'  - "year"    : first day of the calendar year (i.e. 2018-01-01)
 #'
-#' These default intervals can be overridden in two ways:
+#' These default intervals can be overridden with `standard = FALSE`, which
+#' sets the interval to begin at the first observed case.
 #'
-#'  1. Specify `standard = FALSE`, which sets the interval to begin at the first
-#'     observed case.
-#'  2. Specify a date in the `first_date` field.
+#' \subsection{The `first_date` argument}{
+#' Previous versions of _incidence_ had the `first_date` argument override
+#' `standard = TRUE`. It has been changed as of _incidence_ version 1.6.0 to
+#' be more consistent with the behavior when `first_date = NULL`. This, however
+#' may be a change in behaviour, so a warning is now issued once and only once
+#' if `first_date` is specified, but `standard` is not. To never see this
+#' warning, use `options(incidence.warn.first_date = FALSE)`. 
+#' }
 #'
 #' The intervals for "month", "quarter", and "year" will necessarily vary in the
 #' number of days they encompass and warnings will be generated when the first
@@ -129,7 +135,7 @@
 #'
 #' ## example using simulated dataset
 #' if(require(outbreaks)) { withAutoprint({
-#'   onset <- ebola_sim$linelist$date_of_onset
+#'   onset <- outbreaks::ebola_sim$linelist$date_of_onset
 #'
 #'   ## daily incidence
 #'   inc <- incidence(onset)
@@ -154,6 +160,18 @@
 #'                                   groups = sex, standard = TRUE)
 #'   inc.isoweek.gender
 #' })}
+#' 
+#' # Use of first_date
+#' d <- Sys.Date() + sample(-3:10, 10, replace = TRUE)
+#' 
+#' # `standard` specified, no warning
+#' di <- incidence(d, first_date = Sys.Date() - 10, standard = TRUE)
+#'
+#' # warning issued if `standard` not specified
+#' di <- incidence(d, first_date = Sys.Date() - 10)
+#'
+#' # secon instance: no warning issued
+#' di <- incidence(d, first_date = Sys.Date() - 10)
 #'
 #'
 incidence <- function(dates, interval = 1L, ...) {
@@ -173,11 +191,24 @@ incidence.default <- function(dates, interval = 1L, ...) {
 #' @param standard (Only applicable to Date objects) When `TRUE` (default) and the
 #'   `interval` one of "week", "month", "quarter", or "year", then this will
 #'   cause the bins for the counts to start at the beginning of the interval
-#'   (See Note). This is overridden by defining a non-NULL `first_date`.
+#'   (See Note). 
 
 incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
+  the_call <- match.call()
+  warnme <- getOption('incidence.warn.first_date', FALSE) 
+  if (warnme && !is.null(the_call[["first_date"]]) && is.null(the_call[["standard"]])) {
+    fd  <- as.character(deparse(the_call[["first_date"]]))
+    msg <- "\n\nAs of incidence version 1.6.0, the default behavior has been"
+    msg <- paste(msg, "modified so that `first_date` no longer overrides")
+    msg <- paste(msg, "`standard`. If you want to use %s as the precise")
+    msg <- paste(msg, "`first_date`, set `standard = FALSE`.")
+    msg <- paste(msg, "To remove this warning in the future,  explicitly set the `standard` argument OR use `options(incidence.warn.first_date = FALSE)`\n", sep = "\n\n")
+    warning(sprintf(msg, fd))
+    # turn the warning off so that it's not so noisy
+    options(incidence.warn.first_date = FALSE)
+  }
   dots <- check_dots(list(...), names(formals(incidence.Date)))
   ## make sure input can be used
   if (!is.logical(standard)) {
