@@ -33,6 +33,6 @@ Suggests:
     scales,
     cowplot
 Remotes:
-  zkamvar/aweek
+  reconhub/aweek
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
