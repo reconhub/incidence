@@ -79,10 +79,16 @@ test_that("construction - ISO week", {
 
 test_that("construction - numeric input", {
 
-
+  
   ## USING DAILY INCIDENCE
-  set.seed(1)
-  dat_int <- sample(-3:10, 100, replace = TRUE)
+  dat_int <- c(0L, 2L, 5L, 9L, -1L, 9L, 10L, 6L, 5L, -3L, -1L, -1L, 6L, 2L, 7L,
+               3L, 7L, 10L, 2L, 7L, 10L, -1L, 6L, -2L, 0L, 2L, -3L, 2L, 9L, 1L,
+               3L, 5L, 3L, -1L, 8L, 6L, 8L, -2L, 7L, 2L, 8L, 6L, 7L, 4L, 4L,
+               8L, -3L, 3L, 7L, 6L, 3L, 9L, 3L, 0L, -3L, -2L, 1L, 4L, 6L, 2L,
+               9L, 1L, 3L, 1L, 6L, 0L, 3L, 7L, -2L, 9L, 1L, 8L, 1L, 1L, 3L, 9L,
+               9L, 2L, 7L, 10L, 3L, 6L, 2L, 1L, 7L, -1L, 6L, -2L, 0L, -1L, 0L,
+               -3L, 5L, 9L, 7L, 8L, 3L, 2L, 8L, 5L)
+
   dat_num <- dat_int + 0.1
 
   msg <- paste0("Flooring from non-integer date caused approximations:\n",
