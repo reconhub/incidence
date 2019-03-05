@@ -1,4 +1,4 @@
-incidence 1.6.0 unreleased
+incidence 1.6.0 (2019-03-05) 
 ============================
 
 ### BEHAVIORAL CHANGE
@@ -10,10 +10,13 @@ incidence 1.6.0 unreleased
   `options(incidence.warn.first_date = FALSE)`. See
   https://github.com/reconhub/incidence/issues/87 for details.  
 
-### CITATION ADDED
+### MISC
 
 * `citation("incidence")` will now give the proper citation for our article in
-  F1000 research and the global DOI for archived code. 
+  F1000 research and the global DOI for archived code. See
+  https://github.com/reconhub/incidence/pulls/106
+* Tests have been updated to avoid randomisation errors on R 3.6.0
+  See https://github.com/reconhub/incidence/issues/107
 
 
 incidence 1.5.4 (2019-01-15)
