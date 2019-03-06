@@ -272,10 +272,15 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## compatible with the old, and the new version of ggplot2, to be released 15
   ## June 2018.
 
-  breaks <- pretty(x$dates, n_breaks)
+  if (!is.null(x$weeks)) {
+    breaks_info <- make_iso_breaks(x$dates, n_breaks, attr(x$weeks, "week_start"))
+    breaks <- breaks_info$breaks
+    # browser()
+  } else {
+    breaks <- pretty(x$dates, n_breaks)
+  }
 
-  if (labels_iso && "isoweeks" %in% names(x)) {
-    breaks_info <- make_iso_breaks(x$dates, n_breaks)
+  if (labels_iso && !is.null(x$weeks)) {
     out <- out + ggplot2::scale_x_date(breaks = breaks_info$breaks,
                                        labels = breaks_info$labels)
   } else {
