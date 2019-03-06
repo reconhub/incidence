@@ -61,13 +61,12 @@ get_interval.incidence <- function(x, integer = TRUE, ...) {
     return(x$interval)
   }
   if (is.character(x$interval)) {
-    res <- switch(x$interval,
-                  day     = 1L,
-                  week    = 7L,
-                  month   = get_days_in_month(x$dates),
-                  quarter = get_days_in_quarter(x$dates),
-                  year    = get_days_in_year(x$dates)
-                 )
+    res <- NULL
+    res <- if (grepl("day", x$interval))     1L else res
+    res <- if (grepl("week", x$interval))    7L else res
+    res <- if (grepl("month", x$interval))   get_days_in_month(x$dates) else res
+    res <- if (grepl("quarter", x$interval)) get_days_in_quarter(x$dates) else res
+    res <- if (grepl("year", x$interval))    get_days_in_year(x$dates) else res
     return(res)
   } else {
     stop(sprintf("I don't know how to convert a %s to an integer",
