@@ -5,9 +5,14 @@ print.incidence <- function(x, ...) {
   cat("<incidence object>\n")
   cat(sprintf("[%d cases from days %s to %s]\n",
               sum(x$n), min(x$dates), max(x$dates)))
-  if ("isoweeks" %in% names(x)) {
-    cat(sprintf("[%d cases from ISO weeks %s to %s]\n",
-                sum(x$n), head(x$isoweeks, 1), tail(x$isoweeks, 1)))
+  if ("weeks" %in% names(x)) {
+    type_of_week <- switch(as.character(attr(x$weeks, "week_start")),
+                           "1" = "ISO",
+                           "7" = "MMWR",
+                           sprintf("(%s)", weekdays(x$dates[1]))
+                          )
+    cat(sprintf("[%d cases from %s weeks %s to %s]\n",
+                sum(x$n), type_of_week, head(x$weeks, 1), tail(x$weeks, 1)))
   }
   if (!is.null(group_names(x))) {
     groups.txt <- paste(group_names(x), collapse = ", ")
