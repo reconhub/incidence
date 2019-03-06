@@ -41,6 +41,7 @@ get_week_start <- function(weekday) {
 get_week_duration <- function(the_interval) {
 
   if (the_interval == 7) return(the_interval)
-  gsub('^(\\d*) .*(weeks?).*$', '\\1 \\2', tolower(the_interval), perl = TRUE)
+  res <- gsub('^(\\d*) ?.*(weeks?).*$', '\\1 \\2', tolower(the_interval), perl = TRUE)
+  trimws(res)
 
 }
