@@ -25,6 +25,7 @@ get_week_start <- function(weekday) {
                 "iso"  = "monday", # ISOweek == WHO epiweek
                 wkdy # all others
                 )
+  res <- if (res == "") "week" else res
   res <- gsub("epi", "", res) # if they specify something like "epiweek:saturday"
   suppressWarnings(rn <- as.integer(res))
   if (is.na(rn)) res else rn
