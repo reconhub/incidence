@@ -1,5 +1,22 @@
-incidence 1.5.4.99 unreleased
+incidence 1.6.0 (2019-03-05) 
 ============================
+
+### BEHAVIORAL CHANGE
+
+* `incidence()` will no longer allow a non-standard `first_date` to override
+  `standard = TRUE. The first call to `incidence()` specifying `first_date` 
+  without `standard` will issue a warning. To use non-standard first dates, 
+  specify `standard = FALSE`. To remove the warning, use
+  `options(incidence.warn.first_date = FALSE)`. See
+  https://github.com/reconhub/incidence/issues/87 for details.  
+
+### MISC
+
+* `citation("incidence")` will now give the proper citation for our article in
+  F1000 research and the global DOI for archived code. See
+  https://github.com/reconhub/incidence/pulls/106
+* Tests have been updated to avoid randomisation errors on R 3.6.0
+  See https://github.com/reconhub/incidence/issues/107
 
 
 incidence 1.5.4 (2019-01-15)

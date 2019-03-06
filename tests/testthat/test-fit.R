@@ -3,10 +3,8 @@ context("Test fit functions")
 test_that("fit", {
   skip_on_cran()
 
-  set.seed(1)
-  dat <- c(sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1)),
-           sample(51:100, 200, replace = TRUE, prob = rev(1 + exp(1:50 * 0.1))))
-  sex <- sample(c("female", "male"), 400, replace = TRUE)
+  dat <- readRDS("data_cache/mfdat.rds")
+  sex <- readRDS("data_cache/mfcat.rds")
 
   i <- incidence(dat, 5L)
   i.sex <- incidence(dat, 5L, groups = sex)
@@ -27,10 +25,8 @@ test_that("fit", {
 test_that("fit_optim_split", {
   skip_on_cran()
 
-  set.seed(1)
-  dat <- c(sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1)),
-           sample(51:100, 200, replace = TRUE, prob = rev(1 + exp(1:50 * 0.1))))
-  sex <- sample(c("female", "male"), 400, replace = TRUE)
+  dat <- readRDS("data_cache/mfdat.rds")
+  sex <- readRDS("data_cache/mfcat.rds")
 
   i     <- incidence(dat, 5L)
   i.sex <- incidence(dat, 5L, groups = sex)

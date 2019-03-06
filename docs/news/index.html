@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -130,6 +130,30 @@
       
     </div>
 
+    <div id="incidence-1-6-0-2019-03-05" class="section level1">
+<h1 class="page-header">
+<a href="#incidence-1-6-0-2019-03-05" class="anchor"></a>incidence 1.6.0 (2019-03-05)<small> Unreleased </small>
+</h1>
+<div id="behavioral-change" class="section level3">
+<h3 class="hasAnchor">
+<a href="#behavioral-change" class="anchor"></a>BEHAVIORAL CHANGE</h3>
+<ul>
+<li>
+<code><a href="../reference/incidence.html">incidence()</a></code> will no longer allow a non-standard <code>first_date</code> to override <code>standard = TRUE. The first call to</code>incidence()<code>specifying</code>first_date<code>without</code>standard<code>will issue a warning. To use non-standard first dates,  specify</code>standard = FALSE<code>. To remove the warning, use</code>options(incidence.warn.first_date = FALSE)`. See <a href="https://github.com/reconhub/incidence/issues/87" class="uri">https://github.com/reconhub/incidence/issues/87</a> for details.</li>
+</ul>
+</div>
+<div id="misc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#misc" class="anchor"></a>MISC</h3>
+<ul>
+<li>
+<code><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation("incidence")</a></code> will now give the proper citation for our article in F1000 research and the global DOI for archived code. See <a href="https://github.com/reconhub/incidence/pulls/106" class="uri">https://github.com/reconhub/incidence/pulls/106</a>
+</li>
+<li>Tests have been updated to avoid randomisation errors on R 3.6.0 See <a href="https://github.com/reconhub/incidence/issues/107" class="uri">https://github.com/reconhub/incidence/issues/107</a>
+</li>
+</ul>
+</div>
+</div>
     <div id="incidence-1-5-4-2019-01-15" class="section level1">
 <h1 class="page-header">
 <a href="#incidence-1-5-4-2019-01-15" class="anchor"></a>incidence 1.5.4 (2019-01-15)<small> 2019-01-15 </small>
@@ -146,9 +170,9 @@
 <code><a href="../reference/plot.incidence.html">plot.incidence()</a></code> now plots in UTC by default for POSIXt incidence objects. this prevents a bug where different time zones would cause a shift in the bars (See <a href="https://github.com/reconhub/incidence/issues/99" class="uri">https://github.com/reconhub/incidence/issues/99</a>).</li>
 </ul>
 </div>
-<div id="misc" class="section level3">
+<div id="misc-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#misc" class="anchor"></a>MISC</h3>
+<a href="#misc-1" class="anchor"></a>MISC</h3>
 <ul>
 <li>A test that randomly failed on CRAN has been fixed. (See <a href="https://github.com/reconhub/incidence/issues/95" class="uri">https://github.com/reconhub/incidence/issues/95</a>).</li>
 <li>Plotting tests have been updated for new version of vdiffr (See <a href="https://github.com/reconhub/incidence/issues/96" class="uri">https://github.com/reconhub/incidence/issues/96</a>).</li>
@@ -171,9 +195,9 @@
 <code><a href="../reference/conversions.html">as.data.frame.incidence()</a></code> will now respect single groups. (See <a href="https://github.com/reconhub/incidence/issues/84" class="uri">https://github.com/reconhub/incidence/issues/84</a>)</li>
 </ul>
 </div>
-<div id="misc-1" class="section level3">
+<div id="misc-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>MISC</h3>
+<a href="#misc-2" class="anchor"></a>MISC</h3>
 <ul>
 <li>
 <code>demo("incidence-demo" package = "incidence")</code> has been updated to show use of custom colors.</li>
@@ -192,9 +216,9 @@
 <code><a href="../reference/incidence.html">print.incidence()</a></code> will now print isoweeks even if the <code>$interval</code> element is “week”.</li>
 </ul>
 </div>
-<div id="misc-2" class="section level3">
+<div id="misc-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#misc-2" class="anchor"></a>MISC</h3>
+<a href="#misc-3" class="anchor"></a>MISC</h3>
 <ul>
 <li>
 <code><a href="../reference/subset.html">subset.incidence()</a></code> will now give a more informative error message when the user specifies a group that does not exist.</li>
@@ -260,9 +284,9 @@
 <code><a href="../reference/incidence.html">incidence()</a></code> no longer fails when providing both group information and a <code>first_date</code> or <code>last_date</code> parameter that is inside the bounds of the observed dates. Thanks to <a href='https://github.com/mfaber'>@mfaber</a> for reporting this bug. See <a href="https://github.com/reconhub/incidence/issues/70" class="uri">https://github.com/reconhub/incidence/issues/70</a> for details.</li>
 </ul>
 </div>
-<div id="misc-3" class="section level3">
+<div id="misc-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#misc-3" class="anchor"></a>MISC</h3>
+<a href="#misc-4" class="anchor"></a>MISC</h3>
 <ul>
 <li>code has been spread out into a more logical file structure where the <code>internal_checks.R</code> file has been split into the relative components.</li>
 <li>A message is now printed if missing observations are present when creating the incidence object.</li>
@@ -471,6 +495,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#incidence-1-6-0-2019-03-05">1.6.0</a></li>
         <li><a href="#incidence-1-5-4-2019-01-15">1.5.4</a></li>
         <li><a href="#incidence-1-5-3-2018-12-07">1.5.3</a></li>
         <li><a href="#incidence-1-5-2-2018-11-30">1.5.2</a></li>

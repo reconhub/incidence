@@ -9,8 +9,6 @@
 #' @param last_date an integer, numeric, or Date
 #' @param first_date an integer, numeric, or Date
 #' @param dots a named list of options
-#' @param null_first_date a logical specifying whether or not the first_date
-#'   argument was NULL in the original call.
 #'
 #' @author Zhian Kamvar
 #' @return a vector of integers or Dates
@@ -21,8 +19,7 @@
 #' d <- sample(10, replace = TRUE)
 #' make_breaks_easier(d, 2L)
 make_breaks_easier <- function(dates, the_interval, first_date = NULL,
-                               last_date = NULL, dots = 1L,
-                               null_first_date = TRUE) {
+                               last_date = NULL, dots = 1L) {
 
   the_interval    <- valid_interval_character(the_interval)
   date_interval   <- is.character(the_interval) && is_date_interval(the_interval)
@@ -34,7 +31,7 @@ make_breaks_easier <- function(dates, the_interval, first_date = NULL,
   the_month <- as.integer(substr(fd, 6, 7))
 
   if ("standard" %in% names(dots)) {
-    if (isTRUE(dots$standard) && null_first_date) {
+    if (isTRUE(dots$standard)) {
       is_a_week <- !uneven_interval && check_week(the_interval)
       if (is_a_week) {
         # This returns something like 2018-W29
