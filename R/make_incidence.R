@@ -43,6 +43,9 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
                                    last_date       = last_date,
                                    dots            = dots
                                    )
+  if (!is.numeric(interval) && grepl("week", interval)) {
+    interval <- get_week_duration(interval)
+  }
 
   ## Trim the dates and groups as necessary
   trimmed <- trim_observations(dates, first_date, last_date)
