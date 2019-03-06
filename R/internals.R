@@ -22,9 +22,9 @@ count.dates <- function(dates, breaks){
 ## correspond to the first day of the matching iso week; $labels contains vector
 ## of labels of the corresponding iso weeks.
 
-make_iso_breaks <- function(dates, n = 5) {
+make_iso_breaks <- function(dates, n = 5, ws = 1L) {
   breaks_ini <- pretty(dates, n)
-  iso        <- aweek::date2week(breaks_ini, 1L, floor_day = TRUE)
+  iso        <- aweek::date2week(breaks_ini, ws, floor_day = TRUE)
   list(breaks = aweek::week2date(iso), 
        labels = as.character(iso)) 
 }

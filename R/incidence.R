@@ -229,7 +229,10 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
   if (check_week(interval) && standard) {
     # dates are the first days of corresponding ISOweeks.
     week_start   <- get_week_start(interval)
-    out$isoweeks <- as.character(aweek::date2week(out$dates, week_start, floor_day = TRUE))
+    out$weeks <- aweek::date2week(out$dates, week_start, floor_day = TRUE)
+    if (attr(out$weeks, "week_start") == 1) {
+      out$isoweeks <- as.character(out$weeks)
+    }
   }
 
   out
