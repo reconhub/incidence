@@ -19,7 +19,7 @@
 get_week_start <- function(weekday) {
   wkdy <- gsub("weeks?", "", tolower(weekday))
   wkdy <- gsub('[[:punct:][:blank:][:digit:]]*', "", wkdy)
-  wkdy <- if (wkdy == "") "monday" else wkdy
+  wkdy <- if (wkdy == "") "monday" else wkdy # the input was "weeks"
   res <- switch(wkdy, 
                 "mmwr" = "sunday", # MMWR == CDC epiweek
                 "epi"  = "sunday", # CDC epiweek
@@ -29,6 +29,15 @@ get_week_start <- function(weekday) {
   gsub("epi", "", res) # if they specify something like "epiweek:saturday"
 }
 
+#' Translate a custom interval to a valid interval
+#'
+#' @param the_interval an interval like 2 epiweeks or 1 ISOweek
+#' @return an interval compatible with `seq.Date()`
+#' @keywords internal
+#' @noRd
+#' @examples
+#' get_week_duration("2 weeks (wednesday)") # 2 weeks
+#' get_week_duration("2 epiweeks") # 2 weeks
 get_week_duration <- function(the_interval) {
 
   if (the_interval == 7) return(the_interval)
