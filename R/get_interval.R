@@ -61,12 +61,15 @@ get_interval.incidence <- function(x, integer = TRUE, ...) {
     return(x$interval)
   }
   if (is.character(x$interval)) {
-    res <- NULL
-    res <- if (grepl("day", x$interval))     1L else res
-    res <- if (grepl("week", x$interval))    7L else res
-    res <- if (grepl("month", x$interval))   get_days_in_month(x$dates) else res
-    res <- if (grepl("quarter", x$interval)) get_days_in_quarter(x$dates) else res
-    res <- if (grepl("year", x$interval))    get_days_in_year(x$dates) else res
+    res <- get_interval_type(x$interval)
+    n   <- get_interval_number(x$interval)
+    res <- switch(res,
+                  day     = 1L * n,
+                  week    = 7L * n,
+                  month   = get_days_in_month(x$dates, n),
+                  quarter = get_days_in_quarter(x$dates, n),
+                  year    = get_days_in_year(x$dates, n)
+                 )
     return(res)
   } else {
     stop(sprintf("I don't know how to convert a %s to an integer",
@@ -74,27 +77,48 @@ get_interval.incidence <- function(x, integer = TRUE, ...) {
   }
 }
 
-get_days_in_month <- function(dates) {
+get_interval_type <- function(x) {
+  res <- NULL
+  res <- if (grepl("day", x, ignore.case = TRUE)) "day" else res
+  res <- if (grepl("week", x, ignore.case = TRUE)) "week" else res
+  res <- if (grepl("month", x, ignore.case = TRUE)) "month" else res
+  res <- if (grepl("quarter", x, ignore.case = TRUE)) "quarter" else res
+  res <- if (grepl("year", x, ignore.case = TRUE)) "year" else res
+  res
+}
+
+get_interval_number <- function(x) {
+
+  if (!grepl("^\\d", x)) return(1L)
+  as.integer(gsub("^(\\d*).+$", "\\1", x))
+
+}
+
+
+get_days_in_month <- function(dates, m = 1L) {
   dates <- floor_month(dates)
-  res <- vapply(strsplit(format(dates), "-"), add_months, character(1))
+  res <- vapply(strsplit(format(dates), "-"), 
+                add_months, 
+                character(1),
+                months = m)
   as.integer(as.Date(res) - dates)
 }
 
-get_days_in_quarter <- function(dates) {
+get_days_in_quarter <- function(dates, m = 1L) {
   dates <- floor_month(dates)
   res <- vapply(strsplit(format(dates), "-"),
                 FUN = add_months,
                 FUN.VALUE = character(1),
-                months = 3L)
+                months = 3L * m)
   as.integer(as.Date(res) - dates)
 }
 
-get_days_in_year <- function(dates) {
+get_days_in_year <- function(dates, m = 1L) {
   dates <- floor_month(dates)
   res <- vapply(strsplit(format(dates), "-"),
                 FUN = add_months,
                 FUN.VALUE = character(1),
-                months = 12L)
+                months = 12L * m)
   as.integer(as.Date(res) - dates)
 }
 
