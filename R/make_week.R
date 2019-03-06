@@ -14,19 +14,24 @@
 #' 
 #' get_week_start("Sat-week")
 #' get_week_start("week: Saturday")
+#' get_week_start("2 weeks: Saturday")
 #' get_week_start("epiweek: Saturday")
-#' get_week_start("week: 6")
 get_week_start <- function(weekday) {
-  wkdy <- gsub('[[:punct:][:blank:]]*', "", tolower(weekday))
-  wkdy <- gsub("week", "", wkdy)
+  wkdy <- gsub("weeks?", "", tolower(weekday))
+  wkdy <- gsub('[[:punct:][:blank:][:digit:]]*', "", wkdy)
+  wkdy <- if (wkdy == "") "monday" else wkdy
   res <- switch(wkdy, 
                 "mmwr" = "sunday", # MMWR == CDC epiweek
                 "epi"  = "sunday", # CDC epiweek
                 "iso"  = "monday", # ISOweek == WHO epiweek
                 wkdy # all others
                 )
-  res <- if (res == "") "week" else res
-  res <- gsub("epi", "", res) # if they specify something like "epiweek:saturday"
-  suppressWarnings(rn <- as.integer(res))
-  if (is.na(rn)) res else rn
+  gsub("epi", "", res) # if they specify something like "epiweek:saturday"
+}
+
+get_week_duration <- function(the_interval) {
+
+  if (the_interval == 7) return(the_interval)
+  gsub('^(\\d*) .*(weeks?).*$', '\\1 \\2', tolower(the_interval), perl = TRUE)
+
 }

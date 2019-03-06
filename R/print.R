@@ -21,6 +21,8 @@ print.incidence <- function(x, ...) {
   if (is.integer(x$interval)) {
     cat(sprintf("$interval: %d %s\n",
                 x$interval, ifelse(x$interval < 2, "day", "days")))
+  } else if (grepl("\\d",  x$interval)) {
+    cat(sprintf("$interval: %s\n", x$interval))
   } else {
     cat(sprintf("$interval: 1 %s\n", x$interval))
   }
