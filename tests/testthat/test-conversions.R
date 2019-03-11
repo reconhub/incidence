@@ -2,11 +2,51 @@ context("Conversions of incidence objects")
 
 test_that("as.data.frame works", {
   skip_on_cran()
+  skip("re-write with aweek in place")
 
   dat <- as.integer(c(0,1,2,2,3,5,7))
   dat2 <- as.Date("2016-01-02") + dat
   fac <- factor(c(1, 2, 3, 3, 3, 3, 1))
   one_group <- rep("a", 7)
+
+   
+  i_group_df <- data.frame(
+         dates = c(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L),
+            "1" = c(1L, 0L, 0L, 0L, 0L, 0L, 0L, 1L),
+            "2" = c(0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L),
+            "3" = c(0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L),
+            check.names = FALSE
+  )
+  # one group
+  i_og_df <- i_group_df[, 1, drop = FALSE]
+  i_og_df$a <- rowSums(i_group_df[-1])
+
+  i_group_df_long <- data.frame(
+         dates = c(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 0L, 1L, 2L, 3L, 4L, 5L, 6L,
+                   7L, 0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L),
+        counts = c(1L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 1L, 0L, 0L, 0L, 0L, 0L,
+                   0L, 0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L),
+        groups = as.factor(c("1", "1", "1", "1", "1", "1", "1", "1", "2", "2",
+                             "2", "2", "2", "2", "2", "2", "3", "3", "3", "3",
+                             "3", "3", "3", "3"))
+  )
+  i7_grouped_df <- data.frame(
+         dates = c("2015-12-28", "2016-01-04"),
+           "1" = c(1L, 1L),
+           "2" = c(1L, 0L),
+           "3" = c(0L, 4L),
+      isoweeks = as.factor(c("2015-W53", "2016-W01")),
+      check.names = FALSE
+  )
+  i7_grouped_df_long <- data.frame(
+         dates = c("2015-12-28", "2016-01-04", "2015-12-28", "2016-01-04",
+                   "2015-12-28", "2016-01-04"),
+        counts = c(1L, 1L, 1L, 0L, 0L, 4L),
+      isoweeks = as.factor(c("2015-W53", "2016-W01", "2015-W53", "2016-W01",
+                             "2015-W53", "2016-W01")),
+        groups = as.factor(c("1", "1", "2", "2", "3", "3"))
+  )
+
   i <- incidence(dat, groups = fac)
   iog <- incidence(dat, groups = one_group)
   i.7 <- incidence(dat2, 7L, standard = TRUE)
@@ -21,8 +61,10 @@ test_that("as.data.frame works", {
   df7 <- as.data.frame(iog)
   df8 <- as.data.frame(iog, long = TRUE)
 
-  expect_equal_to_reference(df, file = "rds/df.rds")
-  expect_equal_to_reference(dfl, file = "rds/dfl.rds")
+  # expect_equal_to_reference(df, file = "rds/df.rds")
+  expect_identical(df, i_group_df)
+  # expect_equal_to_reference(dfl, file = "rds/dfl.rds")
+  expect_identical(df1, i_group_df_long)
   expect_equal_to_reference(df2, file = "rds/df2.rds")
   expect_equal_to_reference(df3, file = "rds/df3.rds")
   expect_equal(df3, df4)

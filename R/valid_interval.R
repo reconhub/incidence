@@ -7,9 +7,6 @@
 #' @keywords internal
 is_date_interval <- function(the_interval) {
   valid_intervals <- "day|week|month|quarter|year"
-  # valid_intervals <- c("day", "week", "month", "quarter", "year",
-  #                      "days", "weeks", "months", "quarters", "years")
-  # the_interval %in% valid_intervals
   grepl(valid_intervals, the_interval)
 }
 

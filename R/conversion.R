@@ -66,29 +66,35 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
         colnames(counts) <- "counts"
     }
 
-    if ("isoweeks" %in% names(x)) {
-      out <- cbind.data.frame(dates = x$dates,
-                              isoweeks = x$isoweeks,
-                              counts)
+    ws <- attr(x$weeks, "week_start")
+    if ("weeks" %in% names(x)) {
+      out <- data.frame(dates = x$dates,
+                        weeks = as.character(x$weeks),
+                        isoweeks = as.character(x$weeks),
+                        counts)
+      out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
     } else {
-      out <- cbind.data.frame(dates = x$dates, counts)
+      out <- data.frame(dates = x$dates, counts)
     }
 
     ## handle the long format here
     if (long && !unnamed) {
         groups <- factor(rep(gnames, each = nrow(out)), levels = gnames)
         counts <- as.vector(x$counts)
-        if ("isoweeks" %in% names(x)) {
+        if ("weeks" %in% names(x)) {
           out <- data.frame(dates = out$dates,
+                            weeks = as.character(out$weeks),
                             isoweeks = out$isoweeks,
                             counts = counts,
                             groups = groups)
+          out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
         } else {
           out <- data.frame(dates = out$dates,
                             counts = counts,
                             groups = groups)
         }
     }
+    if (all(names(x) != "isoweeks")) out$isoweeks <- NULL
     out
 }
 
