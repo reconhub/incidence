@@ -23,7 +23,7 @@ BugReports: http://github.com/reconhub/incidence/issues
 RoxygenNote: 6.1.1
 Imports:
     ggplot2, 
-    aweek
+    aweek (>= 0.2.0)
 Suggests:
     magrittr,
     outbreaks,
@@ -34,7 +34,5 @@ Suggests:
     rmarkdown,
     scales,
     cowplot
-Remotes:
-  reconhub/aweek
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
