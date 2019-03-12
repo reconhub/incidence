@@ -10,8 +10,8 @@
 \method{plot}{incidence}(x, ..., fit = NULL, stack = is.null(fit),
   color = "black", border = NA, col_pal = incidence_pal1,
   alpha = 0.7, xlab = "", ylab = NULL,
-  labels_iso = !is.null(x$isoweeks), show_cases = FALSE,
-  n_breaks = 6)
+  labels_week = !is.null(x$weeks), labels_iso = !is.null(x$isoweeks),
+  show_cases = FALSE, n_breaks = 6)
 
 add_incidence_fit(p, x, col_pal = incidence_pal1)
 
@@ -49,8 +49,13 @@ opaque and 0 fully transparent; defaults to 0.7.}
 generated automatically according to the time interval used in incidence
 computation.}
 
-\item{labels_iso}{a logical value indicating whether labels x axis tick
-marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
+\item{labels_week}{a logical value indicating whether labels x axis tick
+marks are in week format YYYY-Www when plotting weekly incidence; defaults to
+TRUE.}
+
+\item{labels_iso}{(deprecated) This has been superceded by \code{labels_iso}.
+Previously:a logical value indicating whether labels x axis tick marks are
+in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 incidence; defaults to be TRUE.}
 
 \item{show_cases}{if \code{TRUE} (default: \code{FALSE}), then each observation will be
@@ -81,14 +86,14 @@ if(require(outbreaks) && require(ggplot2)) { withAutoprint({
   inc.week <- incidence(onset, interval = 7)
   inc.week
   plot(inc.week) # default to label x axis tick marks with isoweeks
-  plot(inc.week, labels_iso = FALSE) # label x axis tick marks with dates
+  plot(inc.week, labels_week = FALSE) # label x axis tick marks with dates
   plot(inc.week, border = "white") # with visible border
 
   ## use group information
   sex <- ebola_sim$linelist$gender
   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
   plot(inc.week.gender)
-  plot(inc.week.gender, labels_iso = FALSE)
+  plot(inc.week.gender, labels_week = FALSE)
 
   ## show individual cases at the beginning of the epidemic
   inc.week.8 <- subset(inc.week.gender, to = "2014-06-01")
@@ -102,7 +107,7 @@ if(require(outbreaks) && require(ggplot2)) { withAutoprint({
   ## adding fit
   fit <- fit_optim_split(inc.week.gender)$fit
   plot(inc.week.gender, fit = fit)
-  plot(inc.week.gender, fit = fit, labels_iso = FALSE)
+  plot(inc.week.gender, fit = fit, labels_week = FALSE)
 })}
 
 }

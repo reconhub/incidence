@@ -43,8 +43,13 @@
 #' generated automatically according to the time interval used in incidence
 #' computation.
 #'
-#' @param labels_iso a logical value indicating whether labels x axis tick
-#' marks are in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
+#' @param labels_week a logical value indicating whether labels x axis tick
+#' marks are in week format YYYY-Www when plotting weekly incidence; defaults to
+#' TRUE.
+#'
+#' @param labels_iso (deprecated) This has been superceded by `labels_iso`.
+#' Previously:a logical value indicating whether labels x axis tick marks are
+#' in ISO 8601 week format yyyy-Www when plotting ISO week-based weekly
 #' incidence; defaults to be TRUE.
 #'
 #' @param show_cases if `TRUE` (default: `FALSE`), then each observation will be
@@ -69,14 +74,14 @@
 #'   inc.week <- incidence(onset, interval = 7)
 #'   inc.week
 #'   plot(inc.week) # default to label x axis tick marks with isoweeks
-#'   plot(inc.week, labels_iso = FALSE) # label x axis tick marks with dates
+#'   plot(inc.week, labels_week = FALSE) # label x axis tick marks with dates
 #'   plot(inc.week, border = "white") # with visible border
 #'
 #'   ## use group information
 #'   sex <- ebola_sim$linelist$gender
 #'   inc.week.gender <- incidence(onset, interval = 7, groups = sex)
 #'   plot(inc.week.gender)
-#'   plot(inc.week.gender, labels_iso = FALSE)
+#'   plot(inc.week.gender, labels_week = FALSE)
 #'
 #'   ## show individual cases at the beginning of the epidemic
 #'   inc.week.8 <- subset(inc.week.gender, to = "2014-06-01")
@@ -90,16 +95,17 @@
 #'   ## adding fit
 #'   fit <- fit_optim_split(inc.week.gender)$fit
 #'   plot(inc.week.gender, fit = fit)
-#'   plot(inc.week.gender, fit = fit, labels_iso = FALSE)
+#'   plot(inc.week.gender, fit = fit, labels_week = FALSE)
 #' })}
 #'
 plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            color = "black", border = NA, col_pal = incidence_pal1,
                            alpha = .7, xlab = "", ylab = NULL,
+                           labels_week = !is.null(x$weeks),
                            labels_iso = !is.null(x$isoweeks),
                            show_cases = FALSE,
                            n_breaks = 6) {
-  stopifnot(is.logical(labels_iso))
+  stopifnot(is.logical(labels_iso), is.logical(labels_week))
 
   ## extract data in suitable format for ggplot2
   df <- as.data.frame(x, long = TRUE)
@@ -280,7 +286,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     breaks <- pretty(x$dates, n_breaks)
   }
 
-  if (labels_iso && !is.null(x$weeks)) {
+  if (labels_week && !is.null(x$weeks)) {
     out <- out + ggplot2::scale_x_date(breaks = breaks_info$breaks,
                                        labels = breaks_info$labels)
   } else {

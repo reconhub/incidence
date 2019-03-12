@@ -58,7 +58,7 @@ test_that("plot for incidence object", {
   p.isoweek <- plot(i.isoweek)
   p.POSIX <- plot(i.POSIX)
   p.POSIX.f <- plot(i.POSIX, fit = fit.POSIX)
-  p.isoweek.2 <- plot(i.isoweek, labels_iso = FALSE)
+  p.isoweek.2 <- plot(i.isoweek, labels_week = FALSE)
   p.month <- plot(i.sexmonth)
   p.quarter <- plot(i.sexquarter)
 
