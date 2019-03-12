@@ -116,28 +116,32 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   if (is.null(ylab)) {
     if (is.numeric(x$interval)) {
       if (x$interval == 1) {
-        ylab <- "Daily incidence"
+        ylab <- "daily incidence"
       } else if (x$interval == 7) {
-        ylab <- "Weekly incidence"
+        ylab <- "weekly incidence"
       } else if (x$interval == 14) {
-        ylab <- "Biweekly incidence"
+        ylab <- "semi-weekly incidence"
       } else {
-        ylab <- sprintf("Incidence by period of %d days",
+        ylab <- sprintf("incidence by period of %d days",
                         x$interval)
       }
     } else if (is.character(x$interval)) {
-      x$interval <- gsub("^([a-z]+?)s*$", "\\1", x$interval)
-      ylab <- switch(x$interval,
-                     day     = "Daily incidence",
-                     week    = "Weekly incidence",
-                     month   = "Monthly incidence",
-                     quarter = "Quarterly incidence",
-                     year    = "Yearly incidence"
-                    )
+      
+      # capturing the number and type
+      p     <- "(\\d*)\\s?([a-z]+?)s?$"
+      num   <- gsub(p, "\\1", tolower(x$interval))
+      itype <- gsub(p, "\\2", tolower(x$interval))
+      if (num == "") {
+        ylab <- sprintf("%sly incidence", itype)
+      } else {
+        ylab <- sprintf("incidence by a period of %s %ss", num, itype)
+      }
     }
     if (isTRUE(x$cumulative)) {
       ylab <- sub("incidence", "cumulative incidence", ylab)
     }
+    first_letter          <- substring(ylab, 1, 1)
+    substring(ylab, 1, 1) <- toupper(first_letter)
   }
 
   ## Handle stacking
@@ -288,60 +292,53 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     breaks <- pretty(x$dates, n_breaks)
     breaks <- breaks + (x$dates[1] - breaks[1])
   }
-  
+
+
+  ## Defining the x axis scale -------------------------------------------------
+  ## 
+  ## Choosing between scale_x_date, scale_x_datetime, and scale_x_continuous
+
+  # labels should be dates or numbers
+  if (is.character(x$interval)) {
+    # The interval is a character like "2 weeks" and we have to figure out how
+    # to split these manually
+    has_number <- grepl("\\d", x$interval)
+    tims       <- ceiling(x$timespan/(n_breaks*mean(df$interval.days)))
+    if (has_number) {
+      ni <- as.integer(strsplit(x$interval, " ", fixed = TRUE)[[1L]][1L])
+      # the replacement should be a multiple of the number
+      replacement <- if (tims <= ni) ni else ceiling(tims/ni)*ni 
+      db <- gsub("\\d+", replacement, x$interval)
+    } else if (x$interval == "quarter") { 
+      db <- paste(tims * 3, "months")
+    } else {
+      db <- sprintf("%d %s", tims, x$interval)
+    }
+    breaks <- seq(x$dates[1], x$dates[nrow(x)], by = db)
+  }
+
   if (!is.null(x$weeks)) {
     # If the data are in weeks, we should make sure that the line up correctly
     w <- aweek::date2week(breaks, 
                           week_start = attr(x$weeks, "week_start"), 
                           floor_day = TRUE)
     breaks <- aweek::week2date(w)
-    labels <- as.character(w)
+    labels <- if (labels_week) as.character(w) else ggplot2::waiver() 
+  } else {
+    labels <- ggplot2::waiver()
   } 
 
-  ## Defining the x axis scale -------------------------------------------------
-  ## 
-  ## Choosing between scale_x_date, scale_x_datetime, and scale_x_continuous
-
-  if (labels_week && !is.null(x$weeks)) {
-    # weeks should be labeled in this case and it's pretty straightforward
-    if (inherits(x$dates, "Date")) {
-      out <- out + ggplot2::scale_x_date(breaks = breaks,
-                                         labels = labels)
-    } else {
-      out <- out + ggplot2::scale_x_datetime(breaks = as.POSIXct(as.POSIXlt(breaks)),
-                                             labels = labels,
-                                             timezone = "UTC")
-    }
+  if (inherits(x$dates, "Date")) {
+    out <- out + ggplot2::scale_x_date(breaks = breaks, labels = labels)
+  } else if (inherits(x$dates, "POSIXt")) {
+    out <- out + ggplot2::scale_x_datetime(breaks   = as.POSIXct(as.POSIXlt(breaks)),
+                                           labels   = labels,
+                                           timezone = "UTC"
+                                           )
   } else {
-    # labels should be dates or numbers
-    if (is.character(x$interval)) {
-      # The interval is a character like "2 weeks" and we have to figure out how
-      # to split these manually
-      has_number <- grepl("\\d", x$interval)
-      tims       <- ceiling(x$timespan/(n_breaks*mean(df$interval.days)))
-      if (has_number) {
-        ni <- as.integer(strsplit(x$interval, " ", fixed = TRUE)[[1L]][1L])
-        # the replacement should be a multiple of the number
-        replacement <- if (tims <= ni) ni else ceiling(tims/ni)*ni 
-        db <- gsub("\\d+", replacement, x$interval)
-      } else if (x$interval == "quarter") { 
-        db <- paste(tims * 3, "months")
-      } else {
-        db <- sprintf("%d %s", tims, x$interval)
-      }
-      breaks <- seq(x$dates[1], x$dates[nrow(x)], by = db)
-    }
-
-    if (inherits(x$dates, "Date")) {
-      out <- out + ggplot2::scale_x_date(breaks = breaks)
-    } else if (inherits(x$dates, "POSIXt")) {
-      out <- out + ggplot2::scale_x_datetime(breaks   = breaks,
-                                             timezone = "UTC"
-                                            )
-    } else {
-      out <- out + ggplot2::scale_x_continuous(breaks = breaks)
-    }
+    out <- out + ggplot2::scale_x_continuous(breaks = breaks)
   }
+  
   out
 }
 
