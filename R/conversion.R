@@ -71,10 +71,11 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
       out <- data.frame(dates = x$dates,
                         weeks = as.character(x$weeks),
                         isoweeks = as.character(x$weeks),
-                        counts)
+                        counts,
+                        check.names = FALSE)
       out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
     } else {
-      out <- data.frame(dates = x$dates, counts)
+      out <- data.frame(dates = x$dates, counts, check.names = FALSE)
     }
 
     ## handle the long format here
@@ -86,12 +87,14 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
                             weeks = as.character(out$weeks),
                             isoweeks = out$isoweeks,
                             counts = counts,
-                            groups = groups)
+                            groups = groups,
+                            check.names = FALSE)
           out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
         } else {
           out <- data.frame(dates = out$dates,
                             counts = counts,
-                            groups = groups)
+                            groups = groups,
+                            check.names = FALSE)
         }
     }
     if (all(names(x) != "isoweeks")) out$isoweeks <- NULL
