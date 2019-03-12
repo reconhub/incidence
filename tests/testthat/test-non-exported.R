@@ -60,6 +60,7 @@ test_that("check_groups", {
 
 
 test_that("make_iso_breaks works", {
+  skip("removed this function")
   ## uses references from:
   ## https://en.wikipedia.org/wiki/ISO_week_date
   ref <- as.Date("2018-05-01")
