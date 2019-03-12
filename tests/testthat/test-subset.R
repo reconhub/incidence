@@ -11,7 +11,14 @@ test_that("[ operator for incidence objects", {
   # dat <- as.integer(sample(-3:10, 50, replace = TRUE))
   x <- incidence(dat)
   y <- incidence(dat + as.Date("2016-01-12"), 7L)
+  
   z <- incidence(dat + as.Date("2016-01-12"), "epiweek")
+  s <- incidence(dat + as.Date("2016-01-12"), "sunday week")
+  m <- incidence(dat + as.Date("2016-01-12"), "MMWR week")
+
+  # epiweeks and MMWR weeks start on Sunday
+  expect_identical(z[1:2], s[1:2])
+  expect_identical(z[], m[])
 
   x.sub1 <- x[c(3,5,7,8)]
   expect_equal_to_reference(x.sub1, file = "rds/x.sub1.rds")
@@ -22,9 +29,7 @@ test_that("[ operator for incidence objects", {
   expect_equal(y[1:2]$weeks, y$weeks[1:2])
   expect_equal(z[1:2]$weeks, z$weeks[1:2])
   
-  skip("rewrite with aweek")
   y.sub1 <- y[1:2]
-  z.sub1 <- z[1:2]
   expect_equal_to_reference(y.sub1, file = "rds/y.sub1.rds")
 })
 
