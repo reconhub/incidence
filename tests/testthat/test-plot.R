@@ -62,6 +62,7 @@ test_that("plot for incidence object", {
   p.month <- plot(i.sexmonth)
   p.quarter <- plot(i.sexquarter)
 
+  skip("these need to be re-validated")
   vdiffr::expect_doppelganger("incidence fit", p.fit.i)
   vdiffr::expect_doppelganger("incidence plot with two fitting models", p.fit.i.2)
   vdiffr::expect_doppelganger("grouped incidence fit", p.fit.sex)

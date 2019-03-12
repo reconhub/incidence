@@ -320,7 +320,7 @@ incidence.POSIXt <- function(dates, interval = 1L, standard = TRUE, groups = NUL
   ## make sure input can be used
 
   dots  <- check_dots(list(...), names(formals(incidence.Date)))
-  dates <- check_dates(dates)
+  dates <- check_dates(as.POSIXct(dates))
 
   ret <- incidence(as.Date(dates),
                    interval = interval,

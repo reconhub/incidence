@@ -63,7 +63,7 @@
 #' @examples
 #'
 #' if(require(outbreaks) && require(ggplot2)) { withAutoprint({
-#'   onset <- ebola_sim$linelist$date_of_onset
+#'   onset <- outbreaks::ebola_sim$linelist$date_of_onset
 #'
 #'   ## daily incidence
 #'   inc <- incidence(onset)
@@ -271,46 +271,59 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     }
   }
 
-  ## Replace labels of x axis tick marks with ISOweeks
+  ## Replace labels of x axis tick marks with weeks
 
-  ## This is a temporary fix due to ggplot2 breaking backward compatibility. As
-  ## they say, 'deprecated aint for dogs'.. anyway, we need two versions,
-  ## compatible with the old, and the new version of ggplot2, to be released 15
-  ## June 2018.
-
-  if (!is.null(x$weeks)) {
-    breaks_info <- make_iso_breaks(x$dates, n_breaks, attr(x$weeks, "week_start"))
-    breaks <- breaks_info$breaks
-    # browser()
+  if(n_breaks == nrow(x)) {
+    breaks <- x$dates  
   } else {
     breaks <- pretty(x$dates, n_breaks)
+    # adjust breaks to force first date to beginning.
+    breaks <- breaks + (x$dates[1] - breaks[1])
   }
+  # If the data are in weeks, we should make sure that the line up correctly
+  if (!is.null(x$weeks)) {
+    w <- aweek::date2week(breaks, 
+                          week_start = attr(x$weeks, "week_start"), 
+                          floor_day = TRUE)
+    breaks <- aweek::week2date(w)
+    labels <- as.character(w)
+  } 
 
   if (labels_week && !is.null(x$weeks)) {
-    out <- out + ggplot2::scale_x_date(breaks = breaks_info$breaks,
-                                       labels = breaks_info$labels)
+    if (inherits(x$dates, "Date")) {
+      out <- out + ggplot2::scale_x_date(breaks = breaks,
+                                         labels = labels)
+    } else {
+      out <- out + ggplot2::scale_x_datetime(breaks = as.POSIXct(as.POSIXlt(breaks)),
+                                             labels = labels,
+                                             timezone = "UTC")
+    }
   } else {
-    if (is.character(x$interval)) {
+    is_character <- is.character(x$interval)
+    
+    if (is_character) {
+      has_number <- grepl("\\d", x$interval)
+      tims <- ceiling(x$timespan/(n_breaks*mean(df$interval.days)))
       # if the interval is a character, we have to figure out how to split these
       # manually. Luckily, ggplot2::scale_x_date() can take something like
       # "3 months" for a date_break argument.
-      ts <- x$timespan/(n_breaks*mean(df$interval.days))
-      if (x$interval == "quarter") {
-        db <- paste(ceiling(ts) * 3, "months")
+      if (has_number) {
+        ni <- as.integer(strsplit(x$interval, " ", fixed = TRUE)[[1L]][1L])
+        # the replacement should be a multiple of the number
+        replacement <- if (tims <= ni) ni else ceiling(tims/ni)*ni 
+        db <- gsub("\\d+", replacement, x$interval)
+      } else if (x$interval == "quarter") { 
+        db <- paste(tims * 3, "months")
       } else {
-        db <- paste(ceiling(ts), x$interval)
+        db <- sprintf("%d %s", tims, x$interval)
       }
-    } else {
-      db <- ggplot2::waiver()
+      breaks <- seq(x$dates[1], x$dates[nrow(x)], by = db)
     }
     if (inherits(x$dates, "Date")) {
-      out <- out + ggplot2::scale_x_date(breaks      = breaks,
-                                         date_breaks = db
-                                        )
+      out <- out + ggplot2::scale_x_date(breaks = breaks)
     } else if (inherits(x$dates, "POSIXt")) {
-      out <- out + ggplot2::scale_x_datetime(breaks      = breaks,
-                                             date_breaks = db,
-                                             timezone    = "UTC"
+      out <- out + ggplot2::scale_x_datetime(breaks   = breaks,
+                                             timezone = "UTC"
                                             )
     } else {
       out <- out + ggplot2::scale_x_continuous(breaks = breaks)
