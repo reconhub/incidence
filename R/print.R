@@ -6,11 +6,7 @@ print.incidence <- function(x, ...) {
   cat(sprintf("[%d cases from days %s to %s]\n",
               sum(x$n), min(x$dates), max(x$dates)))
   if ("weeks" %in% names(x)) {
-    type_of_week <- switch(as.character(attr(x$weeks, "week_start")),
-                           "1" = "ISO",
-                           "7" = "MMWR",
-                           sprintf("(%s)", weekdays(x$dates[1]))
-                          )
+    type_of_week <- get_type_of_week(x)
     cat(sprintf("[%d cases from %s weeks %s to %s]\n",
                 sum(x$n), type_of_week, head(x$weeks, 1), tail(x$weeks, 1)))
   }

@@ -131,11 +131,15 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
       p     <- "(\\d*)\\s?([a-z]+?)s?$"
       num   <- gsub(p, "\\1", tolower(x$interval))
       itype <- gsub(p, "\\2", tolower(x$interval))
-      if (num == "") {
+      if (num == "" || num == "1") {
         ylab <- sprintf("%sly incidence", itype)
       } else {
         ylab <- sprintf("incidence by a period of %s %ss", num, itype)
       }
+    }
+    if (!is.null(x$weeks)) {
+      type_of_week <- get_type_of_week(x)
+      ylab <- gsub("(weekl?y?)", sprintf("%s \\1", type_of_week), ylab)
     }
     if (isTRUE(x$cumulative)) {
       ylab <- sub("incidence", "cumulative incidence", ylab)

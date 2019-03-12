@@ -45,3 +45,12 @@ get_week_duration <- function(the_interval) {
   trimws(res)
 
 }
+
+get_type_of_week <- function(x) {
+
+  switch(as.character(attr(x$weeks, "week_start")),
+         "1" = "ISO",
+         "7" = "MMWR",
+         sprintf("(%s)", weekdays(x$dates[1]))
+         )
+}
