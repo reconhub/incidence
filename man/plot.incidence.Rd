@@ -75,7 +75,7 @@ function, using the package \code{ggplot2}.
 \examples{
 
 if(require(outbreaks) && require(ggplot2)) { withAutoprint({
-  onset <- ebola_sim$linelist$date_of_onset
+  onset <- outbreaks::ebola_sim$linelist$date_of_onset
 
   ## daily incidence
   inc <- incidence(onset)
