@@ -4,10 +4,20 @@ test_that("plot for incidence object", {
   skip_on_cran()
 
   set.seed(1)
-  dat <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
+  # dat <- sample(1:50, 200, replace = TRUE, prob = 1 + exp(1:50 * 0.1))
+  dat <- readRDS("data_cache/mfdat.rds")[1:200]
   dat2 <- as.Date("2016-01-02") + dat
   dat3 <- as.POSIXct(dat2)
-  sex <- sample(c("female", "male"), 200, replace = TRUE)
+  sex <- c(1, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 1, 1, 1,
+           2, 2, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1,
+           1, 1, 1, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2,
+           1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+           2, 1, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 2, 1,
+           1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 1, 1,
+           2, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1,
+           1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 2,
+           1, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 1, 1, 1)
+  sex <- ifelse(sex == 1, "female", "male")
   dat4 <- c(dat2,
             sample(dat2, replace = TRUE) + 50,
             sample(dat2, replace = TRUE) + 100
