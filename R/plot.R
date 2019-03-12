@@ -271,17 +271,26 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     }
   }
 
-  ## Replace labels of x axis tick marks with weeks
 
-  if(n_breaks == nrow(x)) {
+  ## Defining breaks for the x axis --------------------------------------------
+  ##
+  ## The x axis can either be integers, Dates, or POSIXt scales. Moreover,
+  ## we need to make sure that the breaks align with the left-hand side of the
+  ## bins (for now). This section first defines what the breaks should be 
+  ## and then treats them according to whether or not the interval was specified
+  ## as a character. 
+  if (n_breaks == nrow(x)) {
+    # The number of breaks are equal to the number of dates... don't worry about
+    # adjusting
     breaks <- x$dates  
   } else {
-    breaks <- pretty(x$dates, n_breaks)
     # adjust breaks to force first date to beginning.
+    breaks <- pretty(x$dates, n_breaks)
     breaks <- breaks + (x$dates[1] - breaks[1])
   }
-  # If the data are in weeks, we should make sure that the line up correctly
+  
   if (!is.null(x$weeks)) {
+    # If the data are in weeks, we should make sure that the line up correctly
     w <- aweek::date2week(breaks, 
                           week_start = attr(x$weeks, "week_start"), 
                           floor_day = TRUE)
@@ -289,7 +298,12 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     labels <- as.character(w)
   } 
 
+  ## Defining the x axis scale -------------------------------------------------
+  ## 
+  ## Choosing between scale_x_date, scale_x_datetime, and scale_x_continuous
+
   if (labels_week && !is.null(x$weeks)) {
+    # weeks should be labeled in this case and it's pretty straightforward
     if (inherits(x$dates, "Date")) {
       out <- out + ggplot2::scale_x_date(breaks = breaks,
                                          labels = labels)
@@ -299,14 +313,12 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                                              timezone = "UTC")
     }
   } else {
-    is_character <- is.character(x$interval)
-    
-    if (is_character) {
+    # labels should be dates or numbers
+    if (is.character(x$interval)) {
+      # The interval is a character like "2 weeks" and we have to figure out how
+      # to split these manually
       has_number <- grepl("\\d", x$interval)
-      tims <- ceiling(x$timespan/(n_breaks*mean(df$interval.days)))
-      # if the interval is a character, we have to figure out how to split these
-      # manually. Luckily, ggplot2::scale_x_date() can take something like
-      # "3 months" for a date_break argument.
+      tims       <- ceiling(x$timespan/(n_breaks*mean(df$interval.days)))
       if (has_number) {
         ni <- as.integer(strsplit(x$interval, " ", fixed = TRUE)[[1L]][1L])
         # the replacement should be a multiple of the number
@@ -319,6 +331,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
       }
       breaks <- seq(x$dates[1], x$dates[nrow(x)], by = db)
     }
+
     if (inherits(x$dates, "Date")) {
       out <- out + ggplot2::scale_x_date(breaks = breaks)
     } else if (inherits(x$dates, "POSIXt")) {
