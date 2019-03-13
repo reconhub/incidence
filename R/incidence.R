@@ -258,10 +258,11 @@ incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
     fd  <- as.character(deparse(the_call[["first_date"]]))
     msg <- "\n\nAs of incidence version 1.6.0, the default behavior has been"
     msg <- paste(msg, "modified so that `first_date` no longer overrides")
-    msg <- paste(msg, "`standard`. If you want to use %s as the precise")
+    msg <- paste(msg, "`standard`. This means that the first date will be")
+    msg <- paste(msg, "either on or before %s.\nIf you want to use %s as the precise")
     msg <- paste(msg, "`first_date`, set `standard = FALSE`.")
     msg <- paste(msg, "To remove this warning in the future,  explicitly set the `standard` argument OR use `options(incidence.warn.first_date = FALSE)`\n", sep = "\n\n")
-    warning(sprintf(msg, fd))
+    warning(sprintf(msg, first_date, fd))
     # turn the warning off so that it's not so noisy
     options(incidence.warn.first_date = FALSE)
   }
