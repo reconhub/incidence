@@ -7,7 +7,7 @@
 #' @keywords internal
 is_date_interval <- function(the_interval) {
   valid_intervals <- "day|week|month|quarter|year"
-  grepl(valid_intervals, the_interval)
+  grepl(valid_intervals, the_interval, ignore.case = TRUE)
 }
 
 #' Validate potential character values for interval
@@ -21,7 +21,7 @@ is_date_interval <- function(the_interval) {
 #' @author Zhian Kamvar
 #' @return the character string OR a numeric value.
 #' @noRd
-valid_interval_character <- function(the_interval) {
+valid_interval_character <- function(the_interval, standard = TRUE) {
   if (is.character(the_interval)) {
     if (!is_date_interval(the_interval)) {
       suppressWarnings({
@@ -30,6 +30,12 @@ valid_interval_character <- function(the_interval) {
       if (is.na(the_interval)) {
         stop('The interval must be a number or one of the following: "day", "week", "month", "quarter" or "year"', 
              call. = FALSE)
+      }
+    } else {
+      valid_intervals <- "^\\d?\\s?(day|week|month|quarter|year)s?$"
+      must_be_standard <- !grepl(valid_intervals, the_interval, ignore.case = TRUE)
+      if (!standard && must_be_standard) {
+        stop(sprintf("The interval '%s' implies a standard and cannot be used with `standard = FALSE`", the_interval))
       }
     }
   }

@@ -31,7 +31,7 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
 
   ## make sure input can be used
   dates    <- check_dates(dates)
-  interval <- check_interval(interval)
+  interval <- check_interval(interval, if (is.null(dots$standard)) TRUE else dots$standard)
   groups   <- check_groups(groups, dates, na_as_group)
 
   ## Check the interval and arrange the breaks

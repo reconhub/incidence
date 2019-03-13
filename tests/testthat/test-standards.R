@@ -10,8 +10,15 @@ test_that("standard will override first_date", {
        
   expect_output(print(incidence(d, interval = "week", standard = TRUE)), "2019-03-04")       
   expect_output(print(incidence(d, interval = "week", standard = TRUE)), "2019-W10")       
+  expect_output(print(incidence(d, interval = "isoweek", standard = TRUE)), "2019-W10")       
+  expect_output(print(incidence(d, interval = "1 isoweek", standard = TRUE)), "2019-W10")       
+  expect_output(print(incidence(d, interval = "monday week", standard = TRUE)), "2019-W10")       
   expect_output(print(incidence(d, interval = "week", standard = FALSE)), "2019-03-07")       
+  expect_error(incidence(d, interval = "isoweek", standard = FALSE), 
+               "The interval 'isoweek' implies a standard and cannot be used with `standard = FALSE`")       
 
+  expect_error(incidence(d, interval = "monday week", standard = FALSE), 
+               "The interval 'monday week' implies a standard and cannot be used with `standard = FALSE`")       
   expect_output(print(incidence(d, interval = "month", standard = TRUE)), "2019-03-01")       
   expect_output(print(incidence(d, interval = "month", standard = FALSE)), "2019-03-07")       
        
