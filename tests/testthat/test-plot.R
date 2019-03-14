@@ -92,9 +92,13 @@ test_that("plot for incidence object", {
   p.twoepiweek <- plot(i.twoepiweek, n_breaks = nrow(i.twoepiweek))
   
   p.sunweek   <- plot(i.sunweek)
-  p.sunweek.2 <- plot(i.sunweek, labels_week = FALSE)
+  expect_warning({
+    p.sunweek.2 <- plot(i.sunweek, labels_iso = FALSE)
+  }, "labels_iso is deprecated. Use `labels_week` instead")
   p.monweek   <- plot(i.monweek)
-  p.monweek.2 <- plot(i.monweek, labels_week = FALSE)
+  expect_warning({
+    p.monweek.2 <- plot(i.monweek, labels_week = FALSE, labels_iso = TRUE)
+  }, "labels_iso is deprecated. The value of `labels_week` will be used")
   p.tueweek   <- plot(i.tueweek)
   p.tueweek.2 <- plot(i.tueweek, labels_week = FALSE)
   p.wedweek   <- plot(i.wedweek)

@@ -1,3 +1,31 @@
+incidence 1.7.0 (unreleased)
+============================
+
+### NEW FEATURES
+
+ * Any interval `seq.Date()` can handle (e.g. "5 weeks") can be handled by
+   `incidence()` (see https://github.com/reconhub/incidence/issues/67)
+ * Weekly intervals can start on any day of the week by allowing things like 
+   "epiweek", "isoweek", "wednesday week", "2 Saturday weeks", etc.
+   (see https://github.com/reconhub/incidence/issues/55#issuecomment-405297526)
+ * the item `$weeks` is now added to the incidence object, which contains an
+   "aweek" class
+ * plotting will now force the first tick to be the starting point of the
+   incidence curve
+
+### DEPRECATED
+
+ * `plot.incidence()` argument `labels_iso` is deprecated in favor of 
+   `labels_week`
+ * Incidence objects will still have `$isoweeks` if the weeks are ISO 8601
+   standard, but users should rely intead on `$weeks` instead. The `$isoweeks`
+   element will be removed in a future version of incidence.
+
+
+### DEPENDENCIES
+
+ - ISOweek import changed to [aweek](https://www.repidemicsconsortium.org/aweek)
+
 incidence 1.6.0 (2019-03-05) 
 ============================
 

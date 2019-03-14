@@ -107,6 +107,15 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                            n_breaks = 6) {
   stopifnot(is.logical(labels_iso), is.logical(labels_week))
 
+  the_call <- match.call()
+  if (any(names(the_call) == "labels_iso"))  {
+    if (any(names(the_call) == "labels_week")) {
+      warning("labels_iso is deprecated. The value of `labels_week` will be used.")
+    } else {
+      warning("labels_iso is deprecated. Use `labels_week` instead.")
+      labels_week <- labels_iso
+    }
+  }
   ## extract data in suitable format for ggplot2
   df <- as.data.frame(x, long = TRUE)
   n.groups <- ncol(x$counts)
