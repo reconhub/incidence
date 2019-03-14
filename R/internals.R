@@ -17,19 +17,6 @@ count.dates <- function(dates, breaks){
   as.integer(counts)
 }
 
-## This function takes a vector of Date objects, and an ideal number of breaks,
-## and generates a list with two components: $breaks, and $labels. $breaks
-## correspond to the first day of the matching iso week; $labels contains vector
-## of labels of the corresponding iso weeks.
-
-make_iso_breaks <- function(dates, n = 5) {
-  breaks_ini <- pretty(dates, n)
-  iso <- ISOweek::date2ISOweek(breaks_ini)
-  iso_day1 <- sub("-[1-7]+$", "-1", iso)
-  list(breaks = ISOweek::ISOweek2date(iso_day1),
-       labels = sub("-[1-7]+$", "", iso)
-       )
-}
 
 ## Implement isTRUE and isFALSE to avoid dep on R 3.5.0
 

@@ -9,7 +9,7 @@
 #' @param x an integer or numeric interval
 #' @return an integer interval
 #' @noRd
-check_interval <- function(x){
+check_interval <- function(x, standard = TRUE){
   if (missing(x) || is.null(x)) {
     stop("Interval is missing or NULL")
   }
@@ -20,7 +20,7 @@ check_interval <- function(x){
   }
   if (!is.finite(x)) {
     if (is.character(x)) {
-      x <- valid_interval_character(x)
+      x <- valid_interval_character(x, standard)
     } else {
       stop("Interval is not finite")
     }

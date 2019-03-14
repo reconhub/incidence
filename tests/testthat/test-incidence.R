@@ -66,7 +66,7 @@ test_that("construction - ISO week", {
   expect_is(inc.isoweek, "incidence")
 
   ## dimensions
-  expect_equal(setdiff(names(inc.isoweek), names(inc.week)), "isoweeks")
+  expect_equal(setdiff(names(inc.isoweek), names(inc.week)), c("weeks", "isoweeks"))
   expect_equal(length(inc.isoweek$isoweeks), length(inc.isoweek$dates))
   expect_equal(nrow(inc.isoweek$counts), length(inc.isoweek$dates))
 
@@ -139,8 +139,9 @@ test_that("construction - Date input", {
   x.w.ds.iso <- incidence(dat_dates + 1L, "week")
 
   ## Testing monthly input
-  expect_warning(x.mo.no <- incidence(dat_dates - 28, "month", standard = FALSE),
-                 "The first_date \\(2015-11-30\\) represents a day that does not occur in all months.")
+  w <- "The first_date \\(2015-11-30\\) represents a day that does not occur in all months."
+  w <- gsub(" ", "\\\\s", w)
+  expect_warning(x.mo.no <- incidence(dat_dates - 28, "month", standard = FALSE), w)
 
   x.mo.iso <- incidence(dat_dates, "month")
   expect_equal(format(x.mo.iso$dates, "%m"), unique(format(sort(dat_dates), "%m")))
@@ -155,8 +156,9 @@ test_that("construction - Date input", {
   expect_equal(sum(x.mo$counts), 51L)
 
   ## Testing quarterly input
-  expect_warning(x.qu.no <- incidence(dat_dates - 28, "quarter", standard = FALSE),
-                 "The first_date \\(2015-11-30\\) represents a day that does not occur in all months.")
+  w <- "The first_date \\(2015-11-30\\) represents a day that does not occur in all months."
+  w <- gsub(" ", "\\\\s", w)
+  expect_warning(x.qu.no <- incidence(dat_dates - 28, "quarter", standard = FALSE), w)
 
   x.qu.iso <- incidence(dat_dates, "quarter")
   expect_equal(x.qu.iso$dates, as.Date(c("2015-10-01", "2016-01-01", "2016-04-01")))
@@ -173,8 +175,9 @@ test_that("construction - Date input", {
   )
   x.yr.iso <- incidence(dat.yr, "year")
   x.yr     <- incidence(dat.yr, "year", standard = FALSE)
-  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29"), standard = FALSE),
-                 "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
+  w <- "The first_date \\(2016-02-29\\) represents a day that does not occur in all years."
+  w <- gsub(" ", "\\\\s", w)
+  expect_warning(x.yr.no  <- incidence(dat.yr, "year", first_date = as.Date("2016-02-29"), standard = FALSE), w 
   )
   expect_equal(get_dates(x.yr.iso), as.Date(c("2015-01-01", "2016-01-01", "2017-01-01", "2018-01-01")))
   expect_equal(get_dates(x.yr), as.Date(c("2015-12-28", "2016-12-28", "2017-12-28")))

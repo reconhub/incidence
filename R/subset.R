@@ -119,7 +119,8 @@ subset.incidence <- function(x, ..., from = min(x$dates), to = max(x$dates),
     }
     out$counts <- out$counts[i, j, drop = FALSE]
     out$dates <- out$dates[i]
-    if ("isoweeks" %in% names(x)) {
+    if ("weeks" %in% names(x)) {
+      out$weeks    <- out$weeks[i] 
       out$isoweeks <- out$isoweeks[i]
     }
     # Need to use 1L here to keep things type-stable:

@@ -1,6 +1,6 @@
 ---
 title: "Overview of the incidence package"
-author: "Thibaut Jombart"
+author: "Thibaut Jombart, Zhian N. Kamvar"
 date: "`r Sys.Date()`"
 output:
    rmarkdown::html_vignette:
@@ -35,11 +35,13 @@ content of `REAME.md`.
 # Installing the package
 
 To install the current stable, CRAN version of the package, type:
+
 ```{r install, eval=FALSE}
 install.packages("incidence")
 ```
 
 To benefit from the latest features and bug fixes, install the development, *github* version of the package using:
+
 ```{r install2, eval=FALSE}
 devtools::install_github("reconhub/incidence")
 ```
@@ -103,7 +105,6 @@ The main functions of the package include:
 
 
 
-<br>
 
 # Worked example: simulated Ebola outbreak
 
@@ -133,26 +134,29 @@ i
 plot(i)
 ```
 
-The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:
+The daily incidence is quite noisy, but we can easily compute other incidence
+using larger time intervals:
+
 ```{r, interv}
-## weekly
-i.7 <- incidence(dat, interval=7)
+# weekly, starting on Monday (ISO week, default)
+i.7 <- incidence(dat, interval = "1 week")
 plot(i.7)
 
-## bi-weekly
-i.14 <- incidence(dat, interval=14)
+# semi-weekly, starting on Saturday
+i.14 <- incidence(dat, interval = "2 saturday weeks")
 plot(i.14, border = "white")
 
 ## monthly
-i.month <- incidence(dat, interval="month")
+i.month <- incidence(dat, interval = "1 month")
 plot(i.month, border = "white")
 
 ```
 
 `incidence` can also compute incidence by specified groups using the `groups`
 argument. For instance, we can compute incidence by gender:
+
 ```{r, gender}
-i.7.sex <- incidence(dat, interval = 7, groups = ebola_sim$linelist$gender)
+i.7.sex <- incidence(dat, interval = "1 week", groups = ebola_sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
@@ -162,9 +166,9 @@ some customization of the legend:
 
 ```{r, hosp}
 i.7.hosp <- with(ebola_sim_clean$linelist, 
-	 incidence(date_of_onset, interval=7, groups = hospital))
+	 incidence(date_of_onset, interval = "week", groups = hospital))
 i.7.hosp
-head(i.7.hosp$counts)
+head(get_counts(i.7.hosp))
 plot(i.7.hosp, stack=TRUE) + 
     theme(legend.position= "top") + 
     labs(fill="")
@@ -173,40 +177,53 @@ plot(i.7.hosp, stack=TRUE) +
 
 
 ## Handling `incidence` objects
-`incidence` objects can be manipulated easily. The `[` operator implements subsetting of dates (first argument) and groups (second argument). 
-For instance, to keep only the peak of the distribution:
+
+`incidence` objects can be manipulated easily. The `[` operator implements
+subsetting of dates (first argument) and groups (second argument). For
+instance, to keep only the peak of the distribution:
+
 ```{r, middle}
 i[100:250]
 plot(i[100:250])
 ```
 
 Or to keep every other week:
+
 ```{r, stripes}
 i.7[c(TRUE,FALSE)]
 plot(i.7[c(TRUE,FALSE)])
 ```
 
-Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
+Some temporal subsetting can be even simpler using `subset`, which permits to
+retain data within a specified time window:
+
 ```{r, tail}
 i.tail <- subset(i, from=as.Date("2015-01-01"))
 i.tail
 plot(i.tail, border="white")
 ```
 
-Subsetting groups can also matter. For instance, let's try and visualise the incidence based on onset of symptoms by outcome:
+Subsetting groups can also matter. For instance, let's try and visualise the
+incidence based on onset of symptoms by outcome:
+
 ```{r, i7outcome}
 i.7.outcome <- incidence(dat, 7, groups=ebola_sim$linelist$outcome)
 i.7.outcome
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
-By default, `incidence` treats missing data (NA) as a separate group (see argument `na_as_group`). We could disable this to retain only known outcomes, but alternatively we can simply subset the object to exclude the last (3rd) group:
+By default, `incidence` treats missing data (NA) as a separate group (see
+argument `na_as_group`). We could disable this to retain only known outcomes,
+but alternatively we can simply subset the object to exclude the last (3rd)
+group:
+
 ```{r, groupsub}
 i.7.outcome[,1:2]
 plot(i.7.outcome[,1:2], stack = TRUE, border = "grey")
 ```
 
 Groups can also be collapsed into a single time series using `pool`:
+
 ```{r, pool}
 i.pooled <- pool(i.7.outcome)
 i.pooled
@@ -217,14 +234,17 @@ identical(i.7$counts, i.pooled$counts)
 
 ## Modelling incidence
 
-Incidence data, excluding zeros, can be modelled using log-linear regression of the form:
-log(*y*) = *r* x *t* + *b*
+Incidence data, excluding zeros, can be modelled using log-linear regression of
+the form: log(*y*) = *r* x *t* + *b*
 
-where *y* is the incidence, *r* is the growth rate, *t* is the number of days since a specific point in time (typically the start of the outbreak), and *b* is the intercept.
+where *y* is the incidence, *r* is the growth rate, *t* is the number of days
+since a specific point in time (typically the start of the outbreak), and *b*
+is the intercept.
 
-Such model can be fitted to any incidence object using `fit`.
-Of course, a single log-linear model is not sufficient for modelling our epidemic curve, as there is clearly an growing and a decreasing phase.
-As a start, we can calibrate a model on the first 20 weeks of the epidemic:
+Such model can be fitted to any incidence object using `fit`.  Of course, a
+single log-linear model is not sufficient for modelling our epidemic curve, as
+there is clearly an growing and a decreasing phase.  As a start, we can
+calibrate a model on the first 20 weeks of the epidemic:
 
 
 ```{r, fit1}
@@ -233,34 +253,45 @@ early.fit <- fit(i.7[1:20])
 early.fit
 ```
 
-The resulting objects (known as `incidence_fit` objects) can be plotted, in which case the prediction and its confidence interval is displayed:
+The resulting objects (known as `incidence_fit` objects) can be plotted, in
+which case the prediction and its confidence interval is displayed:
 
 ```{r}
 plot(early.fit)
 ```
 
-However, a better way to display these predictions is adding them to the incidence plot using the argument `fit`:
+However, a better way to display these predictions is adding them to the
+incidence plot using the argument `fit`:
+
 ```{r}
 plot(i.7[1:20], fit = early.fit)
 ```
 
 
-In this case, we would ideally like to fit two models, before and after the peak of the epidemic.
-This is possible using the following approach, if you know what date to use to split the data in two phases:
+In this case, we would ideally like to fit two models, before and after the
+peak of the epidemic. This is possible using the following approach, if you
+know what date to use to split the data in two phases:
+
 ```{r, fit.both}
 fit.both <- fit(i.7, split=as.Date("2014-10-15"))
 fit.both
 plot(i.7, fit=fit.both)
 ```
 
-This is much better, but the splitting date is not completely optimal. To look for the best possible splitting date (i.e. the one maximizing the average fit of both models), we use:
+This is much better, but the splitting date is not completely optimal. To look
+for the best possible splitting date (i.e. the one maximizing the average fit
+of both models), we use:
+
 ```{r, optim}
 best.fit <- fit_optim_split(i.7)
 best.fit
 plot(i.7, fit=best.fit$fit)
 ```
 
-These models are very good approximation of these data, showing a doubling time of `r round(get_info(best.fit$fit, "doubling"), 1)` days during the first phase, and a halving time of `r round(get_info(best.fit$fit, "halving"), 1)` days during the second. 
+These models are very good approximation of these data, showing a doubling time
+of `r round(get_info(best.fit$fit, "doubling"), 1)` days during the first
+phase, and a halving time of `r round(get_info(best.fit$fit, "halving"), 1)`
+days during the second. 
 To access these parameters, you can use the `get_info()` function.
 
 The possible parameters are:
@@ -281,7 +312,8 @@ get_info(best.fit$fit, "halving")
 get_info(best.fit$fit, "halving.conf")       
 ```
 
-Note that `fit` will also take groups into account if incidence has been computed for several groups:
+Note that `fit` will also take groups into account if incidence has been
+computed for several groups:
 
 ```{r, optim2}
 best.fit2 <- fit_optim_split(i.7.sex)

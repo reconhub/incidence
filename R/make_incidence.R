@@ -31,7 +31,7 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
 
   ## make sure input can be used
   dates    <- check_dates(dates)
-  interval <- check_interval(interval)
+  interval <- check_interval(interval, if (is.null(dots$standard)) TRUE else dots$standard)
   groups   <- check_groups(groups, dates, na_as_group)
 
   ## Check the interval and arrange the breaks
@@ -43,6 +43,9 @@ make_incidence <- function(dates, interval = 1L, groups = NULL,
                                    last_date       = last_date,
                                    dots            = dots
                                    )
+  if (!is.numeric(interval) && grepl("week", interval)) {
+    interval <- get_week_duration(interval)
+  }
 
   ## Trim the dates and groups as necessary
   trimmed <- trim_observations(dates, first_date, last_date)

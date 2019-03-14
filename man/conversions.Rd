@@ -13,7 +13,7 @@
 as.incidence(x, ...)
 
 \method{as.incidence}{matrix}(x, dates = NULL, interval = NULL,
-  isoweeks = TRUE, ...)
+  standard = TRUE, isoweeks = standard, ...)
 
 \method{as.incidence}{data.frame}(x, dates = NULL, interval = NULL,
   isoweeks = TRUE, ...)
@@ -38,8 +38,10 @@ computation of the incidence. If NULL, it will be determined from the first
 time interval between provided dates. If only one date is provided, it will
 trigger an error.}
 
-\item{isoweeks}{A logical indicating whether isoweeks should be used in the
-case of weekly incidence; defaults to \code{TRUE}.}
+\item{standard}{A logical indicating whether standardised dates should be
+used. Defaults to \code{TRUE}.}
+
+\item{isoweeks}{Deprecated. Use standard.}
 }
 \description{
 These functions convert \code{incidence} objects into other classes.

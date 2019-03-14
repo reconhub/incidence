@@ -43,7 +43,7 @@ about \code{numeric} and \code{character} formats)}
 \item{interval}{An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
 also be a text string that corresponds to a valid date interval: day, week,
-month, quarter, or year. (See Note)}
+month, quarter, or year. (See Note).}
 
 \item{...}{Additional arguments passed to other methods (none are used).}
 
@@ -70,16 +70,23 @@ An list with the class \code{incidence}, which contains the
 following items:
 \itemize{
 \item \strong{dates}: The dates marking the left side of the bins used for counting
-events. When ISO week-based weekly incidence is computed, the dates are the
-first days of corresponding isoweeks.
+events. When \code{standard = TRUE} and the interval represents weeks, months,
+quarters, or years, the first date will represent the first standard date
+(See Interval specification, below).
 \item \strong{counts}: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).
 \item \strong{timespan}: The length of the period for which incidence is computed, in
 days.
-\item \strong{interval}: The bin size, in number of days; e.g. 7 indicates weekly
-incidence.
+\item \strong{interval}: The bin size. If it's an integer, it represents the number
+of days between each bin. It can also be a character, e.g. "2 weeks" or
+"6 months".
 \item \strong{n}: The total number of cases.
-\item \strong{isoweeks}: ISO 8601 week format yyyy-Www, which is returned only when
+\item \strong{weeks}: Dates in week format (YYYY-Www), where YYYY corresponds to the
+year of the given week and ww represents the numeric week of the year.
+This will be a produced from the function \code{\link[aweek:date2week]{aweek::date2week()}}. Note that
+these will have a special \code{"week_start"} attribute indicating which day of
+the ISO week the week starts on (see Weeks, below).
+\item \strong{isoweeks}: ISO 8601 week format YYYY-Www, which is returned only when
 ISO week-based weekly incidence is computed.
 }
 }
@@ -105,12 +112,12 @@ format. Any other format will trigger an error.
 }
 
 \subsection{Interval specification (\code{interval})}{
-If \code{interval} is a valid character (e.g. "week" or "month"), then
+If \code{interval} is a valid character (e.g. "week" or "1 month"), then
 the bin will start at the beginning of the interval just before the first
 observation by default. For example, if the first case was recorded on
 Wednesday, 2018-05-09:
 \itemize{
-\item "week"    : first day of the ISOweek (i.e. Monday, 2018-05-07)
+\item "week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to ISO weeks, see "Week intervals", below)
 \item "month"   : first day of the month (i.e. 2018-05-01)
 \item "quarter" : first day of the quarter (i.e. 2018-04-01)
 \item "year"    : first day of the calendar year (i.e. 2018-01-01)
@@ -118,6 +125,43 @@ Wednesday, 2018-05-09:
 
 These default intervals can be overridden with \code{standard = FALSE}, which
 sets the interval to begin at the first observed case.
+}
+
+\subsection{Week intervals}{
+
+As of \emph{incidence} version 1.7.0, it is possible to construct standardized
+incidence objects standardized to any day of the week thanks to the
+\code{\link[aweek:date2week]{aweek::date2week()}} function from the \pkg{aweek} package. The default
+state is to use ISO 8601 definition of weeks, which start on Monday. You can
+specify the day of the week an incidence object should be standardised to by
+using the pattern "{n} {W} weeks" where "{W}" represents the weekday in an
+English or current locale and "{n}" represents the duration, but this can be
+ommitted.  Below are examples of specifying weeks starting on different days
+assuming we had data that started on 2016-09-05, which is ISO week 36 of
+2016:
+\itemize{
+\item interval = "2 monday weeks" (Monday 2016-09-05)
+\item interval = "1 tue week" (Tuesday 2016-08-30)
+\item interval = "1 Wed week" (Wednesday 2016-08-31)
+\item interval = "1 Thursday week" (Thursday 2016-09-01)
+\item interval = "1 F week" (Friday 2016-09-02)
+\item interval = "1 Saturday week" (Saturday 2016-09-03)
+\item interval = "Sunday week" (Sunday 2016-09-04)
+}
+
+It's also possible to use something like "3 weeks: Saturday"; In addition,
+there are keywords reserved for specific days of the week:
+\itemize{
+\item interval = "week", standard = TRUE (Default, Monday)
+\item interval = "ISOweek"  (Monday)
+\item interval = "EPIweek"  (Sunday)
+\item interval = "MMWRweek" (Sunday)
+}
+
+The "EPIweek" specification is not strictly reserved for CDC epiweeks, but
+can be prefixed (or posfixed) by a day of the week: "1 epiweek: Saturday".
+
+}
 
 \subsection{The \code{first_date} argument}{
 Previous versions of \emph{incidence} had the \code{first_date} argument override
@@ -132,7 +176,6 @@ The intervals for "month", "quarter", and "year" will necessarily vary in the
 number of days they encompass and warnings will be generated when the first
 date falls outside of a calendar date that is easily represented across the
 interval.
-}
 }
 \examples{
 ## toy example
@@ -153,18 +196,31 @@ if(require(outbreaks)) { withAutoprint({
   inc.week
   plot(inc.week)
   plot(inc.week, border = "white") # with visible border
-  inc.isoweek <- incidence(onset, interval = 7, standard = TRUE)
+  
+  # Starting on Monday
+  inc.isoweek <- incidence(onset, interval = "isoweek")
   inc.isoweek
+  
+  # Starting on Sunday
+  inc.epiweek <- incidence(onset, interval = "epiweek")
+  inc.epiweek
+
+  # Starting on Saturday
+  inc.epiweek <- incidence(onset, interval = "saturday epiweek")
+  inc.epiweek
+
   ## use group information
-  sex <- ebola_sim$linelist$gender
+  sex <- outbreaks::ebola_sim$linelist$gender
   inc.week.gender <- incidence(onset, interval = 7,
                                groups = sex, standard = FALSE)
   inc.week.gender
   head(inc.week.gender$counts)
-  plot(inc.week.gender)
-  inc.isoweek.gender <- incidence(onset, interval = 7,
-                                  groups = sex, standard = TRUE)
-  inc.isoweek.gender
+  plot(inc.week.gender, border = "grey90")
+  inc.satweek.gender <- incidence(onset, interval = "2 epiweeks: saturday",
+                                  groups = sex)
+  inc.satweek.gender
+  plot(inc.satweek.gender, border = "grey90")
+
 })}
 
 # Use of first_date

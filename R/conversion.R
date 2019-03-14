@@ -66,29 +66,38 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
         colnames(counts) <- "counts"
     }
 
-    if ("isoweeks" %in% names(x)) {
-      out <- cbind.data.frame(dates = x$dates,
-                              isoweeks = x$isoweeks,
-                              counts)
+    ws <- attr(x$weeks, "week_start")
+    if ("weeks" %in% names(x)) {
+      out <- data.frame(dates = x$dates,
+                        weeks = as.character(x$weeks),
+                        isoweeks = as.character(x$weeks),
+                        counts,
+                        check.names = FALSE)
+      out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
     } else {
-      out <- cbind.data.frame(dates = x$dates, counts)
+      out <- data.frame(dates = x$dates, counts, check.names = FALSE)
     }
 
     ## handle the long format here
     if (long && !unnamed) {
         groups <- factor(rep(gnames, each = nrow(out)), levels = gnames)
         counts <- as.vector(x$counts)
-        if ("isoweeks" %in% names(x)) {
+        if ("weeks" %in% names(x)) {
           out <- data.frame(dates = out$dates,
+                            weeks = as.character(out$weeks),
                             isoweeks = out$isoweeks,
                             counts = counts,
-                            groups = groups)
+                            groups = groups,
+                            check.names = FALSE)
+          out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
         } else {
           out <- data.frame(dates = out$dates,
                             counts = counts,
-                            groups = groups)
+                            groups = groups,
+                            check.names = FALSE)
         }
     }
+    if (all(names(x) != "isoweeks")) out$isoweeks <- NULL
     out
 }
 
@@ -127,12 +136,14 @@ as.incidence <- function(x, ...) {
 #'   time interval between provided dates. If only one date is provided, it will
 #'   trigger an error.
 #'
-#' @param isoweeks A logical indicating whether isoweeks should be used in the
-#'   case of weekly incidence; defaults to `TRUE`.
+#' @param standard A logical indicating whether standardised dates should be
+#'   used. Defaults to `TRUE`.
+#' 
+#' @param isoweeks Deprecated. Use standard.
 #'
 
 as.incidence.matrix <- function(x, dates = NULL, interval = NULL,
-                                isoweeks = TRUE, ...) {
+                                standard = TRUE, isoweeks = standard, ...) {
 
   if (is.null(dates)) {
     if (!is.null(interval)) {

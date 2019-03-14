@@ -1,6 +1,6 @@
 ---
 title: "Conversions to and from the incidence class"
-author: "Thibaut Jombart"
+author: "Thibaut Jombart, Zhian N. Kamvar"
 date: "`r Sys.Date()`"
 output:
    rmarkdown::html_vignette:
@@ -40,18 +40,22 @@ This vignette documents to types of conversion which can be made using the *inci
 
 # Exporting results
 
-To export results, we first compute bi-weekly incidence by gender from the simulated Ebola data used in the [overview vignette](http://www.repidemicsconsortium.org/incidence/articles/overview.html):
+To export results, we first compute semi-weekly incidence (with weeks starting
+on Sunday, the beginning of the CDC epiweek) by gender from the simulated Ebola
+data used in the [overview
+vignette](http://www.repidemicsconsortium.org/incidence/articles/overview.html):
 
 ```{r example}
 library(outbreaks)
 library(incidence)
 dat <- ebola_sim$linelist$date_of_onset
-i_14 <- incidence(dat, interval = 14, groups = ebola_sim$linelist$gender)
+i_14 <- incidence(dat, interval = "2 epiweeks", groups = ebola_sim$linelist$gender)
 i_14
 plot(i_14, border = "white")
 ```
 
 To export the data to a `data.frame`, one simply needs:
+
 ```{r}
 as.data.frame(i_14)
 ```
@@ -75,8 +79,9 @@ ggplot(df, aes(x = dates, y = counts)) + geom_step(aes(color = groups))
 
 
 Finally, note that when ISO weeks are used, these are also reported in the output:
+
 ```{r, iso}
-i_7 <- incidence(dat, interval = 7)
+i_7 <- incidence(dat, interval = "week")
 i_7
 plot(i_7, border = "white")
 head(as.data.frame(i_7))
@@ -152,7 +157,7 @@ head(df)
 tail(df)
 
 ## conversion: data.frame --> incidence
-new_i <- as.incidence(df[,-1], df$dates)
+new_i <- as.incidence(df[group_names(i_14)], df$dates, interval = "2 epiweeks")
 new_i
 
 ## check round trip
