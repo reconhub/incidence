@@ -1,13 +1,13 @@
 ## Notes to CRAN
 
-This submission fixes a spuriously failing test, highlighted by Brian Ripley. It was fixed in https://github.com/reconhub/incidence/issues/95. 
+This fixes tests failing on R 3.6.0 due to the RNG bugfix.
 
 ## Test environments
 
-* ubuntu 16.04, R 3.5.2
-* MacOS 10.14.2, R 3.5.2
+* ubuntu 16.04, R 3.5.3
+* MacOS 10.14.2, R 3.5.3
 * ubuntu 14.04, (on travis-ci), 
-* ubuntu 14.04 (on travis-ci), R devel [2019-01-14 r75992]
+* ubuntu 14.04 (on travis-ci), R devel [2019-03-13 r76228]
 * win-builder (devel [2019-01-09 r75961] and release)
 
 ## R CMD check results
