@@ -179,7 +179,7 @@ plot(i.7)
 gender:
 
 ``` r
-i.7.sex <- incidence(dat, interval = 7, groups = ebola_sim$linelist$gender)
+i.7.sex <- incidence(dat, interval = "week", groups = ebola_sim$linelist$gender)
 i.7.sex
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -189,7 +189,7 @@ i.7.sex
 #> $counts: matrix with 56 rows and 2 columns
 #> $n: 5888 cases in total
 #> $dates: 56 dates marking the left-side of bins
-#> $interval: 7 days
+#> $interval: 1 week
 #> $timespan: 386 days
 #> $cumulative: FALSE
 plot(i.7.sex, stack = TRUE, border = "grey")
@@ -243,10 +243,11 @@ plot(i.tail, border = "white")
 ![](figs/tail-1.png)<!-- -->
 
 Subsetting groups can also matter. For instance, let’s try and visualise
-the incidence based on onset of symptoms by outcome:
+the incidence based on onset of symptoms by
+outcome:
 
 ``` r
-i.7.outcome <- incidence(dat, 7, groups = ebola_sim$linelist$outcome)
+i.7.outcome <- incidence(dat, "week", groups = ebola_sim$linelist$outcome)
 i.7.outcome
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -256,7 +257,7 @@ i.7.outcome
 #> $counts: matrix with 56 rows and 3 columns
 #> $n: 5888 cases in total
 #> $dates: 56 dates marking the left-side of bins
-#> $interval: 7 days
+#> $interval: 1 week
 #> $timespan: 386 days
 #> $cumulative: FALSE
 plot(i.7.outcome, stack = TRUE, border = "grey")
@@ -277,7 +278,7 @@ i.7.outcome.cum
 #> $counts: matrix with 56 rows and 3 columns
 #> $n: 5888 cases in total
 #> $dates: 56 dates marking the left-side of bins
-#> $interval: 7 days
+#> $interval: 1 week
 #> $timespan: 386 days
 #> $cumulative: TRUE
 plot(i.7.outcome.cum)
@@ -297,7 +298,7 @@ i.pooled
 #> $counts: matrix with 56 rows and 1 columns
 #> $n: 5888 cases in total
 #> $dates: 56 dates marking the left-side of bins
-#> $interval: 7 days
+#> $interval: 1 week
 #> $timespan: 386 days
 #> $cumulative: FALSE
 identical(i.7$counts, i.pooled$counts)
@@ -452,12 +453,15 @@ plot(i.7, fit = best.fit$fit)
 
 ![](figs/optim-2.png)<!-- -->
 
+# Credits
+
   - Contributors (by alphabetic order):
   - [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
   - [Jun Cai](https://github.com/caijun)
   - [Rich Fitzjohn](https://github.com/richfitz)
   - [Thibaut Jombart](https://github.com/thibautjombart)
   - [Zhian Kamvar](https://github.com/zkamvar)
+  - [Juliet RC Pulliam](https://github.com/jrcpulliam)
   - [Jakob Schumacher](https://github.com/jakobschumacher)
 
 See details of contributions on: <br>

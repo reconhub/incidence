@@ -33,19 +33,19 @@ knitr::opts_chunk$set(
 # Installing the package
 
 To install the current stable, CRAN version of the package, type:
+
 ```{r install, eval=FALSE}
 install.packages("incidence")
 ```
 
-To benefit from the latest features and bug fixes, install the development, *github* version of the package using:
+To benefit from the latest features and bug fixes, install the development,
+*github* version of the package using:
+
 ```{r install2, eval=FALSE}
 devtools::install_github("reconhub/incidence")
 ```
 
 Note that this requires the package *devtools* installed.
-
-
-
 
 # What does it do?
 
@@ -103,6 +103,7 @@ The main features of the package include:
 
 An overview of *incidence* is provided below in the worked example below.
 More detailed tutorials are distributed as vignettes with the package:
+
 ```{r, vignettes2, eval = FALSE}
 vignette("overview", package="incidence")
 vignette("customize_plot", package="incidence")
@@ -165,7 +166,9 @@ head(dat)
 
 
 ## Computing and plotting incidence
+
 We compute the weekly incidence:
+
 ```{r, incid1}
 i.7 <- incidence(dat, interval = 7)
 i.7
@@ -173,23 +176,30 @@ plot(i.7)
 ```
 
 
-`incidence` can also compute incidence by specified groups using the `groups` argument. For instance, we can compute the weekly incidence by gender:
+`incidence` can also compute incidence by specified groups using the `groups`
+argument. For instance, we can compute the weekly incidence by gender:
+
 ```{r, gender}
-i.7.sex <- incidence(dat, interval = 7, groups = ebola_sim$linelist$gender)
+i.7.sex <- incidence(dat, interval = "week", groups = ebola_sim$linelist$gender)
 i.7.sex
 plot(i.7.sex, stack = TRUE, border = "grey")
 ```
 
 
 ## Handling `incidence` objects
-`incidence` objects can be manipulated easily. The `[` operator implements subetting of dates (first argument) and groups (second argument). 
-For instance, to keep only the first 20 weeks of the epidemic:
+
+`incidence` objects can be manipulated easily. The `[` operator implements
+subetting of dates (first argument) and groups (second argument).  For
+instance, to keep only the first 20 weeks of the epidemic:
+
 ```{r, start}
 i.7[1:20]
 plot(i.7[1:20])
 ```
 
-Some temporal subsetting can be even simpler using `subset`, which permits to retain data within a specified time window:
+Some temporal subsetting can be even simpler using `subset`, which permits to
+retain data within a specified time window:
+
 ```{r, tail}
 i.tail <- subset(i.7, from = as.Date("2015-01-01"))
 i.tail
@@ -200,12 +210,13 @@ Subsetting groups can also matter. For instance, let's try and visualise the
 incidence based on onset of symptoms by outcome:
 
 ```{r, i7outcome}
-i.7.outcome <- incidence(dat, 7, groups = ebola_sim$linelist$outcome)
+i.7.outcome <- incidence(dat, "week", groups = ebola_sim$linelist$outcome)
 i.7.outcome
 plot(i.7.outcome, stack = TRUE, border = "grey")
 ```
 
 To visualise the cumulative incidence:
+
 ```{r, i7outcome_cum}
 i.7.outcome.cum <- cumulate(i.7.outcome)
 i.7.outcome.cum
@@ -214,6 +225,7 @@ plot(i.7.outcome.cum)
 
 
 Groups can also be collapsed into a single time series using `pool`:
+
 ```{r, pool}
 i.pooled <- pool(i.7.outcome)
 i.pooled
@@ -254,6 +266,7 @@ plot(i.7[1:20], fit = early.fit)
 ```
 
 Alternatively, these can be piped using:
+
 ```{r pipe-fit}
 library(magrittr)
 plot(i.7[1:20]) %>% add_incidence_fit(early.fit)
@@ -264,16 +277,14 @@ In this case, we would ideally like to fit two models, before and after the peak
 of the epidemic.  This is possible using the following approach, in which the
 best possible splitting date (i.e. the one maximizing the average fit of both
 models), is determined automatically:
+
 ```{r, optim}
 best.fit <- fit_optim_split(i.7)
 best.fit
 plot(i.7, fit = best.fit$fit)
 ```
 
-
-
-
-
+# Credits
 
 - Contributors (by alphabetic order):
 - [Sangeeta Bhatia](https://github.com/sangeetabhatia03)
@@ -281,6 +292,7 @@ plot(i.7, fit = best.fit$fit)
 - [Rich Fitzjohn](https://github.com/richfitz)
 - [Thibaut Jombart](https://github.com/thibautjombart)
 - [Zhian Kamvar](https://github.com/zkamvar)
+- [Juliet RC Pulliam](https://github.com/jrcpulliam)
 - [Jakob Schumacher](https://github.com/jakobschumacher)
 
 See details of contributions on:
