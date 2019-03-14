@@ -68,7 +68,7 @@ and 2, the second interval includes 3, 4 and 5 etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
       </span>
     </div>
 
@@ -195,7 +195,7 @@ about <code>numeric</code> and <code>character</code> formats)</p></td>
       <td><p>An integer or character indicating the (fixed) size of the
 time interval used for computing the incidence; defaults to 1 day. This can
 also be a text string that corresponds to a valid date interval: day, week,
-month, quarter, or year. (See Note)</p></td>
+month, quarter, or year. (See Note).</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -236,16 +236,23 @@ observations will be trimmed to the range of [first_date, last_date].</p></td>
     <p>An list with the class <code>incidence</code>, which contains the
 following items:</p><ul>
 <li><p><strong>dates</strong>: The dates marking the left side of the bins used for counting
-events. When ISO week-based weekly incidence is computed, the dates are the
-first days of corresponding isoweeks.</p></li>
+events. When <code>standard = TRUE</code> and the interval represents weeks, months,
+quarters, or years, the first date will represent the first standard date
+(See Interval specification, below).</p></li>
 <li><p><strong>counts</strong>: A matrix of incidence counts, which one column per group (and
 a single column if no groups were used).</p></li>
 <li><p><strong>timespan</strong>: The length of the period for which incidence is computed, in
 days.</p></li>
-<li><p><strong>interval</strong>: The bin size, in number of days; e.g. 7 indicates weekly
-incidence.</p></li>
+<li><p><strong>interval</strong>: The bin size. If it's an integer, it represents the number
+of days between each bin. It can also be a character, e.g. "2 weeks" or
+"6 months".</p></li>
 <li><p><strong>n</strong>: The total number of cases.</p></li>
-<li><p><strong>isoweeks</strong>: ISO 8601 week format yyyy-Www, which is returned only when
+<li><p><strong>weeks</strong>: Dates in week format (YYYY-Www), where YYYY corresponds to the
+year of the given week and ww represents the numeric week of the year.
+This will be a produced from the function <code><a href='https://www.rdocumentation.org/packages/aweek/topics/date2week'>aweek::date2week()</a></code>. Note that
+these will have a special <code>"week_start"</code> attribute indicating which day of
+the ISO week the week starts on (see Weeks, below).</p></li>
+<li><p><strong>isoweeks</strong>: ISO 8601 week format YYYY-Www, which is returned only when
 ISO week-based weekly incidence is computed.</p></li>
 </ul>
 
@@ -264,18 +271,48 @@ vignette:<br /> <code><a href='../articles/incidence_class.html'>vignette("incid
 format. Any other format will trigger an error.</p></li>
 </ul>
     <h3>Interval specification (<code>interval</code>)</h3>
-    If <code>interval</code> is a valid character (e.g. "week" or "month"), then
+    If <code>interval</code> is a valid character (e.g. "week" or "1 month"), then
 the bin will start at the beginning of the interval just before the first
 observation by default. For example, if the first case was recorded on
 Wednesday, 2018-05-09:
 <ul>
-<li><p>"week"    : first day of the ISOweek (i.e. Monday, 2018-05-07)</p></li>
+<li><p>"week"    : first day of the week (i.e. Monday, 2018-05-07) (defaults to ISO weeks, see "Week intervals", below)</p></li>
 <li><p>"month"   : first day of the month (i.e. 2018-05-01)</p></li>
 <li><p>"quarter" : first day of the quarter (i.e. 2018-04-01)</p></li>
 <li><p>"year"    : first day of the calendar year (i.e. 2018-01-01)</p></li>
 </ul>
     These default intervals can be overridden with <code>standard = FALSE</code>, which
 sets the interval to begin at the first observed case.
+    <h3>Week intervals</h3>
+    As of <em>incidence</em> version 1.7.0, it is possible to construct standardized
+incidence objects standardized to any day of the week thanks to the
+<code><a href='https://www.rdocumentation.org/packages/aweek/topics/date2week'>aweek::date2week()</a></code> function from the <span class="pkg">aweek</span> package. The default
+state is to use ISO 8601 definition of weeks, which start on Monday. You can
+specify the day of the week an incidence object should be standardised to by
+using the pattern "n W weeks" where "W" represents the weekday in an
+English or current locale and "n" represents the duration, but this can be
+ommitted.  Below are examples of specifying weeks starting on different days
+assuming we had data that started on 2016-09-05, which is ISO week 36 of
+2016:
+<ul>
+<li><p>interval = "2 monday weeks" (Monday 2016-09-05)</p></li>
+<li><p>interval = "1 tue week" (Tuesday 2016-08-30)</p></li>
+<li><p>interval = "1 Wed week" (Wednesday 2016-08-31)</p></li>
+<li><p>interval = "1 Thursday week" (Thursday 2016-09-01)</p></li>
+<li><p>interval = "1 F week" (Friday 2016-09-02)</p></li>
+<li><p>interval = "1 Saturday week" (Saturday 2016-09-03)</p></li>
+<li><p>interval = "Sunday week" (Sunday 2016-09-04)</p></li>
+</ul>
+    It's also possible to use something like "3 weeks: Saturday"; In addition,
+there are keywords reserved for specific days of the week:
+<ul>
+<li><p>interval = "week", standard = TRUE (Default, Monday)</p></li>
+<li><p>interval = "ISOweek"  (Monday)</p></li>
+<li><p>interval = "EPIweek"  (Sunday)</p></li>
+<li><p>interval = "MMWRweek" (Sunday)</p></li>
+</ul>
+    The "EPIweek" specification is not strictly reserved for CDC epiweeks, but
+can be prefixed (or posfixed) by a day of the week: "1 epiweek: Saturday".
     <h3>The <code>first_date</code> argument</h3>
     Previous versions of <em>incidence</em> had the <code>first_date</code> argument override
 <code>standard = TRUE</code>. It has been changed as of <em>incidence</em> version 1.6.0 to
@@ -283,10 +320,10 @@ be more consistent with the behavior when <code>first_date = NULL</code>. This, 
 may be a change in behaviour, so a warning is now issued once and only once
 if <code>first_date</code> is specified, but <code>standard</code> is not. To never see this
 warning, use <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options(incidence.warn.first_date = FALSE)</a></code>.
-    The intervals for "month", "quarter", and "year" will necessarily vary in the
+    <p>The intervals for "month", "quarter", and "year" will necessarily vary in the
 number of days they encompass and warnings will be generated when the first
 date falls outside of a calendar date that is easily represented across the
-interval.
+interval.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -344,18 +381,31 @@ class.</p></li>
   <span class='no'>inc.week</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>inc.week</span>)
   <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>inc.week</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>) <span class='co'># with visible border</span>
-  <span class='no'>inc.isoweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+  <span class='co'># Starting on Monday</span>
+  <span class='no'>inc.isoweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"isoweek"</span>)
   <span class='no'>inc.isoweek</span>
+
+  <span class='co'># Starting on Sunday</span>
+  <span class='no'>inc.epiweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"epiweek"</span>)
+  <span class='no'>inc.epiweek</span>
+
+  <span class='co'># Starting on Saturday</span>
+  <span class='no'>inc.epiweek</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"saturday epiweek"</span>)
+  <span class='no'>inc.epiweek</span>
+
   <span class='co'>## use group information</span>
-  <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
+  <span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>outbreaks</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/outbreaks/topics/ebola_sim'>ebola_sim</a></span>$<span class='no'>linelist</span>$<span class='no'>gender</span>
   <span class='no'>inc.week.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
                                <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   <span class='no'>inc.week.gender</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>inc.week.gender</span>$<span class='no'>counts</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>inc.week.gender</span>)
-  <span class='no'>inc.isoweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-                                  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>, <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-  <span class='no'>inc.isoweek.gender</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>inc.week.gender</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"grey90"</span>)
+  <span class='no'>inc.satweek.gender</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>onset</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"2 epiweeks: saturday"</span>,
+                                  <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>sex</span>)
+  <span class='no'>inc.satweek.gender</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>inc.satweek.gender</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"grey90"</span>)
+
 })}</div><div class='output co'>#&gt; &gt; onset &lt;- outbreaks::ebola_sim$linelist$date_of_onset
 #&gt; &gt; inc &lt;- incidence(onset)
 #&gt; &gt; inc
@@ -381,7 +431,7 @@ class.</p></li>
 #&gt; $timespan: 386 days
 #&gt; $cumulative: FALSE
 #&gt; 
-#&gt; &gt; plot(inc.week)</div><div class='img'><img src='incidence-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inc.week, border = "white")</div><div class='img'><img src='incidence-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.isoweek &lt;- incidence(onset, interval = 7, standard = TRUE)
+#&gt; &gt; plot(inc.week)</div><div class='img'><img src='incidence-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(inc.week, border = "white")</div><div class='img'><img src='incidence-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.isoweek &lt;- incidence(onset, interval = "isoweek")
 #&gt; &gt; inc.isoweek
 #&gt; &lt;incidence object&gt;
 #&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
@@ -390,11 +440,37 @@ class.</p></li>
 #&gt; $counts: matrix with 56 rows and 1 columns
 #&gt; $n: 5888 cases in total
 #&gt; $dates: 56 dates marking the left-side of bins
-#&gt; $interval: 7 days
+#&gt; $interval: 1 week
 #&gt; $timespan: 386 days
 #&gt; $cumulative: FALSE
 #&gt; 
-#&gt; &gt; sex &lt;- ebola_sim$linelist$gender
+#&gt; &gt; inc.epiweek &lt;- incidence(onset, interval = "epiweek")
+#&gt; &gt; inc.epiweek
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-06 to 2015-04-26]
+#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W17]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 1 week
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; inc.epiweek &lt;- incidence(onset, interval = "saturday epiweek")
+#&gt; &gt; inc.epiweek
+#&gt; &lt;incidence object&gt;
+#&gt; [5888 cases from days 2014-04-05 to 2015-04-25]
+#&gt; [5888 cases from (Saturday) weeks 2014-W14 to 2015-W17]
+#&gt; 
+#&gt; $counts: matrix with 56 rows and 1 columns
+#&gt; $n: 5888 cases in total
+#&gt; $dates: 56 dates marking the left-side of bins
+#&gt; $interval: 1 week
+#&gt; $timespan: 386 days
+#&gt; $cumulative: FALSE
+#&gt; 
+#&gt; &gt; sex &lt;- outbreaks::ebola_sim$linelist$gender
 #&gt; &gt; inc.week.gender &lt;- incidence(onset, interval = 7, groups = sex, standard = FALSE)
 #&gt; &gt; inc.week.gender
 #&gt; &lt;incidence object&gt;
@@ -416,20 +492,22 @@ class.</p></li>
 #&gt; [4,] 4  0
 #&gt; [5,] 9  3
 #&gt; [6,] 8 10
-#&gt; &gt; plot(inc.week.gender)</div><div class='img'><img src='incidence-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.isoweek.gender &lt;- incidence(onset, interval = 7, groups = sex, standard = TRUE)
-#&gt; &gt; inc.isoweek.gender
+#&gt; &gt; plot(inc.week.gender, border = "grey90")</div><div class='img'><img src='incidence-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; inc.satweek.gender &lt;- incidence(onset, interval = "2 epiweeks: saturday", 
+#&gt; +     groups = sex)
+#&gt; &gt; inc.satweek.gender
 #&gt; &lt;incidence object&gt;
-#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]
-#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]
+#&gt; [5888 cases from days 2014-04-05 to 2015-04-18]
+#&gt; [5888 cases from (Saturday) weeks 2014-W14 to 2015-W16]
 #&gt; [2 groups: f, m]
 #&gt; 
-#&gt; $counts: matrix with 56 rows and 2 columns
+#&gt; $counts: matrix with 28 rows and 2 columns
 #&gt; $n: 5888 cases in total
-#&gt; $dates: 56 dates marking the left-side of bins
-#&gt; $interval: 7 days
-#&gt; $timespan: 386 days
+#&gt; $dates: 28 dates marking the left-side of bins
+#&gt; $interval: 2 weeks
+#&gt; $timespan: 379 days
 #&gt; $cumulative: FALSE
-#&gt; </div><div class='input'>
+#&gt; 
+#&gt; &gt; plot(inc.satweek.gender, border = "grey90")</div><div class='img'><img src='incidence-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use of first_date</span>
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>() + <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(-<span class='fl'>3</span>:<span class='fl'>10</span>, <span class='fl'>10</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
@@ -439,7 +517,8 @@ class.</p></li>
 <span class='co'># warning issued if `standard` not specified</span>
 <span class='no'>di</span> <span class='kw'>&lt;-</span> <span class='fu'>incidence</span>(<span class='no'>d</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"week"</span>, <span class='kw'>first_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>() - <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
 #&gt; <span class='warning'></span>
-#&gt; <span class='warning'>As of incidence version 1.6.0, the default behavior has been modified so that `first_date` no longer overrides `standard`. If you want to use Sys.Date() - 10 as the precise `first_date`, set `standard = FALSE`.</span>
+#&gt; <span class='warning'>As of incidence version 1.6.0, the default behavior has been modified so that `first_date` no longer overrides `standard`. This means that the first date will be either on or before 2019-03-04.</span>
+#&gt; <span class='warning'>If you want to use Sys.Date() - 10 as the precise `first_date`, set `standard = FALSE`.</span>
 #&gt; <span class='warning'></span>
 #&gt; <span class='warning'>To remove this warning in the future,  explicitly set the `standard` argument OR use `options(incidence.warn.first_date = FALSE)`</span></div><div class='input'>
 <span class='co'># second instance: no warning issued</span>

@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
       </span>
     </div>
 
@@ -96,9 +96,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Details of the incidence class</h1>
-                        <h4 class="author">Thibaut Jombart</h4>
+                        <h4 class="author">Thibaut Jombart, Zhian N. Kamvar</h4>
             
-            <h4 class="date">2019-03-05</h4>
+            <h4 class="date">2019-03-14</h4>
       
       
       <div class="hidden name"><code>incidence_class.Rmd</code></div>
@@ -441,57 +441,49 @@
 <a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt;   F   M </span></a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; 119  81</span></a></code></pre></div>
 </div>
-<div id="isoweeks" class="section level2">
+<div id="weeks" class="section level2">
 <h2 class="hasAnchor">
-<a href="#isoweeks" class="anchor"></a><code>$isoweeks</code>
+<a href="#weeks" class="anchor"></a><code>$weeks</code>
 </h2>
-<p>The <code>$isoweeks</code> component is optional, and used to store iso weeks whenever they have been used. ISO weeks are used by default when weekly incidence is computed from dates (see argument <code>standard</code> in <code><a href="../reference/incidence.html">?incidence</a></code>).</p>
+<p>The <code>$weeks</code> component is optional, and used to store <a href="https://www.repidemicsconsortium.org/aweek">aweek</a> objects whenever they have been used. Weeks are used by default when weekly incidence is computed from dates (see argument <code>standard</code> in <code><a href="../reference/incidence.html">?incidence</a></code>).</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(outbreaks)</a>
 <a class="sourceLine" id="cb18-2" data-line-number="2">dat &lt;-<span class="st"> </span>ebola_sim<span class="op">$</span>linelist<span class="op">$</span>date_of_onset</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, 7L, <span class="dt">standard =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="st">"1 epiweek"</span>, <span class="dt">standard =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb18-4" data-line-number="4">i<span class="fl">.7</span></a>
 <a class="sourceLine" id="cb18-5" data-line-number="5"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt; [5888 cases from days 2014-04-06 to 2015-04-26]</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W17]</span></a>
 <a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span></a>
 <a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt; $n: 5888 cases in total</span></a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt; $cumulative: FALSE</span></a>
-<a class="sourceLine" id="cb18-15" data-line-number="15">i<span class="fl">.7</span><span class="op">$</span>isoweeks</a>
-<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;  [1] "2014-W15" "2014-W16" "2014-W17" "2014-W18" "2014-W19" "2014-W20"</span></a>
-<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;  [7] "2014-W21" "2014-W22" "2014-W23" "2014-W24" "2014-W25" "2014-W26"</span></a>
-<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; [13] "2014-W27" "2014-W28" "2014-W29" "2014-W30" "2014-W31" "2014-W32"</span></a>
-<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt; [19] "2014-W33" "2014-W34" "2014-W35" "2014-W36" "2014-W37" "2014-W38"</span></a>
-<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="co">#&gt; [25] "2014-W39" "2014-W40" "2014-W41" "2014-W42" "2014-W43" "2014-W44"</span></a>
-<a class="sourceLine" id="cb18-21" data-line-number="21"><span class="co">#&gt; [31] "2014-W45" "2014-W46" "2014-W47" "2014-W48" "2014-W49" "2014-W50"</span></a>
-<a class="sourceLine" id="cb18-22" data-line-number="22"><span class="co">#&gt; [37] "2014-W51" "2014-W52" "2015-W01" "2015-W02" "2015-W03" "2015-W04"</span></a>
-<a class="sourceLine" id="cb18-23" data-line-number="23"><span class="co">#&gt; [43] "2015-W05" "2015-W06" "2015-W07" "2015-W08" "2015-W09" "2015-W10"</span></a>
-<a class="sourceLine" id="cb18-24" data-line-number="24"><span class="co">#&gt; [49] "2015-W11" "2015-W12" "2015-W13" "2015-W14" "2015-W15" "2015-W16"</span></a>
-<a class="sourceLine" id="cb18-25" data-line-number="25"><span class="co">#&gt; [55] "2015-W17" "2015-W18"</span></a></code></pre></div>
-<p>Because <code>$isoweeks</code> is an optional element, it does not have a dedicated accessor. If the element is not present, attempting to access it will result in a <code>NULL</code>:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">i<span class="op">$</span>isoweeks</a>
+<a class="sourceLine" id="cb18-15" data-line-number="15">i<span class="fl">.7</span><span class="op">$</span>weeks</a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt; &lt;aweek start: Sunday&gt;</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;  [1] "2014-W15" "2014-W16" "2014-W17" "2014-W18" "2014-W19" "2014-W20"</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt;  [7] "2014-W21" "2014-W22" "2014-W23" "2014-W24" "2014-W25" "2014-W26"</span></a>
+<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt; [13] "2014-W27" "2014-W28" "2014-W29" "2014-W30" "2014-W31" "2014-W32"</span></a>
+<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="co">#&gt; [19] "2014-W33" "2014-W34" "2014-W35" "2014-W36" "2014-W37" "2014-W38"</span></a>
+<a class="sourceLine" id="cb18-21" data-line-number="21"><span class="co">#&gt; [25] "2014-W39" "2014-W40" "2014-W41" "2014-W42" "2014-W43" "2014-W44"</span></a>
+<a class="sourceLine" id="cb18-22" data-line-number="22"><span class="co">#&gt; [31] "2014-W45" "2014-W46" "2014-W47" "2014-W48" "2014-W49" "2014-W50"</span></a>
+<a class="sourceLine" id="cb18-23" data-line-number="23"><span class="co">#&gt; [37] "2014-W51" "2014-W52" "2014-W53" "2015-W01" "2015-W02" "2015-W03"</span></a>
+<a class="sourceLine" id="cb18-24" data-line-number="24"><span class="co">#&gt; [43] "2015-W04" "2015-W05" "2015-W06" "2015-W07" "2015-W08" "2015-W09"</span></a>
+<a class="sourceLine" id="cb18-25" data-line-number="25"><span class="co">#&gt; [49] "2015-W10" "2015-W11" "2015-W12" "2015-W13" "2015-W14" "2015-W15"</span></a>
+<a class="sourceLine" id="cb18-26" data-line-number="26"><span class="co">#&gt; [55] "2015-W16" "2015-W17"</span></a></code></pre></div>
+<p>Because <code>$weeks</code> is an optional element, it does not have a dedicated accessor. If the element is not present, attempting to access it will result in a <code>NULL</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">i<span class="op">$</span>weeks</a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">#&gt; NULL</span></a></code></pre></div>
-<p>The correspondence between iso weeks and dates can be derived by comparing the respective items:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(i<span class="fl">.7</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind.data.frame</a></span>(dates, isoweeks)))</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">#&gt;        dates isoweeks</span></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-07 2014-W15</span></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">#&gt; 2 2014-04-14 2014-W16</span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co">#&gt; 3 2014-04-21 2014-W17</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#&gt; 4 2014-04-28 2014-W18</span></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt; 5 2014-05-05 2014-W19</span></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#&gt; 6 2014-05-12 2014-W20</span></a></code></pre></div>
-<p>Both dates and iso weeks are returned when converting an <code>incidence</code> object to <code>data.frame</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(i<span class="fl">.7</span>))</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="co">#&gt;        dates isoweeks counts</span></a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-07 2014-W15      1</span></a>
-<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">#&gt; 2 2014-04-14 2014-W16      1</span></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt; 3 2014-04-21 2014-W17      5</span></a>
-<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="co">#&gt; 4 2014-04-28 2014-W18      4</span></a>
-<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="co">#&gt; 5 2014-05-05 2014-W19     12</span></a>
-<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="co">#&gt; 6 2014-05-12 2014-W20     18</span></a></code></pre></div>
+<p>Both dates and weeks are returned when converting an <code>incidence</code> object to <code>data.frame</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(i<span class="fl">.7</span>))</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">#&gt;        dates    weeks counts</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">#&gt; 1 2014-04-06 2014-W15      1</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">#&gt; 2 2014-04-13 2014-W16      1</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co">#&gt; 3 2014-04-20 2014-W17      4</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#&gt; 4 2014-04-27 2014-W18      4</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt; 5 2014-05-04 2014-W19     12</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#&gt; 6 2014-05-11 2014-W20     15</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -508,7 +500,7 @@
       <li><a href="#timespan"><code>$timespan</code></a></li>
       <li><a href="#interval"><code>$interval</code></a></li>
       <li><a href="#n"><code>$n</code></a></li>
-      <li><a href="#isoweeks"><code>$isoweeks</code></a></li>
+      <li><a href="#weeks"><code>$weeks</code></a></li>
       </ul>
 </li>
       </ul>

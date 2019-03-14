@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
 
 <span class='co'># S3 method for matrix</span>
 <span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+  <span class='kw'>standard</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>isoweeks</span> <span class='kw'>=</span> <span class='no'>standard</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
 <span class='fu'>as.incidence</span>(<span class='no'>x</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -187,9 +187,13 @@ time interval between provided dates. If only one date is provided, it will
 trigger an error.</p></td>
     </tr>
     <tr>
+      <th>standard</th>
+      <td><p>A logical indicating whether standardised dates should be
+used. Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
       <th>isoweeks</th>
-      <td><p>A logical indicating whether isoweeks should be used in the
-case of weekly incidence; defaults to <code>TRUE</code>.</p></td>
+      <td><p>Deprecated. Use standard.</p></td>
     </tr>
     </table>
     

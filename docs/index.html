@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
       </span>
     </div>
 
@@ -199,7 +199,7 @@
 <a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i<span class="fl">.7</span>)</a></code></pre></div>
 <p><img src="figs/incid1-1.png" width="768"></p>
 <p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute the weekly incidence by gender:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">i.<span class="fl">7.</span>sex &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>gender)</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">i.<span class="fl">7.</span>sex &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="st">"week"</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>gender)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">i.<span class="fl">7.</span>sex</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
@@ -209,7 +209,7 @@
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span></a>
 <a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; $n: 5888 cases in total</span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i.<span class="fl">7.</span>sex, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</a></code></pre></div>
@@ -248,7 +248,7 @@
 <a class="sourceLine" id="cb8-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i.tail, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
 <p><img src="figs/tail-1.png" width="768"></p>
 <p>Subsetting groups can also matter. For instance, let’s try and visualise the incidence based on onset of symptoms by outcome:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">i.<span class="fl">7.</span>outcome &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="dv">7</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>outcome)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">i.<span class="fl">7.</span>outcome &lt;-<span class="st"> </span><span class="kw"><a href="reference/incidence.html">incidence</a></span>(dat, <span class="st">"week"</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>outcome)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">i.<span class="fl">7.</span>outcome</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
@@ -258,7 +258,7 @@
 <a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; $counts: matrix with 56 rows and 3 columns</span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; $n: 5888 cases in total</span></a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i.<span class="fl">7.</span>outcome, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</a></code></pre></div>
@@ -274,7 +274,7 @@
 <a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; $counts: matrix with 56 rows and 3 columns</span></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; $n: 5888 cases in total</span></a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; $cumulative: TRUE</span></a>
 <a class="sourceLine" id="cb10-14" data-line-number="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i.<span class="fl">7.</span>outcome.cum)</a></code></pre></div>
@@ -289,7 +289,7 @@
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; $n: 5888 cases in total</span></a>
 <a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb11-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(i<span class="fl">.7</span><span class="op">$</span>counts, i.pooled<span class="op">$</span>counts)</a>
@@ -399,6 +399,11 @@
 <p><img src="figs/optim-1.png" width="768"></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i<span class="fl">.7</span>, <span class="dt">fit =</span> best.fit<span class="op">$</span>fit)</a></code></pre></div>
 <p><img src="figs/optim-2.png" width="768"></p>
+</div>
+</div>
+<div id="credits" class="section level1">
+<h1 class="hasAnchor">
+<a href="#credits" class="anchor"></a>Credits</h1>
 <ul>
 <li>Contributors (by alphabetic order):</li>
 <li><a href="https://github.com/sangeetabhatia03">Sangeeta Bhatia</a></li>
@@ -406,13 +411,13 @@
 <li><a href="https://github.com/richfitz">Rich Fitzjohn</a></li>
 <li><a href="https://github.com/thibautjombart">Thibaut Jombart</a></li>
 <li><a href="https://github.com/zkamvar">Zhian Kamvar</a></li>
+<li><a href="https://github.com/jrcpulliam">Juliet RC Pulliam</a></li>
 <li><a href="https://github.com/jakobschumacher">Jakob Schumacher</a></li>
 </ul>
 <p>See details of contributions on: <br><a href="https://github.com/reconhub/incidence/graphs/contributors" class="uri">https://github.com/reconhub/incidence/graphs/contributors</a></p>
 <p>Contributions are welcome via <strong>pull requests</strong>.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 <p><strong>Maintainer:</strong> Zhian N. Kamvar (<a href="mailto:zkamvar@gmail.com" class="email">zkamvar@gmail.com</a>)</p>
-</div>
 </div>
   </div>
 
