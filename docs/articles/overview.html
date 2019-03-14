@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
       </span>
     </div>
 
@@ -96,9 +96,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Overview of the incidence package</h1>
-                        <h4 class="author">Thibaut Jombart</h4>
+                        <h4 class="author">Thibaut Jombart, Zhian N. Kamvar</h4>
             
-            <h4 class="date">2019-03-05</h4>
+            <h4 class="date">2019-03-14</h4>
       
       
       <div class="hidden name"><code>overview.Rmd</code></div>
@@ -137,7 +137,6 @@
 <li><p><strong><code>find_peak</code></strong>: locates the peak time of the epicurve.</p></li>
 <li><p><strong><code>estimate_peak</code></strong>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak.</p></li>
 </ul>
-<p><br></p>
 </div>
 <div id="worked-example-simulated-ebola-outbreak" class="section level1">
 <h1 class="hasAnchor">
@@ -176,22 +175,22 @@
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i)</a></code></pre></div>
 <p><img src="overview_files/figure-html/incid1-1.png" width="672"></p>
 <p>The daily incidence is quite noisy, but we can easily compute other incidence using larger time intervals:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">## weekly</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">7</span>)</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># weekly, starting on Monday (ISO week, default)</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">i<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="st">"1 week"</span>)</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i<span class="fl">.7</span>)</a></code></pre></div>
 <p><img src="overview_files/figure-html/interv-1.png" width="672"></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">## bi-weekly</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">i<span class="fl">.14</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="dv">14</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># semi-weekly, starting on Saturday</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">i<span class="fl">.14</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="st">"2 saturday weeks"</span>)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i<span class="fl">.14</span>, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
 <p><img src="overview_files/figure-html/interv-2.png" width="672"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">## monthly</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">i.month &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval=</span><span class="st">"month"</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">i.month &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="st">"1 month"</span>)</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i.month, <span class="dt">border =</span> <span class="st">"white"</span>)</a></code></pre></div>
 <p><img src="overview_files/figure-html/interv-3.png" width="672"></p>
 <p><code>incidence</code> can also compute incidence by specified groups using the <code>groups</code> argument. For instance, we can compute incidence by gender:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">i.<span class="fl">7.</span>sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="dv">7</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>gender)</a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">i.<span class="fl">7.</span>sex &lt;-<span class="st"> </span><span class="kw"><a href="../reference/incidence.html">incidence</a></span>(dat, <span class="dt">interval =</span> <span class="st">"1 week"</span>, <span class="dt">groups =</span> ebola_sim<span class="op">$</span>linelist<span class="op">$</span>gender)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">i.<span class="fl">7.</span>sex</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></a>
@@ -201,14 +200,14 @@
 <a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; $counts: matrix with 56 rows and 2 columns</span></a>
 <a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; $n: 5888 cases in total</span></a>
 <a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb8-14" data-line-number="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i.<span class="fl">7.</span>sex, <span class="dt">stack =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="st">"grey"</span>)</a></code></pre></div>
 <p><img src="overview_files/figure-html/gender-1.png" width="672"></p>
 <p>We can do the same for hospitals, using the ‘clean’ version of the dataset, with some customization of the legend:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">i.<span class="fl">7.</span>hosp &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(ebola_sim_clean<span class="op">$</span>linelist, </a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">     <span class="kw"><a href="../reference/incidence.html">incidence</a></span>(date_of_onset, <span class="dt">interval=</span><span class="dv">7</span>, <span class="dt">groups =</span> hospital))</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">     <span class="kw"><a href="../reference/incidence.html">incidence</a></span>(date_of_onset, <span class="dt">interval =</span> <span class="st">"week"</span>, <span class="dt">groups =</span> hospital))</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">i.<span class="fl">7.</span>hosp</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; &lt;incidence object&gt;</span></a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; [5829 cases from days 2014-04-07 to 2015-04-27]</span></a>
@@ -218,10 +217,10 @@
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; $counts: matrix with 56 rows and 6 columns</span></a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; $n: 5829 cases in total</span></a>
 <a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; $timespan: 386 days</span></a>
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; $cumulative: FALSE</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(i.<span class="fl">7.</span>hosp<span class="op">$</span>counts)</a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../reference/get_counts.html">get_counts</a></span>(i.<span class="fl">7.</span>hosp))</a>
 <a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt;      Connaught Hospital Military Hospital other</span></a>
 <a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; [1,]                  0                 1     0</span></a>
 <a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; [2,]                  1                 0     0</span></a>
@@ -266,7 +265,7 @@
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; $counts: matrix with 28 rows and 1 columns</span></a>
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; $n: 2891 cases in total</span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; $interval: 7 days</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; $interval: 1 week</span></a>
 <a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; $timespan: 379 days</span></a>
 <a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; $cumulative: FALSE</span></a>
 <a class="sourceLine" id="cb11-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(i<span class="fl">.7</span>[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)])</a></code></pre></div>
