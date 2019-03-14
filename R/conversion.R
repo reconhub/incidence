@@ -136,12 +136,14 @@ as.incidence <- function(x, ...) {
 #'   time interval between provided dates. If only one date is provided, it will
 #'   trigger an error.
 #'
-#' @param isoweeks A logical indicating whether isoweeks should be used in the
-#'   case of weekly incidence; defaults to `TRUE`.
+#' @param standard A logical indicating whether standardised dates should be
+#'   used. Defaults to `TRUE`.
+#' 
+#' @param isoweeks Deprecated. Use standard.
 #'
 
 as.incidence.matrix <- function(x, dates = NULL, interval = NULL,
-                                isoweeks = TRUE, ...) {
+                                standard = TRUE, isoweeks = standard, ...) {
 
   if (is.null(dates)) {
     if (!is.null(interval)) {
