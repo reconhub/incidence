@@ -1,6 +1,6 @@
 ---
 title: "Customize plots of incidence"
-author: "Thibaut Jombart"
+author: "Thibaut Jombart, Zhian N. Kamvar"
 date: "`r Sys.Date()`"
 output:
    rmarkdown::html_vignette:
@@ -162,23 +162,42 @@ Numerous tweaks for *ggplot2* are documented online. In the following, we merely
 
 ### Changing date format
 
-By default, the dates indicated on the *x*-axis of an incidence plot may not have the suitable format.
-The package *scales* can be used to change the way dates are labeled (see `?strptime` for possible formats):
+By default, the dates indicated on the *x*-axis of an incidence plot may not
+have the suitable format.
+The package *scales* can be used to change the way dates are labeled (see
+`?strptime` for possible formats):
 
 ```{r, scales1}
 library(scales)
-plot(i, labels_iso_week = FALSE) +
+plot(i, labels_week = FALSE) +
    scale_x_date(labels = date_format("%d %b %Y"))
 ```
 
-And for another example, with a subset of the data (first 50 days), using more detailed dates and rotating the annotations:
+Notice how the labels are all situated at the first of the month? If you want to
+make sure the labels are situated in a different orientation, you can use the
+`make_breaks()` function to calculate breaks for the plot:
+
+```{r scales_breaks}
+b <- make_breaks(i, labels_week = FALSE)
+b
+plot(i) +
+  scale_x_date(breaks = b$breaks, 
+               labels = date_format("%d %b %Y"))
+```
+
+
+
+And for another example, with a subset of the data (first 50 weeks), using more
+detailed dates and rotating the annotations:
+
 ```{r, scales2}
 plot(i[1:50]) +  
-  scale_x_date(labels = date_format("%a %d %B %Y")) +
+  scale_x_date(breaks = b$breaks, labels = date_format("%a %d %B %Y")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 ```
 
 Note that you can save customisations for later use:
+
 ```{r, scales3}
 rotate.big <- theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 ```
@@ -186,13 +205,17 @@ rotate.big <- theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12)
 
 ### Changing the grid
 
-The last example above illustrates that it can be useful to have denser annotations of the *x*-axis, especially over short time periods. Here, we provide an example where we try to zoom on the peak of the epidemic, using the data by hospital:
+The last example above illustrates that it can be useful to have denser
+annotations of the *x*-axis, especially over short time periods. Here, we
+provide an example where we try to zoom on the peak of the epidemic, using the
+data by hospital:
 
 ```{r, grid1}
 plot(i.hosp)
 ```
 
 Let us look at the data 40 days before and after the 1st of October:
+
 ```{r, grid2}
 period <- as.Date("2014-10-01") + c(-40, 40)
 i.zoom <- subset(i.hosp, from = period[1], to = period[2])
@@ -203,11 +226,49 @@ detailed.x <- scale_x_date(labels = date_format("%a %d %B %Y"),
 plot(i.zoom, border = "black") + detailed.x + rotate.big
 ```
 
+### Handling non-ISO weeks
+
+If you have weekly incidence that starts on a day other than monday, then the
+above solution may produce breaks that fall inside of the bins:
+
+```{r, saturday-epiweek}
+i.sat <- incidence(onset, interval = "1 week: saturday", groups = ebola_sim_clean$linelist$hospital)
+i.szoom <- subset(i.sat, from = period[1], to = period[2])
+
+plot(i.szoom, border = "black") + detailed.x + rotate.big
+```
+
+In this case, you may want to either calculate breaks using `make_breaks()` or
+use the `scale_x_incidence()` function to automatically calculate these for you:
+
+```{r, saturday-epiweek2}
+plot(i.szoom, border = "black") + 
+  scale_x_incidence(i.szoom, n_breaks = nrow(i.szoom)/2, labels_week = FALSE) +
+  rotate.big
+```
+
+```{r, saturday-epiweek3}
+sat_breaks <- make_breaks(i.szoom, n_breaks = nrow(i.szoom)/2)
+plot(i.szoom, border = "black") + 
+  scale_x_date(breaks = sat_breaks$breaks, labels = date_format("%a %d %B %Y")) +
+  rotate.big
+```
+
+### Labelling every bin
+
+
+Sometimes you may want to label every bin of the incidence object. To do this,
+you can simply set `n_breaks` to the number of rows in your incidence object:
+
+```{r label-bins}
+plot(i.szoom, n_breaks = nrow(i.szoom), border = "black") + rotate.big
+```
 
 
 ## Changing the legend
 
-The previous plot has a fairly large legend which we may want to move around. Let us save the plot as a new object `p` and customize the legend:
+The previous plot has a fairly large legend which we may want to move around.
+Let us save the plot as a new object `p` and customize the legend:
 
 ```{r, legend1}
 p <- plot(i.zoom, border = "black") + detailed.x + rotate.big
@@ -231,7 +292,8 @@ i.small <- incidence(onset[160:180])
 
 plot(i.small, border = "white", show_cases = TRUE) +
   theme(panel.background = element_rect(fill = "white")) + 
-  coord_equal()
+  rotate.big +
+  coord_equal() 
 ```
 
 

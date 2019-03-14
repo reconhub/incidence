@@ -1,4 +1,4 @@
-incidence 1.7.0 (unreleased)
+incidence 1.7.0
 ============================
 
 ### NEW FEATURES
@@ -13,6 +13,13 @@ incidence 1.7.0 (unreleased)
  * plotting will now force the first tick to be the starting point of the
    incidence curve
 
+### NEW FUNCTIONS
+
+ * `make_breaks()` will automatically calculate breaks from an incidence object
+   for plotting. 
+ * `scale_x_incidence()` will produce a ggplot2 "ScaleContinuous" object to add
+   to a ggplot.
+
 ### DEPRECATED
 
  * `plot.incidence()` argument `labels_iso` is deprecated in favor of 
@@ -20,11 +27,16 @@ incidence 1.7.0 (unreleased)
  * Incidence objects will still have `$isoweeks` if the weeks are ISO 8601
    standard, but users should rely intead on `$weeks` instead. The `$isoweeks`
    element will be removed in a future version of incidence.
-
+ * `as.incidence()` argument `isoweeks` has been deprecated in favour of 
+   `standard`
 
 ### DEPENDENCIES
 
  - ISOweek import changed to [aweek](https://www.repidemicsconsortium.org/aweek)
+
+### Documentation
+
+ - Vignettes have been updated with examples.
 
 incidence 1.6.0 (2019-03-05) 
 ============================
