@@ -2,6 +2,9 @@
 language: r
 cache: packages
 
+r_packages:
+- drat
+
 matrix:
   include:
     - os: linux
@@ -24,3 +27,4 @@ notifications:
 
 after_success:
 - if [[ "${R_CODECOV}" ]]; then Rscript -e 'covr::codecov()'; fi
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash drat.sh
