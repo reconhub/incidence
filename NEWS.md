@@ -1,4 +1,16 @@
-incidence 1.7.0
+
+incidence 1.7.1
+============================
+
+### BUG FIXES
+
+* Fix for a [bug in](https://github.com/reconhub/incidence/issues/119) `plot.incidence` 
+introduced with new release of *ggplot2* ([bug report](https://github.com/tidyverse/ggplot2/issues/3873))
+
+
+
+
+incidence 1.7.0 
 ============================
 
 ### NEW FEATURES
