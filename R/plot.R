@@ -140,6 +140,8 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   n.groups <- ncol(x$counts)
   gnames   <- group_names(x)
 
+  browser()
+  
   ## Use custom labels for usual time intervals
   if (is.null(ylab)) {
     if (is.numeric(x$interval)) {
@@ -190,16 +192,16 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## counts the number of days within each interval.
 
   ## Adding a variable for width in ggplot
-  df$interval.days <- get_interval(x, integer = TRUE)
+  df$interval_days <- get_interval(x, integer = TRUE)
   ## if the date type is POSIXct, then the interval is actually interval seconds
   ## and needs to be converted to days
   if (inherits(df$dates, "POSIXct")) {
-    df$interval.days <- df$interval.days * 86400 # 24h * 60m * 60s
+    df$interval_days <- df$interval_days * 86400 # 24h * 60m * 60s
   }
   ## Important note: it seems safest to specify the aes() as part of the geom,
   ## not in ggplot(), as it interacts badly with some other geoms like
   ## geom_ribbon - used e.g. in projections::add_projections().
-  x_axis <- "dates + (interval.days/2)"
+  x_axis <- "dates + (interval_days/2)"
   y_axis <- "counts"
   out <- ggplot2::ggplot(df) +
     ggplot2::geom_bar(ggplot2::aes_string(
@@ -207,7 +209,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                         y = y_axis
                         ),
                       stat = "identity",
-                      width = df$interval.days,
+                      width = df$interval_days,
                       position = stack.txt,
                       color = border,
                       alpha = alpha) +
@@ -227,7 +229,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
-                                 width = squaredf$interval.days
+                                 width = squaredf$interval_days
                                  )
     out <- out + squares
   }
