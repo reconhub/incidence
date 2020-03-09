@@ -140,7 +140,6 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   n.groups <- ncol(x$counts)
   gnames   <- group_names(x)
 
-  browser()
   
   ## Use custom labels for usual time intervals
   if (is.null(ylab)) {
@@ -201,14 +200,25 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## Important note: it seems safest to specify the aes() as part of the geom,
   ## not in ggplot(), as it interacts badly with some other geoms like
   ## geom_ribbon - used e.g. in projections::add_projections().
-  x_axis <- "dates + (interval_days/2)"
+
+
+  ## add mid-interval positions for x-axis
+
+  ## THIS BREAKS THE PLOT WITH ggplot2_3.3.0
+  ## See bug reports at:
+  ## https://github.com/reconhub/incidence/issues/119
+  ## https://github.com/tidyverse/ggplot2/issues/3873
+  ## Temporary fix: changing placement to default of ggplot2::scale_x_date
+  
+  df$x_dates <- df$dates + (df$interval_days / 2)
+  ## x_axis <- "dates + (interval_days/2)"
+  x_axis <- "dates"
   y_axis <- "counts"
   out <- ggplot2::ggplot(df) +
-    ggplot2::geom_bar(ggplot2::aes_string(
+    ggplot2::geom_col(ggplot2::aes_string(
                         x = x_axis,
                         y = y_axis
                         ),
-                      stat = "identity",
                       width = df$interval_days,
                       position = stack.txt,
                       color = border,
