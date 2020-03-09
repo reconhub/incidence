@@ -230,12 +230,11 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   if (show_cases && stack) {
     squaredf <- df[rep(seq.int(nrow(df)), df$counts), ]
     squaredf$counts <- 1
-    squares <- ggplot2::geom_bar(ggplot2::aes_string(
+    squares <- ggplot2::geom_col(ggplot2::aes_string(
                                    x = x_axis,
                                    y = y_axis
                                    ),
                                  color = if (is.na(border)) "white" else border,
-                                 stat = "identity",
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
