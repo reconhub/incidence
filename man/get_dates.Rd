@@ -10,8 +10,7 @@ get_dates(x, ...)
 
 \method{get_dates}{default}(x, ...)
 
-\method{get_dates}{incidence}(x, position = "left", count_days = FALSE,
-  ...)
+\method{get_dates}{incidence}(x, position = "left", count_days = FALSE, ...)
 }
 \arguments{
 \item{x}{an \link{incidence} object}
