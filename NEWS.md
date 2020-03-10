@@ -6,7 +6,7 @@ incidence 1.7.1
 
 * Fix for a [bug in](https://github.com/reconhub/incidence/issues/119) `plot.incidence` 
 introduced with new release of *ggplot2* ([bug report](https://github.com/tidyverse/ggplot2/issues/3873))
-
+As a temporary fix, dates are now centered within the interval instead of to the left of the interval. 
 
 
 
@@ -388,4 +388,3 @@ incidence 1.0.1 (2016-11-23)
 incidence 1.0.0 (2016-11-03)
 ==================
 First release of the incidence package on CRAN!
-
