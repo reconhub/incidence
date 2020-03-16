@@ -136,7 +136,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     }
   }
   ## extract data in suitable format for ggplot2
-  df <- as.data.frame(x, long = TRUE)
+  df <- as.data.frame(x, long = TRUE, stringsAsFactors = TRUE)
   n.groups <- ncol(x$counts)
   gnames   <- group_names(x)
 
