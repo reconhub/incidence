@@ -136,10 +136,11 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
     }
   }
   ## extract data in suitable format for ggplot2
-  df <- as.data.frame(x, long = TRUE)
+  df <- as.data.frame(x, long = TRUE, stringsAsFactors = TRUE)
   n.groups <- ncol(x$counts)
   gnames   <- group_names(x)
 
+  
   ## Use custom labels for usual time intervals
   if (is.null(ylab)) {
     if (is.numeric(x$interval)) {
@@ -190,24 +191,34 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## counts the number of days within each interval.
 
   ## Adding a variable for width in ggplot
-  df$interval.days <- get_interval(x, integer = TRUE)
+  df$interval_days <- get_interval(x, integer = TRUE)
   ## if the date type is POSIXct, then the interval is actually interval seconds
   ## and needs to be converted to days
   if (inherits(df$dates, "POSIXct")) {
-    df$interval.days <- df$interval.days * 86400 # 24h * 60m * 60s
+    df$interval_days <- df$interval_days * 86400 # 24h * 60m * 60s
   }
   ## Important note: it seems safest to specify the aes() as part of the geom,
   ## not in ggplot(), as it interacts badly with some other geoms like
   ## geom_ribbon - used e.g. in projections::add_projections().
-  x_axis <- "dates + (interval.days/2)"
+
+
+  ## add mid-interval positions for x-axis
+
+  ## THIS BREAKS THE PLOT WITH ggplot2_3.3.0
+  ## See bug reports at:
+  ## https://github.com/reconhub/incidence/issues/119
+  ## https://github.com/tidyverse/ggplot2/issues/3873
+  ## Temporary fix: changing placement to default of ggplot2::scale_x_date
+  
+  ## x_axis <- "dates + (interval_days/2)"
+  x_axis <- "dates"
   y_axis <- "counts"
   out <- ggplot2::ggplot(df) +
-    ggplot2::geom_bar(ggplot2::aes_string(
+    ggplot2::geom_col(ggplot2::aes_string(
                         x = x_axis,
                         y = y_axis
                         ),
-                      stat = "identity",
-                      width = df$interval.days,
+                      width = df$interval_days,
                       position = stack.txt,
                       color = border,
                       alpha = alpha) +
@@ -218,16 +229,15 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   if (show_cases && stack) {
     squaredf <- df[rep(seq.int(nrow(df)), df$counts), ]
     squaredf$counts <- 1
-    squares <- ggplot2::geom_bar(ggplot2::aes_string(
+    squares <- ggplot2::geom_col(ggplot2::aes_string(
                                    x = x_axis,
                                    y = y_axis
                                    ),
                                  color = if (is.na(border)) "white" else border,
-                                 stat = "identity",
                                  fill  = NA,
                                  position = "stack",
                                  data = squaredf,
-                                 width = squaredf$interval.days
+                                 width = squaredf$interval_days
                                  )
     out <- out + squares
   }

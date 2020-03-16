@@ -42,7 +42,8 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
     out <- list(
       df = data.frame(dates = seq(dates, by = 1, length.out = sum(dfrows)),
                       mean.R2 = vector(mode = "numeric", length = sum(dfrows)),
-                      groups = factor(rep(names(res), dfrows), names(res))
+                      groups = factor(rep(names(res), dfrows), names(res)),
+                      stringsAsFactors = TRUE
                      ),
       plot = ggplot2::ggplot(),
       split = seq(dates, by = 1, length.out = length(res)),
@@ -103,7 +104,7 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
   results <- vapply(splits.to.try, f, double(1))
 
   ## shape output
-  df <- data.frame(dates = splits.to.try, mean.R2 = results)
+  df <- data.frame(dates = splits.to.try, mean.R2 = results, stringsAsFactors = TRUE)
   split <- if (need.to.try) splits.to.try[which.max(results)] else splits.to.try
   fit <- suppressWarnings(fit(x, split = split))
   out <- list(df = df,

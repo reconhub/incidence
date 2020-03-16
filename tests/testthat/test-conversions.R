@@ -9,13 +9,13 @@ test_that("as.data.frame works", {
   fac <- factor(c(1, 2, 3, 3, 3, 3, 1))
   one_group <- rep("a", 7)
 
-   
+
   i_group_df <- data.frame(
          dates = c(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L),
             "1" = c(1L, 0L, 0L, 0L, 0L, 0L, 0L, 1L),
             "2" = c(0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L),
             "3" = c(0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L),
-            check.names = FALSE
+            check.names = FALSE, stringsAsFactors = TRUE
   )
   # one group
   i_og_df <- i_group_df[, 1, drop = FALSE]
@@ -28,7 +28,7 @@ test_that("as.data.frame works", {
                    0L, 0L, 0L, 2L, 1L, 0L, 1L, 0L, 0L),
         groups = as.factor(c("1", "1", "1", "1", "1", "1", "1", "1", "2", "2",
                              "2", "2", "2", "2", "2", "2", "3", "3", "3", "3",
-                             "3", "3", "3", "3"))
+                             "3", "3", "3", "3")), stringsAsFactors = TRUE
   )
 
   i <- incidence(dat, groups = fac)

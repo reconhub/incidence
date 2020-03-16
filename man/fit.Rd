@@ -9,8 +9,13 @@
 \usage{
 fit(x, split = NULL, level = 0.95, quiet = FALSE)
 
-fit_optim_split(x, window = x$timespan/4, plot = TRUE, quiet = TRUE,
-  separate_split = TRUE)
+fit_optim_split(
+  x,
+  window = x$timespan/4,
+  plot = TRUE,
+  quiet = TRUE,
+  separate_split = TRUE
+)
 
 \method{print}{incidence_fit}(x, ...)
 
@@ -51,13 +56,13 @@ For \code{fit()}, a list with the class \code{incidence_fit} (for a
 single model), or a list containing two \code{incidence_fit} objects (when
 fitting two models). \code{incidence_fit} objects contain:
 \itemize{
-\item \code{$model}: the fitted linear model
-\item \code{$info}: a list containing various information extracted from the model
+\item \verb{$model}: the fitted linear model
+\item \verb{$info}: a list containing various information extracted from the model
 (detailed further)
-\item \code{$origin}: the date corresponding to day '0'
+\item \verb{$origin}: the date corresponding to day '0'
 }
 
-The \code{$info} item is a list containing:
+The \verb{$info} item is a list containing:
 \itemize{
 \item \code{r}: the growth rate
 \item \code{r.conf}: the confidence interval of 'r'

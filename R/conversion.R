@@ -72,10 +72,10 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
                         weeks = as.character(x$weeks),
                         isoweeks = as.character(x$weeks),
                         counts,
-                        check.names = FALSE)
+                        check.names = FALSE, stringsAsFactors = TRUE)
       out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
     } else {
-      out <- data.frame(dates = x$dates, counts, check.names = FALSE)
+      out <- data.frame(dates = x$dates, counts, check.names = FALSE, stringsAsFactors = TRUE)
     }
 
     ## handle the long format here
@@ -88,13 +88,13 @@ as.data.frame.incidence <- function(x, ..., long = FALSE){
                             isoweeks = out$isoweeks,
                             counts = counts,
                             groups = groups,
-                            check.names = FALSE)
+                            check.names = FALSE, stringsAsFactors = TRUE)
           out$weeks <- aweek::date2week(out$dates, ws, floor_day = TRUE, factor = TRUE)
         } else {
           out <- data.frame(dates = out$dates,
                             counts = counts,
                             groups = groups,
-                            check.names = FALSE)
+                            check.names = FALSE, stringsAsFactors = TRUE)
         }
     }
     if (all(names(x) != "isoweeks")) out$isoweeks <- NULL
@@ -138,7 +138,7 @@ as.incidence <- function(x, ...) {
 #'
 #' @param standard A logical indicating whether standardised dates should be
 #'   used. Defaults to `TRUE`.
-#' 
+#'
 #' @param isoweeks Deprecated. Use standard.
 #'
 
