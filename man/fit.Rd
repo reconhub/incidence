@@ -31,7 +31,7 @@ two models. If NULL, a single model is fitted. If provided, two models would
 be fitted on the time periods on either side of the split.}
 
 \item{level}{The confidence interval to be used for predictions; defaults to
-95\\%.}
+95\%.}
 
 \item{quiet}{A logical indicating if warnings from \code{fit} should be
 hidden; FALSE by default. Warnings typically indicate some zero incidence,

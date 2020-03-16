@@ -69,7 +69,7 @@
 #' be fitted on the time periods on either side of the split.
 #'
 #' @param level The confidence interval to be used for predictions; defaults to
-#' 95\%.
+#' 95%.
 #'
 #' @param quiet A logical indicating if warnings from `fit` should be
 #' hidden; FALSE by default. Warnings typically indicate some zero incidence,
