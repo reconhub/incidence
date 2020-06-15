@@ -7,7 +7,8 @@
 \alias{[.incidence}
 \title{Subsetting 'incidence' objects}
 \usage{
-\method{subset}{incidence}(x, ..., from = min(x$dates), to = max(x$dates), groups = TRUE)
+\method{subset}{incidence}(x, ..., from = min(x$dates),
+  to = max(x$dates), groups = TRUE)
 
 \method{[}{incidence}(x, i, j)
 }

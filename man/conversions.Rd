@@ -12,18 +12,14 @@
 
 as.incidence(x, ...)
 
-\method{as.incidence}{matrix}(
-  x,
-  dates = NULL,
-  interval = NULL,
-  standard = TRUE,
-  isoweeks = standard,
-  ...
-)
+\method{as.incidence}{matrix}(x, dates = NULL, interval = NULL,
+  standard = TRUE, isoweeks = standard, ...)
 
-\method{as.incidence}{data.frame}(x, dates = NULL, interval = NULL, isoweeks = TRUE, ...)
+\method{as.incidence}{data.frame}(x, dates = NULL, interval = NULL,
+  isoweeks = TRUE, ...)
 
-\method{as.incidence}{numeric}(x, dates = NULL, interval = NULL, isoweeks = TRUE, ...)
+\method{as.incidence}{numeric}(x, dates = NULL, interval = NULL,
+  isoweeks = TRUE, ...)
 }
 \arguments{
 \item{x}{An \code{incidence} object, or an object to be converted as
@@ -53,7 +49,7 @@ These functions convert \code{incidence} objects into other classes.
 \details{
 Conversion to \code{incidence} objects should only be done when the
 original dates are not available. In such case, the argument \code{x}
-should be a matrix corresponding to the \verb{$counts} element of an
+should be a matrix corresponding to the \code{$counts} element of an
 \code{incidence} object, i.e. giving counts with time intervals in rows and
 named groups in columns. In the absence of groups, a single unnamed columns
 should be given. \code{data.frame} and vectors will be coerced to a matrix.

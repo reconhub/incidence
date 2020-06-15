@@ -19,7 +19,8 @@ get_info(x, what = "r", ...)
 
 \method{get_info}{incidence_fit}(x, what = "r", ...)
 
-\method{get_info}{incidence_fit_list}(x, what = "r", groups = NULL, na.rm = TRUE, ...)
+\method{get_info}{incidence_fit_list}(x, what = "r", groups = NULL,
+  na.rm = TRUE, ...)
 }
 \arguments{
 \item{x}{an \code{incidence_fit} or \code{incidence_fit_list}

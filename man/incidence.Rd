@@ -15,58 +15,23 @@ incidence(dates, interval = 1L, ...)
 
 \method{incidence}{default}(dates, interval = 1L, ...)
 
-\method{incidence}{Date}(
-  dates,
-  interval = 1L,
-  standard = TRUE,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  ...
-)
+\method{incidence}{Date}(dates, interval = 1L, standard = TRUE,
+  groups = NULL, na_as_group = TRUE, first_date = NULL,
+  last_date = NULL, ...)
 
-\method{incidence}{character}(
-  dates,
-  interval = 1L,
-  standard = TRUE,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  ...
-)
+\method{incidence}{character}(dates, interval = 1L, standard = TRUE,
+  groups = NULL, na_as_group = TRUE, first_date = NULL,
+  last_date = NULL, ...)
 
-\method{incidence}{integer}(
-  dates,
-  interval = 1L,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  ...
-)
+\method{incidence}{integer}(dates, interval = 1L, groups = NULL,
+  na_as_group = TRUE, first_date = NULL, last_date = NULL, ...)
 
-\method{incidence}{numeric}(
-  dates,
-  interval = 1L,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  ...
-)
+\method{incidence}{numeric}(dates, interval = 1L, groups = NULL,
+  na_as_group = TRUE, first_date = NULL, last_date = NULL, ...)
 
-\method{incidence}{POSIXt}(
-  dates,
-  interval = 1L,
-  standard = TRUE,
-  groups = NULL,
-  na_as_group = TRUE,
-  first_date = NULL,
-  last_date = NULL,
-  ...
-)
+\method{incidence}{POSIXt}(dates, interval = 1L, standard = TRUE,
+  groups = NULL, na_as_group = TRUE, first_date = NULL,
+  last_date = NULL, ...)
 
 \method{print}{incidence}(x, ...)
 }
@@ -134,7 +99,7 @@ intervals labeled as 0, 3, 6, ... mean that the first bin includes days 0, 1
 and 2, the second interval includes 3, 4 and 5 etc.
 }
 \details{
-For details about the \verb{incidence class}, see the dedicated
+For details about the \code{incidence class}, see the dedicated
 vignette:\cr \code{vignette("incidence_class", package = "incidence")}
 }
 \note{

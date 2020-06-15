@@ -9,22 +9,11 @@
 \alias{make_breaks}
 \title{Plot function for incidence objects}
 \usage{
-\method{plot}{incidence}(
-  x,
-  ...,
-  fit = NULL,
-  stack = is.null(fit),
-  color = "black",
-  border = NA,
-  col_pal = incidence_pal1,
-  alpha = 0.7,
-  xlab = "",
-  ylab = NULL,
-  labels_week = !is.null(x$weeks),
-  labels_iso = !is.null(x$isoweeks),
-  show_cases = FALSE,
-  n_breaks = 6
-)
+\method{plot}{incidence}(x, ..., fit = NULL, stack = is.null(fit),
+  color = "black", border = NA, col_pal = incidence_pal1,
+  alpha = 0.7, xlab = "", ylab = NULL,
+  labels_week = !is.null(x$weeks), labels_iso = !is.null(x$isoweeks),
+  show_cases = FALSE, n_breaks = 6)
 
 add_incidence_fit(p, x, col_pal = incidence_pal1)
 
@@ -42,7 +31,7 @@ make_breaks(x, n_breaks = 6L, labels_week = TRUE)
 
 \item{...}{arguments passed to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date()}},
 \code{\link[ggplot2:scale_x_datetime]{ggplot2::scale_x_datetime()}}, or \code{\link[ggplot2:scale_x_continuous]{ggplot2::scale_x_continuous()}}, depending
-on how the \verb{$date} element is stored in the incidence object.}
+on how the \code{$date} element is stored in the incidence object.}
 
 \item{fit}{An 'incidence_fit' object as returned by \code{\link[=fit]{fit()}}.}
 
