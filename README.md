@@ -63,7 +63,7 @@ The main features of the package include:
 
   - **`[`**: lower-level subsetan of *incidence* objects, permiting to
     specify which dates and groups to retain; uses a syntax similar to
-    matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a
+    matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a
     subset of dates, and `j` a subset of groups.
 
   - **`subset`**: subset an *incidence* object by specifying a time
@@ -148,8 +148,7 @@ dat <- ebola_sim$linelist$date_of_onset
 class(dat)
 #> [1] "Date"
 head(dat)
-#> [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26"
-#> [6] "2014-04-25"
+#> [1] "2014-04-07" "2014-04-15" "2014-04-21" "2014-04-27" "2014-04-26" "2014-04-25"
 ```
 
 ## Computing and plotting incidence
@@ -243,8 +242,7 @@ plot(i.tail, border = "white")
 ![](figs/tail-1.png)<!-- -->
 
 Subsetting groups can also matter. For instance, let’s try and visualise
-the incidence based on onset of symptoms by
-outcome:
+the incidence based on onset of symptoms by outcome:
 
 ``` r
 i.7.outcome <- incidence(dat, "week", groups = ebola_sim$linelist$outcome)
@@ -268,8 +266,8 @@ plot(i.7.outcome, stack = TRUE, border = "grey")
 To visualise the cumulative incidence:
 
 ``` r
-i.7.outcome.cum <- cumulate(i.7.outcome)
-i.7.outcome.cum
+i.7.outcome.c <- cumulate(i.7.outcome)
+i.7.outcome.c
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
 #> [5888 cases from ISO weeks 2014-W15 to 2015-W18]
@@ -281,7 +279,7 @@ i.7.outcome.cum
 #> $interval: 1 week
 #> $timespan: 386 days
 #> $cumulative: TRUE
-plot(i.7.outcome.cum)
+plot(i.7.outcome.c)
 ```
 
 ![](figs/i7outcome_cum-1.png)<!-- -->

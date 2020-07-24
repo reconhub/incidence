@@ -8,21 +8,29 @@
 
 <title>Estimate the peak date of an incidence curve using bootstrap — estimate_peak • incidence</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +38,12 @@
 
 
 
-<meta property="og:title" content="Estimate the peak date of an incidence curve using bootstrap — estimate_peak" />
 
+<meta property="og:title" content="Estimate the peak date of an incidence curve using bootstrap — estimate_peak" />
 <meta property="og:description" content="This function can be used to estimate the peak of an epidemic curve stored as
-incidence, using bootstrap. See incidence::bootstrap for more information
+incidence, using bootstrap. See bootstrap for more information
 on the resampling." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +57,10 @@ on the resampling." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +74,7 @@ on the resampling." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
       </span>
     </div>
 
@@ -111,7 +120,6 @@ on the resampling." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/reconhub/incidence">
@@ -126,26 +134,25 @@ on the resampling." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimate the peak date of an incidence curve using bootstrap</h1>
-    
+    <small class="dont-index">Source: <a href='http://github.com/reconhub/incidence/blob/master/R/estimate_peak.R'><code>R/estimate_peak.R</code></a></small>
     <div class="hidden name"><code>estimate_peak.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function can be used to estimate the peak of an epidemic curve stored as
-<code>incidence</code>, using bootstrap. See <a href='bootstrap.html'>incidence::bootstrap</a> for more information
+<code>incidence</code>, using bootstrap. See <a href='bootstrap.html'>bootstrap</a> for more information
 on the resampling.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>estimate_peak</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -163,7 +170,7 @@ on the resampling.</p>
 0.05.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list containing the following items:</p><ul>
@@ -173,7 +180,6 @@ on the resampling.</p>
 <li><p><code>peaks</code>: the peak times of the bootstrap datasets</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Input dates are resampled with replacement to form bootstrapped
@@ -187,37 +193,36 @@ the following assumptions:</p><ul>
 <li><p>the reporting is assumed to be constant over time, i.e. every case is
 equally likely to be reported</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='bootstrap.html'>incidence::bootstrap</a> for the bootstrapping underlying this
-approach and <a href='find_peak.html'>incidence::find_peak</a> to find the peak in a single
+    <div class='dont-index'><p><a href='bootstrap.html'>bootstrap</a> for the bootstrapping underlying this
+approach and <a href='find_peak.html'>find_peak</a> to find the peak in a single
 <code>incidence</code> object.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>outbreaks</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>ggplot2</span>)) { <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/source'>withAutoprint</a></span>({
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>outbreaks</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>ggplot2</span>)) { <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
   <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>fluH7N9_china_2013</span>$<span class='no'>date_of_onset</span>)
   <span class='no'>i</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i</span>)
 
   <span class='co'>## one simple bootstrap</span>
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bootstrap.html'>bootstrap</a></span>(<span class='no'>i</span>)
   <span class='no'>x</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>)
 
   <span class='co'>## find 95% CI for peak time using bootstrap</span>
   <span class='no'>peak_data</span> <span class='kw'>&lt;-</span> <span class='fu'>estimate_peak</span>(<span class='no'>i</span>)
   <span class='no'>peak_data</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>peak_data</span>$<span class='no'>peaks</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>peak_data</span>$<span class='no'>peaks</span>)
 
   <span class='co'>## show confidence interval</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i</span>) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>ci</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i</span>) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>ci</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
   <span class='co'>## show the distribution of bootstrapped peaks</span>
-  <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>peak</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>peaks</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i</span>) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>,
+  <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>peak</span> <span class='kw'>=</span> <span class='no'>peak_data</span>$<span class='no'>peaks</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i</span>) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>,
                          <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>peak</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='no'>..scaled..</span>),
                          <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)
 
@@ -235,13 +240,13 @@ approach and <a href='find_peak.html'>incidence::find_peak</a> to find the peak 
 #&gt; &gt; plot(i)</div><div class='img'><img src='estimate_peak-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; x &lt;- bootstrap(i)
 #&gt; &gt; x
 #&gt; &lt;incidence object&gt;
-#&gt; [126 cases from days 2013-02-27 to 2013-07-27]
+#&gt; [126 cases from days 2013-02-27 to 2013-05-21]
 #&gt; 
-#&gt; $counts: matrix with 151 rows and 1 columns
+#&gt; $counts: matrix with 84 rows and 1 columns
 #&gt; $n: 126 cases in total
-#&gt; $dates: 151 dates marking the left-side of bins
+#&gt; $dates: 84 dates marking the left-side of bins
 #&gt; $interval: 1 day
-#&gt; $timespan: 151 days
+#&gt; $timespan: 84 days
 #&gt; $cumulative: FALSE
 #&gt; 
 #&gt; &gt; plot(x)</div><div class='img'><img src='estimate_peak-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; peak_data &lt;- estimate_peak(i)
@@ -250,61 +255,49 @@ approach and <a href='find_peak.html'>incidence::find_peak</a> to find the peak 
 #&gt; [1] "2013-04-03"
 #&gt; 
 #&gt; $estimated
-#&gt; [1] "2013-04-06"
+#&gt; [1] "2013-04-05"
 #&gt; 
 #&gt; $ci
 #&gt;         2.5%        97.5% 
-#&gt; "2013-03-28" "2013-04-16" 
+#&gt; "2013-03-29" "2013-04-14" 
 #&gt; 
 #&gt; $peaks
-#&gt;   [1] "2013-04-04" "2013-04-08" "2013-04-03" "2013-04-08" "2013-04-06"
-#&gt;   [6] "2013-04-14" "2013-04-03" "2013-04-11" "2013-04-03" "2013-03-29"
-#&gt;  [11] "2013-04-06" "2013-04-08" "2013-04-14" "2013-03-29" "2013-04-01"
-#&gt;  [16] "2013-04-17" "2013-04-12" "2013-04-01" "2013-04-08" "2013-04-11"
-#&gt;  [21] "2013-04-08" "2013-04-06" "2013-04-10" "2013-04-11" "2013-04-08"
-#&gt;  [26] "2013-03-28" "2013-04-06" "2013-04-06" "2013-04-06" "2013-04-03"
-#&gt;  [31] "2013-04-01" "2013-04-17" "2013-04-01" "2013-04-06" "2013-04-06"
-#&gt;  [36] "2013-04-11" "2013-04-12" "2013-04-13" "2013-04-06" "2013-04-10"
-#&gt;  [41] "2013-04-13" "2013-04-10" "2013-04-11" "2013-04-08" "2013-03-29"
-#&gt;  [46] "2013-04-03" "2013-04-03" "2013-04-01" "2013-04-03" "2013-04-06"
-#&gt;  [51] "2013-04-03" "2013-04-08" "2013-04-08" "2013-04-01" "2013-04-13"
-#&gt;  [56] "2013-04-11" "2013-04-03" "2013-04-08" "2013-04-01" "2013-04-11"
-#&gt;  [61] "2013-03-29" "2013-04-03" "2013-04-12" "2013-04-10" "2013-04-08"
-#&gt;  [66] "2013-03-29" "2013-04-06" "2013-04-10" "2013-04-15" "2013-03-29"
-#&gt;  [71] "2013-04-03" "2013-03-29" "2013-04-03" "2013-04-12" "2013-04-03"
-#&gt;  [76] "2013-03-29" "2013-03-29" "2013-04-01" "2013-04-06" "2013-04-13"
-#&gt;  [81] "2013-04-03" "2013-03-28" "2013-04-06" "2013-04-15" "2013-04-03"
-#&gt;  [86] "2013-03-28" "2013-04-10" "2013-04-08" "2013-04-12" "2013-04-03"
+#&gt;   [1] "2013-04-03" "2013-04-08" "2013-04-03" "2013-04-08" "2013-04-06"
+#&gt;   [6] "2013-04-14" "2013-04-03" "2013-04-11" "2013-04-11" "2013-04-10"
+#&gt;  [11] "2013-04-06" "2013-03-29" "2013-04-03" "2013-03-29" "2013-04-11"
+#&gt;  [16] "2013-04-17" "2013-04-12" "2013-04-01" "2013-04-03" "2013-04-06"
+#&gt;  [21] "2013-04-01" "2013-04-06" "2013-04-10" "2013-04-06" "2013-04-06"
+#&gt;  [26] "2013-03-28" "2013-04-06" "2013-04-11" "2013-04-06" "2013-04-03"
+#&gt;  [31] "2013-04-01" "2013-04-03" "2013-04-01" "2013-04-06" "2013-04-06"
+#&gt;  [36] "2013-04-03" "2013-04-06" "2013-04-14" "2013-04-06" "2013-04-10"
+#&gt;  [41] "2013-04-03" "2013-04-10" "2013-04-11" "2013-04-11" "2013-04-03"
+#&gt;  [46] "2013-04-06" "2013-04-03" "2013-04-06" "2013-04-06" "2013-04-13"
+#&gt;  [51] "2013-04-03" "2013-04-03" "2013-04-06" "2013-04-08" "2013-04-13"
+#&gt;  [56] "2013-04-03" "2013-04-06" "2013-04-08" "2013-04-01" "2013-04-11"
+#&gt;  [61] "2013-03-29" "2013-04-03" "2013-04-12" "2013-04-08" "2013-04-03"
+#&gt;  [66] "2013-03-29" "2013-04-03" "2013-04-10" "2013-04-03" "2013-03-29"
+#&gt;  [71] "2013-04-13" "2013-03-29" "2013-04-14" "2013-04-03" "2013-04-03"
+#&gt;  [76] "2013-03-29" "2013-03-29" "2013-04-01" "2013-04-06" "2013-03-29"
+#&gt;  [81] "2013-04-03" "2013-04-01" "2013-04-06" "2013-04-03" "2013-04-14"
+#&gt;  [86] "2013-04-13" "2013-04-10" "2013-04-08" "2013-04-03" "2013-04-03"
 #&gt;  [91] "2013-04-11" "2013-04-01" "2013-04-11" "2013-04-10" "2013-04-01"
 #&gt;  [96] "2013-04-01" "2013-04-03" "2013-04-06" "2013-04-17" "2013-04-12"
 #&gt; 
 #&gt; &gt; summary(peak_data$peaks)
 #&gt;         Min.      1st Qu.       Median         Mean      3rd Qu.         Max. 
-#&gt; "2013-03-28" "2013-04-03" "2013-04-06" "2013-04-06" "2013-04-11" "2013-04-17" 
+#&gt; "2013-03-28" "2013-04-03" "2013-04-06" "2013-04-05" "2013-04-10" "2013-04-17" 
 #&gt; &gt; plot(i) + geom_vline(xintercept = peak_data$ci, col = "red", lty = 2)</div><div class='img'><img src='estimate_peak-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; df &lt;- data.frame(peak = peak_data$peaks)
 #&gt; &gt; plot(i) + geom_density(data = df, aes(x = peak, y = 10 * ..scaled..), 
 #&gt; +     alpha = 0.2, fill = "red", color = "red")</div><div class='img'><img src='estimate_peak-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, with inputs on
-caveats from Michael Höhle.</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -312,13 +305,16 @@ caveats from Michael Höhle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

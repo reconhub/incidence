@@ -1,10 +1,18 @@
+incidence 1.7.2
+============================
+
+### BUG FIXES
+
+* `plot.incidence()` now reverts to the previous behaviour of plotting ticks on 
+  either side of the interval as opposed to centering within the interval. 
+* The default version for {ggplot2} has been set to 3.3.2. 
 
 incidence 1.7.1
 ============================
 
 ### BUG FIXES
 
-* Fix for a [bug in](https://github.com/reconhub/incidence/issues/119) `plot.incidence` 
+* Fix for a [bug in](https://github.com/reconhub/incidence/issues/119) `plot.incidence()` 
 introduced with new release of *ggplot2* ([bug report](https://github.com/tidyverse/ggplot2/issues/3873))
 As a temporary fix, dates are now centered within the interval instead of to the left of the interval. 
 

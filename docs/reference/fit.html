@@ -8,21 +8,29 @@
 
 <title>Fit exponential models to incidence data — fit • incidence</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +38,8 @@
 
 
 
-<meta property="og:title" content="Fit exponential models to incidence data — fit" />
 
+<meta property="og:title" content="Fit exponential models to incidence data — fit" />
 <meta property="og:description" content="The function fit fits two exponential models to incidence data, of the
 form: \(log(y) = r * t + b\)  where 'y' is the incidence, 't' is time
 (in days), 'r' is the growth rate, and 'b' is the origin. The function fit
@@ -43,7 +51,7 @@ used to find the optimal 'splitting' date, defined as the one for which the
 best average R2 of the two models is obtained. Plotting can be done using
 plot, or added to an existing incidence plot by the piping-friendly
 function add_incidence_fit()." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,9 +65,10 @@ function add_incidence_fit()." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +82,7 @@ function add_incidence_fit()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
       </span>
     </div>
 
@@ -119,7 +128,6 @@ function add_incidence_fit()." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/reconhub/incidence">
@@ -134,18 +142,18 @@ function add_incidence_fit()." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Fit exponential models to incidence data</h1>
-    
+    <small class="dont-index">Source: <a href='http://github.com/reconhub/incidence/blob/master/R/fit.R'><code>R/fit.R</code></a>, <a href='http://github.com/reconhub/incidence/blob/master/R/fit_optim_split.R'><code>R/fit_optim_split.R</code></a>, <a href='http://github.com/reconhub/incidence/blob/master/R/print.R'><code>R/print.R</code></a></small>
     <div class="hidden name"><code>fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The function <code>fit</code> fits two exponential models to incidence data, of the
 form: \(log(y) = r * t + b\) <br /> where 'y' is the incidence, 't' is time
 (in days), 'r' is the growth rate, and 'b' is the origin. The function <code>fit</code>
@@ -157,20 +165,24 @@ used to find the optimal 'splitting' date, defined as the one for which the
 best average R2 of the two models is obtained. Plotting can be done using
 <code>plot</code>, or added to an existing incidence plot by the piping-friendly
 function <code><a href='plot.incidence.html'>add_incidence_fit()</a></code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>fit</span>(<span class='no'>x</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>fit_optim_split</span>(<span class='no'>x</span>, <span class='kw'>window</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>timespan</span>/<span class='fl'>4</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>separate_split</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>fit_optim_split</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>window</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>timespan</span>/<span class='fl'>4</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>separate_split</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='co'># S3 method for incidence_fit</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for incidence_fit_list</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -220,7 +232,7 @@ groups as main effects and interactions with date.</p></td>
       <td><p>currently unused.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>For <code>fit()</code>, a list with the class <code>incidence_fit</code> (for a
@@ -259,54 +271,52 @@ objects can be retrieved with <code><a href='get_fit.html'>get_fit()</a></code>.
 <li><p><code>plot</code>: a plot showing the content of <code>df</code> (ggplot2 object)</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>the <code><a href='incidence.html'>incidence()</a></code> function to generate the 'incidence'
 objects. The <code><a href='get_fit.html'>get_fit()</a></code> function to flatten <code>incidence_fit_list</code> objects to
 a list of <code>incidence_fit</code> objects.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>outbreaks</span>)) { <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/source'>withAutoprint</a></span>({
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>outbreaks</span>)) { <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
  <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>ebola_sim</span>$<span class='no'>linelist</span>$<span class='no'>date_of_onset</span>
 
  <span class='co'>## EXAMPLE WITH A SINGLE MODEL</span>
 
  <span class='co'>## compute weekly incidence</span>
  <span class='no'>i.7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='incidence.html'>incidence</a></span>(<span class='no'>dat</span>, <span class='kw'>interval</span><span class='kw'>=</span><span class='fl'>7</span>)
- <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i.7</span>)
- <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
+ <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i.7</span>)
+ <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
 
  <span class='co'>## fit a model on the first 20 weeks</span>
  <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
  <span class='no'>f</span>
- <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>f</span>)
- <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'><a href='get_fit.html'>get_info</a></span>(<span class='no'>f</span>, <span class='st'>"pred"</span>))
+ <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>f</span>)
+ <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='get_fit.html'>get_info</a></span>(<span class='no'>f</span>, <span class='st'>"pred"</span>))
 
  <span class='co'>## plot model alone (not recommended)</span>
- <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>f</span>)
+ <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>f</span>)
 
  <span class='co'>## plot data and model (recommended)</span>
- <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i.7</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>f</span>)
- <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>25</span>], <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>f</span>)
+ <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i.7</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>f</span>)
+ <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i.7</span>[<span class='fl'>1</span>:<span class='fl'>25</span>], <span class='kw'>fit</span> <span class='kw'>=</span> <span class='no'>f</span>)
 
 <span class='co'>## piping versions</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>magrittr</span>)) { <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/source'>withAutoprint</a></span>({
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f</span>)
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>magrittr</span>)) { <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>({
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f</span>)
 
 
   <span class='co'>## EXAMPLE WITH 2 PHASES</span>
   <span class='co'>## specifying the peak manually</span>
-  <span class='no'>f2</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>"2014-10-15"</span>))
+  <span class='no'>f2</span> <span class='kw'>&lt;-</span> <span class='fu'>fit</span>(<span class='no'>i.7</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2014-10-15"</span>))
   <span class='no'>f2</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f2</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f2</span>)
 
   <span class='co'>## finding the best 'peak' date</span>
   <span class='no'>f3</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_optim_split</span>(<span class='no'>i.7</span>)
   <span class='no'>f3</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f3</span>$<span class='no'>fit</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>i.7</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot.incidence.html'>add_incidence_fit</a></span>(<span class='no'>f3</span>$<span class='no'>fit</span>)
 })}
 
 })}</div><div class='output co'>#&gt; &gt; dat &lt;- ebola_sim$linelist$date_of_onset
@@ -353,10 +363,7 @@ a list of <code>incidence_fit</code> objects.</p></div>
 #&gt; +         f3
 #&gt; +         plot(i.7) %&gt;% add_incidence_fit(f3$fit)
 #&gt; +     })
-#&gt; + }</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='img'><img src='fit-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7) %&gt;% add_incidence_fit(f)</div><div class='img'><img src='fit-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; f2 &lt;- fit(i.7, split = as.Date("2014-10-15"))
+#&gt; + }</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='img'><img src='fit-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; plot(i.7) %&gt;% add_incidence_fit(f)</div><div class='img'><img src='fit-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; &gt; f2 &lt;- fit(i.7, split = as.Date("2014-10-15"))
 #&gt; &gt; f2
 #&gt; &lt;list of incidence_fit objects&gt;
 #&gt; 
@@ -457,23 +464,13 @@ a list of <code>incidence_fit</code> objects.</p></div>
 #&gt; &gt; plot(i.7) %&gt;% add_incidence_fit(f3$fit)</div><div class='img'><img src='fit-9.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, Zhian N. Kamvar
-<a href='mailto:zkamvar@gmail.com'>zkamvar@gmail.com</a>.</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -481,13 +478,16 @@ a list of <code>incidence_fit</code> objects.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
