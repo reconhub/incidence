@@ -25,7 +25,7 @@ A list containing the following items:
 }
 \description{
 This function can be used to estimate the peak of an epidemic curve stored as
-\code{incidence}, using bootstrap. See \link[incidence:bootstrap]{incidence::bootstrap} for more information
+\code{incidence}, using bootstrap. See \link{bootstrap} for more information
 on the resampling.
 }
 \details{
@@ -73,8 +73,8 @@ if (require(outbreaks) && require(ggplot2)) { withAutoprint({
 
 }
 \seealso{
-\link[incidence:bootstrap]{incidence::bootstrap} for the bootstrapping underlying this
-approach and \link[incidence:find_peak]{incidence::find_peak} to find the peak in a single
+\link{bootstrap} for the bootstrapping underlying this
+approach and \link{find_peak} to find the peak in a single
 \code{incidence} object.
 }
 \author{

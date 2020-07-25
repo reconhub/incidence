@@ -210,8 +210,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## https://github.com/tidyverse/ggplot2/issues/3873
   ## Temporary fix: changing placement to default of ggplot2::scale_x_date
   
-  ## x_axis <- "dates + (interval_days/2)"
-  x_axis <- "dates"
+  x_axis <- "dates + (interval_days/2)"
   y_axis <- "counts"
   out <- ggplot2::ggplot(df) +
     ggplot2::geom_col(ggplot2::aes_string(

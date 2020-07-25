@@ -275,14 +275,14 @@ di <- incidence(d, interval = "week", first_date = Sys.Date() - 10)
 \seealso{
 The main other functions of the package include:
 \itemize{
-\item \code{\link[incidence:plot.incidence]{incidence::plot.incidence()}}: Plot epicurves from an incidence object.
-\item \code{\link[incidence:fit]{incidence::fit()}}: Fit log-linear model to computed incidence.
-\item \code{\link[incidence:fit_optim_split]{incidence::fit_optim_split()}}: Find the optimal peak of the epidemic
+\item \code{\link[=plot.incidence]{plot.incidence()}}: Plot epicurves from an incidence object.
+\item \code{\link[=fit]{fit()}}: Fit log-linear model to computed incidence.
+\item \code{\link[=fit_optim_split]{fit_optim_split()}}: Find the optimal peak of the epidemic
 and fits log-linear models on either side of the peak.
-\item \code{\link[incidence:subset]{incidence::subset()}}: Handling of \code{incidence}
+\item \code{\link[=subset]{subset()}}: Handling of \code{incidence}
 objects.
-\item \code{\link[incidence:pool]{incidence::pool()}}: Sum incidence over groups.
-\item \code{\link[incidence:as.data.frame.incidence]{incidence::as.data.frame.incidence()}}: Convert an \code{incidence} object to a
+\item \code{\link[=pool]{pool()}}: Sum incidence over groups.
+\item \code{\link[=as.data.frame.incidence]{as.data.frame.incidence()}}: Convert an \code{incidence} object to a
 \code{data.frame}.
 }
 

@@ -218,9 +218,9 @@ plot(i.7.outcome, stack = TRUE, border = "grey")
 To visualise the cumulative incidence:
 
 ```{r, i7outcome_cum}
-i.7.outcome.cum <- cumulate(i.7.outcome)
-i.7.outcome.cum
-plot(i.7.outcome.cum)
+i.7.outcome.c <- cumulate(i.7.outcome)
+i.7.outcome.c
+plot(i.7.outcome.c)
 ```
 
 

@@ -43,7 +43,7 @@ if (require(outbreaks) && require(ggplot2)) { withAutoprint({
 
 }
 \seealso{
-\link[incidence:find_peak]{incidence::find_peak} to use estimate peak date using bootstrap
+\link{find_peak} to use estimate peak date using bootstrap
 }
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}
