@@ -4,9 +4,11 @@ Title: Compute, Handle, Plot and Model Incidence of Dated Events
 Version: 1.7.2
 Authors@R: c(
   person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com"), 
-  person("Zhian N.", "Kamvar", role = c("aut", "cre"), email = "zkamvar@gmail.com",
+  person("Zhian N.", "Kamvar", role = "aut", email = "zkamvar@gmail.com",
          comment = c(ORCID = "0000-0003-1458-7108")),
-  person("Rich", "FitzJohn", role = "aut", email = "rich.fitzjohn@gmail.com"), 
+  person("Rich", "FitzJohn", role = "aut", email = "rich.fitzjohn@gmail.com"),
+  person("Tim", "Taylor", role = "cre", email = "tim.taylor@hiddenelephants.co.uk",
+         comment = c(ORCID = "0000-0002-8587-7113")),
   person("Jun", "Cai", role = "ctb", email = "cai-j12@mails.tsinghua.edu.cn", 
          comment = c(ORCID = "0000-0001-9495-1226")), 
   person("Sangeeta", "Bhatia", role = "ctb", email = "sangeetabhatia03@gmail.com"),
