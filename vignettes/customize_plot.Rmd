@@ -35,7 +35,7 @@ introduction to *ggplot2*.
 # Example data: simulated Ebola outbreak
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
-[*outbreaks*](http://github.com/reconhub/outbreaks): `ebola_sim_clean`.
+[*outbreaks*](https://github.com/reconhub/outbreaks/): `ebola_sim_clean`.
 
 First, we load the data:
 ```{r, data}

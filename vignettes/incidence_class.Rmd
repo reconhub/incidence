@@ -225,7 +225,7 @@ colSums(get_counts(i.sex))
 ## `$weeks`
 
 The `$weeks` component is optional, and used to store
-[aweek](https://www.repidemicsconsortium.org/aweek) objects whenever they have
+[aweek](https://www.repidemicsconsortium.org/aweek/) objects whenever they have
 been used. Weeks are used by default when weekly incidence is computed from
 dates (see argument `standard` in `?incidence`).
 

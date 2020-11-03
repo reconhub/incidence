@@ -1,3 +1,8 @@
+incidence 1.7.3
+============================
+
+* change of maintainer only.
+
 incidence 1.7.2
 ============================
 
@@ -52,7 +57,7 @@ incidence 1.7.0
 
 ### DEPENDENCIES
 
- - ISOweek import changed to [aweek](https://www.repidemicsconsortium.org/aweek)
+ - ISOweek import changed to [aweek](https://www.repidemicsconsortium.org/aweek/)
 
 ### Documentation
 
@@ -315,7 +320,7 @@ incidence 1.2.0 (2017-04-03)
   vectors which are essentially integers (issuing a warning otherwise)
 
 * new vignette on
-  [*conversions*](http://www.repidemicsconsortium.org/incidence/articles/conversions.html)
+  [*conversions*](https://www.repidemicsconsortium.org/incidence/articles/conversions.html)
   to and from *incidence* objects
 
 * new tests
@@ -354,7 +359,7 @@ incidence 1.1.1 (2017-02-15)
 ### BUG FIXES
 
 * adapting to new names of datasets in
-  [*outbreaks*](http://repidemicsconsortium.org/outbreaks): `ebola.sim` ->
+  [*outbreaks*](https://www.repidemicsconsortium.org/outbreaks/): `ebola.sim` ->
   `ebola_sim` and `ebola.sim.clean` -> `ebola_sim_clean`
 
 
@@ -382,7 +387,7 @@ incidence 1.0.1 (2016-11-23)
   *incidence* as well as guidelines for posting questions on the RECON forum.
 
 * incidence now has a dedicated website
-  [http://www.repidemicsconsortium.org/incidence/](http://www.repidemicsconsortium.org/incidence/)
+  [https://www.repidemicsconsortium.org/incidence/](https://www.repidemicsconsortium.org/incidence/)
   generated with *pkgdown*
 
 

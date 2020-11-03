@@ -43,7 +43,7 @@ This vignette documents to types of conversion which can be made using the *inci
 To export results, we first compute semi-weekly incidence (with weeks starting
 on Sunday, the beginning of the CDC epiweek) by gender from the simulated Ebola
 data used in the [overview
-vignette](http://www.repidemicsconsortium.org/incidence/articles/overview.html):
+vignette](https://www.repidemicsconsortium.org/incidence/articles/overview.html):
 
 ```{r example}
 library(outbreaks)

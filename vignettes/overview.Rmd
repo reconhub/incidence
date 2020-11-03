@@ -111,7 +111,7 @@ The main functions of the package include:
 ## Loading the data
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from the package
-[*outbreaks*](http://github.com/reconhub/outbreaks). We will compute incidence for various time
+[*outbreaks*](https://github.com/reconhub/outbreaks/). We will compute incidence for various time
 steps, calibrate two exponential models around the peak of the epidemic, and analyse the results.
 
 First, we load the data:
