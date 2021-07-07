@@ -22,3 +22,4 @@ README.html
 bug_reports/*
 ^revdep/
 ^_pkgdown.yml$
+^drat\.sh$
