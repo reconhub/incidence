@@ -25,7 +25,7 @@ Description: Provides functions and classes to compute, handle and visualise
   for outbreak analysis.
 Encoding: UTF-8
 License: MIT + file LICENSE
-URL: https://www.repidemicsconsortium.org/incidence/
+URL: https://www.repidemicsconsortium.org/incidence/, https://github.com/reconhub/incidence
 BugReports: https://github.com/reconhub/incidence/issues
 RoxygenNote: 7.1.1
 Imports:
