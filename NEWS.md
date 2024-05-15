@@ -1,3 +1,9 @@
+incidence 1.7.4
+============================
+
+* No user facing changes.
+* Documentation tweaks and general upkeep for CRAN.
+
 incidence 1.7.3
 ============================
 
@@ -359,7 +365,7 @@ incidence 1.1.1 (2017-02-15)
 ### BUG FIXES
 
 * adapting to new names of datasets in
-  [*outbreaks*](https://www.repidemicsconsortium.org/outbreaks/): `ebola.sim` ->
+  [*outbreaks*](https://cran.r-project.org/package=outbreaks): `ebola.sim` ->
   `ebola_sim` and `ebola.sim.clean` -> `ebola_sim_clean`
 
 

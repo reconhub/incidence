@@ -133,7 +133,7 @@ detailed tutorials.
 ## Loading the data
 
 This example uses the simulated Ebola Virus Disease (EVD) outbreak from
-the package [*outbreaks*](https://github.com/reconhub/outbreaks). We
+the package [*outbreaks*](https://cran.r-project.org/package=outbreaks). We
 will compute incidence for various time steps, calibrate two exponential
 models around the peak of the epidemic, and analyse the results.
 

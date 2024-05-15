@@ -8,8 +8,8 @@
 #' and 2, the second interval includes 3, 4 and 5 etc.
 #'
 #' @param dates A vector of dates, which can be provided as objects of the
-#' class: integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note 
-#' about `numeric` and `character` formats) 
+#' class: integer, numeric, Date, POSIXct, POSIXlt, and character. (See Note
+#' about `numeric` and `character` formats)
 #'
 #' @param interval An integer or character indicating the (fixed) size of the
 #' time interval used for computing the incidence; defaults to 1 day. This can
@@ -37,7 +37,7 @@
 #' events. When `standard = TRUE` and the interval represents weeks, months,
 #' quarters, or years, the first date will represent the first standard date
 #' (See Interval specification, below).
-#'    
+#'
 #' - **counts**: A matrix of incidence counts, which one column per group (and
 #' a single column if no groups were used).
 #'
@@ -45,17 +45,17 @@
 #' days.
 #'
 #' - **interval**: The bin size. If it's an integer, it represents the number
-#'   of days between each bin. It can also be a character, e.g. "2 weeks" or 
+#'   of days between each bin. It can also be a character, e.g. "2 weeks" or
 #'   "6 months".
 #'
 #' - **n**: The total number of cases.
 #'
 #' - **weeks**: Dates in week format (YYYY-Www), where YYYY corresponds to the
-#'   year of the given week and ww represents the numeric week of the year. 
+#'   year of the given week and ww represents the numeric week of the year.
 #'   This will be a produced from the function [aweek::date2week()]. Note that
 #'   these will have a special `"week_start"` attribute indicating which day of
 #'   the ISO week the week starts on (see Weeks, below).
-#'   
+#'
 #' - **isoweeks**: ISO 8601 week format YYYY-Www, which is returned only when
 #' ISO week-based weekly incidence is computed.
 #'
@@ -68,7 +68,7 @@
 #'  - **Character dates** should be in the unambiguous `yyyy-mm-dd` (ISO 8601)
 #'   format. Any other format will trigger an error.
 #' }
-#' 
+#'
 #' \subsection{Interval specification (`interval`)}{
 #' If `interval` is a valid character (e.g. "week" or "1 month"), then
 #' the bin will start at the beginning of the interval just before the first
@@ -83,7 +83,7 @@
 #' These default intervals can be overridden with `standard = FALSE`, which
 #' sets the interval to begin at the first observed case.
 #' }
-#' 
+#'
 #' \subsection{Week intervals}{
 #'
 #' As of _incidence_ version 1.7.0, it is possible to construct standardized
@@ -91,8 +91,8 @@
 #' [aweek::date2week()] function from the \pkg{aweek} package. The default
 #' state is to use ISO 8601 definition of weeks, which start on Monday. You can
 #' specify the day of the week an incidence object should be standardised to by
-#' using the pattern "{n} {W} weeks" where "{W}" represents the weekday in an
-#' English or current locale and "{n}" represents the duration, but this can be
+#' using the pattern "\{n\} \{W\} weeks" where "\{W\}" represents the weekday in an
+#' English or current locale and "\{n\}" represents the duration, but this can be
 #' ommitted.  Below are examples of specifying weeks starting on different days
 #' assuming we had data that started on 2016-09-05, which is ISO week 36 of
 #' 2016:
@@ -100,14 +100,14 @@
 #'  - interval = "2 monday weeks" (Monday 2016-09-05)
 #'  - interval = "1 tue week" (Tuesday 2016-08-30)
 #'  - interval = "1 Wed week" (Wednesday 2016-08-31)
-#'  - interval = "1 Thursday week" (Thursday 2016-09-01) 
+#'  - interval = "1 Thursday week" (Thursday 2016-09-01)
 #'  - interval = "1 F week" (Friday 2016-09-02)
 #'  - interval = "1 Saturday week" (Saturday 2016-09-03)
 #'  - interval = "Sunday week" (Sunday 2016-09-04)
 #'
 #' It's also possible to use something like "3 weeks: Saturday"; In addition,
 #' there are keywords reserved for specific days of the week:
-#'   
+#'
 #'   - interval = "week", standard = TRUE (Default, Monday)
 #'   - interval = "ISOweek"  (Monday)
 #'   - interval = "EPIweek"  (Sunday)
@@ -124,14 +124,14 @@
 #' be more consistent with the behavior when `first_date = NULL`. This, however
 #' may be a change in behaviour, so a warning is now issued once and only once
 #' if `first_date` is specified, but `standard` is not. To never see this
-#' warning, use `options(incidence.warn.first_date = FALSE)`. 
+#' warning, use `options(incidence.warn.first_date = FALSE)`.
 #' }
 #'
 #' The intervals for "month", "quarter", and "year" will necessarily vary in the
 #' number of days they encompass and warnings will be generated when the first
 #' date falls outside of a calendar date that is easily represented across the
 #' interval.
-#' 
+#'
 #'
 #' @seealso
 #' The main other functions of the package include:
@@ -190,15 +190,15 @@
 #'   inc.week
 #'   plot(inc.week)
 #'   plot(inc.week, border = "white") # with visible border
-#'   
+#'
 #'   # Starting on Monday
 #'   inc.isoweek <- incidence(onset, interval = "isoweek")
 #'   inc.isoweek
-#'   
+#'
 #'   # Starting on Sunday
 #'   inc.epiweek <- incidence(onset, interval = "epiweek")
 #'   inc.epiweek
-#' 
+#'
 #'   # Starting on Saturday
 #'   inc.epiweek <- incidence(onset, interval = "saturday epiweek")
 #'   inc.epiweek
@@ -216,10 +216,10 @@
 #'   plot(inc.satweek.gender, border = "grey90")
 #'
 #' })}
-#' 
+#'
 #' # Use of first_date
 #' d <- Sys.Date() + sample(-3:10, 10, replace = TRUE)
-#' 
+#'
 #' # `standard` specified, no warning
 #' di <- incidence(d, interval = "week", first_date = Sys.Date() - 10, standard = TRUE)
 #'
@@ -247,13 +247,13 @@ incidence.default <- function(dates, interval = 1L, ...) {
 #' @param standard (Only applicable to Date objects) When `TRUE` (default) and the
 #'   `interval` one of "week", "month", "quarter", or "year", then this will
 #'   cause the bins for the counts to start at the beginning of the interval
-#'   (See Note). 
+#'   (See Note).
 
 incidence.Date <- function(dates, interval = 1L, standard = TRUE, groups = NULL,
                            na_as_group = TRUE, first_date = NULL,
                            last_date = NULL, ...) {
   the_call <- match.call()
-  warnme <- getOption('incidence.warn.first_date', FALSE) 
+  warnme <- getOption('incidence.warn.first_date', FALSE)
   if (warnme && !is.null(the_call[["first_date"]]) && is.null(the_call[["standard"]])) {
     fd  <- as.character(deparse(the_call[["first_date"]]))
     msg <- "\n\nAs of incidence version 1.6.0, the default behavior has been"

@@ -14,8 +14,8 @@ figs/*
 logo/*
 ^README-.*\.png$
 ^CONDUCT\.md$
-docs/
-misc/
+^docs$
+^misc$
 README.md
 README.html
 ^appveyor\.yml$

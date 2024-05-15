@@ -169,8 +169,8 @@ incidence objects standardized to any day of the week thanks to the
 \code{\link[aweek:date2week]{aweek::date2week()}} function from the \pkg{aweek} package. The default
 state is to use ISO 8601 definition of weeks, which start on Monday. You can
 specify the day of the week an incidence object should be standardised to by
-using the pattern "{n} {W} weeks" where "{W}" represents the weekday in an
-English or current locale and "{n}" represents the duration, but this can be
+using the pattern "\{n\} \{W\} weeks" where "\{W\}" represents the weekday in an
+English or current locale and "\{n\}" represents the duration, but this can be
 ommitted.  Below are examples of specifying weeks starting on different days
 assuming we had data that started on 2016-09-05, which is ISO week 36 of
 2016:
@@ -231,11 +231,11 @@ if(require(outbreaks)) { withAutoprint({
   inc.week
   plot(inc.week)
   plot(inc.week, border = "white") # with visible border
-  
+
   # Starting on Monday
   inc.isoweek <- incidence(onset, interval = "isoweek")
   inc.isoweek
-  
+
   # Starting on Sunday
   inc.epiweek <- incidence(onset, interval = "epiweek")
   inc.epiweek

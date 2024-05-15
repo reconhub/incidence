@@ -1,8 +1,8 @@
 citHeader("To cite the incidence package in publications use:")
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title        = "Epidemic curves made easy using the R package incidence [version 1; referees: awaiting peer review]",
-  author       = personList(as.person("Zhian N. Kamvar"),
+  author       = c(as.person("Zhian N. Kamvar"),
                    as.person("Jun Cai"),
                    as.person("Juliet R.C. Pulliam"),
                    as.person("Jakob Schumacher"),
@@ -24,10 +24,10 @@ citEntry(entry = "Article",
 year = sub('.*(2[[:digit:]]{3})-.*', '\\1', meta$Date, perl = TRUE)
 vers = paste('R package version', meta$Version)
 
-citEntry(
-  entry = 'manual',
+bibentry(
+  bibtype = 'Manual',
   title = paste('incidence:', meta$Title),
-  author = personList(as.person("Thibaut Jombart"),
+  author = c(as.person("Thibaut Jombart"),
                              as.person("Zhian N. Kamvar"),
                              as.person("Rich FitzJohn"),
                              as.person("Jun Cai"),
