@@ -1,3 +1,8 @@
+incidence 1.7.5
+============================
+
+* No user facing changes.
+
 incidence 1.7.4
 ============================
 
