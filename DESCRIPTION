@@ -42,4 +42,3 @@ Suggests:
     cowplot
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-Config/runiverse/noindex: true
