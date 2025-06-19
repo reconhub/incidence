@@ -45,24 +45,21 @@ fit_optim_split <- function(x, window = x$timespan/4, plot = TRUE,
                       groups = factor(rep(names(res), dfrows), names(res)),
                       stringsAsFactors = TRUE
                      ),
-      plot = ggplot2::ggplot(),
       split = seq(dates, by = 1, length.out = length(res)),
       fit = vector(mode = "list", length = length(res))
     )
     names(out$fit)   <- names(res)
-    names(out$plot)  <- names(res)
     names(out$split) <- names(res)
     for (i in names(res)) {
       n <- factor(i, names(res))
       out$fit[[i]]   <- res[[i]]$fit
-      out$plot[[i]]  <- res[[i]]$plot
       out$split[[i]] <- res[[i]]$split
       out$fit[[i]]$after$info$pred$groups  <- n
       out$fit[[i]]$before$info$pred$groups <- n
       out$df[out$df$groups == i, ]$dates   <- res[[i]]$df$dates
       out$df[out$df$groups == i, ]$mean.R2 <- res[[i]]$df$mean.R2
     }
-    if (plot) {
+    if (isTRUE(plot)) {
       out$plot <- ggplot2::ggplot(
           out$df,
           ggplot2::aes_string(x = "dates", y = "mean.R2", color = "groups")

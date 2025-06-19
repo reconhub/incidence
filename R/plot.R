@@ -56,21 +56,21 @@
 #'
 #' @param n_breaks the ideal number of breaks to be used for the x-axis
 #'   labeling
-#' 
+#'
 #' @return
 #'  - `plot()` a [ggplot2::ggplot()] object.
 #'  - `make_breaks()` a two-element list. The "breaks" element will contain the
 #'    evenly-spaced breaks as either dates or numbers and the "labels" element
 #'    will contain either a vector of weeks OR a [ggplot2::waiver()] object.
-#'  - `scale_x_incidence()` a \pkg{ggplot2} "ScaleContinuous" object. 
+#'  - `scale_x_incidence()` a \pkg{ggplot2} "ScaleContinuous" object.
 #'
-#' @details 
+#' @details
 #'  - `plot()` will visualise an incidence object using `ggplot2`
 #'  - `make_breaks()` calculates breaks from an incidence object that always
-#'    align with the bins and start on the first observed incidence. 
+#'    align with the bins and start on the first observed incidence.
 #'  - `scale_x_incidence()` produces and appropriate `ggplot2` scale based on
-#'    an incidence object. 
-#' 
+#'    an incidence object.
+#'
 #' @examples
 #'
 #' if(require(outbreaks) && require(ggplot2)) { withAutoprint({
@@ -100,7 +100,7 @@
 #'   p
 #'
 #'   ## update the range of the scale
-#'   lim <- c(min(get_dates(inc.week.8)) - 7*5, 
+#'   lim <- c(min(get_dates(inc.week.8)) - 7*5,
 #'            aweek::week2date("2014-W50", "Sunday"))
 #'   lim
 #'   p + scale_x_incidence(inc.week.gender, limits = lim)
@@ -108,7 +108,7 @@
 #'   ## customize plot with ggplot2
 #'   plot(inc.week.8, show_cases = TRUE, border = "black") +
 #'     theme_classic(base_size = 16) +
-#'     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) 
+#'     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 #'
 #'   ## adding fit
 #'   fit <- fit_optim_split(inc.week.gender)$fit
@@ -140,7 +140,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   n.groups <- ncol(x$counts)
   gnames   <- group_names(x)
 
-  
+
   ## Use custom labels for usual time intervals
   if (is.null(ylab)) {
     if (is.numeric(x$interval)) {
@@ -155,7 +155,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
                         x$interval)
       }
     } else if (is.character(x$interval)) {
-      
+
       # capturing the number and type
       p     <- "(\\d*)\\s?([a-z]+?)s?$"
       num   <- gsub(p, "\\1", tolower(x$interval))
@@ -209,7 +209,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
   ## https://github.com/reconhub/incidence/issues/119
   ## https://github.com/tidyverse/ggplot2/issues/3873
   ## Temporary fix: changing placement to default of ggplot2::scale_x_date
-  
+
   x_axis <- "dates + (interval_days/2)"
   y_axis <- "counts"
   out <- ggplot2::ggplot(df) +
@@ -279,13 +279,13 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
 
   if (n.groups < 2 && is.null(gnames)) {
     out <- out + ggplot2::aes(fill = 'a') +
-      ggplot2::scale_fill_manual(values = color, guide = FALSE)
+      ggplot2::scale_fill_manual(values = color, guide = "none")
   } else {
     if (!is.null(names(color))) {
-      tmp     <- color[gnames] 
+      tmp     <- color[gnames]
       matched <- names(color) %in% names(tmp)
       if (!all(matched)) {
-        removed <- paste(names(color)[!matched], 
+        removed <- paste(names(color)[!matched],
                          color[!matched],
                          sep = '" = "',
                          collapse = '", "')
@@ -293,7 +293,7 @@ plot.incidence <- function(x, ..., fit = NULL, stack = is.null(fit),
       }
       color <- tmp
     }
-                                 
+
     ## find group colors
     if (length(color) != n.groups) {
       msg <- "The number of colors (%d) did not match the number of groups (%d)"
@@ -353,7 +353,7 @@ add_incidence_fit <- function(p, x, col_pal = incidence_pal1){
     df$dates <- as.POSIXlt(df$dates) + 43200 # adding half a day
     if (inherits(p$data$dates, "POSIXct")) {
       df$dates <- as.POSIXct(df$dates)
-    } 
+    }
   }
 
   out <- suppressMessages(
