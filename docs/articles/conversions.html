@@ -6,19 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Conversions to and from the incidence class • incidence</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Conversions to and from the incidence class">
-<meta property="og:description" content="incidence">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">incidence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.5.9000</span>
       </span>
     </div>
 
@@ -40,16 +41,16 @@
 <li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -64,7 +65,8 @@
       <a href="../articles/conversions.html">Exporting Incidence Data</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Understanding the incidence package</li>
+    </li>
+<li class="dropdown-header">Understanding the incidence package</li>
     <li>
       <a href="../articles/incidence_class.html">The incidence class (data)</a>
     </li>
@@ -79,9 +81,9 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/reconhub/incidence">
+  <a href="https://github.com/reconhub/incidence" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -92,259 +94,310 @@
 </div>
 <!--/.navbar -->
 
-      
 
-      </header><script src="conversions_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Conversions to and from the incidence class</h1>
-                        <h4 class="author">Thibaut Jombart, Zhian N. Kamvar</h4>
+                        <h4 data-toc-skip class="author">Thibaut
+Jombart, Zhian N. Kamvar</h4>
             
-            <h4 class="date">2020-07-23</h4>
+            <h4 data-toc-skip class="date">2025-06-19</h4>
       
-      <small class="dont-index">Source: <a href="http://github.com/reconhub/incidence/blob/master/vignettes/conversions.Rmd"><code>vignettes/conversions.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/reconhub/incidence/blob/HEAD/vignettes/conversions.Rmd" class="external-link"><code>vignettes/conversions.Rmd</code></a></small>
       <div class="hidden name"><code>conversions.Rmd</code></div>
 
     </div>
 
     
     
-<p>This vignette documents to types of conversion which can be made using the <em>incidence</em> class:</p>
+<p>This vignette documents to types of conversion which can be made
+using the <em>incidence</em> class:</p>
 <ul>
-<li><p><em>‘exports’</em>: conversion from an <em>incidence</em> object to another type of object; this can be useful for processing incidence data in another software, or for reporting results.</p></li>
-<li><p><em>‘imports’</em>conversion from already computed incidence into an <em>incidence</em> object; this can be useful for using features of the <em>incidence</em> package for data handling and plotting with incidence data computed elsewhere.</p></li>
+<li><p><em>‘exports’</em>: conversion from an <em>incidence</em> object
+to another type of object; this can be useful for processing incidence
+data in another software, or for reporting results.</p></li>
+<li><p><em>‘imports’</em>conversion from already computed incidence into
+an <em>incidence</em> object; this can be useful for using features of
+the <em>incidence</em> package for data handling and plotting with
+incidence data computed elsewhere.</p></li>
 </ul>
 <p><br></p>
-<div id="exporting-results" class="section level1">
-<h1 class="hasAnchor">
-<a href="#exporting-results" class="anchor"></a>Exporting results</h1>
-<p>To export results, we first compute semi-weekly incidence (with weeks starting on Sunday, the beginning of the CDC epiweek) by gender from the simulated Ebola data used in the <a href="http://www.repidemicsconsortium.org/incidence/articles/overview.html">overview vignette</a>:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">outbreaks</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">incidence</span>)
-<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">ebola_sim</span>$<span class="no">linelist</span>$<span class="no">date_of_onset</span>
-<span class="no">i_14</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"2 epiweeks"</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">ebola_sim</span>$<span class="no">linelist</span>$<span class="no">gender</span>)
-<span class="no">i_14</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-06 to 2015-04-19]</span>
-<span class="co">#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W16]</span>
-<span class="co">#&gt; [2 groups: f, m]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 28 rows and 2 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 2 weeks</span>
-<span class="co">#&gt; $timespan: 379 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i_14</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="st">"white"</span>)</pre></body></html></div>
+<div class="section level2">
+<h2 id="exporting-results">Exporting results<a class="anchor" aria-label="anchor" href="#exporting-results"></a>
+</h2>
+<p>To export results, we first compute semi-weekly incidence (with weeks
+starting on Sunday, the beginning of the CDC epiweek) by gender from the
+simulated Ebola data used in the <a href="https://www.repidemicsconsortium.org/incidence/articles/overview.html" class="external-link">overview
+vignette</a>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks" class="external-link">outbreaks</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.repidemicsconsortium.org/incidence/" class="external-link">incidence</a></span><span class="op">)</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim</span><span class="op">$</span><span class="va">linelist</span><span class="op">$</span><span class="va">date_of_onset</span></span>
+<span><span class="va">i_14</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, interval <span class="op">=</span> <span class="st">"2 epiweeks"</span>, groups <span class="op">=</span> <span class="va">ebola_sim</span><span class="op">$</span><span class="va">linelist</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></span>
+<span><span class="va">i_14</span></span>
+<span><span class="co">#&gt; &lt;incidence object&gt;</span></span>
+<span><span class="co">#&gt; [5888 cases from days 2014-04-06 to 2015-04-19]</span></span>
+<span><span class="co">#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W16]</span></span>
+<span><span class="co">#&gt; [2 groups: f, m]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $counts: matrix with 28 rows and 2 columns</span></span>
+<span><span class="co">#&gt; $n: 5888 cases in total</span></span>
+<span><span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span></span>
+<span><span class="co">#&gt; $interval: 2 weeks</span></span>
+<span><span class="co">#&gt; $timespan: 379 days</span></span>
+<span><span class="co">#&gt; $cumulative: FALSE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">i_14</span>, border <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conversions_files/figure-html/example-1.png" width="672"></p>
-<p>To export the data to a <code>data.frame</code>, one simply needs:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">i_14</span>)
-<span class="co">#&gt;         dates    weeks   f   m</span>
-<span class="co">#&gt; 1  2014-04-06 2014-W15   1   1</span>
-<span class="co">#&gt; 2  2014-04-20 2014-W17   7   1</span>
-<span class="co">#&gt; 3  2014-05-04 2014-W19  16  11</span>
-<span class="co">#&gt; 4  2014-05-18 2014-W21  19  20</span>
-<span class="co">#&gt; 5  2014-06-01 2014-W23  18  22</span>
-<span class="co">#&gt; 6  2014-06-15 2014-W25  27  28</span>
-<span class="co">#&gt; 7  2014-06-29 2014-W27  26  43</span>
-<span class="co">#&gt; 8  2014-07-13 2014-W29  72  43</span>
-<span class="co">#&gt; 9  2014-07-27 2014-W31  89  78</span>
-<span class="co">#&gt; 10 2014-08-10 2014-W33 115 133</span>
-<span class="co">#&gt; 11 2014-08-24 2014-W35 181 188</span>
-<span class="co">#&gt; 12 2014-09-07 2014-W37 280 266</span>
-<span class="co">#&gt; 13 2014-09-21 2014-W39 319 282</span>
-<span class="co">#&gt; 14 2014-10-05 2014-W41 279 282</span>
-<span class="co">#&gt; 15 2014-10-19 2014-W43 249 265</span>
-<span class="co">#&gt; 16 2014-11-02 2014-W45 211 202</span>
-<span class="co">#&gt; 17 2014-11-16 2014-W47 152 166</span>
-<span class="co">#&gt; 18 2014-11-30 2014-W49 138 148</span>
-<span class="co">#&gt; 19 2014-12-14 2014-W51 122 127</span>
-<span class="co">#&gt; 20 2014-12-28 2014-W53  94 101</span>
-<span class="co">#&gt; 21 2015-01-11 2015-W02 112  96</span>
-<span class="co">#&gt; 22 2015-01-25 2015-W04  85  83</span>
-<span class="co">#&gt; 23 2015-02-08 2015-W06  76  71</span>
-<span class="co">#&gt; 24 2015-02-22 2015-W08  75  81</span>
-<span class="co">#&gt; 25 2015-03-08 2015-W10  59  70</span>
-<span class="co">#&gt; 26 2015-03-22 2015-W12  64  45</span>
-<span class="co">#&gt; 27 2015-04-05 2015-W14  44  40</span>
-<span class="co">#&gt; 28 2015-04-19 2015-W16  32  33</span></pre></body></html></div>
-<p>The first column contains the dates marking the (inclusive) left side of the time intervals used for computing incidence, and the other columns give counts for the different groups. This function also has an option for exporting data as a ‘long’ format, i.e. with a column for ‘groups’ and a column for counts. This format can be useful especially when working with <em>ggplot2</em>, which expect data in this shape:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">i_14</span>, <span class="kw">long</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">df</span>)
-<span class="co">#&gt;        dates    weeks counts groups</span>
-<span class="co">#&gt; 1 2014-04-06 2014-W15      1      f</span>
-<span class="co">#&gt; 2 2014-04-20 2014-W17      7      f</span>
-<span class="co">#&gt; 3 2014-05-04 2014-W19     16      f</span>
-<span class="co">#&gt; 4 2014-05-18 2014-W21     19      f</span>
-<span class="co">#&gt; 5 2014-06-01 2014-W23     18      f</span>
-<span class="co">#&gt; 6 2014-06-15 2014-W25     27      f</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="no">df</span>)
-<span class="co">#&gt;         dates    weeks counts groups</span>
-<span class="co">#&gt; 51 2015-02-08 2015-W06     71      m</span>
-<span class="co">#&gt; 52 2015-02-22 2015-W08     81      m</span>
-<span class="co">#&gt; 53 2015-03-08 2015-W10     70      m</span>
-<span class="co">#&gt; 54 2015-03-22 2015-W12     45      m</span>
-<span class="co">#&gt; 55 2015-04-05 2015-W14     40      m</span>
-<span class="co">#&gt; 56 2015-04-19 2015-W16     33      m</span>
-
-<span class="co">## example of custom plot using steps:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">dates</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">counts</span>)) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_step</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="no">groups</span>))</pre></body></html></div>
+<p>To export the data to a <code>data.frame</code>, one simply
+needs:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">i_14</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         dates    weeks   f   m</span></span>
+<span><span class="co">#&gt; 1  2014-04-06 2014-W15   1   1</span></span>
+<span><span class="co">#&gt; 2  2014-04-20 2014-W17   7   1</span></span>
+<span><span class="co">#&gt; 3  2014-05-04 2014-W19  16  11</span></span>
+<span><span class="co">#&gt; 4  2014-05-18 2014-W21  19  20</span></span>
+<span><span class="co">#&gt; 5  2014-06-01 2014-W23  18  22</span></span>
+<span><span class="co">#&gt; 6  2014-06-15 2014-W25  27  28</span></span>
+<span><span class="co">#&gt; 7  2014-06-29 2014-W27  26  43</span></span>
+<span><span class="co">#&gt; 8  2014-07-13 2014-W29  72  43</span></span>
+<span><span class="co">#&gt; 9  2014-07-27 2014-W31  89  78</span></span>
+<span><span class="co">#&gt; 10 2014-08-10 2014-W33 115 133</span></span>
+<span><span class="co">#&gt; 11 2014-08-24 2014-W35 181 188</span></span>
+<span><span class="co">#&gt; 12 2014-09-07 2014-W37 280 266</span></span>
+<span><span class="co">#&gt; 13 2014-09-21 2014-W39 319 282</span></span>
+<span><span class="co">#&gt; 14 2014-10-05 2014-W41 279 282</span></span>
+<span><span class="co">#&gt; 15 2014-10-19 2014-W43 249 265</span></span>
+<span><span class="co">#&gt; 16 2014-11-02 2014-W45 211 202</span></span>
+<span><span class="co">#&gt; 17 2014-11-16 2014-W47 152 166</span></span>
+<span><span class="co">#&gt; 18 2014-11-30 2014-W49 138 148</span></span>
+<span><span class="co">#&gt; 19 2014-12-14 2014-W51 122 127</span></span>
+<span><span class="co">#&gt; 20 2014-12-28 2014-W53  94 101</span></span>
+<span><span class="co">#&gt; 21 2015-01-11 2015-W02 112  96</span></span>
+<span><span class="co">#&gt; 22 2015-01-25 2015-W04  85  83</span></span>
+<span><span class="co">#&gt; 23 2015-02-08 2015-W06  76  71</span></span>
+<span><span class="co">#&gt; 24 2015-02-22 2015-W08  75  81</span></span>
+<span><span class="co">#&gt; 25 2015-03-08 2015-W10  59  70</span></span>
+<span><span class="co">#&gt; 26 2015-03-22 2015-W12  64  45</span></span>
+<span><span class="co">#&gt; 27 2015-04-05 2015-W14  44  40</span></span>
+<span><span class="co">#&gt; 28 2015-04-19 2015-W16  32  33</span></span></code></pre></div>
+<p>The first column contains the dates marking the (inclusive) left side
+of the time intervals used for computing incidence, and the other
+columns give counts for the different groups. This function also has an
+option for exporting data as a ‘long’ format, i.e. with a column for
+‘groups’ and a column for counts. This format can be useful especially
+when working with <em>ggplot2</em>, which expect data in this shape:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">i_14</span>, long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        dates    weeks counts groups</span></span>
+<span><span class="co">#&gt; 1 2014-04-06 2014-W15      1      f</span></span>
+<span><span class="co">#&gt; 2 2014-04-20 2014-W17      7      f</span></span>
+<span><span class="co">#&gt; 3 2014-05-04 2014-W19     16      f</span></span>
+<span><span class="co">#&gt; 4 2014-05-18 2014-W21     19      f</span></span>
+<span><span class="co">#&gt; 5 2014-06-01 2014-W23     18      f</span></span>
+<span><span class="co">#&gt; 6 2014-06-15 2014-W25     27      f</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         dates    weeks counts groups</span></span>
+<span><span class="co">#&gt; 51 2015-02-08 2015-W06     71      m</span></span>
+<span><span class="co">#&gt; 52 2015-02-22 2015-W08     81      m</span></span>
+<span><span class="co">#&gt; 53 2015-03-08 2015-W10     70      m</span></span>
+<span><span class="co">#&gt; 54 2015-03-22 2015-W12     45      m</span></span>
+<span><span class="co">#&gt; 55 2015-04-05 2015-W14     40      m</span></span>
+<span><span class="co">#&gt; 56 2015-04-19 2015-W16     33      m</span></span>
+<span></span>
+<span><span class="co">## example of custom plot using steps:</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>, y <span class="op">=</span> <span class="va">counts</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_step</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">groups</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conversions_files/figure-html/long-1.png" width="672"></p>
-<p>Finally, note that when ISO weeks are used, these are also reported in the output:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">i_7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"week"</span>)
-<span class="no">i_7</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span>
-<span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 week</span>
-<span class="co">#&gt; $timespan: 386 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i_7</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="st">"white"</span>)</pre></body></html></div>
+<p>Finally, note that when ISO weeks are used, these are also reported
+in the output:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">i_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, interval <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span></span>
+<span><span class="va">i_7</span></span>
+<span><span class="co">#&gt; &lt;incidence object&gt;</span></span>
+<span><span class="co">#&gt; [5888 cases from days 2014-04-07 to 2015-04-27]</span></span>
+<span><span class="co">#&gt; [5888 cases from ISO weeks 2014-W15 to 2015-W18]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $counts: matrix with 56 rows and 1 columns</span></span>
+<span><span class="co">#&gt; $n: 5888 cases in total</span></span>
+<span><span class="co">#&gt; $dates: 56 dates marking the left-side of bins</span></span>
+<span><span class="co">#&gt; $interval: 1 week</span></span>
+<span><span class="co">#&gt; $timespan: 386 days</span></span>
+<span><span class="co">#&gt; $cumulative: FALSE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">i_7</span>, border <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conversions_files/figure-html/iso-1.png" width="672"></p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">i_7</span>))
-<span class="co">#&gt;        dates    weeks isoweeks counts</span>
-<span class="co">#&gt; 1 2014-04-07 2014-W15 2014-W15      1</span>
-<span class="co">#&gt; 2 2014-04-14 2014-W16 2014-W16      1</span>
-<span class="co">#&gt; 3 2014-04-21 2014-W17 2014-W17      5</span>
-<span class="co">#&gt; 4 2014-04-28 2014-W18 2014-W18      4</span>
-<span class="co">#&gt; 5 2014-05-05 2014-W19 2014-W19     12</span>
-<span class="co">#&gt; 6 2014-05-12 2014-W20 2014-W20     18</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">i_7</span>))
-<span class="co">#&gt;         dates    weeks isoweeks counts</span>
-<span class="co">#&gt; 51 2015-03-23 2015-W13 2015-W13     51</span>
-<span class="co">#&gt; 52 2015-03-30 2015-W14 2015-W14     54</span>
-<span class="co">#&gt; 53 2015-04-06 2015-W15 2015-W15     42</span>
-<span class="co">#&gt; 54 2015-04-13 2015-W16 2015-W16     45</span>
-<span class="co">#&gt; 55 2015-04-20 2015-W17 2015-W17     40</span>
-<span class="co">#&gt; 56 2015-04-27 2015-W18 2015-W18     19</span></pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">i_7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        dates    weeks isoweeks counts</span></span>
+<span><span class="co">#&gt; 1 2014-04-07 2014-W15 2014-W15      1</span></span>
+<span><span class="co">#&gt; 2 2014-04-14 2014-W16 2014-W16      1</span></span>
+<span><span class="co">#&gt; 3 2014-04-21 2014-W17 2014-W17      5</span></span>
+<span><span class="co">#&gt; 4 2014-04-28 2014-W18 2014-W18      4</span></span>
+<span><span class="co">#&gt; 5 2014-05-05 2014-W19 2014-W19     12</span></span>
+<span><span class="co">#&gt; 6 2014-05-12 2014-W20 2014-W20     18</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">i_7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         dates    weeks isoweeks counts</span></span>
+<span><span class="co">#&gt; 51 2015-03-23 2015-W13 2015-W13     51</span></span>
+<span><span class="co">#&gt; 52 2015-03-30 2015-W14 2015-W14     54</span></span>
+<span><span class="co">#&gt; 53 2015-04-06 2015-W15 2015-W15     42</span></span>
+<span><span class="co">#&gt; 54 2015-04-13 2015-W16 2015-W16     45</span></span>
+<span><span class="co">#&gt; 55 2015-04-20 2015-W17 2015-W17     40</span></span>
+<span><span class="co">#&gt; 56 2015-04-27 2015-W18 2015-W18     19</span></span></code></pre></div>
 <p><br></p>
 </div>
-<div id="importing-pre-computed-incidence" class="section level1">
-<h1 class="hasAnchor">
-<a href="#importing-pre-computed-incidence" class="anchor"></a>Importing pre-computed incidence</h1>
-<p>The function <code>as.incidence</code> facilitates the conversion of pre-computed incidences to an <em>incidence</em> object. Typically, the input will be imported into R from a <em>.csv</em> file or other spreadsheet formats.</p>
-<p><code>as.incidence</code> is a generic with methods for several types of objects (see <code><a href="../reference/conversions.html">?as.incidence</a></code>). The main method is <code>matrix</code>, as other types are coerced to <code>matrix</code> first and then passed to <code>as.incidence.matrix</code>:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/args.html">args</a></span>(<span class="kw pkg">incidence</span><span class="kw ns">:::</span><span class="no"><a href="../reference/conversions.html">as.incidence.matrix</a></span>)
-<span class="co">#&gt; function (x, dates = NULL, interval = NULL, standard = TRUE, </span>
-<span class="co">#&gt;     isoweeks = standard, ...) </span>
-<span class="co">#&gt; NULL</span></pre></body></html></div>
-<p>The only mandatory argument <code>x</code> is a table of counts, with time intervals in rows and groups in columns; if there are no groups, then the column doesn’t need a name; but if there are several groups, then columns should be named to indicate group labels. Optionally, <code>dates</code> can be provided to indicate the (inclusive) lower bounds of the time intervals, corresponding to the rows of <code>x</code>; most sensible date formats will do; if indicated as a character string, make sure the format is <code>YYYY-mm-dd</code>, e.g. <code>2017-04-01</code> for the 1st April 2017.</p>
-<p>Let us illustrate the conversion using a simple vector of incidence:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">vec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>)
-
-<span class="no">i</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/conversions.html">as.incidence</a></span>(<span class="no">vec</span>)
-<span class="no">i</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [19 cases from days 1 to 10]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 10 rows and 1 columns</span>
-<span class="co">#&gt; $n: 19 cases in total</span>
-<span class="co">#&gt; $dates: 10 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 1 day</span>
-<span class="co">#&gt; $timespan: 10 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">vec</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"s"</span>)</pre></body></html></div>
+<div class="section level2">
+<h2 id="importing-pre-computed-incidence">Importing pre-computed incidence<a class="anchor" aria-label="anchor" href="#importing-pre-computed-incidence"></a>
+</h2>
+<p>The function <code>as.incidence</code> facilitates the conversion of
+pre-computed incidences to an <em>incidence</em> object. Typically, the
+input will be imported into R from a <em>.csv</em> file or other
+spreadsheet formats.</p>
+<p><code>as.incidence</code> is a generic with methods for several types
+of objects (see <code><a href="../reference/conversions.html">?as.incidence</a></code>). The main method is
+<code>matrix</code>, as other types are coerced to <code>matrix</code>
+first and then passed to <code>as.incidence.matrix</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/args.html" class="external-link">args</a></span><span class="op">(</span><span class="fu">incidence</span><span class="fu">:::</span><span class="va"><a href="../reference/conversions.html">as.incidence.matrix</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; function (x, dates = NULL, interval = NULL, standard = TRUE, </span></span>
+<span><span class="co">#&gt;     isoweeks = standard, ...) </span></span>
+<span><span class="co">#&gt; NULL</span></span></code></pre></div>
+<p>The only mandatory argument <code>x</code> is a table of counts, with
+time intervals in rows and groups in columns; if there are no groups,
+then the column doesn’t need a name; but if there are several groups,
+then columns should be named to indicate group labels. Optionally,
+<code>dates</code> can be provided to indicate the (inclusive) lower
+bounds of the time intervals, corresponding to the rows of
+<code>x</code>; most sensible date formats will do; if indicated as a
+character string, make sure the format is <code>YYYY-mm-dd</code>,
+e.g. <code>2017-04-01</code> for the 1st April 2017.</p>
+<p>Let us illustrate the conversion using a simple vector of
+incidence:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/conversions.html">as.incidence</a></span><span class="op">(</span><span class="va">vec</span><span class="op">)</span></span>
+<span><span class="va">i</span></span>
+<span><span class="co">#&gt; &lt;incidence object&gt;</span></span>
+<span><span class="co">#&gt; [19 cases from days 1 to 10]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $counts: matrix with 10 rows and 1 columns</span></span>
+<span><span class="co">#&gt; $n: 19 cases in total</span></span>
+<span><span class="co">#&gt; $dates: 10 dates marking the left-side of bins</span></span>
+<span><span class="co">#&gt; $interval: 1 day</span></span>
+<span><span class="co">#&gt; $timespan: 10 days</span></span>
+<span><span class="co">#&gt; $cumulative: FALSE</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vec</span>, type <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conversions_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="st">"white"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">i</span>, border <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conversions_files/figure-html/unnamed-chunk-3-2.png" width="672"></p>
-<p>Assuming the above incidences are computed weekly, we would then use:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">i</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/conversions.html">as.incidence</a></span>(<span class="no">vec</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="fl">7</span>)
-<span class="no">i</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [19 cases from days 1 to 64]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 10 rows and 1 columns</span>
-<span class="co">#&gt; $n: 19 cases in total</span>
-<span class="co">#&gt; $dates: 10 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 7 days</span>
-<span class="co">#&gt; $timespan: 64 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">i</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="st">"white"</span>)</pre></body></html></div>
+<p>Assuming the above incidences are computed weekly, we would then
+use:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/conversions.html">as.incidence</a></span><span class="op">(</span><span class="va">vec</span>, interval <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="va">i</span></span>
+<span><span class="co">#&gt; &lt;incidence object&gt;</span></span>
+<span><span class="co">#&gt; [19 cases from days 1 to 64]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $counts: matrix with 10 rows and 1 columns</span></span>
+<span><span class="co">#&gt; $n: 19 cases in total</span></span>
+<span><span class="co">#&gt; $dates: 10 dates marking the left-side of bins</span></span>
+<span><span class="co">#&gt; $interval: 7 days</span></span>
+<span><span class="co">#&gt; $timespan: 64 days</span></span>
+<span><span class="co">#&gt; $cumulative: FALSE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">i</span>, border <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conversions_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
-<p>Note that in this case, incidences have been treated as per week, and corresponding dates in days have been computed during the conversion (the first day is always ‘1’), so that the first days of weeks 1, 2, 3… are:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">i</span>$<span class="no">dates</span>
-<span class="co">#&gt;  [1]  1  8 15 22 29 36 43 50 57 64</span></pre></body></html></div>
-<p>In practice, it is best to provide the actual dates marking the lower bounds of the time intervals. We can illustrate this by a round trip using the example of the previous section:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## convertion: incidence --&gt; data.frame:</span>
-<span class="no">i_14</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-06 to 2015-04-19]</span>
-<span class="co">#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W16]</span>
-<span class="co">#&gt; [2 groups: f, m]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 28 rows and 2 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 2 weeks</span>
-<span class="co">#&gt; $timespan: 379 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-<span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">i_14</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">df</span>)
-<span class="co">#&gt;        dates    weeks  f  m</span>
-<span class="co">#&gt; 1 2014-04-06 2014-W15  1  1</span>
-<span class="co">#&gt; 2 2014-04-20 2014-W17  7  1</span>
-<span class="co">#&gt; 3 2014-05-04 2014-W19 16 11</span>
-<span class="co">#&gt; 4 2014-05-18 2014-W21 19 20</span>
-<span class="co">#&gt; 5 2014-06-01 2014-W23 18 22</span>
-<span class="co">#&gt; 6 2014-06-15 2014-W25 27 28</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="no">df</span>)
-<span class="co">#&gt;         dates    weeks  f  m</span>
-<span class="co">#&gt; 23 2015-02-08 2015-W06 76 71</span>
-<span class="co">#&gt; 24 2015-02-22 2015-W08 75 81</span>
-<span class="co">#&gt; 25 2015-03-08 2015-W10 59 70</span>
-<span class="co">#&gt; 26 2015-03-22 2015-W12 64 45</span>
-<span class="co">#&gt; 27 2015-04-05 2015-W14 44 40</span>
-<span class="co">#&gt; 28 2015-04-19 2015-W16 32 33</span>
-
-<span class="co">## conversion: data.frame --&gt; incidence</span>
-<span class="no">new_i</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/conversions.html">as.incidence</a></span>(<span class="no">df</span>[<span class="fu"><a href="../reference/group_names.html">group_names</a></span>(<span class="no">i_14</span>)], <span class="no">df</span>$<span class="no">dates</span>, <span class="kw">interval</span> <span class="kw">=</span> <span class="st">"2 epiweeks"</span>)
-<span class="no">new_i</span>
-<span class="co">#&gt; &lt;incidence object&gt;</span>
-<span class="co">#&gt; [5888 cases from days 2014-04-06 to 2015-04-19]</span>
-<span class="co">#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W16]</span>
-<span class="co">#&gt; [2 groups: f, m]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $counts: matrix with 28 rows and 2 columns</span>
-<span class="co">#&gt; $n: 5888 cases in total</span>
-<span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span>
-<span class="co">#&gt; $interval: 2 weeks</span>
-<span class="co">#&gt; $timespan: 379 days</span>
-<span class="co">#&gt; $cumulative: FALSE</span>
-
-<span class="co">## check round trip</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="no">new_i</span>, <span class="no">i_14</span>)
-<span class="co">#&gt; [1] TRUE</span></pre></body></html></div>
+<p>Note that in this case, incidences have been treated as per week, and
+corresponding dates in days have been computed during the conversion
+(the first day is always ‘1’), so that the first days of weeks 1, 2, 3…
+are:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">i</span><span class="op">$</span><span class="va">dates</span></span>
+<span><span class="co">#&gt;  [1]  1  8 15 22 29 36 43 50 57 64</span></span></code></pre></div>
+<p>In practice, it is best to provide the actual dates marking the lower
+bounds of the time intervals. We can illustrate this by a round trip
+using the example of the previous section:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## convertion: incidence --&gt; data.frame:</span></span>
+<span><span class="va">i_14</span></span>
+<span><span class="co">#&gt; &lt;incidence object&gt;</span></span>
+<span><span class="co">#&gt; [5888 cases from days 2014-04-06 to 2015-04-19]</span></span>
+<span><span class="co">#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W16]</span></span>
+<span><span class="co">#&gt; [2 groups: f, m]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $counts: matrix with 28 rows and 2 columns</span></span>
+<span><span class="co">#&gt; $n: 5888 cases in total</span></span>
+<span><span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span></span>
+<span><span class="co">#&gt; $interval: 2 weeks</span></span>
+<span><span class="co">#&gt; $timespan: 379 days</span></span>
+<span><span class="co">#&gt; $cumulative: FALSE</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">i_14</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        dates    weeks  f  m</span></span>
+<span><span class="co">#&gt; 1 2014-04-06 2014-W15  1  1</span></span>
+<span><span class="co">#&gt; 2 2014-04-20 2014-W17  7  1</span></span>
+<span><span class="co">#&gt; 3 2014-05-04 2014-W19 16 11</span></span>
+<span><span class="co">#&gt; 4 2014-05-18 2014-W21 19 20</span></span>
+<span><span class="co">#&gt; 5 2014-06-01 2014-W23 18 22</span></span>
+<span><span class="co">#&gt; 6 2014-06-15 2014-W25 27 28</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         dates    weeks  f  m</span></span>
+<span><span class="co">#&gt; 23 2015-02-08 2015-W06 76 71</span></span>
+<span><span class="co">#&gt; 24 2015-02-22 2015-W08 75 81</span></span>
+<span><span class="co">#&gt; 25 2015-03-08 2015-W10 59 70</span></span>
+<span><span class="co">#&gt; 26 2015-03-22 2015-W12 64 45</span></span>
+<span><span class="co">#&gt; 27 2015-04-05 2015-W14 44 40</span></span>
+<span><span class="co">#&gt; 28 2015-04-19 2015-W16 32 33</span></span>
+<span></span>
+<span><span class="co">## conversion: data.frame --&gt; incidence</span></span>
+<span><span class="va">new_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/conversions.html">as.incidence</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span><span class="fu"><a href="../reference/group_names.html">group_names</a></span><span class="op">(</span><span class="va">i_14</span><span class="op">)</span><span class="op">]</span>, <span class="va">df</span><span class="op">$</span><span class="va">dates</span>, interval <span class="op">=</span> <span class="st">"2 epiweeks"</span><span class="op">)</span></span>
+<span><span class="va">new_i</span></span>
+<span><span class="co">#&gt; &lt;incidence object&gt;</span></span>
+<span><span class="co">#&gt; [5888 cases from days 2014-04-06 to 2015-04-19]</span></span>
+<span><span class="co">#&gt; [5888 cases from MMWR weeks 2014-W15 to 2015-W16]</span></span>
+<span><span class="co">#&gt; [2 groups: f, m]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $counts: matrix with 28 rows and 2 columns</span></span>
+<span><span class="co">#&gt; $n: 5888 cases in total</span></span>
+<span><span class="co">#&gt; $dates: 28 dates marking the left-side of bins</span></span>
+<span><span class="co">#&gt; $interval: 2 weeks</span></span>
+<span><span class="co">#&gt; $timespan: 379 days</span></span>
+<span><span class="co">#&gt; $cumulative: FALSE</span></span>
+<span></span>
+<span><span class="co">## check round trip</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">new_i</span>, <span class="va">i_14</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
 
 
       <footer><div class="copyright">
-  <p>Developed by Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn.</p>
+  <p></p>
+<p>Developed by Thibaut Jombart, Zhian N. Kamvar, Rich FitzJohn, Tim Taylor.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
       </footer>
 </div>
 
-  
+
+
+
 
 
   </body>
