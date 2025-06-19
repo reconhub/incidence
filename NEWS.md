@@ -1,4 +1,8 @@
-# incidence (development version)
+incidence 1.7.6
+============================
+
+* No user facing changes. Fixes some internal oddities flagged by @teunbrand
+  whilst running ggplot2 reverse dependency checks.
 
 incidence 1.7.5
 ============================
