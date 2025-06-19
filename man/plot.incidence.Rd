@@ -138,7 +138,7 @@ if(require(outbreaks) && require(ggplot2)) { withAutoprint({
   p
 
   ## update the range of the scale
-  lim <- c(min(get_dates(inc.week.8)) - 7*5, 
+  lim <- c(min(get_dates(inc.week.8)) - 7*5,
            aweek::week2date("2014-W50", "Sunday"))
   lim
   p + scale_x_incidence(inc.week.gender, limits = lim)
@@ -146,7 +146,7 @@ if(require(outbreaks) && require(ggplot2)) { withAutoprint({
   ## customize plot with ggplot2
   plot(inc.week.8, show_cases = TRUE, border = "black") +
     theme_classic(base_size = 16) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
   ## adding fit
   fit <- fit_optim_split(inc.week.gender)$fit

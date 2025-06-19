@@ -27,7 +27,7 @@ Encoding: UTF-8
 License: MIT + file LICENSE
 URL: https://www.repidemicsconsortium.org/incidence/
 BugReports: https://github.com/reconhub/incidence/issues
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports:
     ggplot2 (>= 3.3.2), 
     aweek (>= 0.2.0)
