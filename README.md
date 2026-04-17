@@ -55,13 +55,13 @@ The main features of the package include:
     each of which contains various useful information (e.g. growth rate
     *r*, doubling/halving time, predictions and confidence intervals);
     results can be plotted using `plot`, or added to an existing
-    `uncudence` plot using the piping-friendly function
+    `incidence` plot using the piping-friendly function
     `add_incidence_fit`.
 
   - **`fit_optim_split`**: finds the optimal date to split the time
     series in two, typically around the peak of the epidemic.
 
-  - **`[`**: lower-level subsetan of *incidence* objects, permiting to
+  - **`[`**: lower-level subset of an *incidence* objects, permiting to
     specify which dates and groups to retain; uses a syntax similar to
     matrices, i.e. `x[i, j]`, where `x` is the *incidence* object, `i` a
     subset of dates, and `j` a subset of groups.
